@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פסטיבל הג׳אז רעננה | Raanana Jazz Festival</title>
+<meta name="description" content="פסטיבל הג׳אז רעננה – World Jazz Music. שלושה ימים של מוזיקה חיה במרכז למוזיקה רעננה.">
+<meta property="og:title" content="פסטיבל הג׳אז רעננה | Raanana Jazz Festival">
+<meta property="og:description" content="שלושה ימים של מוזיקה חיה במרכז למוזיקה רעננה">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="icon" href="images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #202C45;      /* primary */
+    --navy-deep: #161F33;
+    --red: #D44836;
+    --gold: #F2D36B;
+    --sky: #AFCBD3;
+    --cream: #F5EBDD;
+    --display: "Rubik", system-ui, sans-serif;
+    --latin: "Anton", "Rubik", sans-serif;
+    --body: "Assistant", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { overflow-x: clip; }
+  body { font-family: var(--body); background: var(--sky); color: var(--navy); }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .14; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    height: 48px; background: var(--navy-deep); display: flex; align-items: center; justify-content: space-between;
+    padding: 0 36px; font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: .02em;
+    position: relative; z-index: 30;
+  }
+  .topbar .tag { color: var(--sky); }
+  .topbar .tag em { font-style: normal; color: var(--gold); }
+  .topbar .tag i { font-style: normal; color: var(--red); }
+  .topbar nav { display: flex; gap: 40px; color: var(--cream); }
+  .topbar nav a span { color: var(--gold); }
+  .topbar nav a:hover { color: var(--gold); }
+
+  /* ---------- Fixed chrome ---------- */
+  .brand { position: fixed; top: 58px; right: 32px; z-index: 40; display: flex; align-items: center; gap: 18px; }
+  .brand img { width: 96px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
+  .burger { width: 26px; display: grid; gap: 7px; cursor: pointer; }
+  .burger span { height: 2px; background: var(--cream); border-radius: 2px; }
+  .burger span:nth-child(2) { width: 70%; }
+  .socials-fixed { position: fixed; top: 64px; left: 26px; z-index: 40; display: grid; gap: 14px; }
+  .socials-fixed a { width: 22px; height: 22px; color: var(--cream); mix-blend-mode: difference; }
+  svg.ic { width: 100%; height: 100%; fill: currentColor; }
+
+  /* ---------- Hero ---------- */
+  .hero { background: var(--navy); position: relative; padding: 70px 24px 120px; overflow: hidden; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.3fr 1fr; align-items: center; gap: 30px; position: relative; z-index: 2; }
+  .hero .bass { width: 150px; justify-self: center; transform: rotate(-6deg); }
+  .hero .drum { width: 260px; margin-top: 20px; }
+  .hero .main-logo { width: 100%; max-width: 480px; justify-self: center; }
+  .hero .meta { text-align: center; color: var(--cream); margin-top: 18px; }
+  .hero .dates { font-family: var(--latin); font-size: 64px; line-height: 1; color: var(--gold); letter-spacing: .01em; direction: ltr; }
+  .hero .dates small { font-size: 34px; color: var(--cream); margin-left: 8px; }
+  .hero .dir { font-family: var(--display); font-weight: 700; font-size: 20px; margin-top: 12px; }
+  .hero .dir span { color: var(--sky); font-weight: 500; }
+  .hero .ctas { display: flex; justify-content: center; gap: 16px; margin-top: 28px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 17px; padding: 13px 26px; transition: transform .15s ease, box-shadow .15s ease; }
+  .btn:hover { transform: translate(2px, -2px); }
+  .btn.primary { background: var(--red); color: var(--cream); box-shadow: -5px 5px 0 var(--gold); }
+  .btn.ghost { border: 2px solid var(--cream); color: var(--cream); }
+  .dots span { position: absolute; border-radius: 50%; background: var(--sky); opacity: .35; }
+
+  .hero-photo {
+    position: relative; margin-top: -70px; height: 78vh; min-height: 520px; z-index: 3;
+    clip-path: polygon(0 0, 100% 6%, 100% 100%, 0 93%);
+    background: var(--navy-deep) center/cover no-repeat;
+  }
+  .hero-photo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(32,44,69,.1) 40%, rgba(32,44,69,.85)); }
+  .hero-photo .cap { position: absolute; bottom: 14%; right: 6%; color: var(--cream); z-index: 2; max-width: 560px; }
+  .hero-photo .cap .k { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--gold); letter-spacing: .04em; }
+  .hero-photo .cap h2 { font-family: var(--display); font-weight: 900; font-size: 46px; line-height: 1.05; margin-top: 8px; }
+
+  /* ---------- Intro ---------- */
+  .intro { text-align: center; padding: 30px 24px 10px; position: relative; }
+  .burst { width: 300px; margin: -130px auto 0; display: block; position: relative; z-index: 4; }
+  .intro h2 { font-family: var(--display); font-weight: 900; font-size: 60px; color: var(--navy); margin-top: 6px; line-height: 1.05; }
+  .intro h2 span { color: var(--red); font-family: var(--latin); font-weight: 400; }
+  .intro p { max-width: 640px; margin: 20px auto 0; font-size: 21px; line-height: 1.6; }
+
+  /* ---------- Section title + chip ---------- */
+  .stitle { text-align: center; position: relative; margin: 90px 0 46px; }
+  .stitle h3 { font-family: var(--display); font-weight: 900; font-size: 76px; line-height: 1; color: var(--navy); display: inline-block; position: relative; }
+  .stitle .chip {
+    position: absolute; left: -46px; bottom: -14px; transform: rotate(6deg);
+    background: var(--red); color: var(--cream); font-family: var(--display); font-weight: 700; font-size: 15px; padding: 4px 12px; white-space: nowrap;
+  }
+
+  /* ---------- Featured cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 46px 36px; max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  .card .ph { aspect-ratio: 1; overflow: hidden; background: var(--navy) center/cover no-repeat; clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%); transition: transform .4s ease; }
+  .card:hover .ph { transform: scale(1.02); }
+  .card .day { font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--red); margin-top: 18px; }
+  .card .day b { color: var(--navy); font-weight: 700; margin-left: 4px; }
+  .card h4 { font-family: var(--display); font-weight: 900; font-size: 27px; line-height: 1.12; margin-top: 6px; }
+  .card .desc { font-size: 16px; margin-top: 6px; opacity: .85; line-height: 1.45; }
+  .card .venue { font-size: 14px; margin-top: 8px; font-weight: 600; }
+  .card .buy { display: inline-block; margin-top: 10px; font-family: var(--display); font-weight: 700; font-size: 16px; border-bottom: 3px solid var(--gold); }
+
+  /* ---------- Schedule ---------- */
+  .schedule { max-width: 1180px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+  .daycol { background: var(--cream); padding: 30px 26px 26px; position: relative; }
+  .daycol header { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 3px solid var(--navy); padding-bottom: 12px; margin-bottom: 8px; }
+  .daycol header h5 { font-family: var(--display); font-weight: 900; font-size: 30px; }
+  .daycol header span { font-family: var(--latin); font-size: 30px; color: var(--red); direction: ltr; }
+  .slot { display: grid; grid-template-columns: 58px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px dashed rgba(32,44,69,.25); }
+  .slot:last-of-type { border-bottom: 0; }
+  .slot time { font-family: var(--latin); font-size: 20px; color: var(--navy); direction: ltr; text-align: right; }
+  .slot .t { font-family: var(--display); font-weight: 700; font-size: 16px; line-height: 1.3; }
+  .slot .v { font-size: 14px; margin-top: 3px; color: var(--red); font-weight: 600; }
+  .slot .free { display: inline-block; font-size: 12px; font-weight: 700; background: var(--gold); padding: 0 6px; margin-right: 6px; color: var(--navy); }
+  .slot .tix { display: inline-block; margin-top: 4px; font-family: var(--display); font-weight: 700; font-size: 13px; border-bottom: 2px solid var(--gold); }
+  .slot .tix:hover { color: var(--red); }
+  .passes .themes { margin-top: 26px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; align-items: center; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--sky); }
+  .passes .themes a { border: 1.5px solid var(--gold); color: var(--gold); padding: 4px 14px; direction: ltr; }
+  .passes .themes a:hover { background: var(--gold); color: var(--navy); }
+  .daycol .pass { display: block; text-align: center; margin-top: 14px; background: var(--navy); color: var(--cream); font-family: var(--display); font-weight: 700; padding: 11px; }
+  .daycol .pass:hover { background: var(--red); }
+
+  /* ---------- Passes (Support box) ---------- */
+  .passes { max-width: 760px; margin: 130px auto 0; background: var(--navy); color: var(--cream); padding: 70px 40px; text-align: center; position: relative; }
+  .passes .love { font-family: var(--display); font-weight: 900; font-style: italic; font-size: 24px; color: var(--gold); }
+  .passes .big { font-family: var(--display); font-weight: 900; font-size: 120px; line-height: 1; position: relative; display: inline-block; margin-top: 4px; z-index: 1; }
+  .passes .big::after { content: ""; position: absolute; left: -8px; right: -8px; bottom: 20px; height: 26px; background: var(--red); z-index: -1; }
+  .passes .chip { display: inline-block; background: var(--gold); color: var(--navy); font-family: var(--display); font-weight: 900; font-size: 15px; padding: 4px 12px; transform: rotate(6deg) translate(-70px, -30px); }
+  .passes p { font-size: 20px; line-height: 1.6; max-width: 480px; margin: 0 auto; color: var(--sky); }
+  .passes p b { color: var(--cream); }
+  .passes .ctas { display: flex; gap: 16px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+
+  /* ---------- Program + workshops ---------- */
+  .duo { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 60px; max-width: 1140px; margin: 140px auto 0; padding: 0 40px; align-items: start; }
+  .duo .col { text-align: center; }
+  .duo h5 { font-family: var(--display); font-weight: 900; font-size: 34px; }
+  .duo .disc { display: inline-block; margin: 10px 0 28px; font-family: var(--display); font-weight: 700; font-size: 16px; border-bottom: 3px solid var(--gold); }
+  .duo .frame { box-shadow: 0 40px 60px -35px rgba(32,44,69,.6); max-width: 440px; margin: 0 auto; }
+  .program { background: var(--red); padding: 0; }
+  .program img { width: 100%; }
+  .ws { background: var(--gold); padding: 34px 30px; text-align: right; aspect-ratio: auto; position: relative; overflow: hidden; }
+  .ws .k { font-family: var(--display); font-weight: 900; font-size: 46px; line-height: .95; }
+  .ws .k span { display: block; color: var(--red); }
+  .ws .info { margin-top: 16px; font-size: 16px; line-height: 1.5; font-weight: 600; }
+  .ws ul { list-style: none; margin-top: 18px; border-top: 3px solid var(--navy); }
+  .ws li { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(32,44,69,.25); }
+  .ws li i { width: 42px; height: 42px; border-radius: 50%; background: var(--navy) center/cover; flex: none; }
+  .ws li b { font-family: var(--display); font-weight: 700; font-size: 16px; display: block; }
+  .ws li small { font-size: 14px; }
+  .ws .price { display: inline-block; margin-top: 18px; background: var(--navy); color: var(--gold); font-family: var(--display); font-weight: 900; font-size: 18px; padding: 6px 14px; transform: rotate(-3deg); }
+  .duo .hires { display: inline-block; margin-top: 24px; font-family: var(--display); font-weight: 700; font-size: 15px; }
+
+  /* ---------- Moments ---------- */
+  .moments-h { text-align: center; margin: 150px 0 40px; }
+  .moments-h h6 { font-family: var(--display); font-weight: 900; font-style: italic; font-size: 34px; }
+  .moments-h .yr { font-family: var(--latin); font-size: 22px; color: var(--red); margin-top: 4px; }
+  .moments-h svg { width: 22px; margin: 14px auto 0; display: block; stroke: var(--navy); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .grid div { aspect-ratio: 3/2; background: var(--navy) center/cover no-repeat; position: relative; overflow: hidden; }
+  .grid div span { position: absolute; bottom: 14px; right: 16px; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--cream); background: rgba(32,44,69,.75); padding: 3px 10px; opacity: 0; transition: opacity .25s; }
+  .grid div:hover span { opacity: 1; }
+
+  /* ---------- Partners ---------- */
+  .partners { background: var(--navy-deep); color: var(--cream); text-align: center; padding: 130px 24px 110px; }
+  .partners h2 { font-family: var(--display); font-weight: 900; font-size: 58px; line-height: 1.05; }
+  .partners h2 .l2 { display: block; font-style: italic; font-weight: 700; font-size: 38px; color: var(--sky); margin: 6px 0; }
+  .partners h2 .l3 { color: var(--gold); }
+  .partners .sub { margin-top: 22px; font-size: 20px; color: var(--sky); }
+  .cat { margin-top: 80px; font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: .12em; color: var(--red); }
+  .logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px 70px; max-width: 980px; margin: 36px auto 0; }
+  .logos img { max-height: 84px; width: auto; }
+  .logos img.tall { max-height: 120px; }
+  .logos img.mono { filter: brightness(0) invert(1); opacity: .9; }
+
+  /* ---------- Footer ---------- */
+  .footer { background: var(--navy); color: var(--cream); text-align: center; padding: 80px 24px 40px; border-top: 6px solid var(--gold); position: relative; }
+  .footer .flogo { width: 130px; margin: 0 auto; }
+  .footer .socials { display: flex; justify-content: center; gap: 26px; margin-top: 30px; }
+  .footer .socials a { width: 24px; height: 24px; color: var(--gold); }
+  .footer .ctas { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+  .fcols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 760px; margin: 66px auto 0; text-align: right; }
+  .fcols h6 { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--gold); border-bottom: 1px solid rgba(175,203,211,.35); padding-bottom: 10px; margin-bottom: 14px; }
+  .fcols a, .fcols p { display: block; font-size: 16px; margin-bottom: 8px; color: var(--cream); }
+  .fcols a:hover { color: var(--gold); }
+  .copy { margin-top: 56px; font-size: 13px; color: var(--sky); }
+
+  .totop { position: fixed; left: 20px; bottom: 20px; width: 36px; height: 36px; border-radius: 50%; background: var(--gold); display: grid; place-items: center; z-index: 40; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+  .totop svg { width: 16px; stroke: var(--navy); fill: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px) {
+    .cards, .schedule { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero .bass, .hero .drum { display: none; }
+  }
+  @media (max-width: 720px) {
+    .topbar { padding: 0 16px; font-size: 12px; }
+    .topbar .tag { display: none; }
+    .topbar { justify-content: flex-start; }
+    .topbar nav { gap: 22px; }
+    .brand { right: 16px; top: 56px; }
+    .brand img { width: 70px; }
+    .socials-fixed { left: 14px; }
+    .hero { padding-top: 110px; }
+    .hero .dates { font-size: 48px; }
+    .hero-photo .cap h2 { font-size: 30px; }
+    .intro h2 { font-size: 40px; }
+    .stitle h3 { font-size: 52px; }
+    .cards, .schedule { grid-template-columns: minmax(0,1fr); padding: 0 16px; }
+    .passes { margin: 90px 16px 0; padding: 50px 20px; }
+    .passes .big { font-size: 80px; }
+    .duo { grid-template-columns: minmax(0,1fr); padding: 0 16px; }
+    .grid { grid-template-columns: 1fr; }
+    .partners h2 { font-size: 38px; }
+    .partners h2 .l2 { font-size: 26px; }
+    .fcols { grid-template-columns: 1fr; text-align: center; }
+    .burst { width: 220px; margin-top: -100px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2c-2.7 0-3 0-4.1.1C4.3 2.3 2.3 4.3 2.1 7.9 2 9 2 9.3 2 12s0 3 .1 4.1c.2 3.6 2.2 5.6 5.8 5.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.6-.2 5.6-2.2 5.8-5.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.2-3.6-2.2-5.6-5.8-5.8C15 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C4 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.6-1.6h1.7V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3v3.2h2.8V22h3.4z"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="tag">World <em>Jazz</em> Music · <i>רעננה</i> · 18–20.12</div>
+  <nav>
+    <a href="#lineup">לוח <span>הופעות</span></a>
+    <a href="#workshops">סדנאות</a>
+    <a href="#passes">רכישת <span>כרטיסים</span></a>
+  </nav>
+</header>
+
+<div class="brand">
+  <a href="#"><img id="brandLogo" alt="World Jazz Music – פסטיבל הג׳אז רעננה"></a>
+  <div class="burger" aria-label="תפריט"><span></span><span></span><span></span></div>
+</div>
+
+<div class="socials-fixed">
+  <a href="https://www.instagram.com/raananamusiccenter/" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
+  <a href="https://www.facebook.com/raananapaismusiccenter" aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a>
+</div>
+
+<!-- ===== Hero ===== -->
+<section class="hero grain">
+  <div class="dots" aria-hidden="true">
+    <span style="width:14px;height:14px;top:18%;left:12%"></span>
+    <span style="width:22px;height:22px;top:62%;left:22%"></span>
+    <span style="width:10px;height:10px;top:30%;right:16%"></span>
+    <span style="width:18px;height:18px;top:75%;right:30%"></span>
+    <span style="width:8px;height:8px;top:12%;right:42%"></span>
+  </div>
+  <div class="hero-inner">
+    <img class="bass" data-img="9b87b5_973b4e399c3443bc8d4ed9a2e55976b6~mv2.png" data-w="300" data-h="590" alt="">
+    <div>
+      <img class="main-logo" data-img="9b87b5_44f22426814849d991af3aaf8de10350~mv2.png" data-w="960" data-h="800" alt="World Jazz Music">
+      <div class="meta">
+        <div class="dates">18–20 <small>DEC 2025</small></div>
+        <div class="dir"><span>ניהול אומנותי:</span> עמית פרידמן</div>
+        <div class="ctas">
+          <a href="#passes" class="btn primary">לרכישת כרטיסים</a>
+          <a href="#lineup" class="btn ghost">ללוח ההופעות ←</a>
+        </div>
+      </div>
+    </div>
+    <img class="drum" data-img="9b87b5_a665b71b39a84c8ca46bc7a3493e8dcb~mv2.png" data-w="720" data-h="345" alt="">
+  </div>
+</section>
+<section class="hero-photo" data-bg="9b87b5_8300ce79d8cf44dbbbe0969d31a1a10b~mv2.png" data-w="1800" data-h="1100">
+  <div class="cap">
+    <div class="k">הפקה מיוחדת לפסטיבל · שבת 20.12 · 18:30</div>
+    <h2>אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים</h2>
+  </div>
+</section>
+
+<!-- ===== Intro ===== -->
+<section class="intro">
+  <svg class="burst" viewBox="0 0 200 200" aria-hidden="true">
+    <polygon fill="#F2D36B" points="100,0 110,62 140,10 124,70 173,27 135,80 196,58 142,92 200,100 142,108 196,142 135,120 173,173 124,130 140,190 110,138 100,200 90,138 60,190 76,130 27,173 65,120 4,142 58,108 0,100 58,92 4,58 65,80 27,27 76,70 60,10 90,62"/>
+    <text x="100" y="96" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#202C45">כניסה</text>
+    <text x="100" y="120" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#D44836">חופשית</text>
+    <text x="100" y="138" text-anchor="middle" font-family="Rubik" font-weight="700" font-size="11" fill="#202C45">לרחבת הפסטיבל</text>
+  </svg>
+  <h2>פסטיבל הג׳אז רעננה <span>2025</span></h2>
+  <p>שלושה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.</p>
+</section>
+
+<!-- ===== Highlights ===== -->
+<div class="stitle"><h3>הופעות<span class="chip">שיא 2025</span></h3></div>
+<section class="cards" id="cards"></section>
+
+<!-- ===== Full schedule ===== -->
+<div class="stitle" id="lineup"><h3>לוח הופעות<span class="chip">18–20.12</span></h3></div>
+<section class="schedule" id="schedule"></section>
+
+<!-- ===== Passes ===== -->
+<section class="passes grain" id="passes">
+  <div class="love">רוצים את כל הפסטיבל?</div><br>
+  <div class="big">פסים</div><br>
+  <span class="chip">במחיר משתלם</span>
+  <p>פס יומי או פס לכל ימי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את כל ההופעות. אפשר גם לרכוש כרטיסים לפי מופע.</p>
+  <div class="ctas">
+    <a href="https://tickets.raanana.muni.il/season/1983" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a>
+    <a href="#lineup" class="btn ghost">כרטיסים לפי מופעים ←</a>
+  </div>
+  <div class="themes">
+    <span>פסים לפי נושאים:</span>
+    <a href="https://tickets.raanana.muni.il/Jazz_Pass" target="_blank" rel="noopener">Jazz</a>
+    <a href="https://tickets.raanana.muni.il/World_Pass" target="_blank" rel="noopener">World</a>
+    <a href="https://tickets.raanana.muni.il/Vocal_Pass" target="_blank" rel="noopener">Vocal</a>
+    <a href="https://tickets.raanana.muni.il/Music_Pass" target="_blank" rel="noopener">Music</a>
+  </div>
+</section>
+
+<!-- ===== Program + Workshops ===== -->
+<section class="duo">
+  <div class="col">
+    <h5>התוכנייה המלאה</h5>
+    <a href="images/413f2429c54a.png" target="_blank" class="disc">לצפייה בתוכנייה ←</a>
+    <div class="frame program"><img data-img="9b87b5_413f2429c54a4ef280634c934bd243e1~mv2.png" data-w="880" data-h="1240" alt="תוכניית הפסטיבל"></div>
+    <a href="images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">להורדת התוכנייה ↓</a>
+  </div>
+  <div class="col" id="workshops">
+    <h5>סדנאות 2025</h5>
+    <a href="https://forms.gle/R8FgQLkncVsUcWbs9" target="_blank" rel="noopener" class="disc">לטופס הרשמה ואודישן ←</a>
+    <div class="frame ws">
+      <div class="k">סדנאות<span>למוזיקאים</span></div>
+      <div class="info">לגילאי 14–25 · 18–20 בדצמבר (חופש חנוכה)<br>חמישי–שבת · 10:00–17:00<br>נגינה בהרכבים, סדנאות כלי, כיתות אמן והופעה במתחם הפסטיבל</div>
+      <ul id="teachers"></ul>
+      <div class="price">2,000 ₪ · כולל כניסה להופעות*</div>
+    </div>
+    <span class="hires">*על בסיס מקום פנוי</span>
+  </div>
+</section>
+
+<!-- ===== Moments ===== -->
+<div class="moments-h">
+  <h6>רגעים מהפסטיבל</h6>
+  <div class="yr">2025</div>
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
+</div>
+<section class="grid" id="moments"></section>
+
+<!-- ===== Partners ===== -->
+<section class="partners">
+  <h2>תודה מיוחדת<span class="l2">לשותפים ולתומכים</span><span class="l3">שלנו</span></h2>
+  <p class="sub">הפסטיבל לא היה מתקיים בלעדיכם.</p>
+
+  <div class="cat">מפיקים ותומכים</div>
+  <div class="logos">
+    <img class="tall" data-img="9b87b5_69298d5eb0494f8aac9f03ed39af1aa1~mv2.png" data-w="260" data-h="242" alt="Raanana Pais Music Center">
+    <img class="tall" data-img="9b87b5_a8830166eec8417fa8ab70e116ba9da5~mv2.png" data-w="160" data-h="232" alt="עיריית רעננה">
+    <img class="tall" data-img="9b87b5_998addde57574b41885fbfdd2c62e16b~mv2.png" data-w="240" data-h="242" alt="המשרד לשיתוף פעולה אזורי">
+  </div>
+
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer grain">
+  <img class="flogo" data-img="9b87b5_44f22426814849d991af3aaf8de10350~mv2.png" data-w="400" data-h="333" alt="World Jazz Music">
+  <div class="socials">
+    <a href="https://www.instagram.com/raananamusiccenter/" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
+    <a href="https://www.facebook.com/raananapaismusiccenter" aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a>
+  </div>
+  <div class="ctas">
+    <a href="#passes" class="btn primary">לרכישת כרטיסים</a>
+  </div>
+  <div class="fcols">
+    <div><h6>הפסטיבל</h6><a href="#lineup">לוח הופעות</a><a href="images/413f2429c54a.png" target="_blank">תוכנייה</a><a href="#workshops">סדנאות</a></div>
+    <div><h6>כרטיסים</h6><a href="https://tickets.raanana.muni.il/season/1983" target="_blank" rel="noopener">פס לכל הפסטיבל</a><a href="#lineup">לפי הופעות</a><p>הכניסה לרחבת הפסטיבל חופשית</p></div>
+    <div><h6>המקום</h6><p>המרכז למוזיקה פאיס רעננה</p><p>אולם ערן · מועדון הסלון · המועדון הקאמרי</p></div>
+  </div>
+  <div class="copy">© 2025 website by Lior Doron · graphic design by Dekel Hevroni</div>
+</footer>
+
+<a href="#" class="totop" aria-label="חזרה למעלה"><svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>
+
+<script>
+  // Wix static image helper
+  // Local images: images/<first 12 chars of the Wix media id>
+  const FILES = {"77f62589d50f": "77f62589d50f.jpg", "fac37d05a7b3": "fac37d05a7b3.jpg", "a8830166eec8": "a8830166eec8.png", "58f1f2752a22": "58f1f2752a22.jpg", "11e83fd3108a": "11e83fd3108a.jpg", "68c50191e3aa": "68c50191e3aa.jpg", "3266fc1fd5df": "3266fc1fd5df.jpg", "69298d5eb049": "69298d5eb049.png", "b10be8da554f": "b10be8da554f.jpg", "a665b71b39a8": "a665b71b39a8.png", "41fe4793261f": "41fe4793261f.jpg", "212b107b7cd4": "212b107b7cd4.jpg", "29ff85388999": "29ff85388999.jpg", "44f224268148": "44f224268148.png", "fe4d926b965d": "fe4d926b965d.jpg", "413f2429c54a": "413f2429c54a.png", "457a7b076e96": "457a7b076e96.jpg", "998addde5757": "998addde5757.png", "30b3759118a3": "30b3759118a3.jpg", "92a2e4ad85b1": "92a2e4ad85b1.jpg", "65ff5bebae7b": "65ff5bebae7b.jpg", "bc8143617deb": "bc8143617deb.jpg", "8300ce79d8cf": "8300ce79d8cf.jpg", "973b4e399c34": "973b4e399c34.png", "d51c0279d5e3": "d51c0279d5e3.jpg", "60d45e600820": "60d45e600820.jpg", "5e26945bd669": "5e26945bd669.jpg"};
+  const W = id => 'images/' + FILES[id.replace('9b87b5_', '').slice(0, 12)];
+  const FIT = W;
+
+  document.querySelectorAll('img[data-img]').forEach(el => el.src = FIT(el.dataset.img, el.dataset.w, el.dataset.h));
+  document.querySelectorAll('[data-bg]').forEach(el => el.style.backgroundImage = `url(${W(el.dataset.bg, el.dataset.w, el.dataset.h)})`);
+  document.getElementById('brandLogo').src = FIT('9b87b5_44f22426814849d991af3aaf8de10350~mv2.png', 200, 170);
+
+  const DAYS = [
+    { name: 'חמישי', date: '18.12', shows: [
+      ['17:30', 'ביג בנד רעננה – ג׳אז צעיר לכל המשפחה', 'רחבת הפסטיבל', true, '%D7%91%D7%99%D7%92_%D7%91%D7%A0%D7%93_%D7%A8%D7%A2%D7%A0%D7%A0%D7%94_%D7%9C%D7%9B%D7%9C_%D7%94%D7%9E%D7%A9%D7%A4%D7%97%D7%94'],
+      ['18:30', 'Hind Ennaira (מרוקו) ועומרי מור – חגיגת קצב מרוקאית', 'אולם ערן', false, 'Hind_Ennaira__%D7%9E%D7%A8%D7%95%D7%A7%D7%95__%D7%95%D7%A2%D7%95%D7%9E%D7%A8%D7%99_%D7%9E%D7%95%D7%A8'],
+      ['20:00', 'רביעיית אהרל׳ה קמינסקי – מחווה לקולטריין, אלווין ג׳ונס וסוני רולינס', 'מועדון הסלון', false, '%D7%A8%D7%91%D7%99%D7%A2%D7%99%D7%99%D7%AA_%D7%90%D7%94%D7%A8%D7%9C_%D7%94_%D7%A7%D7%9E%D7%99%D7%A0%D7%A1%D7%A7%D7%99_-_%D7%9E%D7%97%D7%95%D7%95%D7%94_%D7%9C%D7%92_%D7%95%D7%9F_%D7%A7%D7%95%D7%9C%D7%98%D7%A8%D7%99%D7%99%D7%9F_%D7%95%D7%90%D7%9C%D7%95%D7%95%D7%99%D7%A1_%D7%92_%D7%95%D7%A0%D7%A1'],
+      ['20:00', 'Zero Point – הדר נויברג וקטיה טובול עם רביעיית מודוסיקה', 'המועדון הקאמרי', false, 'Zero_Point___%D7%94%D7%93%D7%A8_%D7%A0%D7%95%D7%99%D7%91%D7%A8%D7%92_%D7%95%D7%A7%D7%98%D7%99%D7%94_%D7%98%D7%95%D7%91%D7%95%D7%9C_%D7%A2%D7%9D_%D7%A8%D7%91%D7%99%D7%A2%D7%99%D7%99%D7%AA_%D7%9E%D7%95%D7%93%D7%95%D7%A1%D7%99%D7%A7%D7%94'],
+      ['21:30', 'גלעד הקסלמן טריו', 'אולם ערן', false, '%D7%A9%D7%9C%D7%99%D7%A9%D7%99%D7%99%D7%AA_%D7%92%D7%9C%D7%A2%D7%93_%D7%94%D7%A7%D7%A1%D7%9C%D7%9E%D7%9F'],
+    ]},
+    { name: 'שישי', date: '19.12', shows: [
+      ['17:30', 'הישראדיקסי בנד – The Isradixie Band', 'רחבת הפסטיבל', true, '%D7%94%D7%99%D7%A9%D7%A8%D7%90%D7%93%D7%99%D7%A7%D7%A1%D7%99_%D7%91%D7%A0%D7%93___The_Isradixie_Band'],
+      ['18:30', 'אנסמבל שם טוב לוי', 'אולם ערן', false, '%D7%90%D7%A0%D7%A1%D7%9E%D7%91%D7%9C_%D7%A9%D7%9D_%D7%98%D7%95%D7%91_%D7%9C%D7%95%D7%99'],
+      ['20:00', 'Leonid Nesterov Quartet', 'הסלון הקאמרי', false, 'Leonid_Nesterov_Quartet__%D7%A7%D7%A4%D7%A8%D7%99%D7%A1%D7%99%D7%9F_'],
+      ['20:00', 'Taulant Mehmeti Balkan Quartet', 'המועדון הקאמרי', false, 'Taulant_Mehmeti_Balkan_Jazz_Quartet'],
+      ['21:30', 'Jerzy Malek – IQ Project', 'אולם ערן', false, 'Jerzy_Malek_IQ_Project__%D7%A4%D7%95%D7%9C%D7%99%D7%9F_-_%D7%90%D7%A8%D7%94_%D7%91_'],
+    ]},
+    { name: 'שבת', date: '20.12', shows: [
+      ['11:00', 'ילדוג׳אז – שירי הילדות בעיבודי ג׳אז', 'רחבת הפסטיבל', true, '%D7%99%D7%9C%D7%93%D7%95%D7%92_%D7%90%D7%96___%D7%A9%D7%99%D7%A8%D7%99_%D7%94%D7%99%D7%9C%D7%93%D7%95%D7%AA_%D7%94%D7%99%D7%A4%D7%99%D7%9D_%D7%91%D7%A2%D7%99%D7%91%D7%95%D7%93%D7%99_%D7%92_%D7%90%D7%96_%D7%A1%D7%95%D7%97%D7%A4%D7%99%D7%9D'],
+      ['12:00', 'ד״ר רז יצחקי מארח את הזמרת חן לוי – אלה פיצג׳רלד', 'אולם ערן'],
+      ['17:30', 'הופעת הרכבי הסדנאות', 'רחבת הפסטיבל', true],
+      ['18:30', 'אבישי כהן ובקה גוצ׳יאשווילי (גאורגיה)', 'אולם ערן', false, '%D7%90%D7%91%D7%99%D7%A9%D7%99_%D7%9B%D7%94%D7%9F_%D7%95%D7%91%D7%A7%D7%94_%D7%92%D7%95%D7%A6_%D7%99%D7%90%D7%A9%D7%95%D7%95%D7%99%D7%9C%D7%99___%D7%A9%D7%99%D7%97%D7%94_%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%9C%D7%99%D7%AA_%D7%91%D7%99%D7%9F_%D7%A9%D7%A0%D7%99_%D7%A2%D7%A0%D7%A7%D7%99%D7%9D'],
+      ['20:00', 'רביעיית תמוז נסים ויורגוס נזוס (יוון)', 'מועדון הסלון', false, '%D7%A8%D7%91%D7%99%D7%A2%D7%99%D7%99%D7%AA_%D7%AA%D7%9E%D7%95%D7%96_%D7%A0%D7%A1%D7%99%D7%9D_%D7%95%D7%99%D7%95%D7%A8%D7%92%D7%95%D7%A1_%D7%A0%D7%96%D7%95%D7%A1__%D7%99%D7%95%D7%95%D7%9F_'],
+      ['20:00', 'עמית פרידמן קאמרי ג׳אז', 'המועדון הקאמרי', false, '%D7%A7%D7%90%D7%9E%D7%A8%D7%99_%D7%92_%D7%90%D7%96_-_%D7%A9%D7%99%D7%A9%D7%99%D7%99%D7%AA_%D7%A2%D7%9E%D7%99%D7%AA_%D7%A4%D7%A8%D7%99%D7%93%D7%9E%D7%9F'],
+      ['21:30', 'ביג בנד רעננה – חגיגת סיום עם אמני הפסטיבל', 'אולם ערן', false, '%D7%91%D7%99%D7%92_%D7%91%D7%A0%D7%93_%D7%A8%D7%A2%D7%A0%D7%A0%D7%94___%D7%91%D7%97%D7%92%D7%99%D7%92%D7%AA_%D7%A1%D7%99%D7%95%D7%9D_%D7%A2%D7%9D_%D7%90%D7%9E%D7%A0%D7%99_%D7%94%D7%A4%D7%A1%D7%98%D7%99%D7%91%D7%9C'],
+    ]},
+  ];
+  const TIX = 'https://tickets.raanana.muni.il/';
+  const dayLinks = ['season/1980', 'season/1981', 'season/1982'];
+  document.getElementById('schedule').innerHTML = DAYS.map((d, i) => `
+    <div class="daycol">
+      <header><h5>יום ${d.name}</h5><span>${d.date}</span></header>
+      ${d.shows.map(([t, title, venue, free, slug]) => `
+        <div class="slot"><time>${t}</time><div><div class="t">${title}</div><div class="v">${venue}${free ? '<span class="free">כניסה חופשית</span>' : ''}</div>${slug ? `<a class="tix" href="${TIX + slug}" target="_blank" rel="noopener">לכרטיסים ←</a>` : ''}</div></div>`).join('')}
+      <a class="pass" href="${TIX + dayLinks[i]}" target="_blank" rel="noopener">לרכישת פס יומי ←</a>
+    </div>`).join('');
+
+  const CARDS = [
+    ['9b87b5_8300ce79d8cf44dbbbe0969d31a1a10b~mv2.png', 'שבת 20.12', '18:30', 'אבישי כהן ובקה גוצ׳יאשווילי', 'שיחה מוזיקלית בין שני ענקים – הפקה מיוחדת לפסטיבל', 'אולם ערן', '%D7%90%D7%91%D7%99%D7%A9%D7%99_%D7%9B%D7%94%D7%9F_%D7%95%D7%91%D7%A7%D7%94_%D7%92%D7%95%D7%A6_%D7%99%D7%90%D7%A9%D7%95%D7%95%D7%99%D7%9C%D7%99___%D7%A9%D7%99%D7%97%D7%94_%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%9C%D7%99%D7%AA_%D7%91%D7%99%D7%9F_%D7%A9%D7%A0%D7%99_%D7%A2%D7%A0%D7%A7%D7%99%D7%9D'],
+    ['9b87b5_58f1f2752a2245bc9b0b99078812e081~mv2.jpg', 'חמישי 18.12', '21:30', 'גלעד הקסלמן טריו', 'גיטריסט העל מניו יורק בביקור מולדת', 'אולם ערן', '%D7%A9%D7%9C%D7%99%D7%A9%D7%99%D7%99%D7%AA_%D7%92%D7%9C%D7%A2%D7%93_%D7%94%D7%A7%D7%A1%D7%9C%D7%9E%D7%9F'],
+    ['9b87b5_b10be8da554f4c19b2a96acc8b545cee~mv2.png', 'שישי 19.12', '21:30', 'Jerzy Malek – IQ Project', 'הרכב בינלאומי יוצא דופן עם פרויקט מקורי חדש', 'אולם ערן', 'Jerzy_Malek_IQ_Project__%D7%A4%D7%95%D7%9C%D7%99%D7%9F_-_%D7%90%D7%A8%D7%94_%D7%91_'],
+    ['9b87b5_65ff5bebae7b45c4bb8ed1051e84b353~mv2.jpg', 'חמישי 18.12', '18:30', 'Hind Ennaira ועומרי מור', 'מופע הפתיחה – חגיגת קצב מרוקאית', 'אולם ערן', 'Hind_Ennaira__%D7%9E%D7%A8%D7%95%D7%A7%D7%95__%D7%95%D7%A2%D7%95%D7%9E%D7%A8%D7%99_%D7%9E%D7%95%D7%A8'],
+    ['9b87b5_212b107b7cd4439b9ba246ce08c175fd~mv2.png', 'שבת 20.12', '20:00', 'תמוז נסים ויורגוס נזוס', 'תל אביב – יוון – ניו יורק: מסע מוזיקלי חוצה יבשות', 'מועדון הסלון', '%D7%A8%D7%91%D7%99%D7%A2%D7%99%D7%99%D7%AA_%D7%AA%D7%9E%D7%95%D7%96_%D7%A0%D7%A1%D7%99%D7%9D_%D7%95%D7%99%D7%95%D7%A8%D7%92%D7%95%D7%A1_%D7%A0%D7%96%D7%95%D7%A1__%D7%99%D7%95%D7%95%D7%9F_'],
+    ['9b87b5_29ff8538899946c09cdfffb4b7cde125~mv2.jpg', 'שבת 20.12', '20:00', 'עמית פרידמן קאמרי ג׳אז', 'מפגש בין הג׳אז הישראלי לרביעיית מיתרים קלאסית', 'המועדון הקאמרי', '%D7%A7%D7%90%D7%9E%D7%A8%D7%99_%D7%92_%D7%90%D7%96_-_%D7%A9%D7%99%D7%A9%D7%99%D7%99%D7%AA_%D7%A2%D7%9E%D7%99%D7%AA_%D7%A4%D7%A8%D7%99%D7%93%D7%9E%D7%9F'],
+  ];
+  document.getElementById('cards').innerHTML = CARDS.map(([img, day, time, title, desc, venue, slug]) => `
+    <article class="card">
+      <div class="ph" style="background-image:url(${W(img, 760, 760)})"></div>
+      <div class="day">${day} <b>· ${time}</b></div>
+      <h4>${title}</h4>
+      <div class="desc">${desc}</div>
+      <div class="venue">${venue}</div>
+      <a href="${TIX + slug}" class="buy" target="_blank" rel="noopener">לרכישת כרטיסים</a>
+    </article>`).join('');
+
+  const TEACHERS = [
+    ['9b87b5_58f1f2752a2245bc9b0b99078812e081~mv2.jpg', 'גלעד הקסלמן', 'גיטרה · ניו יורק'],
+    ['9b87b5_5e26945bd669406ca91bfcd6b4172146~mv2.jpg', 'Doug Weiss', 'בס · ברלין–ניו יורק'],
+    ['9b87b5_d51c0279d5e348d98ddc3d9d6a05bc05~mv2.jpg', 'Jerzy Małek', 'חצוצרה · פולין'],
+    ['9b87b5_bc8143617deb43d4a7cd428bffae40e7~mv2.jpg', 'תמוז נסים', 'שירה · ניו יורק'],
+    ['9b87b5_77f62589d50f4770be202178d9e032b7~mv2.jpg', 'Andy Middleton', 'סקסופון · וינה'],
+    ['9b87b5_fac37d05a7b34cacae616d3b8ba8ff49~mv2.jpg', 'Allan Jones', 'תופים · ארה״ב'],
+    ['9b87b5_3266fc1fd5df474e939d3b060bed11d6~mv2.jpg', 'Kalman Oláh', 'פסנתר · הונגריה'],
+  ];
+  document.getElementById('teachers').innerHTML = TEACHERS.map(([img, n, r]) =>
+    `<li><i style="background-image:url(${W(img, 120, 120)})"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('');
+
+  const MOMENTS = [
+    ['9b87b5_41fe4793261f42afa03a5862c9740ffd~mv2.jpg', 'ביג בנד רעננה'],
+    ['9b87b5_92a2e4ad85b1412cbca53ddf00b6c608~mv2.jpg', 'הישראדיקסי בנד'],
+    ['9b87b5_fe4d926b965d4b228f7853a14c4fc2a4~mv2.jpeg', 'אנסמבל שם טוב לוי'],
+    ['9b87b5_457a7b076e964de0b334cde8a41937b8~mv2.jpg', 'רביעיית אהרל׳ה קמינסקי'],
+    ['9b87b5_60d45e6008204eb0966cdd2d1ed561fc~mv2.jpg', 'Leonid Nesterov Quartet'],
+    ['9b87b5_11e83fd3108a405eb7238523d24ee83c~mv2.jpg', 'Taulant Mehmeti Balkan Quartet'],
+    ['9b87b5_30b3759118a3473fa40b48214ea26a07~mv2.jpeg', 'ילדוג׳אז'],
+    ['9b87b5_68c50191e3aa40528523ae231650cf6f~mv2.jpeg', 'ד״ר רז יצחקי וחן לוי'],
+  ];
+  document.getElementById('moments').innerHTML = MOMENTS.map(([img, cap]) =>
+    `<div style="background-image:url(${W(img, 1200, 800)})"><span>${cap}</span></div>`).join('');
+</script>
+</body>
+</html>
