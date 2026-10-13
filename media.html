@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מדיה ועיתונות | פסטיבל הג׳אז רעננה</title>
+<meta name="description" content="חומרים לעיתונות – לוגו, תוכנייה ותמונות מפסטיבל הג׳אז רעננה.">
+<meta property="og:title" content="מדיה ועיתונות | פסטיבל הג׳אז רעננה">
+<meta property="og:description" content="חומרים לעיתונות – לוגו, תוכנייה ותמונות מפסטיבל הג׳אז רעננה.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="icon" href="images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<section class="page-hero grain">
+  <div class="eyebrow">לעיתונאים ולמדיה</div>
+  <h1>מדיה ועיתונות<span class="chip">Press</span></h1>
+  <p class="lead">כאן תמצאו את הלוגו, התוכנייה ותמונות להורדה. לבקשות אקרדיטציה, ראיונות וחומרים נוספים – צרו קשר.</p>
+  <div class="ctas"><a id="pressMail" class="btn primary">בקשת אקרדיטציה</a></div>
+</section>
+
+<section class="wrap section">
+  <h2 class="sec-h">חומרים להורדה</h2>
+  <div class="dl-grid">
+    <div class="dl"><div class="th" style="background-image:url(images/44f224268148.png)"></div><h3>לוגו הפסטיבל</h3><a href="images/44f224268148.png" download="raanana-jazz-logo.png">להורדה (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(images/413f2429c54a.png);background-color:var(--red)"></div><h3>תוכנייה 2025</h3><a href="images/413f2429c54a.png" download="raanana-jazz-program-2025.png">להורדה (PNG) ↓</a></div>
+    <div class="dl"><div class="th photo" style="background-image:url(images/8300ce79d8cf.jpg)"></div><h3>אבישי כהן ובקה גוצ׳יאשווילי</h3><a href="images/8300ce79d8cf.jpg" download>להורדה (JPG) ↓</a></div>
+  </div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">תמונות אמנים</h2>
+  <p>לחצו על תמונה להורדה ברזולוציה מלאה.</p>
+  <div class="dl-grid" id="pressPhotos"></div>
+</section>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה')}`;
+  document.getElementById('pressPhotos').innerHTML = SHOWS.filter(s => s.img).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `
+    <div class="dl"><div class="th photo" style="background-image:url(${img(s.img)})"></div><h3>${s.title}</h3><a href="${img(s.img)}" download>להורדה ↓</a></div>`).join('');
+</script>
+</body>
+</html>

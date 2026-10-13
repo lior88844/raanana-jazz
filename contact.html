@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>צור קשר | פסטיבל הג׳אז רעננה</title>
+<meta name="description" content="יצירת קשר עם פסטיבל הג׳אז רעננה.">
+<meta property="og:title" content="צור קשר | פסטיבל הג׳אז רעננה">
+<meta property="og:description" content="יצירת קשר עם פסטיבל הג׳אז רעננה.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="icon" href="images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<section class="page-hero grain">
+  <div class="eyebrow">נשמח לשמוע מכם</div>
+  <h1>צור קשר</h1>
+  <p class="lead">בחרו את נושא הפנייה – ייפתח מייל עם הנושא הנכון.</p>
+  
+</section>
+
+<section class="wrap section">
+  <div class="contact-grid" id="contactGrid"></div>
+</section>
+<section class="narrow section prose" style="text-align:center">
+  <p>אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.</p>
+</section>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  const TOPICS = [
+    ['אמנים', 'רוצים להופיע בפסטיבל? ספרו לנו על ההרכב ושלחו קישורים להקלטות.', 'פנייה של אמן/ית'],
+    ['סדנאות', 'שאלות על הסדנאות, האודישן וההרשמה.', 'שאלה על הסדנאות'],
+    ['שותפים וחסויות', 'מעוניינים לתמוך בפסטיבל או לשתף פעולה?', 'שותפות / חסות'],
+    ['פנייה כללית', 'כל שאלה אחרת – כרטיסים, הגעה, נגישות.', 'פנייה כללית'],
+  ];
+  document.getElementById('contactGrid').innerHTML = TOPICS.map(([h, p, subj]) =>
+    `<a class="cbtn" href="mailto:${SITE.email}?subject=${encodeURIComponent(subj + ' – פסטיבל הג׳אז רעננה')}"><h3>${h}</h3><p>${p}</p><span>לכתיבת מייל ←</span></a>`).join('');
+</script>
+</body>
+</html>

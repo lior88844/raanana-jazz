@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>לוח הופעות | פסטיבל הג׳אז רעננה</title>
+<meta name="description" content="כל ההופעות של פסטיבל הג׳אז רעננה – שלושה ימים, ארבע במות.">
+<meta property="og:title" content="לוח הופעות | פסטיבל הג׳אז רעננה">
+<meta property="og:description" content="כל ההופעות של פסטיבל הג׳אז רעננה – שלושה ימים, ארבע במות.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="icon" href="images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<section class="page-hero grain">
+  <div class="eyebrow">שלושה ימים · ארבע במות</div>
+  <h1>לוח הופעות<span class="chip">18–20.12</span></h1>
+  <p class="lead">שלושה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה. לכל מופע כרטיס משלו – או פס יומי שמכסה את כל היום.</p>
+  <div class="ctas"><a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a><a href="tickets.html" class="btn ghost">כל אפשרויות הכרטיסים ←</a></div>
+</section>
+
+<section class="wrap">
+  <div class="daytabs" role="tablist">
+    <button class="on" data-day="">כל הימים</button>
+    <button data-day="thu">חמישי 18.12</button>
+    <button data-day="fri">שישי 19.12</button>
+    <button data-day="sat">שבת 20.12</button>
+  </div>
+  <div class="showlist" id="showlist" data-render="showlist"></div>
+</section>
+<section class="cta-band">
+  <h2>חוזרים כל ערב?</h2>
+  <p>פס יומי במחיר משתלם מכסה את כל מופעי היום.</p>
+  <a href="tickets.html" class="btn">לפסים היומיים ←</a>
+</section>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.querySelectorAll('.daytabs button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.daytabs button').forEach(x => x.classList.toggle('on', x === b));
+    renderShowList(document.getElementById('showlist'), b.dataset.day);
+  }));
+</script>
+</body>
+</html>

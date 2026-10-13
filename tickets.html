@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>כרטיסים ופסים | פסטיבל הג׳אז רעננה</title>
+<meta name="description" content="כרטיסים, פסים יומיים ופסים לפי נושאים לפסטיבל הג׳אז רעננה.">
+<meta property="og:title" content="כרטיסים ופסים | פסטיבל הג׳אז רעננה">
+<meta property="og:description" content="כרטיסים, פסים יומיים ופסים לפי נושאים לפסטיבל הג׳אז רעננה.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="icon" href="images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<section class="page-hero grain">
+  <div class="eyebrow">כרטיסים</div>
+  <h1>כרטיסים ופסים<span class="chip">במחיר משתלם</span></h1>
+  <p class="lead">פס לכל הפסטיבל, פס יומי, פס לפי נושא – או כרטיס למופע בודד. הכניסה לרחבת הפסטיבל חופשית.</p>
+  
+</section>
+
+<section class="wrap section">
+  <h2 class="sec-h">פסים</h2>
+  <p>הדרך המשתלמת ביותר לשמוע הכי הרבה מוזיקה.</p>
+  <div class="ticket-grid" id="dayPasses"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">פסים לפי נושאים</h2>
+  <p>בוחרים סגנון – ומקבלים את המופעים שמתאימים לו.</p>
+  <div class="ticket-grid" id="themePasses"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">כרטיסים לפי מופע</h2>
+  <p>כל מופע עם כרטיס משלו.</p>
+  <div class="showlist" data-render="showlist"></div>
+</section>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById('dayPasses').innerHTML =
+    `<a class="tcard hot" href="${T(SITE.fullPass)}" ${ext}><small>הכי משתלם</small><h3>פס לכל הפסטיבל</h3><p>כל שלושת ימי הפסטיבל.</p><span class="go">לרכישה ←</span></a>` +
+    DAYS.map(d => `<a class="tcard" href="${T(d.pass)}" ${ext}><small>פס יומי</small><h3>יום ${d.name} ${d.date}</h3><p>${SHOWS.filter(s => s.day === d.id && s.slug).length} מופעים בכרטיס אחד.</p><span class="go">לרכישה ←</span></a>`).join('');
+  document.getElementById('themePasses').innerHTML = THEME_PASSES.map(([n, slug]) =>
+    `<a class="tcard" href="${T(slug)}" ${ext}><small>פס נושא</small><h3 style="direction:ltr;text-align:right">${n} Pass</h3><p>מבחר מופעים בסגנון ${n}.</p><span class="go">לרכישה ←</span></a>`).join('');
+</script>
+</body>
+</html>
