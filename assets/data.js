@@ -5,8 +5,8 @@
 
 const SITE = {
   year: 2026,
-  dates: '9–12.12.2026',
-  datesLatin: '9–12 <small>DEC 2026</small>',
+  dates: '10–12.12.2026',
+  datesLatin: '10–12 <small>DEC 2026</small>',
   director: 'עמית פרידמן',
   venueName: 'המרכז למוזיקה פאיס רעננה',
   tickets: 'https://tickets.raanana.muni.il/',

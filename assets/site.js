@@ -313,8 +313,8 @@ function scrollReveal() {
   addEventListener('beforeprint', showAll);
 }
 
-// Festival opens 9 Dec 2026, 00:00 Israel time (UTC+2 in December)
-const FESTIVAL_START = new Date('2026-12-09T00:00:00+02:00');
+// Festival opens 10 Dec 2026, 00:00 Israel time (UTC+2 in December)
+const FESTIVAL_START = new Date('2026-12-10T00:00:00+02:00');
 
 function countdown() {
   const box = document.getElementById('countdown');

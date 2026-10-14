@@ -85,8 +85,8 @@ def passes_box(t, P, A):
 def page_index(t, P, A):
     return dict(
         title=t('פסטיבל הג׳אז רעננה | Raanana Jazz Festival', 'Raanana Jazz Festival | World Jazz Music'),
-        desc=t('פסטיבל הג׳אז רעננה – World Jazz Music. 9–12 בדצמבר 2026, ארבעה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
-               'Raanana Jazz Festival – World Jazz Music. 9–12 December 2026: four days of live music at the Raanana Music Center.'),
+        desc=t('פסטיבל הג׳אז רעננה – World Jazz Music. 10–12 בדצמבר 2026, שלושה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
+               'Raanana Jazz Festival – World Jazz Music. 10–12 December 2026: three days of live music at the Raanana Music Center.'),
         no_suffix=True,
         body=f'''
 <section class="hero grain">
@@ -94,9 +94,9 @@ def page_index(t, P, A):
     <div>
       <h1><img class="main-logo" src="/images/44f224268148.png" width="974" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}"></h1>
       <div class="meta">
-        <div class="dates" aria-label="9–12 DEC 2026"><span class="d-num">9–12</span><small>DEC 2026</small></div>
+        <div class="dates" aria-label="10–12 DEC 2026"><span class="d-num">10–12</span><small>DEC 2026</small></div>
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
-        <div class="countdown-label" id="cdLabel">{t('הפסטיבל נפתח ביום רביעי, 9 בדצמבר 2026', 'The festival opens Wednesday, 9 December 2026')}</div>
+        <div class="countdown-label" id="cdLabel">{t('הפסטיבל נפתח ביום חמישי, 10 בדצמבר 2026', 'The festival opens Thursday, 10 December 2026')}</div>
         <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
           <div class="u days"><b data-k="d">0</b><small>{t('ימים', 'Days')}</small></div>
           <div class="hms">
@@ -118,10 +118,10 @@ def page_index(t, P, A):
 
 <section class="next" aria-labelledby="next-h">
   <h2 id="next-h">{t('פסטיבל 2026', 'Festival 2026')}</h2>
-  <p>{t('ארבעה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
+  <p>{t('שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
         'Four days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
   <ul class="facts">
-    <li><b>9–12.12</b><span>{t('ארבעה ימים, רביעי עד שבת', 'Four days, Wednesday to Saturday')}</span></li>
+    <li><b>10–12.12</b><span>{t('שלושה ימים, חמישי עד שבת', 'Three days, Thursday to Saturday')}</span></li>
     <li><b>4</b><span>{t('במות במרכז למוזיקה פאיס רעננה', 'stages at the Raanana Pais Music Center')}</span></li>
     <li><b>14–25</b><span>{t('סדנאות לנגנים צעירים – ההרשמה תיפתח בקרוב.', 'Workshops for young musicians – sign-up opens soon.')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>
@@ -177,8 +177,8 @@ def page_index(t, P, A):
 def page_lineup(t, P, A):
     return dict(
         title=t('לוח הופעות', 'Line-up'),
-        desc=t('לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 9–12 בדצמבר.', 'The Raanana Jazz Festival line-up. Festival 2026: 9–12 December.'),
-        body=hero(t('הפסטיבל הבא: 9–12 בדצמבר 2026', 'Next festival: 9–12 December 2026'), t('לוח הופעות 2025', 'Line-up 2025'), '',
+        desc=t('לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 10–12 בדצמבר.', 'The Raanana Jazz Festival line-up. Festival 2026: 10–12 December.'),
+        body=hero(t('הפסטיבל הבא: 10–12 בדצמבר 2026', 'Next festival: 10–12 December 2026'), t('לוח הופעות 2025', 'Line-up 2025'), '',
                   t('התוכנייה של פסטיבל 2026 תפורסם בקרוב. בינתיים, כך נראה לוח ההופעות של פסטיבל 2025 (18–20.12.2025).',
                     'The 2026 programme will be announced soon. Meanwhile, here is the 2025 festival line-up (18–20 December 2025).'),
                   f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("פס לכל הפסטיבל", "Full festival pass")}</a>'
@@ -278,7 +278,7 @@ def page_about(t, P, A):
                   t('פסטיבל הג׳אז רעננה מביא לעיר ימים של ג׳אז ומוזיקת עולם – אמנים מישראל ומרחבי העולם, הפקות מקור שנוצרות במיוחד לפסטיבל, סדנאות לנגנים צעירים ומופעים פתוחים לכל המשפחה.',
                     'The Raanana Jazz Festival brings days of jazz and world music to the city – artists from Israel and around the world, original productions created for the festival, workshops for young musicians and open shows for the whole family.')) + f'''
 <section class="wrap section">
-  <div class="stats-h"><h2>{t('פסטיבל 2025', 'Festival 2025')}</h2><small>{t('במספרים · הפסטיבל הבא: 9–12 בדצמבר 2026', 'By the numbers · Next festival: 9–12 December 2026')}</small></div>
+  <div class="stats-h"><h2>{t('פסטיבל 2025', 'Festival 2025')}</h2><small>{t('במספרים · הפסטיבל הבא: 10–12 בדצמבר 2026', 'By the numbers · Next festival: 10–12 December 2026')}</small></div>
   <div class="stats">
     <div class="stat"><b>3</b><span>{t('ימים של מוזיקה חיה<br>18–20 בדצמבר', 'days of live music<br>18–20 December')}</span></div>
     <div class="stat"><b>17</b><span>{t('מופעים, מהם הפקות מקור<br>שנוצרו לפסטיבל', 'shows, including original<br>festival productions')}</span></div>
