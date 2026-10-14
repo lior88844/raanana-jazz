@@ -187,14 +187,24 @@ def page_lineup(t, P, A):
                     'The 2026 programme will be announced soon. Meanwhile, here is the 2025 festival line-up (18–20 December 2025).'),
                   f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("פס לכל הפסטיבל", "Full festival pass")}</a>'
                   f'<a href="{P("tickets.html")}" class="btn ghost">{t("כל אפשרויות הכרטיסים", "All ticket options")} {A}</a>') + f'''
-<section class="wrap">
+<section class="wrap section lu">
+  <h2 class="sec-h">{t('האמנים', 'The artists')}</h2>
+  <p>{t('לחצו על שם כדי לראות מתי ואיפה.', 'Tap a name to see when and where.')}</p>
+  <div data-render="cloud"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">{t('לו״ז לפי במות', 'Timetable by stage')}</h2>
+  <p>{t('סמנו ☆ על ההופעות שלא תרצו לפספס – הן יישמרו ב״הליינאפ שלי״ בדפדפן הזה.', 'Mark ☆ on the shows you don’t want to miss – they stay in “My line-up” in this browser.')}</p>
+  <div data-render="timetable"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">{t('כל ההופעות', 'All shows')}</h2>
   <div class="daytabs" role="tablist">
     <button class="on" data-day="">{t('כל הימים', 'All days')}</button>
     <button data-day="thu">{t('חמישי 18.12', 'Thu 18.12')}</button>
     <button data-day="fri">{t('שישי 19.12', 'Fri 19.12')}</button>
     <button data-day="sat">{t('שבת 20.12', 'Sat 20.12')}</button>
   </div>
-  <h2 class="sr-only">{t('כל ההופעות', 'All shows')}</h2>
   <div class="showlist" id="showlist" data-render="showlist"></div>
 </section>
 <section class="cta-band">
@@ -498,11 +508,116 @@ def page_404(t, P, A):
 </section>''')
 
 
+def page_guide(t, P, A):
+    maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%90%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
+    tabs = [
+        ('arrive', t('הגעה', 'Getting here'), t('הגעה למתחם', 'Getting here'), f"""
+      <p>{t('כל הפסטיבל מתקיים במתחם אחד – <b>המרכז למוזיקה פאיס רעננה</b>. ארבע הבמות קרובות זו לזו, כך שאפשר לעבור בין הופעות בכמה צעדים.',
+            'The whole festival takes place in one venue – <b>the Raanana Pais Music Center</b>. The four stages are close together, so every show is a few steps away.')}</p>
+      <div class="g-links">
+        <a class="btn primary" target="_blank" rel="noopener" href="https://waze.com/ul?q={maps_q}&navigate=yes">{t('ניווט ב־Waze', 'Navigate with Waze')}</a>
+        <a class="g-text" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query={maps_q}">{t('לפתיחה ב־Google Maps', 'Open in Google Maps')} {A}</a>
+      </div>
+      <p class="g-more"><a href="{P('venue.html')}">{t('למתחם ולבמות', 'The venue and its stages')} {A}</a></p>"""),
+        ('tickets', t('כרטיסים', 'Tickets'), t('כרטיסים ופסים', 'Tickets and passes'), f"""
+      <p>{t('הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה. אפשר לקנות כרטיס להופעה אחת, <b>פס יומי</b> לכל מופעי היום, <b>פס לכל הפסטיבל</b> או פס לפי נושא.',
+            'Tickets are sold on the Raanana Municipality ticket site. You can buy a ticket for one show, a <b>day pass</b> for all of that day’s shows, a <b>full festival pass</b> or a themed pass.')}</p>
+      <p>{t('המופעים ברחבת הפסטיבל – בכניסה חופשית.', 'Shows on the Festival Plaza are free.')}</p>
+      <p class="g-note">{t('התוכנייה והכרטיסים לפסטיבל 2026 יפורסמו בקרוב.', 'The 2026 programme and tickets will be announced soon.')}</p>
+      <p class="g-more"><a href="{P('tickets.html')}">{t('כל אפשרויות הכרטיסים', 'All ticket options')} {A}</a></p>"""),
+        ('families', t('משפחות', 'Families'), t('משפחות וילדים', 'Families and children'), f"""
+      <p>{t('רחבת הפסטיבל היא הלב הפתוח של הפסטיבל: מופעים לכל המשפחה, בכניסה חופשית.',
+            'The Festival Plaza is the open heart of the festival: shows for the whole family, free of charge.')}</p>
+      <p>{t('ב־2025 עלו ברחבה, בין השאר, הביג בנד של רעננה, הישראדיקסי בנד ו״ילדוג׳אז״ בשבת בבוקר.',
+            'In 2025 the Plaza hosted, among others, the Raanana Big Band, the Isradixie Band and “Yaldojazz” on Saturday morning.')}</p>
+      <p class="g-more"><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></p>"""),
+        ('access', t('נגישות', 'Accessibility'), t('נגישות', 'Accessibility'), f"""
+      <p>{t('אנחנו רוצים שכולם יוכלו ליהנות מהפסטיבל. פרטים על הסדרי הנגישות ועל דרכי הפנייה בנושא נמצאים בהצהרת הנגישות.',
+            'We want everyone to enjoy the festival. Details of the accessibility arrangements and how to contact us about them are in the accessibility statement.')}</p>
+      <p class="g-more"><a href="{P('accessibility.html')}">{t('להצהרת הנגישות', 'Accessibility statement')} {A}</a></p>"""),
+        ('shabbat', t('שבת', 'Saturday'), t('שבת בפסטיבל', 'Saturday at the festival'), f"""
+      <p>{t('הפסטיבל נמשך עד מוצאי שבת. ב־2025 התקיימו בשבת מופע בוקר לילדים ב־11:00, מפגש מוזיקלי ב־12:00, ומופעי הערב החלו ב־17:30.',
+            'The festival runs until Saturday night. In 2025, Saturday had a children’s show at 11:00, a musical conversation at 12:00, and the evening shows began at 17:30.')}</p>
+      <p class="g-note">{t('שעות השבת של פסטיבל 2026 יפורסמו עם התוכנייה.', 'Saturday times for 2026 will be published with the programme.')}</p>"""),
+        ('workshops', t('סדנאות', 'Workshops'), t('סדנאות לנגנים צעירים', 'Workshops for young musicians'), f"""
+      <p>{t('לצד ההופעות מתקיימות סדנאות ג׳אז לנגנים בגילאי 14–25: נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים בינלאומיים – ובסוף, הופעה על במת הפסטיבל.',
+            'Alongside the shows there are jazz workshops for musicians aged 14–25: ensemble playing, instrument workshops and masterclasses with international artists – ending with a performance on the festival stage.')}</p>
+      <p class="g-more"><a href="{P('workshops.html')}">{t('פרטים והרשמה', 'Details and sign-up')} {A}</a></p>"""),
+    ]
+    ig = 'https://www.instagram.com/world.jazz.music/'
+    faq = [
+        (t('כרטיסים', 'Tickets'), [
+            (t('איפה קונים כרטיסים?', 'Where do I buy tickets?'),
+             t(f'באתר הכרטיסים של עיריית רעננה. כל הקישורים נמצאים <a href="{P("tickets.html")}">בעמוד הכרטיסים</a>.',
+               f'On the Raanana Municipality ticket site. All the links are on <a href="{P("tickets.html")}">the tickets page</a>.')),
+            (t('יש פס יומי?', 'Is there a day pass?'),
+             t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם.', "Yes. A day pass covers all of that day's shows at a better price.")),
+            (t('יש פס לכל הפסטיבל?', 'Is there a full festival pass?'),
+             t('כן, וגם פסים לפי נושאים.', 'Yes, and themed passes too.')),
+            (t('כל המופעים בתשלום?', 'Are all shows ticketed?'),
+             t('לא. המופעים ברחבת הפסטיבל בכניסה חופשית.', 'No. Shows on the Festival Plaza are free.')),
+        ]),
+        (t('מידע כללי', 'General'), [
+            (t('מתי הפסטיבל?', 'When is the festival?'),
+             t('10–12 בדצמבר 2026, חמישי עד שבת.', '10–12 December 2026, Thursday to Saturday.')),
+            (t('איפה הפסטיבל מתקיים?', 'Where does it take place?'),
+             t(f'במרכז למוזיקה פאיס רעננה, בארבע במות. <a href="{P("venue.html")}">על המתחם</a>.',
+               f'At the Raanana Pais Music Center, on four stages. <a href="{P("venue.html")}">About the venue</a>.')),
+            (t('מתי תתפרסם התוכנייה של 2026?', 'When will the 2026 programme be out?'),
+             t(f'בקרוב. העדכונים הראשונים יעלו <a href="{ig}" target="_blank" rel="noopener">באינסטגרם של World Jazz Music</a>.',
+               f'Soon. The first news will be on <a href="{ig}" target="_blank" rel="noopener">World Jazz Music on Instagram</a>.')),
+            (t('יש מופעים לילדים?', 'Are there shows for children?'),
+             t('כן. ברחבת הפסטיבל יש מופעים לכל המשפחה, בכניסה חופשית.', 'Yes. The Festival Plaza has shows for the whole family, free of charge.')),
+            (t('הפסטיבל נגיש?', 'Is the festival accessible?'),
+             t(f'כל הפרטים <a href="{P("accessibility.html")}">בהצהרת הנגישות</a>.',
+               f'All the details are in <a href="{P("accessibility.html")}">the accessibility statement</a>.')),
+        ]),
+        (t('השתתפות', 'Taking part'), [
+            (t('אפשר להשתתף בסדנאות?', 'Can I join the workshops?'),
+             t(f'הסדנאות מיועדות לנגנים בגילאי 14–25. <a href="{P("workshops.html")}">פרטים והרשמה</a>.',
+               f'The workshops are for musicians aged 14–25. <a href="{P("workshops.html")}">Details and sign-up</a>.')),
+            (t('איך יוצרים איתכם קשר?', 'How do I contact you?'),
+             t(f'דרך <a href="{P("contact.html")}">עמוד יצירת הקשר</a>.', f'Through <a href="{P("contact.html")}">the contact page</a>.')),
+        ]),
+    ]
+    tablist = ''.join(
+        f'<button type="button" role="tab" id="tab-{k}" data-tab="{k}" aria-controls="g-{k}"><em>{i + 1:02d}</em>{label}</button>'
+        for i, (k, label, _, _) in enumerate(tabs))
+    panels = ''.join(
+        f'\n    <section class="g-panel" role="tabpanel" id="g-{k}" aria-labelledby="tab-{k}">\n      <h3><em>{i + 1:02d}</em>{head}</h3>{body}\n    </section>'
+        for i, (k, _, head, body) in enumerate(tabs))
+    groups = ''.join(
+        f'\n  <div class="faq-group">\n    <h3><em>{i + 1:02d}</em>{name}</h3>\n    '
+        + ''.join(f'<details><summary>{q}</summary><div>{a}</div></details>' for q, a in items)
+        + '\n  </div>'
+        for i, (name, items) in enumerate(faq))
+    nofaq = t(f'לא מצאתם תשובה? <a href="{P("contact.html")}">כתבו לנו</a>.', f'Didn’t find your answer? <a href="{P("contact.html")}">Write to us</a>.')
+    return dict(
+        title=t('מידע למבקרים', 'Visitor info'),
+        desc=t('כל מה שכדאי לדעת לפני שמגיעים לפסטיבל הג׳אז רעננה: הגעה, כרטיסים, משפחות, נגישות, שבת, סדנאות ושאלות נפוצות.',
+               'Everything to know before you come to the Raanana Jazz Festival: getting here, tickets, families, accessibility, Saturday, workshops and FAQ.'),
+        body=hero(t('לפני שמגיעים', 'Before you go'), t('מידע למבקרים', 'Visitor info'), '',
+                  t('הגעה, כרטיסים, משפחות, נגישות, שבת וסדנאות – ולמטה, תשובות לשאלות הנפוצות.',
+                    'Getting here, tickets, families, accessibility, Saturday and workshops – and below, answers to common questions.'))
+        + f'''
+<section class="wrap section">
+  <h2 class="sr-only">{t('מידע לפי נושא', 'Information by topic')}</h2>
+  <div class="guide">
+    <div class="g-tabs" role="tablist" aria-label="{t('נושאים', 'Topics')}">{tablist}</div>{panels}
+  </div>
+</section>
+<section class="wrap section faq" id="faq">
+  <h2 class="sec-h">{t('שאלות נפוצות', 'FAQ')}</h2>
+  <p>{nofaq}</p>{groups}
+</section>
+''')
+
+
 PAGES = {
     'index.html': page_index, 'lineup.html': page_lineup, 'festival-2025.html': page_past,
     'venue.html': page_venue, 'about.html': page_about, 'workshops.html': page_workshops,
     'media.html': page_media, 'tickets.html': page_tickets, 'contact.html': page_contact,
-    'accessibility.html': page_accessibility,
+    'accessibility.html': page_accessibility, 'guide.html': page_guide,
 }
 
 

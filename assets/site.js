@@ -21,6 +21,7 @@ const page = f => BASE + f;
 
 const NAV_MAIN = [
   ['lineup.html', 'לוח הופעות', 'Line-up'],
+  ['guide.html', 'מידע למבקרים', 'Visitor info'],
   ['festival-2025.html', 'מהדורות קודמות', 'Past Editions'],
   ['venue.html', 'המתחם', 'The Venue'],
   ['index.html#partners', 'שותפים', 'Partners'],
@@ -30,6 +31,7 @@ const NAV_SUB = [
   ['workshops.html', 'סדנאות', 'Workshops'],
   ['media.html', 'מדיה ועיתונות', 'Media + Press'],
   ['tickets.html', 'כרטיסים ופסים', 'Tickets + Passes'],
+  ['guide.html#faq', 'שאלות נפוצות', 'FAQ'],
   ['contact.html', 'צור קשר', 'Contact'],
 ];
 
@@ -57,6 +59,8 @@ function buildChrome() {
   document.body.insertAdjacentHTML('afterbegin', `
 <a class="skip" href="#main">${L('דילוג לתוכן', 'Skip to content')}</a>
 ${ICONS}
+${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span><b>${L(SITE.notice.he, SITE.notice.en)}</b>
+  <a href="${SITE.notice.href}" ${/^https?:/.test(SITE.notice.href) ? ext : ''}>${L(SITE.notice.link, SITE.notice.link_en)} ${ARROW}</a></div>` : ''}
 <header class="topbar">
   <div class="tag">World <em>Jazz</em> Music · <i>${L('רעננה', 'Raanana')}</i> · ${SITE.dates}</div>
   <nav>
@@ -92,9 +96,9 @@ ${ICONS}
   <div class="socials">${socials()}</div>
   <div class="ctas"><a href="${page('tickets.html')}" class="btn primary">${L('לרכישת כרטיסים', 'Buy tickets')}</a></div>
   <div class="fcols">
-    <div><h2>${L('הפסטיבל', 'Festival')}</h2><a href="${page('lineup.html')}">${L('לוח הופעות', 'Line-up')}</a><a href="${page('festival-2025.html')}">${L('מהדורות קודמות', 'Past Editions')}</a><a href="${page('venue.html')}">${L('המתחם', 'The Venue')}</a><a href="${SITE.program}" ${ext}>${L('תוכנייה', 'Programme')}</a></div>
+    <div><h2>${L('הפסטיבל', 'Festival')}</h2><a href="${page('lineup.html')}">${L('לוח הופעות', 'Line-up')}</a><a href="${page('festival-2025.html')}">${L('מהדורות קודמות', 'Past Editions')}</a><a href="${page('venue.html')}">${L('המתחם', 'The Venue')}</a><a href="${page('guide.html')}">${L('מידע למבקרים', 'Visitor info')}</a><a href="${SITE.program}" ${ext}>${L('תוכנייה', 'Programme')}</a></div>
     <div><h2>${L('השתתפות', 'Get involved')}</h2><a href="${page('workshops.html')}">${L('סדנאות', 'Workshops')}</a><a href="${page('tickets.html')}">${L('כרטיסים ופסים', 'Tickets + Passes')}</a><a href="${page('media.html')}">${L('מדיה ועיתונות', 'Media + Press')}</a></div>
-    <div><h2>${L('עלינו', 'About')}</h2><a href="${page('about.html')}">${L('אודות', 'About us')}</a><a href="${page('contact.html')}">${L('צור קשר', 'Contact')}</a><a href="${page('accessibility.html')}">${L('הצהרת נגישות', 'Accessibility statement')}</a>${langBtn('')}<p>${L(SITE.venueName, 'Raanana Pais Music Center')}</p></div>
+    <div><h2>${L('עלינו', 'About')}</h2><a href="${page('about.html')}">${L('אודות', 'About us')}</a><a href="${page('guide.html#faq')}">${L('שאלות נפוצות', 'FAQ')}</a><a href="${page('contact.html')}">${L('צור קשר', 'Contact')}</a><a href="${page('accessibility.html')}">${L('הצהרת נגישות', 'Accessibility statement')}</a>${langBtn('')}<p>${L(SITE.venueName, 'Raanana Pais Music Center')}</p></div>
   </div>
   <div class="copy">© ${SITE.year} website by Lior Doron · graphic design by Dekel Hevroni</div>
 </footer>
@@ -111,6 +115,14 @@ ${ICONS}
   document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => setOpen(false)));
   document.querySelectorAll('.drawer a').forEach(a => a.addEventListener('click', () => setOpen(false)));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+
+  // the fixed logo starts below the notice strip and rises with it as the page scrolls
+  const notice = document.querySelector('.notice');
+  if (notice) {
+    const chrome = [document.querySelector('.brand'), document.querySelector('.socials-fixed')];
+    const place = () => { const y = Math.max(0, notice.offsetHeight - scrollY); chrome.forEach(c => c && (c.style.transform = `translateY(${y}px)`)); };
+    addEventListener('scroll', place, { passive: true }); addEventListener('resize', place); place();
+  }
 
   // remember the visitor's language choice
   document.querySelectorAll('.lang-switch, .fcols a[hreflang]').forEach(a =>
@@ -241,10 +253,124 @@ function renderThemePasses(el) {
   el.innerHTML = `<span>${L('פסים לפי נושאים:', 'Themed passes:')}</span>` + THEME_PASSES.map(([n, slug]) => `<a href="${T(slug)}" ${ext}>${n}</a>`).join('');
 }
 
+// ---------- line-up as a cloud of names, coloured by day ----------
+function renderCloud(el) {
+  const count = id => SHOWS.filter(s => !id || s.day === id).length;
+  const chip = (id, label) => `<button type="button" class="${id ? 'd-' + id : 'all'}${id ? '' : ' on'}" data-day="${id}" aria-pressed="${!id}">
+    ${id ? '<i aria-hidden="true"></i>' : ''}<span>${label}</span><b>${count(id)}</b></button>`;
+  el.innerHTML = `
+    <div class="cloud-filter" role="group" aria-label="${L('סינון לפי יום', 'Filter by day')}">
+      ${chip('', L('כל הימים', 'All days'))}${DAYS.map(d => chip(d.id, `${dayName(d)} ${d.date}`)).join('')}
+    </div>
+    <ul class="cloud">${SHOWS.map(s => `
+      <li data-day="${s.day}"><button type="button" class="pill d-${s.day}" aria-expanded="false">
+        <span class="n">${tr(s, 'title')}</span>
+        <span class="m">${dayName(dayOf(s.day))} · ${s.time} · ${tr(s, 'venue')}${s.free ? ' · ' + L('כניסה חופשית', 'Free entry') : ''}</span>
+      </button></li>`).join('')}</ul>`;
+  el.querySelectorAll('.cloud-filter button').forEach(b => b.addEventListener('click', () => {
+    el.querySelectorAll('.cloud-filter button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+    el.querySelectorAll('.cloud li').forEach(li => { li.hidden = !!b.dataset.day && li.dataset.day !== b.dataset.day; });
+  }));
+  el.querySelectorAll('.pill').forEach(p => p.addEventListener('click', () => {
+    p.setAttribute('aria-expanded', p.getAttribute('aria-expanded') !== 'true');
+  }));
+}
+
+// ---------- timetable: stages × hours, with a personal "my line-up" ----------
+const FAV_KEY = 'rjf-favs';
+const showKey = s => `${s.day}-${s.time}-${s.venue}`;
+const readFavs = () => { try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); } catch (e) { return new Set(); } };
+const saveFavs = f => { try { localStorage.setItem(FAV_KEY, JSON.stringify([...f])); } catch (e) {} };
+const mins = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+const hhmm = m => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+
+function renderTimetable(el) {
+  let day = DAYS[0].id, mine = false;
+  const favs = readFavs();
+  el.innerHTML = `
+    <div class="tt-bar">
+      <div class="tt-days" role="group" aria-label="${L('בחירת יום', 'Choose a day')}">${DAYS.map((d, i) =>
+        `<button type="button" class="d-${d.id}${i ? '' : ' on'}" data-day="${d.id}" aria-pressed="${!i}"><b>${dayName(d)}</b><small>${d.date}</small></button>`).join('')}</div>
+      <div class="tt-tools">
+        <button type="button" class="tt-mine" aria-pressed="false">★ ${L('הליינאפ שלי', 'My line-up')} <b class="tt-count"></b></button>
+        <button type="button" class="tt-print">${L('הדפסה / PDF', 'Print / PDF')} ↓</button>
+      </div>
+    </div>
+    <p class="tt-hint" hidden>${L('עוד אין הופעות מסומנות ביום הזה. לחצו על ☆ בהופעה כדי להוסיף אותה לליינאפ שלכם.', 'No shows marked on this day yet. Tap ☆ on a show to add it to your line-up.')}</p>
+    <div class="tt-scroll" tabindex="0" aria-label="${L('לוח זמנים לפי במות', 'Timetable by stage')}"><div class="tt"></div></div>`;
+  const grid = el.querySelector('.tt');
+  const draw = () => {
+    const shows = SHOWS.filter(s => s.day === day);
+    const stages = [...VENUES.map(v => v.name).filter(n => shows.some(s => s.venue === n)), ...new Set(shows.map(s => s.venue).filter(n => !VENUES.some(v => v.name === n)))];
+    // a show ends when the next one on its stage starts, or after 90 minutes
+    const items = shows.map(s => {
+      const start = mins(s.time);
+      const next = shows.filter(o => o.venue === s.venue && mins(o.time) > start).map(o => mins(o.time)).sort((a, b) => a - b)[0];
+      return { s, start, end: Math.min(next || Infinity, start + 90) };
+    });
+    const from = Math.floor(Math.min(...items.map(i => i.start)) / 60) * 60;
+    const to = Math.ceil(Math.max(...items.map(i => i.end)) / 60) * 60;
+    const cols = (to - from) / 15;
+    grid.style.setProperty('--cols', cols);
+    const hours = [];
+    for (let m = from; m < to; m += 60) hours.push(`<div class="tt-h" style="grid-column:${(m - from) / 15 + 2} / span 4">${hhmm(m)}</div>`);
+    grid.innerHTML = `<div class="tt-corner"></div>${hours.join('')}` +
+      stages.map((v, r) => `<div class="tt-stage" style="grid-row:${r + 2}">${tr(shows.find(s => s.venue === v), 'venue')}</div>`).join('') +
+      items.map(({ s, start, end }) => {
+        const on = favs.has(showKey(s));
+        return `<div class="tt-show d-${s.day}${on ? ' fav' : ''}" style="grid-row:${stages.indexOf(s.venue) + 2};grid-column:${(start - from) / 15 + 2} / span ${Math.max(1, (end - start) / 15)}">
+          <button type="button" class="star" data-key="${showKey(s)}" aria-pressed="${on}" aria-label="${L('הוספה לליינאפ שלי', 'Add to my line-up')}: ${tr(s, 'title')}">${on ? '★' : '☆'}</button>
+          <b>${tr(s, 'title')}</b><small>${hhmm(start)}–${hhmm(end)}</small>
+        </div>`;
+      }).join('');
+    grid.classList.toggle('mine', mine);
+    el.querySelector('.tt-count').textContent = favs.size ? `(${favs.size})` : '';
+    el.querySelector('.tt-hint').hidden = !(mine && !shows.some(s => favs.has(showKey(s))));
+  };
+  el.querySelectorAll('.tt-days button').forEach(b => b.addEventListener('click', () => {
+    day = b.dataset.day;
+    el.querySelectorAll('.tt-days button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+    draw();
+  }));
+  el.querySelector('.tt-mine').addEventListener('click', e => {
+    mine = !mine; e.currentTarget.setAttribute('aria-pressed', mine); draw();
+  });
+  el.querySelector('.tt-print').addEventListener('click', () => print());
+  grid.addEventListener('click', e => {
+    const b = e.target.closest('.star'); if (!b) return;
+    favs.has(b.dataset.key) ? favs.delete(b.dataset.key) : favs.add(b.dataset.key);
+    saveFavs(favs); draw();
+  });
+  draw();
+}
+
+// ---------- visitor guide: numbered tabs (all panels show without script) ----------
+function guideTabs() {
+  const box = document.querySelector('.guide');
+  if (!box) return;
+  const tabs = [...box.querySelectorAll('[role="tab"]')];
+  const show = id => tabs.forEach(t => {
+    const on = t.dataset.tab === id;
+    t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
+    document.getElementById('g-' + t.dataset.tab).hidden = !on;
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => { show(t.dataset.tab); history.replaceState(null, '', '#' + t.dataset.tab); });
+    t.addEventListener('keydown', e => {
+      const step = { ArrowLeft: EN ? -1 : 1, ArrowRight: EN ? 1 : -1 }[e.key];
+      if (!step) return;
+      const n = tabs[(i + step + tabs.length) % tabs.length]; n.focus(); n.click();
+    });
+  });
+  const fromHash = tabs.find(t => '#' + t.dataset.tab === location.hash);
+  show((fromHash || tabs[0]).dataset.tab);
+}
+
 buildChrome();
 document.querySelectorAll('[data-render]').forEach(el => {
   const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
-    people: el => renderTeachers(el, false), moments: renderMoments, partners: renderPartners, themes: renderThemePasses }[el.dataset.render];
+    people: el => renderTeachers(el, false), moments: renderMoments, partners: renderPartners, themes: renderThemePasses,
+    cloud: renderCloud, timetable: renderTimetable }[el.dataset.render];
   fn && fn(el);
 });
 document.querySelectorAll('[data-href]').forEach(a => {
@@ -387,4 +513,5 @@ addEventListener('DOMContentLoaded', () => {
   scrollReveal();
   countdown();
   stickyCta();
+  guideTabs();
 });

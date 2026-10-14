@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/assets/site.css?v=7087adac51">
+<link rel="stylesheet" href="/assets/site.css?v=970a399ec1">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -30,14 +30,24 @@
   <div class="ctas"><a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">Full festival pass</a><a href="/en/tickets.html" class="btn ghost">All ticket options →</a></div>
 </section>
 
-<section class="wrap">
+<section class="wrap section lu">
+  <h2 class="sec-h">The artists</h2>
+  <p>Tap a name to see when and where.</p>
+  <div data-render="cloud"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">Timetable by stage</h2>
+  <p>Mark ☆ on the shows you don’t want to miss – they stay in “My line-up” in this browser.</p>
+  <div data-render="timetable"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">All shows</h2>
   <div class="daytabs" role="tablist">
     <button class="on" data-day="">All days</button>
     <button data-day="thu">Thu 18.12</button>
     <button data-day="fri">Fri 19.12</button>
     <button data-day="sat">Sat 20.12</button>
   </div>
-  <h2 class="sr-only">All shows</h2>
   <div class="showlist" id="showlist" data-render="showlist"></div>
 </section>
 <section class="cta-band">
@@ -48,8 +58,8 @@
 
 </main>
 
-<script src="/assets/data.js?v=7087adac51"></script>
-<script src="/assets/site.js?v=7087adac51"></script>
+<script src="/assets/data.js?v=970a399ec1"></script>
+<script src="/assets/site.js?v=970a399ec1"></script>
 <script>
   document.querySelectorAll('.daytabs button').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('.daytabs button').forEach(x => x.classList.toggle('on', x === b));

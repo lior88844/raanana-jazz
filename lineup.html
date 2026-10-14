@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/assets/site.css?v=7087adac51">
+<link rel="stylesheet" href="/assets/site.css?v=970a399ec1">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -30,14 +30,24 @@
   <div class="ctas"><a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a><a href="/tickets.html" class="btn ghost">כל אפשרויות הכרטיסים ←</a></div>
 </section>
 
-<section class="wrap">
+<section class="wrap section lu">
+  <h2 class="sec-h">האמנים</h2>
+  <p>לחצו על שם כדי לראות מתי ואיפה.</p>
+  <div data-render="cloud"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">לו״ז לפי במות</h2>
+  <p>סמנו ☆ על ההופעות שלא תרצו לפספס – הן יישמרו ב״הליינאפ שלי״ בדפדפן הזה.</p>
+  <div data-render="timetable"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">כל ההופעות</h2>
   <div class="daytabs" role="tablist">
     <button class="on" data-day="">כל הימים</button>
     <button data-day="thu">חמישי 18.12</button>
     <button data-day="fri">שישי 19.12</button>
     <button data-day="sat">שבת 20.12</button>
   </div>
-  <h2 class="sr-only">כל ההופעות</h2>
   <div class="showlist" id="showlist" data-render="showlist"></div>
 </section>
 <section class="cta-band">
@@ -48,8 +58,8 @@
 
 </main>
 
-<script src="/assets/data.js?v=7087adac51"></script>
-<script src="/assets/site.js?v=7087adac51"></script>
+<script src="/assets/data.js?v=970a399ec1"></script>
+<script src="/assets/site.js?v=970a399ec1"></script>
 <script>
   document.querySelectorAll('.daytabs button').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('.daytabs button').forEach(x => x.classList.toggle('on', x === b));

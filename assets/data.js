@@ -22,6 +22,11 @@ const SITE = {
   logo: '/images/logo-hero.png',
   logoDark: '/images/logo-dark.png',  // charcoal version for light backgrounds (menu)
   program: '/images/413f2429c54a.png',
+  // the strip above the top bar; set to null to hide it
+  notice: {
+    he: 'התוכנייה של פסטיבל 2026 תפורסם בקרוב', en: 'The 2026 programme will be announced soon',
+    link: 'לעדכונים', link_en: 'Get updates', href: 'https://www.instagram.com/world.jazz.music/',
+  },
 };
 
 // iso = the calendar date of each festival day (used by the "now on stage" strip)
