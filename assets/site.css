@@ -376,3 +376,4 @@
   .prose h2, .sec-h { font-size: 32px; }
   .cta-band h2 { font-size: 34px; }
 }
+.sched-note { text-align: center; font-size: 19px; margin: -24px auto 34px; max-width: 640px; padding: 0 16px; }

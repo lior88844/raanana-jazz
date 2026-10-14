@@ -63,7 +63,7 @@ PAGES = {}
 # ---------------------------------------------------------------- Home
 PAGES['index.html'] = dict(
   title='פסטיבל הג׳אז רעננה | Raanana Jazz Festival',
-  desc='פסטיבל הג׳אז רעננה – World Jazz Music. שלושה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
+  desc='פסטיבל הג׳אז רעננה – World Jazz Music. 9–12 בדצמבר 2026, ארבעה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
   body=f'''
 <section class="hero grain">
   <div class="dots" aria-hidden="true">
@@ -77,7 +77,7 @@ PAGES['index.html'] = dict(
     <div>
       <img class="main-logo" src="images/44f224268148.png" alt="World Jazz Music – פסטיבל הג׳אז רעננה">
       <div class="meta">
-        <div class="dates">18–20 <small>DEC 2025</small></div>
+        <div class="dates">9–12 <small>DEC 2026</small></div>
         <div class="dir"><span>ניהול אומנותי:</span> עמית פרידמן</div>
         <div class="ctas">
           <a href="tickets.html" class="btn primary">לרכישת כרטיסים</a>
@@ -89,21 +89,22 @@ PAGES['index.html'] = dict(
 </section>
 <section class="hero-photo" style="background-image:url(images/8300ce79d8cf.jpg)">
   <div class="cap">
-    <div class="k">הפקה מיוחדת לפסטיבל · שבת 20.12 · 18:30</div>
+    <div class="k">מפסטיבל 2025 · הפקה מיוחדת לפסטיבל</div>
     <h2>אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים</h2>
   </div>
 </section>
 
 <section class="intro">
   {BURST}
-  <h2>פסטיבל הג׳אז רעננה <span>2025</span></h2>
-  <p>שלושה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.</p>
+  <h2>פסטיבל הג׳אז רעננה <span>2026</span></h2>
+  <p><b>9–12 בדצמבר 2026</b> · ארבעה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.</p>
 </section>
 
-<div class="stitle"><h3>הופעות<span class="chip">שיא 2025</span></h3></div>
+<div class="stitle"><h3>הופעות<span class="chip">רגעי שיא 2025</span></h3></div>
 <section class="cards" data-render="cards"></section>
 
-<div class="stitle" id="lineup"><h3>לוח הופעות<span class="chip">18–20.12</span></h3></div>
+<div class="stitle" id="lineup"><h3>לוח הופעות<span class="chip">2025</span></h3></div>
+<p class="sched-note">התוכנייה של 2026 תפורסם בקרוב. בינתיים – כך נראה הפסטיבל ב־18–20.12.2025.</p>
 <section class="schedule" data-render="schedule"></section>
 
 {PASSES_BOX}
@@ -146,9 +147,9 @@ PAGES['index.html'] = dict(
 # ---------------------------------------------------------------- Lineup (Upcoming shows)
 PAGES['lineup.html'] = dict(
   title='לוח הופעות' + SUFFIX,
-  desc='כל ההופעות של פסטיבל הג׳אז רעננה – שלושה ימים, ארבע במות.',
-  body=hero('שלושה ימים · ארבע במות', 'לוח הופעות', '18–20.12',
-            'שלושה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה. לכל מופע כרטיס משלו – או פס יומי שמכסה את כל היום.',
+  desc='לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 9–12 בדצמבר.',
+  body=hero('פסטיבל 2026 · 9–12 בדצמבר', 'לוח הופעות', '2025',
+            'התוכנייה של פסטיבל 2026 תפורסם בקרוב. בינתיים, כך נראה לוח ההופעות של פסטיבל 2025 (18–20.12.2025).',
             '<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a><a href="tickets.html" class="btn ghost">כל אפשרויות הכרטיסים ←</a>') + '''
 <section class="wrap">
   <div class="daytabs" role="tablist">
@@ -237,9 +238,9 @@ PAGES['about.html'] = dict(
   title='אודות' + SUFFIX,
   desc='על פסטיבל הג׳אז רעננה – World Jazz Music.',
   body=hero('אודות', 'World Jazz Music', '',
-            'פסטיבל הג׳אז רעננה מביא לעיר שלושה ימים של ג׳אז ומוזיקת עולם – אמנים מישראל ומרחבי העולם, הפקות מקור שנוצרות במיוחד לפסטיבל, סדנאות לנגנים צעירים ומופעים פתוחים לכל המשפחה.') + '''
+            'פסטיבל הג׳אז רעננה מביא לעיר ימים של ג׳אז ומוזיקת עולם – אמנים מישראל ומרחבי העולם, הפקות מקור שנוצרות במיוחד לפסטיבל, סדנאות לנגנים צעירים ומופעים פתוחים לכל המשפחה.') + '''
 <section class="wrap section">
-  <div class="stats-h"><h2>פסטיבל 2025</h2><small>במספרים</small></div>
+  <div class="stats-h"><h2>פסטיבל 2025</h2><small>במספרים · הפסטיבל הבא: 9–12 בדצמבר 2026</small></div>
   <div class="stats">
     <div class="stat"><b>3</b><span>ימים של מוזיקה חיה<br>18–20 בדצמבר</span></div>
     <div class="stat"><b>17</b><span>מופעים, מהם הפקות מקור<br>שנוצרו לפסטיבל</span></div>
