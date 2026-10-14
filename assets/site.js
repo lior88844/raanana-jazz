@@ -247,9 +247,10 @@ function countdown() {
     }
     const s = Math.floor(ms / 1000);
     out.d.textContent = Math.floor(s / 86400);
-    out.h.textContent = Math.floor(s / 3600) % 24;
-    out.m.textContent = Math.floor(s / 60) % 60;
-    out.s.textContent = s % 60;
+    const two = n => String(n).padStart(2, '0');
+    out.h.textContent = two(Math.floor(s / 3600) % 24);
+    out.m.textContent = two(Math.floor(s / 60) % 60);
+    out.s.textContent = two(s % 60);
     box.hidden = false;
   };
   const start = () => { clearInterval(timer); tick(); timer = setInterval(tick, reduceMotion ? 60000 : 1000); };

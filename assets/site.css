@@ -531,3 +531,18 @@ a, button, select, .daytabs button { cursor: pointer; }
 [dir="ltr"] .grid > a span { right: auto; left: 16px; }
 .grid > a:hover { filter: saturate(1.15) contrast(1.05); }
 label, select, summary, [role="button"], [onclick] { cursor: pointer; }
+
+/* ---------- Countdown: big days, hours / minutes / seconds stacked beside, no boxes ---------- */
+.countdown { align-items: center; gap: 20px; margin-top: 22px; }
+.countdown .u { min-width: 0; padding: 0; background: none; border: 0; box-shadow: none; }
+.countdown .days { text-align: center; }
+.countdown .days b { font-size: 104px; line-height: .82; color: var(--gold); }
+.countdown .days small { margin-top: 6px; font-size: 15px; }
+.countdown .hms { display: flex; flex-direction: column; gap: 3px; }
+.countdown .hms .u { display: flex; align-items: baseline; gap: 8px; text-align: left; }
+.countdown .hms b { font-size: 28px; line-height: 1; min-width: 1.9em; text-align: right; color: var(--cream); }
+.countdown .hms small { margin-top: 0; font-size: 13px; }
+@media (max-width: 720px) {
+  .countdown .days b { font-size: 84px; }
+  .countdown .hms b { font-size: 23px; }
+}

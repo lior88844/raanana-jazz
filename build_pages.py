@@ -98,10 +98,12 @@ def page_index(t, P, A):
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
         <div class="countdown-label" id="cdLabel">{t('הפסטיבל נפתח ביום רביעי, 9 בדצמבר 2026', 'The festival opens Wednesday, 9 December 2026')}</div>
         <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
-          <div class="u"><b data-k="d">0</b><small>{t('ימים', 'Days')}</small></div>
-          <div class="u"><b data-k="h">0</b><small>{t('שעות', 'Hours')}</small></div>
-          <div class="u"><b data-k="m">0</b><small>{t('דקות', 'Minutes')}</small></div>
-          <div class="u sec"><b data-k="s">0</b><small>{t('שניות', 'Seconds')}</small></div>
+          <div class="u days"><b data-k="d">0</b><small>{t('ימים', 'Days')}</small></div>
+          <div class="hms">
+            <div class="u"><b data-k="h">00</b><small>{t('שעות', 'Hours')}</small></div>
+            <div class="u"><b data-k="m">00</b><small>{t('דקות', 'Minutes')}</small></div>
+            <div class="u sec"><b data-k="s">00</b><small>{t('שניות', 'Seconds')}</small></div>
+          </div>
         </div>
         <div class="ctas">
           <a href="{P('tickets.html')}" class="btn primary">{t('לרכישת כרטיסים', 'Buy tickets')}</a>
