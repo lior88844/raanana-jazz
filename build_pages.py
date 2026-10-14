@@ -92,7 +92,11 @@ def page_index(t, P, A):
 <section class="hero grain">
   <div class="hero-inner">
     <div>
-      <h1><img class="main-logo" src="/images/44f224268148.png" width="974" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}"></h1>
+      <h1 class="hero-title">
+        <img class="hw hw-fest" src="/images/word-festival-{t('he','en')}.png" width="{t('411','597')}" height="{t('125','90')}" alt="">
+        <img class="main-logo" src="/images/44f224268148.png" width="974" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}">
+        <img class="hw hw-raan" src="/images/word-raanana-{t('he','en')}.png" width="{t('416','604')}" height="{t('109','101')}" alt="">
+      </h1>
       <div class="meta">
         <div class="dates" aria-label="10–12 DEC 2026"><span class="d-num">10–12</span><small>DEC 2026</small></div>
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>

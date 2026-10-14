@@ -157,6 +157,12 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; align-items: center; position: relative; z-index: var(--z-content); }
 .hero h1 { margin: 0; }
 .hero .main-logo { width: 100%; max-width: 480px; margin: 0 auto; }
+/* "פסטיבל / FESTIVAL" over the logo's top-right corner, "רעננה / RAANANA" under its bottom-left – as on the original Wix hero */
+.hero-title { position: relative; max-width: 480px; margin: 0 auto; }
+.hero-title .hw { position: relative; z-index: 1; width: 44%; }
+.hero-title .hw-fest { margin: 0 -9% -3% auto; }
+.hero-title .hw-raan { margin: 1% auto 0 -9%; }
+@media (max-width: 640px) { .hero-title .hw-fest { margin-right: 0; } .hero-title .hw-raan { margin-left: 0; } }
 .hero .meta { text-align: center; margin-top: 18px; }
 /* base size = "DEC 2026"; the day range is 2.16em so both lines are the same width (measured for Xenon Ruckus) */
 .hero .dates { font-family: var(--brush); font-size: 38px; line-height: 1; color: var(--accent); direction: ltr; display: inline-block; }
@@ -501,6 +507,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes bgIn { from { opacity: .4; } to { opacity: 1; } }
 .hero .main-logo { animation: pop 450ms var(--ease-out) both; }
+.hero-title .hw { animation: rise var(--enter) var(--ease-out) 120ms both; }
 .hero .dates { animation: rise var(--enter) var(--ease-out) 80ms both; }
 .hero .dir { animation: rise var(--enter) var(--ease-out) 140ms both; }
 .hero .countdown-label, .hero .countdown { animation: rise var(--enter) var(--ease-out) 200ms both; }
@@ -520,7 +527,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 /* ---------- Reduced motion: keep gentle fades, drop the travel ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero .main-logo, .hero .dates, .hero .dir, .hero .countdown-label, .hero .countdown, .hero .ctas,
+  .hero .main-logo, .hero-title .hw, .hero .dates, .hero .dir, .hero .countdown-label, .hero .countdown, .hero .ctas,
   .page-hero .eyebrow, .page-hero h1, .page-hero .lead, .page-hero .ctas { animation: fade 250ms ease both; animation-delay: 0ms; }
   .js .rv { transform: none; }
   .js .rv.in { transition: opacity 250ms ease; transition-delay: 0ms; }
