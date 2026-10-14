@@ -816,3 +816,16 @@ html:not(.js) .g-panel { border-radius: 22px; margin-top: 18px; }
   .g-ind, .arr, .lead .ph::before, .others .ph::before, .showrow .ph::before, .card .ph::before { transition: none; }
   .spark { display: none; }
 }
+
+/* =====================================================================
+   Paper texture (strong): two offset layers of /images/paper.png,
+   multiplied into each surface's own colour
+   ===================================================================== */
+body, .hero, .page-hero, .footer, .passes, .program, .ws, .cta-band, .daycol, .prose .note, .venue-card, .tcard, .cbtn, .dl,
+.notice, .tt-scroll, .tt-corner, .tt-stage, .g-panel, .g-note, .drawer {
+  background-image: url(/images/paper.png), url(/images/paper.png);
+  background-size: 512px, 700px;
+  background-position: 0 0, 230px 140px;
+  background-blend-mode: multiply;
+}
+@media print { body, .hero, .page-hero, .footer, .tt-scroll, .tt-corner, .tt-stage { background-image: none; } }
