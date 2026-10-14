@@ -55,6 +55,7 @@ function buildChrome() {
   const langBtn = cls => `<a class="${cls}" href="${otherLangHref()}" hreflang="${L('en', 'he')}" lang="${L('en', 'he')}">${L('English', 'עברית')}</a>`;
 
   document.body.insertAdjacentHTML('afterbegin', `
+<a class="skip" href="#main">${L('דילוג לתוכן', 'Skip to content')}</a>
 ${ICONS}
 <header class="topbar">
   <div class="tag">World <em>Jazz</em> Music · <i>${L('רעננה', 'Raanana')}</i> · ${SITE.dates}</div>
@@ -73,7 +74,7 @@ ${ICONS}
 <div class="drawer-scrim" data-close></div>
 <nav class="drawer" id="drawer" aria-label="${L('תפריט ראשי', 'Main menu')}">
   <button class="close" data-close aria-label="${L('סגירת תפריט', 'Close menu')}"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
-  <a href="${page('index.html')}"><img class="dlogo" src="${SITE.logoNavy}" alt="${L('World Jazz Music – דף הבית', 'World Jazz Music – Home')}"></a>
+  <a href="${page('index.html')}"><img class="dlogo" src="${SITE.logoDark}" alt="${L('World Jazz Music – דף הבית', 'World Jazz Music – Home')}"></a>
   <div class="main">${NAV_MAIN.map(link).join('')}</div>
   <div class="sub">${NAV_SUB.map(link).join('')}</div>
   <div class="follow">
@@ -91,9 +92,9 @@ ${ICONS}
   <div class="socials">${socials()}</div>
   <div class="ctas"><a href="${page('tickets.html')}" class="btn primary">${L('לרכישת כרטיסים', 'Buy tickets')}</a></div>
   <div class="fcols">
-    <div><h6>${L('הפסטיבל', 'Festival')}</h6><a href="${page('lineup.html')}">${L('לוח הופעות', 'Line-up')}</a><a href="${page('festival-2025.html')}">${L('מהדורות קודמות', 'Past Editions')}</a><a href="${page('venue.html')}">${L('המתחם', 'The Venue')}</a><a href="${SITE.program}" ${ext}>${L('תוכנייה', 'Programme')}</a></div>
-    <div><h6>${L('השתתפות', 'Get involved')}</h6><a href="${page('workshops.html')}">${L('סדנאות', 'Workshops')}</a><a href="${page('tickets.html')}">${L('כרטיסים ופסים', 'Tickets + Passes')}</a><a href="${page('media.html')}">${L('מדיה ועיתונות', 'Media + Press')}</a></div>
-    <div><h6>${L('עלינו', 'About')}</h6><a href="${page('about.html')}">${L('אודות', 'About us')}</a><a href="${page('contact.html')}">${L('צור קשר', 'Contact')}</a>${langBtn('')}<p>${L(SITE.venueName, 'Raanana Pais Music Center')}</p></div>
+    <div><h2>${L('הפסטיבל', 'Festival')}</h2><a href="${page('lineup.html')}">${L('לוח הופעות', 'Line-up')}</a><a href="${page('festival-2025.html')}">${L('מהדורות קודמות', 'Past Editions')}</a><a href="${page('venue.html')}">${L('המתחם', 'The Venue')}</a><a href="${SITE.program}" ${ext}>${L('תוכנייה', 'Programme')}</a></div>
+    <div><h2>${L('השתתפות', 'Get involved')}</h2><a href="${page('workshops.html')}">${L('סדנאות', 'Workshops')}</a><a href="${page('tickets.html')}">${L('כרטיסים ופסים', 'Tickets + Passes')}</a><a href="${page('media.html')}">${L('מדיה ועיתונות', 'Media + Press')}</a></div>
+    <div><h2>${L('עלינו', 'About')}</h2><a href="${page('about.html')}">${L('אודות', 'About us')}</a><a href="${page('contact.html')}">${L('צור קשר', 'Contact')}</a><a href="${page('accessibility.html')}">${L('הצהרת נגישות', 'Accessibility statement')}</a>${langBtn('')}<p>${L(SITE.venueName, 'Raanana Pais Music Center')}</p></div>
   </div>
   <div class="copy">© ${SITE.year} website by Lior Doron · graphic design by Dekel Hevroni</div>
 </footer>
@@ -122,7 +123,7 @@ const freeTag = `<span class="free">${L('כניסה חופשית', 'Free entry')
 function renderSchedule(el) {
   el.innerHTML = DAYS.map(d => `
     <div class="daycol">
-      <header><h5>${dayName(d)}</h5><span>${d.date}</span></header>
+      <header><h3>${dayName(d)}</h3><span>${d.date}</span></header>
       ${SHOWS.filter(s => s.day === d.id).map(s => `
         <div class="slot"><time>${s.time}</time><div>
           <div class="t">${tr(s, 'title')}</div>
@@ -138,7 +139,7 @@ function renderCards(el, list = SHOWS.filter(s => s.featured)) {
     <article class="card">
       <div class="ph" data-bg="${img(s.img)}"></div>
       <div class="day">${EN ? dayOf(s.day).name_en : dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
-      <h4>${tr(s, 'title')}</h4>
+      <h3>${tr(s, 'title')}</h3>
       <div class="desc">${tr(s, 'desc')}</div>
       <div class="venue">${tr(s, 'venue')}</div>
       ${s.slug ? `<a href="${T(s.slug)}" class="buy stretch" ${ext}>${L('לרכישת כרטיסים', 'Buy tickets')}</a>` : ''}
@@ -198,9 +199,16 @@ document.querySelectorAll('[data-href]').forEach(a => {
 // =====================================================================
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// photos exist as name-800.webp and name-1600.webp; pick the one this element needs
+const sized = (src, el) => {
+  if (!/\.jpe?g$/.test(src)) return src;
+  const need = (el.offsetWidth || 800) * (devicePixelRatio || 1);
+  return src.replace(/\.jpe?g$/, need > 900 ? '-1600.webp' : '-800.webp');
+};
+
 function lazyBackgrounds() {
   const els = document.querySelectorAll('[data-bg]');
-  const load = el => { el.style.backgroundImage = `url(${el.dataset.bg})`; el.classList.add('bg-in'); el.removeAttribute('data-bg'); };
+  const load = el => { el.style.backgroundImage = `url(${sized(el.dataset.bg, el)})`; el.classList.add('bg-in'); el.removeAttribute('data-bg'); };
   if (!('IntersectionObserver' in window)) return els.forEach(load);
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { load(e.target); io.unobserve(e.target); }
@@ -224,10 +232,26 @@ function scrollReveal() {
     el.style.setProperty('--d', `${Math.min(i % 6, 5) * 60}ms`);
     el.classList.add('rv');
   });
-  const io = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  const show = el => { el.classList.add('in'); io.unobserve(el); };
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) show(e.target); }),
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
   els.forEach(el => io.observe(el));
+
+  // Safety nets so content is never left invisible:
+  // anything already on screen that the observer missed, a hidden tab at load, and printing.
+  const showVisible = () => els.forEach(el => {
+    if (!el.classList.contains('in') && el.getBoundingClientRect().top < innerHeight) show(el);
+  });
+  const showAll = () => els.forEach(show);
+  if (document.visibilityState === 'hidden') showAll();
+  setTimeout(showVisible, 1200);
+  let queued = false;
+  addEventListener('scroll', () => {
+    if (queued) return;
+    queued = true;
+    setTimeout(() => { showVisible(); queued = false; }, 250);
+  }, { passive: true });
+  addEventListener('beforeprint', showAll);
 }
 
 // Festival opens 9 Dec 2026, 00:00 Israel time (UTC+2 in December)
@@ -280,7 +304,26 @@ function stickyCta() {
   }, { passive: true });
 }
 
+// The fixed logo and menu icon are white; over a light section they switch to charcoal.
+const DARK_SECTIONS = '.hero, .page-hero, .hero-photo, .passes, .partners, .footer, .cta-band, .topbar';
+function chromeContrast() {
+  const brand = document.querySelector('.brand');
+  if (!brand) return;
+  let queued = false;
+  const check = () => {
+    queued = false;
+    const r = brand.getBoundingClientRect();
+    const under = document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+      .find(el => !brand.contains(el) && !el.closest('.socials-fixed, .totop, .sticky-cta'));
+    document.body.classList.toggle('chrome-dark', !(under && under.closest(DARK_SECTIONS)));
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(check); } }, { passive: true });
+  addEventListener('resize', check);
+  check();
+}
+
 addEventListener('DOMContentLoaded', () => {
+  chromeContrast();
   lazyBackgrounds();
   scrollReveal();
   countdown();

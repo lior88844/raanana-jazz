@@ -4,7 +4,9 @@
 import os
 import time
 
-VER = time.strftime('%Y%m%d%H%M')
+import hashlib
+# cache-busting version = hash of the shared assets, so any change gets a new URL
+VER = hashlib.sha1(b''.join(open(f, 'rb').read() for f in ('assets/site.css', 'assets/site.js', 'assets/data.js'))).hexdigest()[:10]
 SITE_URL = 'https://raananajazzfestival.com'
 LANGS = {
     'he': dict(dir='rtl', base='/', out='.', suffix=' | פסטיבל הג׳אז רעננה', arrow='←'),
@@ -30,6 +32,7 @@ HEAD = '''<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+{extra_head}
 <link rel="stylesheet" href="/assets/site.css?v={ver}">
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -60,7 +63,7 @@ def hero(eyebrow, title, chip='', lead='', ctas=''):
 
 def moments_head(t):
     return f'''<div class="moments-h">
-  <h6>{t('רגעים מהפסטיבל', 'Moments Captured')}</h6>
+  <h2>{t('רגעים מהפסטיבל', 'Moments Captured')}</h2>
   <div class="yr">2025</div>
   <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
 </div>'''
@@ -88,11 +91,12 @@ def page_index(t, P, A):
         desc=t('פסטיבל הג׳אז רעננה – World Jazz Music. 9–12 בדצמבר 2026, ארבעה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
                'Raanana Jazz Festival – World Jazz Music. 9–12 December 2026: four days of live music at the Raanana Music Center.'),
         no_suffix=True,
+        head='<link rel="preload" as="image" href="/images/8300ce79d8cf-1600.webp" imagesrcset="/images/8300ce79d8cf-800.webp 800w, /images/8300ce79d8cf-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">',
         body=f'''
 <section class="hero grain">
   <div class="hero-inner">
     <div>
-      <img class="main-logo" src="/images/44f224268148.png" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה', 'World Jazz Music – Raanana Jazz Festival')}">
+      <h1><img class="main-logo" src="/images/44f224268148.png" width="974" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}"></h1>
       <div class="meta">
         <div class="dates" aria-label="9–12 DEC 2026"><span class="d-num">9–12</span><small>DEC 2026</small></div>
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
@@ -113,7 +117,7 @@ def page_index(t, P, A):
     </div>
   </div>
 </section>
-<section class="hero-photo" style="background-image:url(/images/8300ce79d8cf.jpg)" data-settle>
+<section class="hero-photo" data-bg="/images/8300ce79d8cf.jpg">
   <div class="cap">
     <div class="k">{t('מפסטיבל 2025 · הפקה מיוחדת לפסטיבל', 'From the 2025 festival · Special festival production')}</div>
     <h2>{t('אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים', 'Avishai Cohen & Beka Gochiashvili – a musical conversation between two giants')}</h2>
@@ -126,10 +130,10 @@ def page_index(t, P, A):
         '<b>9–12 December 2026</b> · four days of live music across the Raanana Music Center – artists from Israel and around the world, original productions, masterclasses and shows for the whole family.')}</p>
 </section>
 
-<div class="stitle"><h3>{t('הופעות', 'Shows')}<span class="chip">{t('רגעי שיא 2025', '2025 highlights')}</span></h3></div>
+<div class="stitle"><h2>{t('הופעות', 'Shows')}<span class="chip">{t('רגעי שיא 2025', '2025 highlights')}</span></h2></div>
 <section class="cards" data-render="cards"></section>
 
-<div class="stitle" id="lineup"><h3>{t('לוח הופעות', 'Line-up')}<span class="chip">2025</span></h3></div>
+<div class="stitle" id="lineup"><h2>{t('לוח הופעות', 'Line-up')}<span class="chip">2025</span></h2></div>
 <p class="sched-note">{t('התוכנייה של 2026 תפורסם בקרוב. בינתיים – כך נראה הפסטיבל ב־18–20.12.2025.',
                          'The 2026 programme will be announced soon. Meanwhile, here is how the festival looked on 18–20 December 2025.')}</p>
 <section class="schedule" data-render="schedule"></section>
@@ -138,13 +142,13 @@ def page_index(t, P, A):
 
 <section class="duo">
   <div class="col">
-    <h5>{t('התוכנייה המלאה', 'The full programme')}</h5>
+    <h2>{t('התוכנייה המלאה', 'The full programme')}</h2>
     <a data-href="program" target="_blank" class="disc">{t('לצפייה בתוכנייה', 'View the programme')} {A}</a>
     <div class="frame program"><img src="/images/413f2429c54a.png" alt="{t('תוכניית הפסטיבל', 'Festival programme')}" loading="lazy" width="880" height="1240"></div>
     <a href="/images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">{t('להורדת התוכנייה', 'Download the programme')} ↓</a>
   </div>
   <div class="col">
-    <h5>{t('סדנאות 2025', '2025 Workshops')}</h5>
+    <h2>{t('סדנאות 2025', '2025 Workshops')}</h2>
     <a href="{P('workshops.html')}" class="disc">{t('לכל הפרטים והרשמה', 'Details and sign-up')} {A}</a>
     <div class="frame ws">
       <div class="k">{t('סדנאות<span>למוזיקאים</span>', 'Workshops<span>for musicians</span>')}</div>
@@ -349,7 +353,7 @@ def page_media(t, P, A):
   <h2 class="sec-h">{t('חומרים להורדה', 'Downloads')}</h2>
   <div class="dl-grid">
     <div class="dl"><div class="th" style="background-image:url(/images/44f224268148.png)"></div><h3>{t('לוגו הפסטיבל', 'Festival logo')}</h3><a href="/images/44f224268148.png" download="raanana-jazz-logo.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
-    <div class="dl"><div class="th" style="background-image:url(/images/logo-navy.png);background-color:var(--cream)"></div><h3>{t('לוגו – כחול כהה', 'Logo – navy')}</h3><a href="/images/logo-navy.png" download="raanana-jazz-logo-navy.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/logo-dark.png);background-color:var(--ground)"></div><h3>{t('לוגו – כהה', 'Logo – dark')}</h3><a href="/images/logo-dark.png" download="raanana-jazz-logo-dark.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
     <div class="dl"><div class="th" style="background-image:url(/images/413f2429c54a.png);background-color:var(--red)"></div><h3>{t('תוכנייה 2025', '2025 programme')}</h3><a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
   </div>
 </section>
@@ -430,10 +434,71 @@ def page_contact(t, P, A):
 </script>''')
 
 
+def page_accessibility(t, P, A):
+    return dict(
+        title=t('הצהרת נגישות', 'Accessibility statement'),
+        desc=t('הצהרת הנגישות של אתר פסטיבל הג׳אז רעננה.', 'Accessibility statement for the Raanana Jazz Festival website.'),
+        body=hero(t('נגישות', 'Accessibility'), t('הצהרת נגישות', 'Accessibility statement'), '',
+                  t('אנו רואים חשיבות רבה בכך שכל אחד ואחת יוכלו להשתמש באתר הפסטיבל ולהגיע להופעות.',
+                    'We want everyone to be able to use the festival website and come to the shows.')) + f'''
+<section class="narrow section prose">
+  <h2>{t('רמת הנגישות באתר', 'Accessibility level')}</h2>
+  <p>{t('האתר נבנה בהתאם לתקן הישראלי ת״י 5568, המבוסס על הנחיות WCAG 2.1 ברמה AA, ולתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות).',
+        'The site follows Israeli Standard IS 5568, based on the WCAG 2.1 guidelines at level AA, and the Israeli accessibility regulations for services.')}</p>
+  <h2>{t('מה עשינו באתר', 'What the site does')}</h2>
+  <ul>
+    <li>{t('ניווט מלא במקלדת, עם סימון ברור של הרכיב שבפוקוס וקישור "דילוג לתוכן".', 'Full keyboard navigation with a clear focus outline and a "skip to content" link.')}</li>
+    <li>{t('ניגודיות צבעים בהתאם לתקן בטקסט ובכפתורים.', 'Colour contrast that meets the standard for text and buttons.')}</li>
+    <li>{t('מבנה כותרות תקין ותיאור טקסטואלי לתמונות.', 'A correct heading structure and text descriptions for images.')}</li>
+    <li>{t('אזורי לחיצה בגודל מתאים למסכי מגע.', 'Tap targets sized for touch screens.')}</li>
+    <li>{t('כיבוד הגדרת "הפחתת תנועה" במכשיר – האנימציות מצטמצמות.', 'The device setting "reduce motion" is respected – animations are reduced.')}</li>
+    <li>{t('האתר זמין בעברית ובאנגלית ומותאם לטלפונים.', 'The site is available in Hebrew and English and works on phones.')}</li>
+  </ul>
+  <h2>{t('הסדרי נגישות בפסטיבל', 'Accessibility at the festival')}</h2>
+  <p>{t('לפרטים על הסדרי הנגישות במרכז למוזיקה פאיס רעננה (חניה, גישה לאולמות ומקומות ישיבה נגישים) – פנו אלינו בפרטים שלמטה.',
+        'For accessibility arrangements at the Raanana Pais Music Center (parking, hall access and accessible seating), contact us using the details below.')}</p>
+  <h2>{t('מגבלות ידועות', 'Known limitations')}</h2>
+  <ul>
+    <li>{t('רכישת הכרטיסים מתבצעת באתר הכרטיסים של עיריית רעננה, שאינו בשליטתנו.', 'Tickets are sold on the Raanana Municipality ticket site, which we do not control.')}</li>
+    <li>{t('התוכנייה המלאה מוצגת כתמונה; כל המידע שבה זמין גם כטקסט בעמוד לוח ההופעות.', 'The full programme is shown as an image; all of its information is also available as text on the Line-up page.')}</li>
+  </ul>
+  <h2>{t('נתקלתם בבעיה?', 'Found a problem?')}</h2>
+  <p>{t('נשמח לשמוע ולתקן. פנו לרכז/ת הנגישות:', 'Tell us and we will fix it. Contact the accessibility coordinator:')}</p>
+  <p class="note" id="a11yContact"></p>
+  <p>{t('ההצהרה עודכנה לאחרונה:', 'Last updated:')} <span id="a11yDate"></span></p>
+</section>
+''',
+        script='''<script>
+  const c = SITE.a11yContact || {};
+  const lines = [c.name, c.phone, c.email || SITE.email].filter(Boolean);
+  document.getElementById('a11yContact').innerHTML = lines.map(l => /@/.test(l) ? `<a href="mailto:${l}">${l}</a>` : l).join('<br>');
+  document.getElementById('a11yDate').textContent = SITE.a11yUpdated;
+</script>''')
+
+
+def page_404(t, P, A):
+    return dict(
+        title=t('העמוד לא נמצא', 'Page not found'),
+        desc=t('העמוד שחיפשתם לא נמצא.', 'The page you were looking for was not found.'),
+        body=f'''<section class="page-hero grain notfound">
+  <div>
+    <div class="eyebrow">404</div>
+    <h1>{t('העמוד לא נמצא', 'Page not found')}</h1>
+    <p class="lead">{t('אולי הקישור השתנה. כל ההופעות, הכרטיסים והסדנאות נמצאים כאן:', 'The link may have changed. Every show, ticket and workshop is here:')}</p>
+    <div class="ctas">
+      <a href="{P('index.html')}" class="btn primary">{t('לדף הבית', 'Home')}</a>
+      <a href="{P('lineup.html')}" class="btn ghost">{t('ללוח ההופעות', 'Line-up')} {A}</a>
+    </div>
+    <p class="lead" lang="{t('en', 'he')}">{t('Page not found – <a href="/en/" style="text-decoration:underline">English site</a>', 'הדף לא נמצא – <a href="/" style="text-decoration:underline">לאתר בעברית</a>')}</p>
+  </div>
+</section>''')
+
+
 PAGES = {
     'index.html': page_index, 'lineup.html': page_lineup, 'festival-2025.html': page_past,
     'venue.html': page_venue, 'about.html': page_about, 'workshops.html': page_workshops,
     'media.html': page_media, 'tickets.html': page_tickets, 'contact.html': page_contact,
+    'accessibility.html': page_accessibility,
 }
 
 
@@ -448,10 +513,17 @@ for lang, cfg in LANGS.items():
     for name, fn in PAGES.items():
         p = fn(t, P, cfg['arrow'])
         title = p['title'] if p.get('no_suffix') else p['title'] + cfg['suffix']
-        html = HEAD.format(lang=lang, dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL,
+        html = HEAD.format(lang=lang, dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL, extra_head=p.get('head', ''),
                            self_path=url_path(cfg['base'], name),
                            he_path=url_path('/', name), en_path=url_path('/en/', name)) \
-            + p['body'] + FOOT.format(script=p.get('script', ''), ver=VER)
+            + '<main id="main">\n' + p['body'] + '\n</main>\n' + FOOT.format(script=p.get('script', ''), ver=VER)
         with open(os.path.join(cfg['out'], name), 'w') as f:
             f.write(html)
     print(f'wrote {len(PAGES)} {lang} pages → {cfg["out"]}/')
+    if lang == 'he':
+        p = page_404(t, P, cfg['arrow'])
+        html = HEAD.format(lang=lang, dir=cfg['dir'], title=p['title'] + cfg['suffix'], desc=p['desc'], ver=VER, site=SITE_URL,
+                           extra_head='<meta name="robots" content="noindex">', self_path='/404.html', he_path='/', en_path='/en/') \
+            + '<main id="main">\n' + p['body'] + '\n</main>\n' + FOOT.format(script='', ver=VER)
+        open('404.html', 'w').write(html)
+        print('wrote 404.html')
