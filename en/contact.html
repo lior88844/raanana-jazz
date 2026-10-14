@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Raanana Jazz Festival</title>
+<meta name="description" content="Get in touch with the Raanana Jazz Festival.">
+<meta property="og:title" content="Contact | Raanana Jazz Festival">
+<meta property="og:description" content="Get in touch with the Raanana Jazz Festival.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/en/contact.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/contact.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/en/contact.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/contact.html">
+<link rel="icon" href="/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=202610132212">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<section class="page-hero grain">
+  <div class="eyebrow">We'd love to hear from you</div>
+  <h1>Contact</h1>
+  <p class="lead">Choose a topic and an email will open with the right subject.</p>
+  
+</section>
+
+<section class="wrap section">
+  <div class="contact-grid" id="contactGrid"></div>
+</section>
+<section class="narrow section prose" style="text-align:center">
+  <p>You can also message us on the Raanana Music Center Instagram and Facebook.</p>
+</section>
+
+<script src="/assets/data.js?v=202610132212"></script>
+<script src="/assets/site.js?v=202610132212"></script>
+<script>
+  const TOPICS = EN ? [
+    ['Artists', 'Want to play the festival? Tell us about your band and send links to recordings.', 'Artist inquiry'],
+    ['Workshops', 'Questions about the workshops, auditions and sign-up.', 'Workshop question'],
+    ['Partners + sponsors', 'Interested in supporting the festival or working with us?', 'Partnership / sponsorship'],
+    ['General', 'Anything else – tickets, getting here, accessibility.', 'General inquiry'],
+  ] : [
+    ['אמנים', 'רוצים להופיע בפסטיבל? ספרו לנו על ההרכב ושלחו קישורים להקלטות.', 'פנייה של אמן/ית'],
+    ['סדנאות', 'שאלות על הסדנאות, האודישן וההרשמה.', 'שאלה על הסדנאות'],
+    ['שותפים וחסויות', 'מעוניינים לתמוך בפסטיבל או לשתף פעולה?', 'שותפות / חסות'],
+    ['פנייה כללית', 'כל שאלה אחרת – כרטיסים, הגעה, נגישות.', 'פנייה כללית'],
+  ];
+  const suffix = L(' – פסטיבל הג׳אז רעננה', ' – Raanana Jazz Festival');
+  document.getElementById('contactGrid').innerHTML = TOPICS.map(([h, p, subj]) =>
+    `<a class="cbtn" href="mailto:${SITE.email}?subject=${encodeURIComponent(subj + suffix)}"><h3>${h}</h3><p>${p}</p><span>${L('לכתיבת מייל', 'Write an email')} ${ARROW}</span></a>`).join('');
+</script>
+</body>
+</html>

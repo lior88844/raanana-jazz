@@ -1,25 +1,36 @@
 // =====================================================================
 //  Shared chrome (top bar, logo, drawer menu, footer) + render helpers.
 //  Every page loads data.js then this file.
+//  Language comes from <html lang>: Hebrew pages live at /, English at /en/.
 // =====================================================================
+
+const LANG = document.documentElement.lang === 'en' ? 'en' : 'he';
+const EN = LANG === 'en';
+const L = (he, en) => (EN ? en : he);                   // pick a UI string
+const tr = (obj, key) => (EN && obj[key + '_en']) || obj[key];  // pick a data field
+const BASE = EN ? '/en/' : '/';
+const OTHER_BASE = EN ? '/' : '/en/';
+const ARROW = EN ? '→' : '←';
 
 const T = slug => SITE.tickets + slug;
 const ext = 'target="_blank" rel="noopener"';
 const dayOf = id => DAYS.find(d => d.id === id);
-const img = f => 'images/' + f;
+const dayName = d => (EN ? d.name_en : 'יום ' + d.name);
+const img = f => '/images/' + f;
+const page = f => BASE + f;
 
 const NAV_MAIN = [
-  ['lineup.html', 'לוח הופעות'],
-  ['festival-2025.html', 'מהדורות קודמות'],
-  ['venue.html', 'המתחם'],
-  ['index.html#partners', 'שותפים'],
+  ['lineup.html', 'לוח הופעות', 'Line-up'],
+  ['festival-2025.html', 'מהדורות קודמות', 'Past Editions'],
+  ['venue.html', 'המתחם', 'The Venue'],
+  ['index.html#partners', 'שותפים', 'Partners'],
 ];
 const NAV_SUB = [
-  ['about.html', 'אודות'],
-  ['workshops.html', 'סדנאות'],
-  ['media.html', 'מדיה ועיתונות'],
-  ['tickets.html', 'כרטיסים ופסים'],
-  ['contact.html', 'צור קשר'],
+  ['about.html', 'אודות', 'About'],
+  ['workshops.html', 'סדנאות', 'Workshops'],
+  ['media.html', 'מדיה ועיתונות', 'Media + Press'],
+  ['tickets.html', 'כרטיסים ופסים', 'Tickets + Passes'],
+  ['contact.html', 'צור קשר', 'Contact'],
 ];
 
 const ICONS = `
@@ -32,52 +43,61 @@ const socials = () => `
   <a href="${SITE.instagram}" ${ext} aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
   <a href="${SITE.facebook}" ${ext} aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a>`;
 
+// same page in the other language (keeps the #section)
+function otherLangHref() {
+  const file = location.pathname.split('/').pop() || 'index.html';
+  return OTHER_BASE + (file === 'index.html' ? '' : file) + location.hash;
+}
+
 function buildChrome() {
   const here = location.pathname.split('/').pop() || 'index.html';
-  const link = ([href, label]) => `<a href="${href}"${href === here ? ' class="active" aria-current="page"' : ''}>${label}</a>`;
+  const link = ([href, he, en]) => `<a href="${page(href)}"${href === here ? ' class="active" aria-current="page"' : ''}>${L(he, en)}</a>`;
+  const langBtn = cls => `<a class="${cls}" href="${otherLangHref()}" hreflang="${L('en', 'he')}" lang="${L('en', 'he')}">${L('English', 'עברית')}</a>`;
 
   document.body.insertAdjacentHTML('afterbegin', `
 ${ICONS}
 <header class="topbar">
-  <div class="tag">World <em>Jazz</em> Music · <i>רעננה</i> · ${SITE.dates}</div>
+  <div class="tag">World <em>Jazz</em> Music · <i>${L('רעננה', 'Raanana')}</i> · ${SITE.dates}</div>
   <nav>
-    <a href="lineup.html">לוח <span>הופעות</span></a>
-    <a href="workshops.html">סדנאות</a>
-    <a href="tickets.html">רכישת <span>כרטיסים</span></a>
+    <a href="${page('lineup.html')}">${L('לוח <span>הופעות</span>', 'Line-<span>up</span>')}</a>
+    <a href="${page('workshops.html')}">${L('סדנאות', 'Workshops')}</a>
+    <a href="${page('tickets.html')}">${L('רכישת <span>כרטיסים</span>', 'Buy <span>tickets</span>')}</a>
+    ${langBtn('lang-switch')}
   </nav>
 </header>
 <div class="brand">
-  <a href="index.html"><img src="${SITE.logo}" alt="World Jazz Music – פסטיבל הג׳אז רעננה"></a>
-  <button class="burger" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+  <a href="${page('index.html')}"><img src="${SITE.logo}" alt="${L('World Jazz Music – פסטיבל הג׳אז רעננה', 'World Jazz Music – Raanana Jazz Festival')}"></a>
+  <button class="burger" aria-label="${L('פתיחת תפריט', 'Open menu')}" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
 </div>
 <div class="socials-fixed">${socials()}</div>
 <div class="drawer-scrim" data-close></div>
-<nav class="drawer" id="drawer" aria-label="תפריט ראשי">
-  <button class="close" data-close aria-label="סגירת תפריט"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
-  <a href="index.html"><img class="dlogo" src="${SITE.logoNavy}" alt="World Jazz Music – דף הבית"></a>
+<nav class="drawer" id="drawer" aria-label="${L('תפריט ראשי', 'Main menu')}">
+  <button class="close" data-close aria-label="${L('סגירת תפריט', 'Close menu')}"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  <a href="${page('index.html')}"><img class="dlogo" src="${SITE.logoNavy}" alt="${L('World Jazz Music – דף הבית', 'World Jazz Music – Home')}"></a>
   <div class="main">${NAV_MAIN.map(link).join('')}</div>
   <div class="sub">${NAV_SUB.map(link).join('')}</div>
   <div class="follow">
-    <b>עקבו אחרינו</b>
+    ${langBtn('lang-switch drawer-lang')}
+    <b>${L('עקבו אחרינו', 'Follow us')}</b>
     <div>${socials()}</div>
-    <small>עדכונים על הפסטיבל הבא באינסטגרם ובפייסבוק</small>
-    <a href="tickets.html" class="btn primary dbtn">לרכישת כרטיסים</a>
+    <small>${L('עדכונים על הפסטיבל הבא באינסטגרם ובפייסבוק', 'News about the next festival on Instagram and Facebook')}</small>
+    <a href="${page('tickets.html')}" class="btn primary dbtn">${L('לרכישת כרטיסים', 'Buy tickets')}</a>
   </div>
 </nav>`);
 
   document.body.insertAdjacentHTML('beforeend', `
 <footer class="footer grain">
-  <a href="index.html"><img class="flogo" src="${SITE.logo}" alt="World Jazz Music"></a>
+  <a href="${page('index.html')}"><img class="flogo" src="${SITE.logo}" alt="World Jazz Music"></a>
   <div class="socials">${socials()}</div>
-  <div class="ctas"><a href="tickets.html" class="btn primary">לרכישת כרטיסים</a></div>
+  <div class="ctas"><a href="${page('tickets.html')}" class="btn primary">${L('לרכישת כרטיסים', 'Buy tickets')}</a></div>
   <div class="fcols">
-    <div><h6>הפסטיבל</h6><a href="lineup.html">לוח הופעות</a><a href="festival-2025.html">מהדורות קודמות</a><a href="venue.html">המתחם</a><a href="${SITE.program}" ${ext}>תוכנייה</a></div>
-    <div><h6>השתתפות</h6><a href="workshops.html">סדנאות</a><a href="tickets.html">כרטיסים ופסים</a><a href="media.html">מדיה ועיתונות</a></div>
-    <div><h6>עלינו</h6><a href="about.html">אודות</a><a href="contact.html">צור קשר</a><p>${SITE.venueName}</p></div>
+    <div><h6>${L('הפסטיבל', 'Festival')}</h6><a href="${page('lineup.html')}">${L('לוח הופעות', 'Line-up')}</a><a href="${page('festival-2025.html')}">${L('מהדורות קודמות', 'Past Editions')}</a><a href="${page('venue.html')}">${L('המתחם', 'The Venue')}</a><a href="${SITE.program}" ${ext}>${L('תוכנייה', 'Programme')}</a></div>
+    <div><h6>${L('השתתפות', 'Get involved')}</h6><a href="${page('workshops.html')}">${L('סדנאות', 'Workshops')}</a><a href="${page('tickets.html')}">${L('כרטיסים ופסים', 'Tickets + Passes')}</a><a href="${page('media.html')}">${L('מדיה ועיתונות', 'Media + Press')}</a></div>
+    <div><h6>${L('עלינו', 'About')}</h6><a href="${page('about.html')}">${L('אודות', 'About us')}</a><a href="${page('contact.html')}">${L('צור קשר', 'Contact')}</a>${langBtn('')}<p>${L(SITE.venueName, 'Raanana Pais Music Center')}</p></div>
   </div>
   <div class="copy">© ${SITE.year} website by Lior Doron · graphic design by Dekel Hevroni</div>
 </footer>
-<a href="#" class="totop" aria-label="חזרה למעלה"><svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>`);
+<a href="#" class="totop" aria-label="${L('חזרה למעלה', 'Back to top')}"><svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>`);
 
   // drawer behaviour
   const burger = document.querySelector('.burger');
@@ -90,22 +110,26 @@ ${ICONS}
   document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => setOpen(false)));
   document.querySelectorAll('.drawer a').forEach(a => a.addEventListener('click', () => setOpen(false)));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+
+  // remember the visitor's language choice
+  document.querySelectorAll('.lang-switch, .fcols a[hreflang]').forEach(a =>
+    a.addEventListener('click', () => { try { localStorage.setItem('lang', a.hreflang); } catch (e) {} }));
 }
 
 // ---------- render helpers ----------
-const freeTag = '<span class="free">כניסה חופשית</span>';
+const freeTag = `<span class="free">${L('כניסה חופשית', 'Free entry')}</span>`;
 
 function renderSchedule(el) {
   el.innerHTML = DAYS.map(d => `
     <div class="daycol">
-      <header><h5>יום ${d.name}</h5><span>${d.date}</span></header>
+      <header><h5>${dayName(d)}</h5><span>${d.date}</span></header>
       ${SHOWS.filter(s => s.day === d.id).map(s => `
         <div class="slot"><time>${s.time}</time><div>
-          <div class="t">${s.title}</div>
-          <div class="v">${s.venue}${s.free ? freeTag : ''}</div>
-          ${s.slug ? `<a class="tix" href="${T(s.slug)}" ${ext}>לכרטיסים ←</a>` : ''}
+          <div class="t">${tr(s, 'title')}</div>
+          <div class="v">${tr(s, 'venue')}${s.free ? freeTag : ''}</div>
+          ${s.slug ? `<a class="tix" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>` : ''}
         </div></div>`).join('')}
-      <a class="pass" href="${T(d.pass)}" ${ext}>לרכישת פס יומי ←</a>
+      <a class="pass" href="${T(d.pass)}" ${ext}>${L('לרכישת פס יומי', 'Buy a day pass')} ${ARROW}</a>
     </div>`).join('');
 }
 
@@ -113,11 +137,11 @@ function renderCards(el, list = SHOWS.filter(s => s.featured)) {
   el.innerHTML = list.map(s => `
     <article class="card">
       <div class="ph" data-bg="${img(s.img)}"></div>
-      <div class="day">${dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
-      <h4>${s.title}</h4>
-      <div class="desc">${s.desc}</div>
-      <div class="venue">${s.venue}</div>
-      ${s.slug ? `<a href="${T(s.slug)}" class="buy" ${ext}>לרכישת כרטיסים</a>` : ''}
+      <div class="day">${EN ? dayOf(s.day).name_en : dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
+      <h4>${tr(s, 'title')}</h4>
+      <div class="desc">${tr(s, 'desc')}</div>
+      <div class="venue">${tr(s, 'venue')}</div>
+      ${s.slug ? `<a href="${T(s.slug)}" class="buy" ${ext}>${L('לרכישת כרטיסים', 'Buy tickets')}</a>` : ''}
     </article>`).join('');
 }
 
@@ -126,34 +150,35 @@ function renderShowList(el, dayId) {
     <article class="showrow">
       <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(s.img)}"` : ''}></div>
       <div>
-        <div class="when">יום ${dayOf(s.day).name} ${dayOf(s.day).date} <time>${s.time}</time></div>
-        <h3>${s.title}</h3>
-        <p>${s.desc}</p>
-        <div class="venue">${s.venue}</div>
+        <div class="when">${dayName(dayOf(s.day))} ${dayOf(s.day).date} <time>${s.time}</time></div>
+        <h3>${tr(s, 'title')}</h3>
+        <p>${tr(s, 'desc')}</p>
+        <div class="venue">${tr(s, 'venue')}</div>
       </div>
       <div class="act">
-        ${s.free ? '<div class="free">כניסה חופשית</div><br>' : ''}
-        ${s.slug ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>לכרטיסים</a>` : ''}
+        ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}
+        ${s.slug ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')}</a>` : ''}
       </div>
     </article>`).join('');
 }
 
 function renderTeachers(el, asList = true) {
+  const rows = TEACHERS.map(([f, n, r, nEn, rEn]) => [f, EN ? nEn : n, EN ? rEn : r]);
   el.innerHTML = asList
-    ? TEACHERS.map(([f, n, r]) => `<li><i data-bg="${img(f)}"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
-    : TEACHERS.map(([f, n, r]) => `<div class="person"><div class="ph" data-bg="${img(f)}"></div><b>${n}</b><span>${r}</span></div>`).join('');
+    ? rows.map(([f, n, r]) => `<li><i data-bg="${img(f)}"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
+    : rows.map(([f, n, r]) => `<div class="person"><div class="ph" data-bg="${img(f)}"></div><b>${n}</b><span>${r}</span></div>`).join('');
 }
 
 function renderMoments(el) {
-  el.innerHTML = MOMENTS.map(([f, cap]) => `<div data-bg="${img(f)}"><span>${cap}</span></div>`).join('');
+  el.innerHTML = MOMENTS.map(([f, cap, capEn]) => `<div data-bg="${img(f)}"><span>${EN ? capEn : cap}</span></div>`).join('');
 }
 
 function renderPartners(el) {
-  el.innerHTML = PARTNERS.map(([f, alt]) => `<img class="tall" src="${img(f)}" alt="${alt}">`).join('');
+  el.innerHTML = PARTNERS.map(([f, alt, altEn]) => `<img class="tall" src="${img(f)}" alt="${EN ? altEn : alt}">`).join('');
 }
 
 function renderThemePasses(el) {
-  el.innerHTML = '<span>פסים לפי נושאים:</span>' + THEME_PASSES.map(([n, slug]) => `<a href="${T(slug)}" ${ext}>${n}</a>`).join('');
+  el.innerHTML = `<span>${L('פסים לפי נושאים:', 'Themed passes:')}</span>` + THEME_PASSES.map(([n, slug]) => `<a href="${T(slug)}" ${ext}>${n}</a>`).join('');
 }
 
 buildChrome();
@@ -217,7 +242,7 @@ function countdown() {
     const ms = FESTIVAL_START - Date.now();
     if (ms <= 0) {
       box.hidden = true;
-      document.getElementById('cdLabel').textContent = 'הפסטיבל כבר כאן!';
+      document.getElementById('cdLabel').textContent = L('הפסטיבל כבר כאן!', 'The festival is here!');
       return clearInterval(timer);
     }
     const s = Math.floor(ms / 1000);
@@ -236,9 +261,9 @@ function countdown() {
 function stickyCta() {
   if (/tickets\.html$/.test(location.pathname)) return;
   const btn = document.createElement('a');
-  btn.href = 'tickets.html';
+  btn.href = page('tickets.html');
   btn.className = 'btn primary sticky-cta';
-  btn.textContent = 'לרכישת כרטיסים';
+  btn.textContent = L('לרכישת כרטיסים', 'Buy tickets');
   document.body.appendChild(btn);
   const hero = document.querySelector('.hero, .page-hero');
   const limit = () => (hero ? hero.offsetTop + hero.offsetHeight : 400);

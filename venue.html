@@ -8,11 +8,15 @@
 <meta property="og:title" content="המתחם | פסטיבל הג׳אז רעננה">
 <meta property="og:description" content="ארבע הבמות של פסטיבל הג׳אז רעננה במרכז למוזיקה פאיס רעננה.">
 <meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
-<link rel="icon" href="images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/venue.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/venue.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/en/venue.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/venue.html">
+<link rel="icon" href="/images/44f224268148.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=202610132201">
+<link rel="stylesheet" href="/assets/site.css?v=202610132212">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -37,15 +41,15 @@
     href="https://www.google.com/maps/search/?api=1&query=%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%90%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94">לפתיחה ב־Google Maps ←</a></p>
 </section>
 
-<script src="assets/data.js?v=202610132201"></script>
-<script src="assets/site.js?v=202610132201"></script>
+<script src="/assets/data.js?v=202610132212"></script>
+<script src="/assets/site.js?v=202610132212"></script>
 <script>
   document.getElementById('venues').innerHTML = VENUES.map(v => `
     <div class="venue-card">
-      <h3>${v.name}</h3>
-      <p>${v.desc}</p>
+      <h3>${tr(v, 'name')}</h3>
+      <p>${tr(v, 'desc')}</p>
       <ul>${SHOWS.filter(s => s.venue === v.name || (v.name === 'המועדון הקאמרי' && s.venue === 'הסלון הקאמרי')).map(s =>
-        `<li><time>${dayOf(s.day).date} · ${s.time}</time><span>${s.title}</span></li>`).join('')}</ul>
+        `<li><time>${dayOf(s.day).date} · ${s.time}</time><span>${tr(s, 'title')}</span></li>`).join('')}</ul>
     </div>`).join('');
 </script>
 </body>

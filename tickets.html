@@ -8,11 +8,15 @@
 <meta property="og:title" content="כרטיסים ופסים | פסטיבל הג׳אז רעננה">
 <meta property="og:description" content="כרטיסים, פסים יומיים ופסים לפי נושאים לפסטיבל הג׳אז רעננה.">
 <meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
-<link rel="icon" href="images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/tickets.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/tickets.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/en/tickets.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/tickets.html">
+<link rel="icon" href="/images/44f224268148.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=202610132201">
+<link rel="stylesheet" href="/assets/site.css?v=202610132212">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -39,14 +43,15 @@
   <div class="showlist" data-render="showlist"></div>
 </section>
 
-<script src="assets/data.js?v=202610132201"></script>
-<script src="assets/site.js?v=202610132201"></script>
+<script src="/assets/data.js?v=202610132212"></script>
+<script src="/assets/site.js?v=202610132212"></script>
 <script>
+  const buy = L('לרכישה', 'Buy') + ' ' + ARROW;
   document.getElementById('dayPasses').innerHTML =
-    `<a class="tcard hot" href="${T(SITE.fullPass)}" ${ext}><small>הכי משתלם</small><h3>פס לכל הפסטיבל</h3><p>כל שלושת ימי הפסטיבל.</p><span class="go">לרכישה ←</span></a>` +
-    DAYS.map(d => `<a class="tcard" href="${T(d.pass)}" ${ext}><small>פס יומי</small><h3>יום ${d.name} ${d.date}</h3><p>${SHOWS.filter(s => s.day === d.id && s.slug).length} מופעים בכרטיס אחד.</p><span class="go">לרכישה ←</span></a>`).join('');
+    `<a class="tcard hot" href="${T(SITE.fullPass)}" ${ext}><small>${L('הכי משתלם', 'Best value')}</small><h3>${L('פס לכל הפסטיבל', 'Full festival pass')}</h3><p>${L('כל שלושת ימי הפסטיבל.', 'All three festival days.')}</p><span class="go">${buy}</span></a>` +
+    DAYS.map(d => `<a class="tcard" href="${T(d.pass)}" ${ext}><small>${L('פס יומי', 'Day pass')}</small><h3>${dayName(d)} ${d.date}</h3><p>${SHOWS.filter(s => s.day === d.id && s.slug).length} ${L('מופעים בכרטיס אחד.', 'shows on one ticket.')}</p><span class="go">${buy}</span></a>`).join('');
   document.getElementById('themePasses').innerHTML = THEME_PASSES.map(([n, slug]) =>
-    `<a class="tcard" href="${T(slug)}" ${ext}><small>פס נושא</small><h3 style="direction:ltr;text-align:right">${n} Pass</h3><p>מבחר מופעים בסגנון ${n}.</p><span class="go">לרכישה ←</span></a>`).join('');
+    `<a class="tcard" href="${T(slug)}" ${ext}><small>${L('פס נושא', 'Themed pass')}</small><h3 style="direction:ltr;text-align:${EN ? 'left' : 'right'}">${n} Pass</h3><p>${L('מבחר מופעים בסגנון ' + n + '.', 'A selection of ' + n + ' shows.')}</p><span class="go">${buy}</span></a>`).join('');
 </script>
 </body>
 </html>

@@ -1,9 +1,18 @@
-# Generates the static HTML pages from one shared <head> template.
+# Generates the static HTML pages in Hebrew (/) and English (/en/).
+# Each page is a function of `t(he, en)`, so both languages live side by side.
 # Run: python3 build_pages.py
+import os
 import time
+
 VER = time.strftime('%Y%m%d%H%M')
+SITE_URL = 'https://raananajazzfestival.com'
+LANGS = {
+    'he': dict(dir='rtl', base='/', out='.', suffix=' | פסטיבל הג׳אז רעננה', arrow='←'),
+    'en': dict(dir='ltr', base='/en/', out='en', suffix=' | Raanana Jazz Festival', arrow='→'),
+}
+
 HEAD = '''<!doctype html>
-<html lang="he" dir="rtl">
+<html lang="{lang}" dir="{dir}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,24 +20,28 @@ HEAD = '''<!doctype html>
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
-<link rel="icon" href="images/44f224268148.png">
+<meta property="og:image" content="{site}/images/44f224268148.png">
+<link rel="canonical" href="{site}{self_path}">
+<link rel="alternate" hreflang="he" href="{site}{he_path}">
+<link rel="alternate" hreflang="en" href="{site}{en_path}">
+<link rel="alternate" hreflang="x-default" href="{site}{he_path}">
+<link rel="icon" href="/images/44f224268148.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v={ver}">
+<link rel="stylesheet" href="/assets/site.css?v={ver}">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 '''
 FOOT = '''
-<script src="assets/data.js?v={ver}"></script>
-<script src="assets/site.js?v={ver}"></script>
+<script src="/assets/data.js?v={ver}"></script>
+<script src="/assets/site.js?v={ver}"></script>
 {script}
 </body>
 </html>
 '''
-SUFFIX = ' | פסטיבל הג׳אז רעננה'
+
 
 def hero(eyebrow, title, chip='', lead='', ctas=''):
     chip_html = f'<span class="chip">{chip}</span>' if chip else ''
@@ -42,349 +55,409 @@ def hero(eyebrow, title, chip='', lead='', ctas=''):
 </section>
 '''
 
-BURST = '''<svg class="burst" viewBox="0 0 200 200" aria-hidden="true">
+
+def burst(t):
+    return f'''<svg class="burst" viewBox="0 0 200 200" aria-hidden="true">
     <polygon fill="#F2D36B" points="100,0 110,62 140,10 124,70 173,27 135,80 196,58 142,92 200,100 142,108 196,142 135,120 173,173 124,130 140,190 110,138 100,200 90,138 60,190 76,130 27,173 65,120 4,142 58,108 0,100 58,92 4,58 65,80 27,27 76,70 60,10 90,62"/>
-    <text x="100" y="96" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#202C45">כניסה</text>
-    <text x="100" y="120" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#D44836">חופשית</text>
-    <text x="100" y="138" text-anchor="middle" font-family="Rubik" font-weight="700" font-size="11" fill="#202C45">לרחבת הפסטיבל</text>
+    <text x="100" y="96" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#202C45">{t('כניסה', 'FREE')}</text>
+    <text x="100" y="120" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#B23A2B">{t('חופשית', 'ENTRY')}</text>
+    <text x="100" y="138" text-anchor="middle" font-family="Rubik" font-weight="700" font-size="11" fill="#202C45">{t('לרחבת הפסטיבל', 'to the Festival Plaza')}</text>
   </svg>'''
 
-PASSES_BOX = '''<section class="passes grain" id="passes">
-  <div class="love">רוצים את כל הפסטיבל?</div><br>
-  <div class="big">פסים</div><br>
-  <span class="chip">במחיר משתלם</span>
-  <p>פס יומי או פס לכל ימי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את כל ההופעות. אפשר גם לרכוש כרטיסים לפי מופע.</p>
+
+def moments_head(t):
+    return f'''<div class="moments-h">
+  <h6>{t('רגעים מהפסטיבל', 'Moments Captured')}</h6>
+  <div class="yr">2025</div>
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
+</div>'''
+
+
+def passes_box(t, P, A):
+    return f'''<section class="passes grain" id="passes">
+  <div class="love">{t('רוצים את כל הפסטיבל?', 'Want the whole festival?')}</div><br>
+  <div class="big">{t('פסים', 'Passes')}</div><br>
+  <span class="chip">{t('במחיר משתלם', 'Best value')}</span>
+  <p>{t('פס יומי או פס לכל ימי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את כל ההופעות. אפשר גם לרכוש כרטיסים לפי מופע.',
+       'A day pass or a full-festival pass is <b>the best-value way</b> to catch every show. Single-show tickets are available too.')}</p>
   <div class="ctas">
-    <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a>
-    <a href="tickets.html" class="btn ghost">כל אפשרויות הכרטיסים ←</a>
+    <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('פס לכל הפסטיבל', 'Full festival pass')}</a>
+    <a href="{P('tickets.html')}" class="btn ghost">{t('כל אפשרויות הכרטיסים', 'All ticket options')} {A}</a>
   </div>
   <div class="themes" data-render="themes"></div>
 </section>'''
 
-PAGES = {}
 
-# ---------------------------------------------------------------- Home
-PAGES['index.html'] = dict(
-  title='פסטיבל הג׳אז רעננה | Raanana Jazz Festival',
-  desc='פסטיבל הג׳אז רעננה – World Jazz Music. 9–12 בדצמבר 2026, ארבעה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
-  body=f'''
+# ---------------------------------------------------------------- pages
+def page_index(t, P, A):
+    return dict(
+        title=t('פסטיבל הג׳אז רעננה | Raanana Jazz Festival', 'Raanana Jazz Festival | World Jazz Music'),
+        desc=t('פסטיבל הג׳אז רעננה – World Jazz Music. 9–12 בדצמבר 2026, ארבעה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
+               'Raanana Jazz Festival – World Jazz Music. 9–12 December 2026: four days of live music at the Raanana Music Center.'),
+        no_suffix=True,
+        body=f'''
 <section class="hero grain">
   <div class="hero-inner">
     <div>
-      <img class="main-logo" src="images/44f224268148.png" alt="World Jazz Music – פסטיבל הג׳אז רעננה">
+      <img class="main-logo" src="/images/44f224268148.png" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה', 'World Jazz Music – Raanana Jazz Festival')}">
       <div class="meta">
         <div class="dates">9–12 <small>DEC 2026</small></div>
-        <div class="dir"><span>ניהול אומנותי:</span> עמית פרידמן</div>
-        <div class="countdown-label" id="cdLabel">הפסטיבל נפתח ביום רביעי, 9 בדצמבר 2026</div>
+        <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
+        <div class="countdown-label" id="cdLabel">{t('הפסטיבל נפתח ביום רביעי, 9 בדצמבר 2026', 'The festival opens Wednesday, 9 December 2026')}</div>
         <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
-          <div class="u"><b data-k="d">0</b><small>ימים</small></div>
-          <div class="u"><b data-k="h">0</b><small>שעות</small></div>
-          <div class="u"><b data-k="m">0</b><small>דקות</small></div>
-          <div class="u sec"><b data-k="s">0</b><small>שניות</small></div>
+          <div class="u"><b data-k="d">0</b><small>{t('ימים', 'Days')}</small></div>
+          <div class="u"><b data-k="h">0</b><small>{t('שעות', 'Hours')}</small></div>
+          <div class="u"><b data-k="m">0</b><small>{t('דקות', 'Minutes')}</small></div>
+          <div class="u sec"><b data-k="s">0</b><small>{t('שניות', 'Seconds')}</small></div>
         </div>
         <div class="ctas">
-          <a href="tickets.html" class="btn primary">לרכישת כרטיסים</a>
-          <a href="lineup.html" class="btn ghost">ללוח ההופעות ←</a>
+          <a href="{P('tickets.html')}" class="btn primary">{t('לרכישת כרטיסים', 'Buy tickets')}</a>
+          <a href="{P('lineup.html')}" class="btn ghost">{t('ללוח ההופעות', 'See the line-up')} {A}</a>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section class="hero-photo" style="background-image:url(images/8300ce79d8cf.jpg)" data-settle>
+<section class="hero-photo" style="background-image:url(/images/8300ce79d8cf.jpg)" data-settle>
   <div class="cap">
-    <div class="k">מפסטיבל 2025 · הפקה מיוחדת לפסטיבל</div>
-    <h2>אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים</h2>
+    <div class="k">{t('מפסטיבל 2025 · הפקה מיוחדת לפסטיבל', 'From the 2025 festival · Special festival production')}</div>
+    <h2>{t('אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים', 'Avishai Cohen & Beka Gochiashvili – a musical conversation between two giants')}</h2>
   </div>
 </section>
 
 <section class="intro">
-  {BURST}
-  <h2>פסטיבל הג׳אז רעננה <span>2026</span></h2>
-  <p><b>9–12 בדצמבר 2026</b> · ארבעה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.</p>
+  {burst(t)}
+  <h2>{t('פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival')} <span>2026</span></h2>
+  <p>{t('<b>9–12 בדצמבר 2026</b> · ארבעה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.',
+        '<b>9–12 December 2026</b> · four days of live music across the Raanana Music Center – artists from Israel and around the world, original productions, masterclasses and shows for the whole family.')}</p>
 </section>
 
-<div class="stitle"><h3>הופעות<span class="chip">רגעי שיא 2025</span></h3></div>
+<div class="stitle"><h3>{t('הופעות', 'Shows')}<span class="chip">{t('רגעי שיא 2025', '2025 highlights')}</span></h3></div>
 <section class="cards" data-render="cards"></section>
 
-<div class="stitle" id="lineup"><h3>לוח הופעות<span class="chip">2025</span></h3></div>
-<p class="sched-note">התוכנייה של 2026 תפורסם בקרוב. בינתיים – כך נראה הפסטיבל ב־18–20.12.2025.</p>
+<div class="stitle" id="lineup"><h3>{t('לוח הופעות', 'Line-up')}<span class="chip">2025</span></h3></div>
+<p class="sched-note">{t('התוכנייה של 2026 תפורסם בקרוב. בינתיים – כך נראה הפסטיבל ב־18–20.12.2025.',
+                         'The 2026 programme will be announced soon. Meanwhile, here is how the festival looked on 18–20 December 2025.')}</p>
 <section class="schedule" data-render="schedule"></section>
 
-{PASSES_BOX}
+{passes_box(t, P, A)}
 
 <section class="duo">
   <div class="col">
-    <h5>התוכנייה המלאה</h5>
-    <a data-href="program" target="_blank" class="disc">לצפייה בתוכנייה ←</a>
-    <div class="frame program"><img src="images/413f2429c54a.png" alt="תוכניית הפסטיבל" loading="lazy" width="880" height="1240"></div>
-    <a href="images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">להורדת התוכנייה ↓</a>
+    <h5>{t('התוכנייה המלאה', 'The full programme')}</h5>
+    <a data-href="program" target="_blank" class="disc">{t('לצפייה בתוכנייה', 'View the programme')} {A}</a>
+    <div class="frame program"><img src="/images/413f2429c54a.png" alt="{t('תוכניית הפסטיבל', 'Festival programme')}" loading="lazy" width="880" height="1240"></div>
+    <a href="/images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">{t('להורדת התוכנייה', 'Download the programme')} ↓</a>
   </div>
   <div class="col">
-    <h5>סדנאות 2025</h5>
-    <a href="workshops.html" class="disc">לכל הפרטים והרשמה ←</a>
+    <h5>{t('סדנאות 2025', '2025 Workshops')}</h5>
+    <a href="{P('workshops.html')}" class="disc">{t('לכל הפרטים והרשמה', 'Details and sign-up')} {A}</a>
     <div class="frame ws">
-      <div class="k">סדנאות<span>למוזיקאים</span></div>
-      <div class="info">לגילאי 14–25 · 18–20 בדצמבר (חופש חנוכה)<br>חמישי–שבת · 10:00–17:00<br>נגינה בהרכבים, סדנאות כלי, כיתות אמן והופעה במתחם הפסטיבל</div>
+      <div class="k">{t('סדנאות<span>למוזיקאים</span>', 'Workshops<span>for musicians</span>')}</div>
+      <div class="info">{t('לגילאי 14–25 · 18–20 בדצמבר (חופש חנוכה)<br>חמישי–שבת · 10:00–17:00<br>נגינה בהרכבים, סדנאות כלי, כיתות אמן והופעה במתחם הפסטיבל',
+                           'Ages 14–25 · 18–20 December (Hanukkah break)<br>Thursday–Saturday · 10:00–17:00<br>Ensemble playing, instrument workshops, masterclasses and a performance at the festival')}</div>
       <ul data-render="teachers"></ul>
-      <div class="price">2,000 ₪ · כולל כניסה להופעות*</div>
+      <div class="price">{t('2,000 ₪ · כולל כניסה להופעות*', '₪2,000 · includes festival shows*')}</div>
     </div>
-    <span class="hires">*על בסיס מקום פנוי</span>
+    <span class="hires">{t('*על בסיס מקום פנוי', '*subject to availability')}</span>
   </div>
 </section>
 
-<div class="moments-h">
-  <h6>רגעים מהפסטיבל</h6>
-  <div class="yr">2025</div>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
-</div>
+{moments_head(t)}
 <section class="grid" data-render="moments"></section>
 
 <section class="partners" id="partners">
-  <h2>תודה מיוחדת<span class="l2">לשותפים ולתומכים</span><span class="l3">שלנו</span></h2>
-  <p class="sub">הפסטיבל לא היה מתקיים בלעדיכם.</p>
-  <div class="cat">מפיקים ותומכים</div>
+  <h2>{t('תודה מיוחדת', 'Special thanks')}<span class="l2">{t('לשותפים ולתומכים', 'to our partners')}</span><span class="l3">{t('שלנו', '+ supporters')}</span></h2>
+  <p class="sub">{t('הפסטיבל לא היה מתקיים בלעדיכם.', "The festival wouldn't happen without you.")}</p>
+  <div class="cat">{t('מפיקים ותומכים', 'Producers + supporters')}</div>
   <div class="logos" data-render="partners"></div>
 </section>
 ''')
 
-# ---------------------------------------------------------------- Lineup (Upcoming shows)
-PAGES['lineup.html'] = dict(
-  title='לוח הופעות' + SUFFIX,
-  desc='לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 9–12 בדצמבר.',
-  body=hero('פסטיבל 2026 · 9–12 בדצמבר', 'לוח הופעות', '2025',
-            'התוכנייה של פסטיבל 2026 תפורסם בקרוב. בינתיים, כך נראה לוח ההופעות של פסטיבל 2025 (18–20.12.2025).',
-            '<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a><a href="tickets.html" class="btn ghost">כל אפשרויות הכרטיסים ←</a>') + '''
+
+def page_lineup(t, P, A):
+    return dict(
+        title=t('לוח הופעות', 'Line-up'),
+        desc=t('לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 9–12 בדצמבר.', 'The Raanana Jazz Festival line-up. Festival 2026: 9–12 December.'),
+        body=hero(t('פסטיבל 2026 · 9–12 בדצמבר', 'Festival 2026 · 9–12 December'), t('לוח הופעות', 'Line-up'), '2025',
+                  t('התוכנייה של פסטיבל 2026 תפורסם בקרוב. בינתיים, כך נראה לוח ההופעות של פסטיבל 2025 (18–20.12.2025).',
+                    'The 2026 programme will be announced soon. Meanwhile, here is the 2025 festival line-up (18–20 December 2025).'),
+                  f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("פס לכל הפסטיבל", "Full festival pass")}</a>'
+                  f'<a href="{P("tickets.html")}" class="btn ghost">{t("כל אפשרויות הכרטיסים", "All ticket options")} {A}</a>') + f'''
 <section class="wrap">
   <div class="daytabs" role="tablist">
-    <button class="on" data-day="">כל הימים</button>
-    <button data-day="thu">חמישי 18.12</button>
-    <button data-day="fri">שישי 19.12</button>
-    <button data-day="sat">שבת 20.12</button>
+    <button class="on" data-day="">{t('כל הימים', 'All days')}</button>
+    <button data-day="thu">{t('חמישי 18.12', 'Thu 18.12')}</button>
+    <button data-day="fri">{t('שישי 19.12', 'Fri 19.12')}</button>
+    <button data-day="sat">{t('שבת 20.12', 'Sat 20.12')}</button>
   </div>
   <div class="showlist" id="showlist" data-render="showlist"></div>
 </section>
 <section class="cta-band">
-  <h2>חוזרים כל ערב?</h2>
-  <p>פס יומי במחיר משתלם מכסה את כל מופעי היום.</p>
-  <a href="tickets.html" class="btn">לפסים היומיים ←</a>
+  <h2>{t('חוזרים כל ערב?', 'Coming every night?')}</h2>
+  <p>{t('פס יומי במחיר משתלם מכסה את כל מופעי היום.', "A day pass covers all of that day's shows at a better price.")}</p>
+  <a href="{P('tickets.html')}" class="btn">{t('לפסים היומיים', 'Day passes')} {A}</a>
 </section>
 ''',
-  script='''<script>
+        script='''<script>
   document.querySelectorAll('.daytabs button').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('.daytabs button').forEach(x => x.classList.toggle('on', x === b));
     renderShowList(document.getElementById('showlist'), b.dataset.day);
+    lazyBackgrounds();
   }));
 </script>''')
 
-# ---------------------------------------------------------------- Past editions
-PAGES['festival-2025.html'] = dict(
-  title='פסטיבל 2025 – האמנים' + SUFFIX,
-  desc='האמנים שהופיעו בפסטיבל הג׳אז רעננה 2025.',
-  body=hero('מהדורות קודמות', 'פסטיבל', '2025',
-            'האמנים שהפכו את פסטיבל 2025 לבלתי נשכח – מישראל, ממרוקו, מפולין, מהונגריה, מאוסטריה, מגאורגיה, מיוון, מקפריסין ומארה״ב.') + '''
+
+def page_past(t, P, A):
+    return dict(
+        title=t('פסטיבל 2025 – האמנים', 'Festival 2025 – Artists'),
+        desc=t('האמנים שהופיעו בפסטיבל הג׳אז רעננה 2025.', 'The artists who played the 2025 Raanana Jazz Festival.'),
+        body=hero(t('מהדורות קודמות', 'Past editions'), t('פסטיבל', 'Festival'), '2025',
+                  t('האמנים שהפכו את פסטיבל 2025 לבלתי נשכח – מישראל, ממרוקו, מפולין, מהונגריה, מאוסטריה, מגאורגיה, מיוון, מקפריסין ומארה״ב.',
+                    'The artists who made 2025 unforgettable – from Israel, Morocco, Poland, Hungary, Austria, Georgia, Greece, Cyprus and the USA.')) + f'''
 <div class="year-bar" style="margin-top:-40px;position:relative;z-index:2">
-  <label for="year">החליפו שנה</label>
-  <select id="year"><option selected>2025</option><option disabled>2026 – בקרוב</option></select>
+  <label for="year">{t('החליפו שנה', 'Switch year')}</label>
+  <select id="year"><option selected>2025</option><option disabled>{t('2026 – בקרוב', '2026 – coming soon')}</option></select>
 </div>
 <section class="artists" id="artists"></section>
-<div class="moments-h">
-  <h6>רגעים מהפסטיבל</h6>
-  <div class="yr">2025</div>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
-</div>
+{moments_head(t)}
 <section class="grid" data-render="moments"></section>
 <section class="cta-band" style="margin-top:0">
-  <h2>להורדת התוכנייה של 2025</h2>
-  <p>כל ההופעות, השעות והבמות בעמוד אחד.</p>
-  <a href="images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="btn">להורדה ↓</a>
+  <h2>{t('להורדת התוכנייה של 2025', 'Download the 2025 programme')}</h2>
+  <p>{t('כל ההופעות, השעות והבמות בעמוד אחד.', 'Every show, time and stage on one page.')}</p>
+  <a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="btn">{t('להורדה', 'Download')} ↓</a>
 </section>
 ''',
-  script='''<script>
+        script='''<script>
   document.getElementById('artists').innerHTML = SHOWS.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
-    <a class="artist" href="lineup.html" data-bg="${img(s.img)}">
-      <div class="in"><small>יום ${dayOf(s.day).name} · ${s.venue}</small><h3>${s.title}</h3><p>${s.desc}</p></div>
+    <a class="artist" href="${page('lineup.html')}" data-bg="${img(s.img)}">
+      <div class="in"><small>${dayName(dayOf(s.day))} · ${tr(s, 'venue')}</small><h3>${tr(s, 'title')}</h3><p>${tr(s, 'desc')}</p></div>
     </a>`).join('');
 </script>''')
 
-# ---------------------------------------------------------------- Venue (Bloor-Yorkville equivalent)
-PAGES['venue.html'] = dict(
-  title='המתחם' + SUFFIX,
-  desc='ארבע הבמות של פסטיבל הג׳אז רעננה במרכז למוזיקה פאיס רעננה.',
-  body=hero('המרכז למוזיקה פאיס רעננה', 'המתחם', '4 במות',
-            'מהאולם המרכזי ועד הרחבה הפתוחה – כל הפסטיבל מתקיים במתחם אחד, כך שאפשר לעבור בין הופעות בכמה צעדים.') + '''
+
+def page_venue(t, P, A):
+    maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%90%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
+    return dict(
+        title=t('המתחם', 'The Venue'),
+        desc=t('ארבע הבמות של פסטיבל הג׳אז רעננה במרכז למוזיקה פאיס רעננה.', 'The four stages of the Raanana Jazz Festival at the Raanana Pais Music Center.'),
+        body=hero(t('המרכז למוזיקה פאיס רעננה', 'Raanana Pais Music Center'), t('המתחם', 'The Venue'), t('4 במות', '4 stages'),
+                  t('מהאולם המרכזי ועד הרחבה הפתוחה – כל הפסטיבל מתקיים במתחם אחד, כך שאפשר לעבור בין הופעות בכמה צעדים.',
+                    'From the main hall to the open plaza, the whole festival happens in one place – every show is just a few steps away.')) + f'''
 <section class="wrap section">
-  <h2 class="sec-h">הבמות</h2>
-  <p>לכל במה אופי משלה. כך נראה לוח ההופעות לפי במה:</p>
+  <h2 class="sec-h">{t('הבמות', 'The stages')}</h2>
+  <p>{t('לכל במה אופי משלה. כך נראה לוח ההופעות לפי במה:', 'Each stage has its own character. Here is the line-up by stage:')}</p>
   <div class="venues" id="venues"></div>
 </section>
 <section class="wrap section">
-  <h2 class="sec-h">איך מגיעים</h2>
-  <p>הפסטיבל מתקיים ב<b>מרכז למוזיקה פאיס רעננה</b>.</p>
-  <iframe class="map" loading="lazy" title="מפה – המרכז למוזיקה רעננה"
-    src="https://www.google.com/maps?q=%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%90%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94&output=embed"></iframe>
+  <h2 class="sec-h">{t('איך מגיעים', 'Getting here')}</h2>
+  <p>{t('הפסטיבל מתקיים ב<b>מרכז למוזיקה פאיס רעננה</b>.', 'The festival takes place at the <b>Raanana Pais Music Center</b>.')}</p>
+  <iframe class="map" loading="lazy" title="{t('מפה – המרכז למוזיקה רעננה', 'Map – Raanana Music Center')}"
+    src="https://www.google.com/maps?q={maps_q}&output=embed"></iframe>
   <p style="margin-top:14px"><a class="tix" style="font-family:var(--display);font-weight:700;border-bottom:3px solid var(--gold)" target="_blank" rel="noopener"
-    href="https://www.google.com/maps/search/?api=1&query=%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%90%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94">לפתיחה ב־Google Maps ←</a></p>
+    href="https://www.google.com/maps/search/?api=1&query={maps_q}">{t('לפתיחה ב־Google Maps', 'Open in Google Maps')} {A}</a></p>
 </section>
 ''',
-  script='''<script>
+        script='''<script>
   document.getElementById('venues').innerHTML = VENUES.map(v => `
     <div class="venue-card">
-      <h3>${v.name}</h3>
-      <p>${v.desc}</p>
+      <h3>${tr(v, 'name')}</h3>
+      <p>${tr(v, 'desc')}</p>
       <ul>${SHOWS.filter(s => s.venue === v.name || (v.name === 'המועדון הקאמרי' && s.venue === 'הסלון הקאמרי')).map(s =>
-        `<li><time>${dayOf(s.day).date} · ${s.time}</time><span>${s.title}</span></li>`).join('')}</ul>
+        `<li><time>${dayOf(s.day).date} · ${s.time}</time><span>${tr(s, 'title')}</span></li>`).join('')}</ul>
     </div>`).join('');
 </script>''')
 
-# ---------------------------------------------------------------- About
-PAGES['about.html'] = dict(
-  title='אודות' + SUFFIX,
-  desc='על פסטיבל הג׳אז רעננה – World Jazz Music.',
-  body=hero('אודות', 'World Jazz Music', '',
-            'פסטיבל הג׳אז רעננה מביא לעיר ימים של ג׳אז ומוזיקת עולם – אמנים מישראל ומרחבי העולם, הפקות מקור שנוצרות במיוחד לפסטיבל, סדנאות לנגנים צעירים ומופעים פתוחים לכל המשפחה.') + '''
+
+def page_about(t, P, A):
+    return dict(
+        title=t('אודות', 'About'),
+        desc=t('על פסטיבל הג׳אז רעננה – World Jazz Music.', 'About the Raanana Jazz Festival – World Jazz Music.'),
+        body=hero(t('אודות', 'About'), 'World Jazz Music', '',
+                  t('פסטיבל הג׳אז רעננה מביא לעיר ימים של ג׳אז ומוזיקת עולם – אמנים מישראל ומרחבי העולם, הפקות מקור שנוצרות במיוחד לפסטיבל, סדנאות לנגנים צעירים ומופעים פתוחים לכל המשפחה.',
+                    'The Raanana Jazz Festival brings days of jazz and world music to the city – artists from Israel and around the world, original productions created for the festival, workshops for young musicians and open shows for the whole family.')) + f'''
 <section class="wrap section">
-  <div class="stats-h"><h2>פסטיבל 2025</h2><small>במספרים · הפסטיבל הבא: 9–12 בדצמבר 2026</small></div>
+  <div class="stats-h"><h2>{t('פסטיבל 2025', 'Festival 2025')}</h2><small>{t('במספרים · הפסטיבל הבא: 9–12 בדצמבר 2026', 'By the numbers · Next festival: 9–12 December 2026')}</small></div>
   <div class="stats">
-    <div class="stat"><b>3</b><span>ימים של מוזיקה חיה<br>18–20 בדצמבר</span></div>
-    <div class="stat"><b>17</b><span>מופעים, מהם הפקות מקור<br>שנוצרו לפסטיבל</span></div>
-    <div class="stat"><b>4</b><span>במות במתחם אחד</span></div>
-    <div class="stat"><b>9</b><span>מדינות על הבמה</span></div>
+    <div class="stat"><b>3</b><span>{t('ימים של מוזיקה חיה<br>18–20 בדצמבר', 'days of live music<br>18–20 December')}</span></div>
+    <div class="stat"><b>17</b><span>{t('מופעים, מהם הפקות מקור<br>שנוצרו לפסטיבל', 'shows, including original<br>festival productions')}</span></div>
+    <div class="stat"><b>4</b><span>{t('במות במתחם אחד', 'stages in one venue')}</span></div>
+    <div class="stat"><b>9</b><span>{t('מדינות על הבמה', 'countries on stage')}</span></div>
   </div>
 </section>
 <section class="narrow section prose">
-  <h2>מי אנחנו</h2>
-  <p>הפסטיבל מופק על ידי <b>המרכז למוזיקה פאיס רעננה</b> ו<b>עיריית רעננה</b>, בתמיכת המשרד לשיתוף פעולה אזורי. הניהול האומנותי בידי הפסנתרן והמלחין <b>עמית פרידמן</b>.</p>
-  <p>לצד ההופעות, הפסטיבל הוא גם בית ספר: בכל שנה נגנים צעירים בגילאי 14–25 לומדים מאמנים בינלאומיים ומסיימים בהופעה על במת הפסטיבל.</p>
+  <h2>{t('מי אנחנו', 'Who we are')}</h2>
+  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פאיס רעננה</b> ו<b>עיריית רעננה</b>, בתמיכת המשרד לשיתוף פעולה אזורי. הניהול האומנותי בידי הפסנתרן והמלחין <b>עמית פרידמן</b>.',
+        'The festival is produced by the <b>Raanana Pais Music Center</b> and the <b>Raanana Municipality</b>, with the support of the Ministry of Regional Cooperation. Artistic direction is by pianist and composer <b>Amit Friedman</b>.')}</p>
+  <p>{t('לצד ההופעות, הפסטיבל הוא גם בית ספר: בכל שנה נגנים צעירים בגילאי 14–25 לומדים מאמנים בינלאומיים ומסיימים בהופעה על במת הפסטיבל.',
+        'Alongside the concerts, the festival is also a school: every year young musicians aged 14–25 learn from international artists and finish with a performance on the festival stage.')}</p>
 </section>
 <section class="wrap section">
-  <h2 class="sec-h">המורים בסדנאות 2025</h2>
+  <h2 class="sec-h">{t('המורים בסדנאות 2025', '2025 workshop faculty')}</h2>
   <div class="people" data-render="people"></div>
 </section>
 <section class="partners" style="margin-top:110px">
-  <h2>השותפים<span class="l2">שמאפשרים את</span><span class="l3">הפסטיבל</span></h2>
+  <h2>{t('השותפים', 'The partners')}<span class="l2">{t('שמאפשרים את', 'who make the')}</span><span class="l3">{t('הפסטיבל', 'festival possible')}</span></h2>
   <div class="logos" data-render="partners" style="margin-top:50px"></div>
 </section>
 ''')
 
-# ---------------------------------------------------------------- Workshops (Artist submissions equivalent)
-PAGES['workshops.html'] = dict(
-  title='סדנאות' + SUFFIX,
-  desc='סדנאות ג׳אז לנגנים בגילאי 14–25 עם אמנים בינלאומיים.',
-  body=hero('לנגנים בגילאי 14–25', 'סדנאות', 'אודישן',
-            'שלושה ימים של נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים מניו יורק, מברלין, מפולין, מוינה ומהונגריה – ובסוף, הופעה על במת הפסטיבל.',
-            '<a data-href="form" target="_blank" rel="noopener" class="btn primary">לטופס הרשמה ואודישן</a>') + '''
+
+def page_workshops(t, P, A):
+    return dict(
+        title=t('סדנאות', 'Workshops'),
+        desc=t('סדנאות ג׳אז לנגנים בגילאי 14–25 עם אמנים בינלאומיים.', 'Jazz workshops for musicians aged 14–25 with international artists.'),
+        body=hero(t('לנגנים בגילאי 14–25', 'For musicians aged 14–25'), t('סדנאות', 'Workshops'), t('אודישן', 'Audition'),
+                  t('שלושה ימים של נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים מניו יורק, מברלין, מפולין, מוינה ומהונגריה – ובסוף, הופעה על במת הפסטיבל.',
+                    'Three days of ensemble playing, instrument workshops and masterclasses with artists from New York, Berlin, Poland, Vienna and Hungary – ending with a performance on the festival stage.'),
+                  f'<a data-href="form" target="_blank" rel="noopener" class="btn primary">{t("לטופס הרשמה ואודישן", "Sign-up and audition form")}</a>') + f'''
 <section class="wrap section">
   <div class="stats">
-    <div class="stat"><b>3</b><span>ימים · חמישי–שבת<br>18–20 בדצמבר (חופש חנוכה)</span></div>
-    <div class="stat"><b>10<em>–</em>17</b><span>שעות הפעילות</span></div>
-    <div class="stat"><b>7</b><span>מורים בינלאומיים</span></div>
-    <div class="stat"><b>₪2,000</b><span>כולל כניסה להופעות הפסטיבל<br>על בסיס מקום פנוי</span></div>
+    <div class="stat"><b>3</b><span>{t('ימים · חמישי–שבת<br>18–20 בדצמבר (חופש חנוכה)', 'days · Thursday–Saturday<br>18–20 December (Hanukkah break)')}</span></div>
+    <div class="stat"><b>10<em>–</em>17</b><span>{t('שעות הפעילות', 'daily hours')}</span></div>
+    <div class="stat"><b>7</b><span>{t('מורים בינלאומיים', 'international teachers')}</span></div>
+    <div class="stat"><b>₪2,000</b><span>{t('כולל כניסה להופעות הפסטיבל<br>על בסיס מקום פנוי', 'includes festival shows<br>subject to availability')}</span></div>
   </div>
 </section>
 <section class="narrow section prose">
-  <h2>מה בתוכנית</h2>
+  <h2>{t('מה בתוכנית', "What's included")}</h2>
   <ul>
-    <li>נגינה בהרכבים בהדרכת מורי הפסטיבל</li>
-    <li>סדנאות כלי – גיטרה, בס, חצוצרה, שירה, סקסופון, תופים ופסנתר</li>
-    <li>כיתות אמן עם אמני הפסטיבל</li>
-    <li>הופעת סיום של הרכבי הסדנאות ברחבת הפסטיבל</li>
+    <li>{t('נגינה בהרכבים בהדרכת מורי הפסטיבל', 'Ensemble playing coached by the festival faculty')}</li>
+    <li>{t('סדנאות כלי – גיטרה, בס, חצוצרה, שירה, סקסופון, תופים ופסנתר', 'Instrument workshops – guitar, bass, trumpet, voice, saxophone, drums and piano')}</li>
+    <li>{t('כיתות אמן עם אמני הפסטיבל', 'Masterclasses with festival artists')}</li>
+    <li>{t('הופעת סיום של הרכבי הסדנאות ברחבת הפסטיבל', 'A final performance by the workshop ensembles on the Festival Plaza')}</li>
   </ul>
-  <h2>איך נרשמים</h2>
-  <p>ממלאים את <a data-href="form" target="_blank" rel="noopener">טופס ההרשמה</a> ושולחים אודישן מוקלט.</p>
+  <h2>{t('איך נרשמים', 'How to apply')}</h2>
+  <p>{t('ממלאים את <a data-href="form" target="_blank" rel="noopener">טופס ההרשמה</a> ושולחים אודישן מוקלט.',
+        'Fill in the <a data-href="form" target="_blank" rel="noopener">sign-up form</a> and send a recorded audition.')}</p>
 </section>
 <section class="wrap section">
-  <h2 class="sec-h">המורים</h2>
+  <h2 class="sec-h">{t('המורים', 'The faculty')}</h2>
   <div class="people" data-render="people"></div>
 </section>
 <section class="cta-band">
-  <h2>מוכנים לעלות לבמה?</h2>
-  <p>ההרשמה כוללת שליחת אודישן מוקלט.</p>
-  <a data-href="form" target="_blank" rel="noopener" class="btn">לטופס ההרשמה ←</a>
+  <h2>{t('מוכנים לעלות לבמה?', 'Ready to take the stage?')}</h2>
+  <p>{t('ההרשמה כוללת שליחת אודישן מוקלט.', 'Applying includes sending a recorded audition.')}</p>
+  <a data-href="form" target="_blank" rel="noopener" class="btn">{t('לטופס ההרשמה', 'Go to the form')} {A}</a>
 </section>
 ''')
 
-# ---------------------------------------------------------------- Media / press
-PAGES['media.html'] = dict(
-  title='מדיה ועיתונות' + SUFFIX,
-  desc='חומרים לעיתונות – לוגו, תוכנייה ותמונות מפסטיבל הג׳אז רעננה.',
-  body=hero('לעיתונאים ולמדיה', 'מדיה ועיתונות', 'Press',
-            'כאן תמצאו את הלוגו, התוכנייה ותמונות להורדה. לבקשות אקרדיטציה, ראיונות וחומרים נוספים – צרו קשר.',
-            '<a id="pressMail" class="btn primary">בקשת אקרדיטציה</a>') + '''
+
+def page_media(t, P, A):
+    return dict(
+        title=t('מדיה ועיתונות', 'Media + Press'),
+        desc=t('חומרים לעיתונות – לוגו, תוכנייה ותמונות מפסטיבל הג׳אז רעננה.', 'Press materials – logo, programme and photos from the Raanana Jazz Festival.'),
+        body=hero(t('לעיתונאים ולמדיה', 'For journalists and media'), t('מדיה ועיתונות', 'Media + Press'), 'Press',
+                  t('כאן תמצאו את הלוגו, התוכנייה ותמונות להורדה. לבקשות אקרדיטציה, ראיונות וחומרים נוספים – צרו קשר.',
+                    'Download the logo, programme and photos here. For accreditation, interviews and more materials, get in touch.'),
+                  f'<a id="pressMail" class="btn primary">{t("בקשת אקרדיטציה", "Request accreditation")}</a>') + f'''
 <section class="wrap section">
-  <h2 class="sec-h">חומרים להורדה</h2>
+  <h2 class="sec-h">{t('חומרים להורדה', 'Downloads')}</h2>
   <div class="dl-grid">
-    <div class="dl"><div class="th" style="background-image:url(images/44f224268148.png)"></div><h3>לוגו הפסטיבל</h3><a href="images/44f224268148.png" download="raanana-jazz-logo.png">להורדה (PNG) ↓</a></div>
-    <div class="dl"><div class="th" style="background-image:url(images/413f2429c54a.png);background-color:var(--red)"></div><h3>תוכנייה 2025</h3><a href="images/413f2429c54a.png" download="raanana-jazz-program-2025.png">להורדה (PNG) ↓</a></div>
-    <div class="dl"><div class="th photo" style="background-image:url(images/8300ce79d8cf.jpg)"></div><h3>אבישי כהן ובקה גוצ׳יאשווילי</h3><a href="images/8300ce79d8cf.jpg" download>להורדה (JPG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/44f224268148.png)"></div><h3>{t('לוגו הפסטיבל', 'Festival logo')}</h3><a href="/images/44f224268148.png" download="raanana-jazz-logo.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/logo-navy.png);background-color:var(--cream)"></div><h3>{t('לוגו – כחול כהה', 'Logo – navy')}</h3><a href="/images/logo-navy.png" download="raanana-jazz-logo-navy.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/413f2429c54a.png);background-color:var(--red)"></div><h3>{t('תוכנייה 2025', '2025 programme')}</h3><a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
   </div>
 </section>
 <section class="wrap section">
-  <h2 class="sec-h">תמונות אמנים</h2>
-  <p>לחצו על תמונה להורדה ברזולוציה מלאה.</p>
+  <h2 class="sec-h">{t('תמונות אמנים', 'Artist photos')}</h2>
+  <p>{t('לחצו על תמונה להורדה ברזולוציה מלאה.', 'Click a photo to download it in full resolution.')}</p>
   <div class="dl-grid" id="pressPhotos"></div>
 </section>
 ''',
-  script='''<script>
-  document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה')}`;
+        script='''<script>
+  document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent(L('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה', 'Press accreditation – Raanana Jazz Festival'))}`;
   document.getElementById('pressPhotos').innerHTML = SHOWS.filter(s => s.img).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `
-    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${s.title}</h3><a href="${img(s.img)}" download>להורדה ↓</a></div>`).join('');
+    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${tr(s, 'title')}</h3><a href="${img(s.img)}" download>${L('להורדה', 'Download')} ↓</a></div>`).join('');
 </script>''')
 
-# ---------------------------------------------------------------- Tickets (Donate equivalent)
-PAGES['tickets.html'] = dict(
-  title='כרטיסים ופסים' + SUFFIX,
-  desc='כרטיסים, פסים יומיים ופסים לפי נושאים לפסטיבל הג׳אז רעננה.',
-  body=hero('כרטיסים', 'כרטיסים ופסים', 'במחיר משתלם',
-            'פס לכל הפסטיבל, פס יומי, פס לפי נושא – או כרטיס למופע בודד. הכניסה לרחבת הפסטיבל חופשית.') + '''
+
+def page_tickets(t, P, A):
+    return dict(
+        title=t('כרטיסים ופסים', 'Tickets + Passes'),
+        desc=t('כרטיסים, פסים יומיים ופסים לפי נושאים לפסטיבל הג׳אז רעננה.', 'Tickets, day passes and themed passes for the Raanana Jazz Festival.'),
+        body=hero(t('כרטיסים', 'Tickets'), t('כרטיסים ופסים', 'Tickets + Passes'), t('במחיר משתלם', 'Best value'),
+                  t('פס לכל הפסטיבל, פס יומי, פס לפי נושא – או כרטיס למופע בודד. הכניסה לרחבת הפסטיבל חופשית.',
+                    'A full-festival pass, a day pass, a themed pass – or a single-show ticket. Entry to the Festival Plaza is free. Tickets are sold on the Raanana Municipality ticket site (in Hebrew).')) + f'''
 <section class="wrap section">
-  <h2 class="sec-h">פסים</h2>
-  <p>הדרך המשתלמת ביותר לשמוע הכי הרבה מוזיקה.</p>
+  <h2 class="sec-h">{t('פסים', 'Passes')}</h2>
+  <p>{t('הדרך המשתלמת ביותר לשמוע הכי הרבה מוזיקה.', 'The best-value way to hear the most music.')}</p>
   <div class="ticket-grid" id="dayPasses"></div>
 </section>
 <section class="wrap section">
-  <h2 class="sec-h">פסים לפי נושאים</h2>
-  <p>בוחרים סגנון – ומקבלים את המופעים שמתאימים לו.</p>
+  <h2 class="sec-h">{t('פסים לפי נושאים', 'Themed passes')}</h2>
+  <p>{t('בוחרים סגנון – ומקבלים את המופעים שמתאימים לו.', 'Pick a style and get the shows that match it.')}</p>
   <div class="ticket-grid" id="themePasses"></div>
 </section>
 <section class="wrap section">
-  <h2 class="sec-h">כרטיסים לפי מופע</h2>
-  <p>כל מופע עם כרטיס משלו.</p>
+  <h2 class="sec-h">{t('כרטיסים לפי מופע', 'Single-show tickets')}</h2>
+  <p>{t('כל מופע עם כרטיס משלו.', 'Every show has its own ticket.')}</p>
   <div class="showlist" data-render="showlist"></div>
 </section>
 ''',
-  script='''<script>
+        script='''<script>
+  const buy = L('לרכישה', 'Buy') + ' ' + ARROW;
   document.getElementById('dayPasses').innerHTML =
-    `<a class="tcard hot" href="${T(SITE.fullPass)}" ${ext}><small>הכי משתלם</small><h3>פס לכל הפסטיבל</h3><p>כל שלושת ימי הפסטיבל.</p><span class="go">לרכישה ←</span></a>` +
-    DAYS.map(d => `<a class="tcard" href="${T(d.pass)}" ${ext}><small>פס יומי</small><h3>יום ${d.name} ${d.date}</h3><p>${SHOWS.filter(s => s.day === d.id && s.slug).length} מופעים בכרטיס אחד.</p><span class="go">לרכישה ←</span></a>`).join('');
+    `<a class="tcard hot" href="${T(SITE.fullPass)}" ${ext}><small>${L('הכי משתלם', 'Best value')}</small><h3>${L('פס לכל הפסטיבל', 'Full festival pass')}</h3><p>${L('כל שלושת ימי הפסטיבל.', 'All three festival days.')}</p><span class="go">${buy}</span></a>` +
+    DAYS.map(d => `<a class="tcard" href="${T(d.pass)}" ${ext}><small>${L('פס יומי', 'Day pass')}</small><h3>${dayName(d)} ${d.date}</h3><p>${SHOWS.filter(s => s.day === d.id && s.slug).length} ${L('מופעים בכרטיס אחד.', 'shows on one ticket.')}</p><span class="go">${buy}</span></a>`).join('');
   document.getElementById('themePasses').innerHTML = THEME_PASSES.map(([n, slug]) =>
-    `<a class="tcard" href="${T(slug)}" ${ext}><small>פס נושא</small><h3 style="direction:ltr;text-align:right">${n} Pass</h3><p>מבחר מופעים בסגנון ${n}.</p><span class="go">לרכישה ←</span></a>`).join('');
+    `<a class="tcard" href="${T(slug)}" ${ext}><small>${L('פס נושא', 'Themed pass')}</small><h3 style="direction:ltr;text-align:${EN ? 'left' : 'right'}">${n} Pass</h3><p>${L('מבחר מופעים בסגנון ' + n + '.', 'A selection of ' + n + ' shows.')}</p><span class="go">${buy}</span></a>`).join('');
 </script>''')
 
-# ---------------------------------------------------------------- Contact
-PAGES['contact.html'] = dict(
-  title='צור קשר' + SUFFIX,
-  desc='יצירת קשר עם פסטיבל הג׳אז רעננה.',
-  body=hero('נשמח לשמוע מכם', 'צור קשר', '',
-            'בחרו את נושא הפנייה – ייפתח מייל עם הנושא הנכון.') + '''
+
+def page_contact(t, P, A):
+    return dict(
+        title=t('צור קשר', 'Contact'),
+        desc=t('יצירת קשר עם פסטיבל הג׳אז רעננה.', 'Get in touch with the Raanana Jazz Festival.'),
+        body=hero(t('נשמח לשמוע מכם', "We'd love to hear from you"), t('צור קשר', 'Contact'), '',
+                  t('בחרו את נושא הפנייה – ייפתח מייל עם הנושא הנכון.', 'Choose a topic and an email will open with the right subject.')) + f'''
 <section class="wrap section">
   <div class="contact-grid" id="contactGrid"></div>
 </section>
 <section class="narrow section prose" style="text-align:center">
-  <p>אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.</p>
+  <p>{t('אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.', 'You can also message us on the Raanana Music Center Instagram and Facebook.')}</p>
 </section>
 ''',
-  script='''<script>
-  const TOPICS = [
+        script='''<script>
+  const TOPICS = EN ? [
+    ['Artists', 'Want to play the festival? Tell us about your band and send links to recordings.', 'Artist inquiry'],
+    ['Workshops', 'Questions about the workshops, auditions and sign-up.', 'Workshop question'],
+    ['Partners + sponsors', 'Interested in supporting the festival or working with us?', 'Partnership / sponsorship'],
+    ['General', 'Anything else – tickets, getting here, accessibility.', 'General inquiry'],
+  ] : [
     ['אמנים', 'רוצים להופיע בפסטיבל? ספרו לנו על ההרכב ושלחו קישורים להקלטות.', 'פנייה של אמן/ית'],
     ['סדנאות', 'שאלות על הסדנאות, האודישן וההרשמה.', 'שאלה על הסדנאות'],
     ['שותפים וחסויות', 'מעוניינים לתמוך בפסטיבל או לשתף פעולה?', 'שותפות / חסות'],
     ['פנייה כללית', 'כל שאלה אחרת – כרטיסים, הגעה, נגישות.', 'פנייה כללית'],
   ];
+  const suffix = L(' – פסטיבל הג׳אז רעננה', ' – Raanana Jazz Festival');
   document.getElementById('contactGrid').innerHTML = TOPICS.map(([h, p, subj]) =>
-    `<a class="cbtn" href="mailto:${SITE.email}?subject=${encodeURIComponent(subj + ' – פסטיבל הג׳אז רעננה')}"><h3>${h}</h3><p>${p}</p><span>לכתיבת מייל ←</span></a>`).join('');
+    `<a class="cbtn" href="mailto:${SITE.email}?subject=${encodeURIComponent(subj + suffix)}"><h3>${h}</h3><p>${p}</p><span>${L('לכתיבת מייל', 'Write an email')} ${ARROW}</span></a>`).join('');
 </script>''')
 
-for name, p in PAGES.items():
-    html = HEAD.format(title=p['title'], desc=p['desc'], ver=VER) + p['body'] + FOOT.format(script=p.get('script', ''), ver=VER)
-    open(name, 'w').write(html)
-    print('wrote', name)
+
+PAGES = {
+    'index.html': page_index, 'lineup.html': page_lineup, 'festival-2025.html': page_past,
+    'venue.html': page_venue, 'about.html': page_about, 'workshops.html': page_workshops,
+    'media.html': page_media, 'tickets.html': page_tickets, 'contact.html': page_contact,
+}
+
+
+def url_path(base, name):
+    return base + ('' if name == 'index.html' else name)
+
+
+for lang, cfg in LANGS.items():
+    t = (lambda he, en: he) if lang == 'he' else (lambda he, en: en)
+    P = lambda f, base=cfg['base']: base + f
+    os.makedirs(cfg['out'], exist_ok=True)
+    for name, fn in PAGES.items():
+        p = fn(t, P, cfg['arrow'])
+        title = p['title'] if p.get('no_suffix') else p['title'] + cfg['suffix']
+        html = HEAD.format(lang=lang, dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL,
+                           self_path=url_path(cfg['base'], name),
+                           he_path=url_path('/', name), en_path=url_path('/en/', name)) \
+            + p['body'] + FOOT.format(script=p.get('script', ''), ver=VER)
+        with open(os.path.join(cfg['out'], name), 'w') as f:
+            f.write(html)
+    print(f'wrote {len(PAGES)} {lang} pages → {cfg["out"]}/')

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festival 2025 – Artists | Raanana Jazz Festival</title>
+<meta name="description" content="The artists who played the 2025 Raanana Jazz Festival.">
+<meta property="og:title" content="Festival 2025 – Artists | Raanana Jazz Festival">
+<meta property="og:description" content="The artists who played the 2025 Raanana Jazz Festival.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/en/festival-2025.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/festival-2025.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/en/festival-2025.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/festival-2025.html">
+<link rel="icon" href="/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=202610132212">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<section class="page-hero grain">
+  <div class="eyebrow">Past editions</div>
+  <h1>Festival<span class="chip">2025</span></h1>
+  <p class="lead">The artists who made 2025 unforgettable – from Israel, Morocco, Poland, Hungary, Austria, Georgia, Greece, Cyprus and the USA.</p>
+  
+</section>
+
+<div class="year-bar" style="margin-top:-40px;position:relative;z-index:2">
+  <label for="year">Switch year</label>
+  <select id="year"><option selected>2025</option><option disabled>2026 – coming soon</option></select>
+</div>
+<section class="artists" id="artists"></section>
+<div class="moments-h">
+  <h6>Moments Captured</h6>
+  <div class="yr">2025</div>
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
+</div>
+<section class="grid" data-render="moments"></section>
+<section class="cta-band" style="margin-top:0">
+  <h2>Download the 2025 programme</h2>
+  <p>Every show, time and stage on one page.</p>
+  <a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="btn">Download ↓</a>
+</section>
+
+<script src="/assets/data.js?v=202610132212"></script>
+<script src="/assets/site.js?v=202610132212"></script>
+<script>
+  document.getElementById('artists').innerHTML = SHOWS.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
+    <a class="artist" href="${page('lineup.html')}" data-bg="${img(s.img)}">
+      <div class="in"><small>${dayName(dayOf(s.day))} · ${tr(s, 'venue')}</small><h3>${tr(s, 'title')}</h3><p>${tr(s, 'desc')}</p></div>
+    </a>`).join('');
+</script>
+</body>
+</html>

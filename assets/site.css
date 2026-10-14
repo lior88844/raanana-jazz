@@ -243,7 +243,7 @@
 .drawer .follow { margin-top: auto; padding-top: 30px; }
 .drawer .follow b { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: .04em; color: var(--red); display: block; }
 .drawer .follow div { display: flex; gap: 16px; margin-top: 10px; }
-.drawer .follow a { width: 24px; height: 24px; color: var(--navy); }
+.drawer .follow div a { width: 24px; height: 24px; color: var(--navy); }
 .drawer .follow small { display: block; margin-top: 8px; font-size: 14px; font-style: italic; }
 .drawer .dbtn { display: block; text-align: center; margin-top: 22px; }
 
@@ -458,4 +458,41 @@ a, button, select, .daytabs button { cursor: pointer; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .rv, .js .stitle.rv .chip { opacity: 1; transform: none; }
   .countdown .sec { display: none; }
+}
+
+/* =====================================================================
+   Language switch + English (LTR) mirroring
+   ===================================================================== */
+.lang-switch { border: 1.5px solid var(--gold); color: var(--gold) !important; padding: 3px 12px; font-family: var(--display); font-weight: 700; letter-spacing: .02em; }
+.lang-switch:hover { background: var(--gold); color: var(--navy) !important; }
+.drawer .drawer-lang { display: inline-block; margin-bottom: 22px; border-color: var(--navy); color: var(--navy) !important; font-size: 16px; }
+.drawer .drawer-lang:hover { background: var(--navy); color: var(--cream) !important; }
+.fcols a[hreflang] { color: var(--gold); }
+
+[dir="ltr"] .brand { right: auto; left: 32px; }
+[dir="ltr"] .socials-fixed { left: auto; right: 26px; }
+[dir="ltr"] .drawer { right: auto; left: 0; transform: translateX(-105%); box-shadow: 20px 0 50px rgba(22,31,51,.25); }
+[dir="ltr"].menu-open .drawer, [dir="ltr"] .menu-open .drawer { transform: none; }
+[dir="ltr"] .drawer .close { left: auto; right: 24px; }
+[dir="ltr"] .drawer .main a:hover, [dir="ltr"] .drawer .main a.active { transform: translateX(4px); }
+[dir="ltr"] .stitle .chip { left: auto; right: -46px; transform: rotate(-6deg); }
+[dir="ltr"] .page-hero h1 .chip { left: auto; right: -40px; transform: rotate(-6deg); }
+[dir="ltr"] .passes .chip { transform: rotate(-6deg) translate(70px, -30px); }
+[dir="ltr"] .hero-photo .cap { right: auto; left: 6%; }
+[dir="ltr"] .ws, [dir="ltr"] .fcols { text-align: left; }
+[dir="ltr"] .ws .price { transform: rotate(3deg); }
+[dir="ltr"] .slot time, [dir="ltr"] .venue-card li time { text-align: left; }
+[dir="ltr"] .slot .free { margin-right: 0; margin-left: 6px; }
+[dir="ltr"] .showrow .act { padding-left: 0; padding-right: 10px; }
+[dir="ltr"] .prose ul { margin: 16px 0 0 22px; }
+[dir="ltr"] .totop { left: auto; right: 20px; }
+[dir="ltr"] .sticky-cta { right: 70px; left: 16px; }
+[dir="ltr"] .grid div span { right: auto; left: 16px; }
+@media (max-width: 980px) { [dir="ltr"] .showrow .act { text-align: left; padding: 0; } }
+@media (max-width: 720px) {
+  [dir="ltr"] .brand { left: 16px; right: auto; }
+  [dir="ltr"] .socials-fixed { right: 14px; left: auto; }
+  [dir="ltr"] .page-hero h1 .chip { right: -10px; }
+  [dir="ltr"] .fcols { text-align: center; }
+  .topbar .lang-switch { padding: 2px 8px; }
 }

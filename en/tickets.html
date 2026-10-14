@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tickets + Passes | Raanana Jazz Festival</title>
+<meta name="description" content="Tickets, day passes and themed passes for the Raanana Jazz Festival.">
+<meta property="og:title" content="Tickets + Passes | Raanana Jazz Festival">
+<meta property="og:description" content="Tickets, day passes and themed passes for the Raanana Jazz Festival.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/en/tickets.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/tickets.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/en/tickets.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/tickets.html">
+<link rel="icon" href="/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=202610132212">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<section class="page-hero grain">
+  <div class="eyebrow">Tickets</div>
+  <h1>Tickets + Passes<span class="chip">Best value</span></h1>
+  <p class="lead">A full-festival pass, a day pass, a themed pass – or a single-show ticket. Entry to the Festival Plaza is free. Tickets are sold on the Raanana Municipality ticket site (in Hebrew).</p>
+  
+</section>
+
+<section class="wrap section">
+  <h2 class="sec-h">Passes</h2>
+  <p>The best-value way to hear the most music.</p>
+  <div class="ticket-grid" id="dayPasses"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">Themed passes</h2>
+  <p>Pick a style and get the shows that match it.</p>
+  <div class="ticket-grid" id="themePasses"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">Single-show tickets</h2>
+  <p>Every show has its own ticket.</p>
+  <div class="showlist" data-render="showlist"></div>
+</section>
+
+<script src="/assets/data.js?v=202610132212"></script>
+<script src="/assets/site.js?v=202610132212"></script>
+<script>
+  const buy = L('לרכישה', 'Buy') + ' ' + ARROW;
+  document.getElementById('dayPasses').innerHTML =
+    `<a class="tcard hot" href="${T(SITE.fullPass)}" ${ext}><small>${L('הכי משתלם', 'Best value')}</small><h3>${L('פס לכל הפסטיבל', 'Full festival pass')}</h3><p>${L('כל שלושת ימי הפסטיבל.', 'All three festival days.')}</p><span class="go">${buy}</span></a>` +
+    DAYS.map(d => `<a class="tcard" href="${T(d.pass)}" ${ext}><small>${L('פס יומי', 'Day pass')}</small><h3>${dayName(d)} ${d.date}</h3><p>${SHOWS.filter(s => s.day === d.id && s.slug).length} ${L('מופעים בכרטיס אחד.', 'shows on one ticket.')}</p><span class="go">${buy}</span></a>`).join('');
+  document.getElementById('themePasses').innerHTML = THEME_PASSES.map(([n, slug]) =>
+    `<a class="tcard" href="${T(slug)}" ${ext}><small>${L('פס נושא', 'Themed pass')}</small><h3 style="direction:ltr;text-align:${EN ? 'left' : 'right'}">${n} Pass</h3><p>${L('מבחר מופעים בסגנון ' + n + '.', 'A selection of ' + n + ' shows.')}</p><span class="go">${buy}</span></a>`).join('');
+</script>
+</body>
+</html>

@@ -8,11 +8,15 @@
 <meta property="og:title" content="מדיה ועיתונות | פסטיבל הג׳אז רעננה">
 <meta property="og:description" content="חומרים לעיתונות – לוגו, תוכנייה ותמונות מפסטיבל הג׳אז רעננה.">
 <meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
-<link rel="icon" href="images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/media.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/media.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/en/media.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/media.html">
+<link rel="icon" href="/images/44f224268148.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=202610132201">
+<link rel="stylesheet" href="/assets/site.css?v=202610132212">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -26,9 +30,9 @@
 <section class="wrap section">
   <h2 class="sec-h">חומרים להורדה</h2>
   <div class="dl-grid">
-    <div class="dl"><div class="th" style="background-image:url(images/44f224268148.png)"></div><h3>לוגו הפסטיבל</h3><a href="images/44f224268148.png" download="raanana-jazz-logo.png">להורדה (PNG) ↓</a></div>
-    <div class="dl"><div class="th" style="background-image:url(images/413f2429c54a.png);background-color:var(--red)"></div><h3>תוכנייה 2025</h3><a href="images/413f2429c54a.png" download="raanana-jazz-program-2025.png">להורדה (PNG) ↓</a></div>
-    <div class="dl"><div class="th photo" style="background-image:url(images/8300ce79d8cf.jpg)"></div><h3>אבישי כהן ובקה גוצ׳יאשווילי</h3><a href="images/8300ce79d8cf.jpg" download>להורדה (JPG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/44f224268148.png)"></div><h3>לוגו הפסטיבל</h3><a href="/images/44f224268148.png" download="raanana-jazz-logo.png">להורדה (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/logo-navy.png);background-color:var(--cream)"></div><h3>לוגו – כחול כהה</h3><a href="/images/logo-navy.png" download="raanana-jazz-logo-navy.png">להורדה (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/413f2429c54a.png);background-color:var(--red)"></div><h3>תוכנייה 2025</h3><a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png">להורדה (PNG) ↓</a></div>
   </div>
 </section>
 <section class="wrap section">
@@ -37,12 +41,12 @@
   <div class="dl-grid" id="pressPhotos"></div>
 </section>
 
-<script src="assets/data.js?v=202610132201"></script>
-<script src="assets/site.js?v=202610132201"></script>
+<script src="/assets/data.js?v=202610132212"></script>
+<script src="/assets/site.js?v=202610132212"></script>
 <script>
-  document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה')}`;
+  document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent(L('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה', 'Press accreditation – Raanana Jazz Festival'))}`;
   document.getElementById('pressPhotos').innerHTML = SHOWS.filter(s => s.img).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `
-    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${s.title}</h3><a href="${img(s.img)}" download>להורדה ↓</a></div>`).join('');
+    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${tr(s, 'title')}</h3><a href="${img(s.img)}" download>${L('להורדה', 'Download')} ↓</a></div>`).join('');
 </script>
 </body>
 </html>
