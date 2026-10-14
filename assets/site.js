@@ -141,7 +141,7 @@ function renderCards(el, list = SHOWS.filter(s => s.featured)) {
       <h4>${tr(s, 'title')}</h4>
       <div class="desc">${tr(s, 'desc')}</div>
       <div class="venue">${tr(s, 'venue')}</div>
-      ${s.slug ? `<a href="${T(s.slug)}" class="buy" ${ext}>${L('לרכישת כרטיסים', 'Buy tickets')}</a>` : ''}
+      ${s.slug ? `<a href="${T(s.slug)}" class="buy stretch" ${ext}>${L('לרכישת כרטיסים', 'Buy tickets')}</a>` : ''}
     </article>`).join('');
 }
 
@@ -157,7 +157,7 @@ function renderShowList(el, dayId) {
       </div>
       <div class="act">
         ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}
-        ${s.slug ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')}</a>` : ''}
+        ${s.slug ? `<a class="btn primary stretch" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')}</a>` : ''}
       </div>
     </article>`).join('');
 }
@@ -170,7 +170,7 @@ function renderTeachers(el, asList = true) {
 }
 
 function renderMoments(el) {
-  el.innerHTML = MOMENTS.map(([f, cap, capEn]) => `<div data-bg="${img(f)}"><span>${EN ? capEn : cap}</span></div>`).join('');
+  el.innerHTML = MOMENTS.map(([f, cap, capEn]) => `<a href="${img(f)}" target="_blank" rel="noopener" data-bg="${img(f)}" aria-label="${EN ? capEn : cap}"><span>${EN ? capEn : cap}</span></a>`).join('');
 }
 
 function renderPartners(el) {
@@ -210,7 +210,7 @@ function lazyBackgrounds() {
 
 const REVEAL = [
   '.stitle', '.intro h2', '.intro p', '.card', '.daycol', '.passes', '.duo .col', '.moments-h', '.grid > div',
-  '.partners h2', '.partners .logos img', '.showrow', '.artist', '.venue-card', '.tcard', '.cbtn', '.dl',
+  '.partners h2', '.partners .logos img', '.grid > a', '.showrow', '.artist', '.venue-card', '.tcard', '.cbtn', '.dl',
   '.person', '.stat', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.year-bar', '.daytabs', '.cta-band > *', '.map',
 ].join(',');
 

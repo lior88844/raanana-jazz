@@ -516,3 +516,18 @@ a, button, select, .daytabs button { cursor: pointer; }
   font-family: var(--brush); font-style: normal; letter-spacing: .01em;
 }
 [lang="en"] .card h4, [lang="en"] .showrow h3, [lang="en"] .artist .in h3, [lang="en"] .drawer .main a, [lang="en"] .prose h2 { font-family: var(--brush); letter-spacing: .01em; }
+
+/* ---------- Whole-card click targets ("stretched link") ---------- */
+.card, .showrow { position: relative; }
+.card:has(.stretch), .showrow:has(.stretch) { cursor: pointer; }
+.stretch::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.card .stretch, .showrow .stretch { position: static; }
+.showrow .act .btn.stretch { position: relative; }
+.showrow .act .btn.stretch::after { inset: -400px -2000px; }  /* reaches the row edges; row clips it */
+.showrow { overflow: hidden; }
+.grid > a { display: block; aspect-ratio: 3/2; background: var(--navy) center/cover no-repeat; position: relative; overflow: hidden; }
+.grid > a span { position: absolute; bottom: 14px; right: 16px; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--cream); background: rgba(32,44,69,.75); padding: 3px 10px; opacity: 0; transition: opacity .25s; }
+.grid > a:hover span, .grid > a:focus-visible span { opacity: 1; }
+[dir="ltr"] .grid > a span { right: auto; left: 16px; }
+.grid > a:hover { filter: saturate(1.15) contrast(1.05); }
+label, select, summary, [role="button"], [onclick] { cursor: pointer; }
