@@ -411,7 +411,7 @@ a, button, select, .daytabs button { cursor: pointer; }
 .grid > div:hover { filter: saturate(1.15) contrast(1.05); }
 
 /* ---------- Countdown (hero) ---------- */
-.countdown { display: flex; justify-content: center; gap: 12px; margin-top: 24px; direction: rtl; }
+.countdown { display: flex; justify-content: center; gap: 12px; margin-top: 24px; direction: ltr; }
 .countdown[hidden] { display: none; }
 .countdown .u { min-width: 74px; padding: 10px 8px 8px; background: rgba(245,235,221,.07); border: 1px solid rgba(242,211,107,.35); text-align: center; }
 .countdown b { display: block; font-family: var(--latin); font-size: 36px; line-height: 1; color: var(--cream); font-variant-numeric: tabular-nums; }
