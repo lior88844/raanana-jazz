@@ -19,7 +19,7 @@ const SITE = {
   // TODO: accessibility coordinator (required by Israeli accessibility regulations)
   a11yContact: { name: '', phone: '', email: '' },
   a11yUpdated: '14.10.2026',
-  logo: '/images/44f224268148.png',
+  logo: '/images/logo-hero.png',
   logoDark: '/images/logo-dark.png',  // charcoal version for light backgrounds (menu)
   program: '/images/413f2429c54a.png',
 };

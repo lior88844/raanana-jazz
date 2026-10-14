@@ -117,7 +117,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 
 /* ---------- Fixed chrome ---------- */
 .brand { position: fixed; top: 58px; inset-inline-start: 32px; z-index: var(--z-chrome); display: flex; align-items: center; gap: 14px; }
-.brand img { width: 96px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
+.brand img { width: 104px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
 .burger { min-width: 44px; min-height: 44px; display: grid; align-content: center; gap: 7px; background: none; border: 0; padding: 0 9px; }
 .burger span { height: 2px; background: var(--white); border-radius: 2px; }
 .burger span:nth-child(2) { width: 70%; }
@@ -137,7 +137,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .menu-open { overflow: hidden; }
 .drawer .close { position: absolute; top: 22px; inset-inline-end: 20px; width: 44px; height: 44px; padding: 5px; border: 0; background: none; color: var(--ink); }
 .drawer .close svg { width: 100%; height: 100%; stroke: currentColor; }
-.drawer .dlogo { width: 120px; }
+.drawer .dlogo { width: 130px; }
 .drawer .main { margin-top: 38px; display: grid; gap: 6px; }
 .drawer .main a { display: block; padding: 4px 0; font-family: var(--display); font-weight: 900; font-size: var(--fs-2); color: var(--ink); transition: color var(--hover) ease, transform var(--hover) var(--ease-out); }
 .drawer .main a.active { color: var(--red-ink); }
@@ -291,7 +291,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--field); color: var(--on-field); text-align: center; padding: 80px 24px 40px; border-top: 6px solid var(--accent); position: relative; }
-.footer .flogo { width: 130px; margin: 0 auto; }
+.footer .flogo { width: 140px; margin: 0 auto; }
 .footer .socials { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
 .footer .socials a { width: 24px; height: 24px; color: var(--white); }
 .footer .ctas { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
@@ -557,7 +557,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
   .topbar nav { gap: 20px; }
   .lang-switch { padding: 2px 8px; }
   .brand { inset-inline-start: 16px; top: 56px; }
-  .brand img { width: 70px; }
+  .brand img { width: 76px; }
   .socials-fixed { inset-inline-end: 14px; }
   .hero { padding-top: 110px; }
   .hero .dates { font-size: 30px; }
