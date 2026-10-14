@@ -51,8 +51,10 @@
   .hero .drum { width: 260px; margin-top: 20px; }
   .hero .main-logo { width: 100%; max-width: 480px; justify-self: center; }
   .hero .meta { text-align: center; color: var(--cream); margin-top: 18px; }
-  .hero .dates { font-family: var(--latin); font-size: 64px; line-height: 1; color: var(--gold); letter-spacing: .01em; direction: ltr; }
-  .hero .dates small { display: block; font-size: 34px; color: var(--cream); margin: 6px 0 0; letter-spacing: .06em; }
+  /* base size = "DEC 2026"; the day range is 2.16em so both lines are the same width (measured for Xenon Ruckus) */
+  .hero .dates { font-family: var(--latin); font-size: 38px; line-height: 1; color: var(--gold); direction: ltr; display: inline-block; }
+  .hero .dates .d-num { display: block; font-size: 2.16em; line-height: .92; letter-spacing: 0; }
+  .hero .dates small { display: block; font-size: 1em; color: var(--cream); margin-top: -10px; letter-spacing: .06em; margin-right: -.06em; }
   .hero .dir { font-family: var(--display); font-weight: 700; font-size: 20px; margin-top: 12px; }
   .hero .dir span { color: var(--sky); font-weight: 500; }
   .hero .ctas { display: flex; justify-content: center; gap: 16px; margin-top: 28px; flex-wrap: wrap; }
@@ -200,7 +202,7 @@
     .brand img { width: 70px; }
     .socials-fixed { left: 14px; }
     .hero { padding-top: 110px; }
-    .hero .dates { font-size: 48px; }
+    .hero .dates { font-size: 30px; }
     .hero-photo .cap h2 { font-size: 30px; }
     .intro h2 { font-size: 40px; }
     .stitle h3 { font-size: 52px; }

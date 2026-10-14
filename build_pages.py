@@ -94,7 +94,7 @@ def page_index(t, P, A):
     <div>
       <img class="main-logo" src="/images/44f224268148.png" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה', 'World Jazz Music – Raanana Jazz Festival')}">
       <div class="meta">
-        <div class="dates">9–12 <small>DEC 2026</small></div>
+        <div class="dates" aria-label="9–12 DEC 2026"><span class="d-num">9–12</span><small>DEC 2026</small></div>
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
         <div class="countdown-label" id="cdLabel">{t('הפסטיבל נפתח ביום רביעי, 9 בדצמבר 2026', 'The festival opens Wednesday, 9 December 2026')}</div>
         <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
