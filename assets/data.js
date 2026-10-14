@@ -16,7 +16,7 @@ const SITE = {
   facebook: 'https://www.facebook.com/raananapaismusiccenter',
   // TODO: replace with the festival's real contact email
   email: 'info@raananajazzfestival.com',
-  // TODO: accessibility coordinator (required by Israeli accessibility regulations)
+  // accessibility coordinator – none appointed yet; when empty the statement asks people to contact the festival
   a11yContact: { name: '', phone: '', email: '' },
   a11yUpdated: '14.10.2026',
   logo: '/images/logo-hero.png',
@@ -67,7 +67,7 @@ const SHOWS = [
     desc: 'שם טוב לוי והאנסמבל מגישים מבט מרוכז וחד על מיטב יצירתו – מההרכבים האיקוניים ועד עבודותיו עם אריק איינשטיין.',
     desc_en: "Shem Tov Levi and his ensemble present a sharp, focused look at the best of his work – from his iconic bands to his collaborations with Arik Einstein.",
     img: 'fe4d926b965d.jpg', slug: '%D7%90%D7%A0%D7%A1%D7%9E%D7%91%D7%9C_%D7%A9%D7%9D_%D7%98%D7%95%D7%91_%D7%9C%D7%95%D7%99' },
-  { day: 'fri', time: '20:00', title: 'Leonid Nesterov Quartet', title_en: "Leonid Nesterov Quartet", venue: 'הסלון הקאמרי', venue_en: 'The Chamber Salon',
+  { day: 'fri', time: '20:00', title: 'Leonid Nesterov Quartet', title_en: "Leonid Nesterov Quartet", venue: 'מועדון הסלון', venue_en: 'The Salon Club',
     desc: 'הרכב בינלאומי עכשווי המשלב את מיטב הכישרונות הבינלאומיים והישראליים בסצנת הג׳אז.',
     desc_en: "A contemporary international ensemble bringing together top international and Israeli jazz talent.",
     img: '60d45e600820.jpg', slug: 'Leonid_Nesterov_Quartet__%D7%A7%D7%A4%D7%A8%D7%99%D7%A1%D7%99%D7%9F_' },

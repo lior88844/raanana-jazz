@@ -274,7 +274,7 @@ def page_venue(t, P, A):
     <div class="venue-card">
       <h3>${tr(v, 'name')}</h3>
       <p>${tr(v, 'desc')}</p>
-      <ul>${SHOWS.filter(s => s.venue === v.name || (v.name === 'המועדון הקאמרי' && s.venue === 'הסלון הקאמרי')).map(s =>
+      <ul>${SHOWS.filter(s => s.venue === v.name).map(s =>
         `<li><time>${dayOf(s.day).date} · ${s.time}</time><span>${tr(s, 'title')}</span></li>`).join('')}</ul>
     </div>`).join('');
 </script>''')
@@ -477,7 +477,7 @@ def page_accessibility(t, P, A):
     <li>{t('התוכנייה המלאה מוצגת כתמונה; כל המידע שבה זמין גם כטקסט בעמוד לוח ההופעות.', 'The full programme is shown as an image; all of its information is also available as text on the Line-up page.')}</li>
   </ul>
   <h2>{t('נתקלתם בבעיה?', 'Found a problem?')}</h2>
-  <p>{t('נשמח לשמוע ולתקן. פנו לרכז/ת הנגישות:', 'Tell us and we will fix it. Contact the accessibility coordinator:')}</p>
+  <p id="a11yAsk">{t('נשמח לשמוע ולתקן. פנו אלינו:', 'Tell us and we will fix it. Contact us:')}</p>
   <p class="note" id="a11yContact"></p>
   <p>{t('ההצהרה עודכנה לאחרונה:', 'Last updated:')} <span id="a11yDate"></span></p>
 </section>
@@ -485,6 +485,7 @@ def page_accessibility(t, P, A):
         script='''<script>
   const c = SITE.a11yContact || {};
   const lines = [c.name, c.phone, c.email || SITE.email].filter(Boolean);
+  if (c.name) document.getElementById('a11yAsk').textContent = L('נשמח לשמוע ולתקן. פנו לרכז/ת הנגישות:', 'Tell us and we will fix it. Contact the accessibility coordinator:');
   document.getElementById('a11yContact').innerHTML = lines.map(l => /@/.test(l) ? `<a href="mailto:${l}">${l}</a>` : l).join('<br>');
   document.getElementById('a11yDate').textContent = SITE.a11yUpdated;
 </script>''')
