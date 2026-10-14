@@ -71,7 +71,7 @@ html { scroll-behavior: smooth; }
 html, body { overflow-x: clip; }
 body { font-family: var(--body); background: var(--ground); color: var(--ink); }
 a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 h1, h2, h3, h4 { text-wrap: balance; }
 a, button, select, label, summary, [role="button"] { cursor: pointer; }
 svg.ic { width: 100%; height: 100%; fill: currentColor; }
