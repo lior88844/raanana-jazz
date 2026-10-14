@@ -498,99 +498,19 @@ a, button, select, .daytabs button { cursor: pointer; }
 }
 
 /* =====================================================================
-   Print-poster layer (inspired by Teder.fm): grain, riso offset,
-   mono tags, dot-matrix, halftone. Xenon Ruckus for Latin display.
+   Xenon Ruckus (Mixfont) for Latin display type.
+   Hebrew letters fall through to Rubik automatically.
    ===================================================================== */
 @font-face {
   font-family: "Xenon Ruckus";
   src: url("/assets/fonts/xenon-ruckus.woff2") format("woff2");
   font-display: swap;
-  /* Latin only – Hebrew letters fall through to Rubik */
   unicode-range: U+0020-007E, U+2018-201D;
 }
-:root {
-  --brush: "Xenon Ruckus", "Rubik", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", "Rubik", ui-monospace, monospace;
-  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --halftone: radial-gradient(circle, currentColor 32%, transparent 36%);
-}
+:root { --brush: "Xenon Ruckus", "Rubik", system-ui, sans-serif; }
 
-/* ---------- Film grain over the whole page ---------- */
-body::after {
-  content: ""; position: fixed; inset: -50%; z-index: 200; pointer-events: none;
-  background-image: var(--noise); background-size: 220px; opacity: .085; mix-blend-mode: multiply;
-  animation: grain .9s steps(6) infinite;
-}
-@keyframes grain {
-  0% { transform: translate(0, 0); } 17% { transform: translate(-3%, 2%); } 33% { transform: translate(2%, -3%); }
-  50% { transform: translate(-2%, -1%); } 67% { transform: translate(3%, 3%); } 83% { transform: translate(-1%, 3%); } 100% { transform: translate(0, 0); }
-}
-.grain::after { background-image: var(--noise); background-size: 180px; opacity: .32; mix-blend-mode: soft-light; }
-
-/* ---------- Display type ---------- */
 .hero .dates, .countdown b, .stitle h3, .page-hero h1, .passes .big, .intro h2, .cta-band h2, .sec-h,
 .stat b, .daycol header span, .partners h2, .moments-h h6, .moments-h .yr, .duo h5, .stats-h h2, .ws .k, .tcard h3, .cbtn h3, .venue-card h3 {
   font-family: var(--brush); font-style: normal; letter-spacing: .01em;
 }
 [lang="en"] .card h4, [lang="en"] .showrow h3, [lang="en"] .artist .in h3, [lang="en"] .drawer .main a, [lang="en"] .prose h2 { font-family: var(--brush); letter-spacing: .01em; }
-
-/* riso misregistration: an offset ink layer behind big headings */
-.stitle h3, .intro h2, .sec-h, .moments-h h6, .stats-h h2, .duo h5 { text-shadow: 3px 3px 0 rgba(242,211,107,.9); }
-.page-hero h1, .passes .big, .partners h2, .cta-band h2 { text-shadow: 4px 4px 0 rgba(212,72,54,.85); }
-.intro h2 span { text-shadow: 3px 3px 0 rgba(32,44,69,.25); }
-
-/* ---------- Dot-matrix hero dates (LED sign) ---------- */
-.hero .dates {
-  font-size: clamp(64px, 9vw, 112px); color: transparent;
-  background: radial-gradient(circle at 50% 50%, var(--gold) 58%, transparent 62%) 0 0 / 7px 7px;
-  -webkit-background-clip: text; background-clip: text;
-  filter: drop-shadow(0 0 14px rgba(242,211,107,.35));
-}
-.hero .dates small { color: transparent; background: inherit; -webkit-background-clip: text; background-clip: text; font-size: .5em; }
-@supports not ((-webkit-background-clip: text) or (background-clip: text)) { .hero .dates, .hero .dates small { color: var(--gold); background: none; } }
-
-/* ---------- Photos: grainy black & white, colour on hover ---------- */
-.card .ph, .artist, .grid > div, .showrow .ph, .person .ph, .hero-photo, .dl .th.photo {
-  filter: grayscale(1) contrast(1.18) brightness(.96); position: relative;
-}
-.card:hover .ph, .artist:hover, .grid > div:hover, .showrow:hover .ph, .person:hover .ph, .dl:hover .th.photo { filter: grayscale(0) contrast(1.05); }
-.card .ph::after, .grid > div::after, .showrow .ph::after, .person .ph::after, .hero-photo::after, .dl .th.photo::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background-image: var(--noise); background-size: 160px; opacity: .45; mix-blend-mode: overlay;
-}
-.artist .in { z-index: 2; }
-.hero-photo .cap { z-index: 3; }
-
-/* ---------- Mono tags + thin-rule boxes ---------- */
-.card { background: var(--cream); border: 1.5px solid var(--navy); padding: 12px 12px 18px; box-shadow: -6px 6px 0 var(--navy); transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out); }
-.card:hover { transform: translate(2px, -2px); box-shadow: -9px 9px 0 var(--red-ink); }
-.card .ph { clip-path: none; }
-.card .day, .card .venue {
-  display: inline-block; font-family: var(--mono); font-weight: 600; font-size: 13px; letter-spacing: .02em;
-  border: 1px solid var(--navy); padding: 2px 8px; margin-top: 14px;
-}
-.card .venue { margin-top: 10px; }
-.card .day b { font-weight: 600; }
-.slot time, .showrow .when, .showrow .when time, .venue-card li time, .tcard small, .year-bar select, .countdown small, .countdown-label, .topbar .tag {
-  font-family: var(--mono); letter-spacing: .02em;
-}
-.showrow { border: 1.5px solid var(--navy); }
-.daycol { border: 1.5px solid var(--navy); box-shadow: -6px 6px 0 var(--navy); }
-.countdown .u { border-color: rgba(242,211,107,.6); border-style: dashed; }
-
-/* ---------- Halftone corners on colour blocks ---------- */
-.passes, .cta-band, .page-hero { overflow: hidden; }
-.passes::before, .cta-band::before, .page-hero::before {
-  content: ""; position: absolute; width: 360px; height: 360px; pointer-events: none; z-index: 0;
-  background-image: var(--halftone); background-size: 12px 12px;
-  -webkit-mask-image: radial-gradient(circle at 0 100%, #000 0%, transparent 70%); mask-image: radial-gradient(circle at 0 100%, #000 0%, transparent 70%);
-  left: 0; bottom: 0; opacity: .22;
-}
-.passes::before { color: var(--gold); }
-.cta-band::before { color: var(--navy); }
-.page-hero::before { color: var(--red-soft); opacity: .28; }
-.passes > *, .cta-band > *, .page-hero > * { position: relative; z-index: 1; }
-.cta-band { position: relative; }
-
-@media (prefers-reduced-motion: reduce) { body::after { animation: none; } }
-@media (max-width: 720px) { .card { box-shadow: -4px 4px 0 var(--navy); } .daycol { box-shadow: -4px 4px 0 var(--navy); } }
