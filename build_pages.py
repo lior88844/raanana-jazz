@@ -57,14 +57,6 @@ def hero(eyebrow, title, chip='', lead='', ctas=''):
 '''
 
 
-def burst(t):
-    return f'''<svg class="burst" viewBox="0 0 200 200" aria-hidden="true">
-    <polygon fill="#F2D36B" points="100,0 110,62 140,10 124,70 173,27 135,80 196,58 142,92 200,100 142,108 196,142 135,120 173,173 124,130 140,190 110,138 100,200 90,138 60,190 76,130 27,173 65,120 4,142 58,108 0,100 58,92 4,58 65,80 27,27 76,70 60,10 90,62"/>
-    <text x="100" y="96" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#202C45">{t('כניסה', 'FREE')}</text>
-    <text x="100" y="120" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="22" fill="#B23A2B">{t('חופשית', 'ENTRY')}</text>
-    <text x="100" y="138" text-anchor="middle" font-family="Rubik" font-weight="700" font-size="11" fill="#202C45">{t('לרחבת הפסטיבל', 'to the Festival Plaza')}</text>
-  </svg>'''
-
 
 def moments_head(t):
     return f'''<div class="moments-h">
@@ -127,7 +119,6 @@ def page_index(t, P, A):
 </section>
 
 <section class="intro">
-  {burst(t)}
   <h2>{t('פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival')} <span>2026</span></h2>
   <p>{t('<b>9–12 בדצמבר 2026</b> · ארבעה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.',
         '<b>9–12 December 2026</b> · four days of live music across the Raanana Music Center – artists from Israel and around the world, original productions, masterclasses and shows for the whole family.')}</p>
