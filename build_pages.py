@@ -215,10 +215,6 @@ def page_past(t, P, A):
         body=hero(t('מהדורות קודמות', 'Past editions'), t('פסטיבל 2025', 'Festival 2025'), '',
                   t('האמנים שהפכו את פסטיבל 2025 לבלתי נשכח – מישראל, ממרוקו, מפולין, מהונגריה, מאוסטריה, מגאורגיה, מיוון, מקפריסין ומארה״ב.',
                     'The artists who made 2025 unforgettable – from Israel, Morocco, Poland, Hungary, Austria, Georgia, Greece, Cyprus and the USA.')) + f'''
-<div class="year-bar" style="margin-top:-40px;position:relative;z-index:2">
-  <label for="year">{t('החליפו שנה', 'Switch year')}</label>
-  <select id="year"><option selected>2025</option><option disabled>{t('2026 – בקרוב', '2026 – coming soon')}</option></select>
-</div>
 <h2 class="sr-only">{t('האמנים', 'The artists')}</h2>
 <section class="artists" id="artists"></section>
 {moments_head(t, 'h2')}

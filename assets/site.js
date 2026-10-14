@@ -278,7 +278,7 @@ function lazyBackgrounds() {
 const REVEAL = [
   '.stitle', '.intro h2', '.intro p', '.card', '.daycol', '.passes', '.duo .col', '.moments-h', '.grid > div',
   '.partners h2', '.partners .logos img', '.grid > a', '.showrow', '.artist', '.venue-card', '.tcard', '.cbtn', '.dl',
-  '.person', '.stat', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.year-bar', '.daytabs', '.cta-band > *', '.map',
+  '.person', '.stat', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.daytabs', '.cta-band > *', '.map',
 ].join(',');
 
 function scrollReveal() {

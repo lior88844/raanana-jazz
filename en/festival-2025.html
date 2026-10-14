@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/assets/site.css?v=155a8f1658">
+<link rel="stylesheet" href="/assets/site.css?v=d9bfd1e4c1">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -30,10 +30,6 @@
   
 </section>
 
-<div class="year-bar" style="margin-top:-40px;position:relative;z-index:2">
-  <label for="year">Switch year</label>
-  <select id="year"><option selected>2025</option><option disabled>2026 – coming soon</option></select>
-</div>
 <h2 class="sr-only">The artists</h2>
 <section class="artists" id="artists"></section>
 <div class="moments-h">
@@ -48,8 +44,8 @@
 
 </main>
 
-<script src="/assets/data.js?v=155a8f1658"></script>
-<script src="/assets/site.js?v=155a8f1658"></script>
+<script src="/assets/data.js?v=d9bfd1e4c1"></script>
+<script src="/assets/site.js?v=d9bfd1e4c1"></script>
 <script>
   document.getElementById('artists').innerHTML = SHOWS.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
     <a class="artist" href="${page('lineup.html')}" data-bg="${img(s.img)}">
