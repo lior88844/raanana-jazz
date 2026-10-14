@@ -17,6 +17,7 @@ const SITE = {
   // TODO: replace with the festival's real contact email
   email: 'info@raananajazzfestival.com',
   logo: 'images/44f224268148.png',
+  logoNavy: 'images/logo-navy.png',  // dark version for light backgrounds (menu)
   program: 'images/413f2429c54a.png',
 };
 

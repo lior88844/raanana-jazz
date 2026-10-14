@@ -54,7 +54,7 @@ ${ICONS}
 <div class="drawer-scrim" data-close></div>
 <nav class="drawer" id="drawer" aria-label="תפריט ראשי">
   <button class="close" data-close aria-label="סגירת תפריט"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
-  <a href="index.html"><img class="dlogo" src="${SITE.logo}" alt="דף הבית"></a>
+  <a href="index.html"><img class="dlogo" src="${SITE.logoNavy}" alt="World Jazz Music – דף הבית"></a>
   <div class="main">${NAV_MAIN.map(link).join('')}</div>
   <div class="sub">${NAV_SUB.map(link).join('')}</div>
   <div class="follow">

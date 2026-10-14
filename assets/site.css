@@ -233,7 +233,7 @@
 .menu-open { overflow: hidden; }
 .drawer .close { position: absolute; top: 26px; left: 24px; width: 34px; height: 34px; border: 0; background: none; cursor: pointer; color: var(--navy); }
 .drawer .close svg { width: 100%; height: 100%; stroke: currentColor; }
-.drawer .dlogo { width: 104px; background: var(--navy); padding: 10px; }
+.drawer .dlogo { width: 120px; }
 .drawer .main { margin-top: 38px; display: grid; gap: 14px; }
 .drawer .main a { font-family: var(--display); font-weight: 900; font-size: 26px; color: var(--navy); transition: color .2s, transform .2s; }
 .drawer .main a:hover, .drawer .main a.active { color: var(--red); transform: translateX(-4px); }
