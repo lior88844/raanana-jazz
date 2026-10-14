@@ -12,24 +12,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=202610132154">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
 <section class="hero grain">
-  <div class="dots" aria-hidden="true">
-    <span style="width:14px;height:14px;top:18%;left:12%"></span>
-    <span style="width:22px;height:22px;top:62%;left:22%"></span>
-    <span style="width:10px;height:10px;top:30%;right:16%"></span>
-    <span style="width:18px;height:18px;top:75%;right:30%"></span>
-    <span style="width:8px;height:8px;top:12%;right:42%"></span>
-  </div>
   <div class="hero-inner">
     <div>
       <img class="main-logo" src="images/44f224268148.png" alt="World Jazz Music – פסטיבל הג׳אז רעננה">
       <div class="meta">
         <div class="dates">9–12 <small>DEC 2026</small></div>
         <div class="dir"><span>ניהול אומנותי:</span> עמית פרידמן</div>
+        <div class="countdown-label" id="cdLabel">הפסטיבל נפתח ביום רביעי, 9 בדצמבר 2026</div>
+        <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
+          <div class="u"><b data-k="d">0</b><small>ימים</small></div>
+          <div class="u"><b data-k="h">0</b><small>שעות</small></div>
+          <div class="u"><b data-k="m">0</b><small>דקות</small></div>
+          <div class="u sec"><b data-k="s">0</b><small>שניות</small></div>
+        </div>
         <div class="ctas">
           <a href="tickets.html" class="btn primary">לרכישת כרטיסים</a>
           <a href="lineup.html" class="btn ghost">ללוח ההופעות ←</a>
@@ -38,7 +39,7 @@
     </div>
   </div>
 </section>
-<section class="hero-photo" style="background-image:url(images/8300ce79d8cf.jpg)">
+<section class="hero-photo" style="background-image:url(images/8300ce79d8cf.jpg)" data-settle>
   <div class="cap">
     <div class="k">מפסטיבל 2025 · הפקה מיוחדת לפסטיבל</div>
     <h2>אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים</h2>
@@ -79,7 +80,7 @@
   <div class="col">
     <h5>התוכנייה המלאה</h5>
     <a data-href="program" target="_blank" class="disc">לצפייה בתוכנייה ←</a>
-    <div class="frame program"><img src="images/413f2429c54a.png" alt="תוכניית הפסטיבל"></div>
+    <div class="frame program"><img src="images/413f2429c54a.png" alt="תוכניית הפסטיבל" loading="lazy" width="880" height="1240"></div>
     <a href="images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">להורדת התוכנייה ↓</a>
   </div>
   <div class="col">
@@ -109,8 +110,8 @@
   <div class="logos" data-render="partners"></div>
 </section>
 
-<script src="assets/data.js"></script>
-<script src="assets/site.js"></script>
+<script src="assets/data.js?v=202610132154"></script>
+<script src="assets/site.js?v=202610132154"></script>
 
 </body>
 </html>

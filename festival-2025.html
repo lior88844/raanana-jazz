@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=202610132154">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <section class="page-hero grain">
@@ -39,11 +40,11 @@
   <a href="images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="btn">להורדה ↓</a>
 </section>
 
-<script src="assets/data.js"></script>
-<script src="assets/site.js"></script>
+<script src="assets/data.js?v=202610132154"></script>
+<script src="assets/site.js?v=202610132154"></script>
 <script>
   document.getElementById('artists').innerHTML = SHOWS.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
-    <a class="artist" href="lineup.html" style="background-image:url(${img(s.img)})">
+    <a class="artist" href="lineup.html" data-bg="${img(s.img)}">
       <div class="in"><small>יום ${dayOf(s.day).name} · ${s.venue}</small><h3>${s.title}</h3><p>${s.desc}</p></div>
     </a>`).join('');
 </script>

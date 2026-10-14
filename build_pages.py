@@ -1,5 +1,7 @@
 # Generates the static HTML pages from one shared <head> template.
 # Run: python3 build_pages.py
+import time
+VER = time.strftime('%Y%m%d%H%M')
 HEAD = '''<!doctype html>
 <html lang="he" dir="rtl">
 <head>
@@ -14,13 +16,14 @@ HEAD = '''<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v={ver}">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 '''
 FOOT = '''
-<script src="assets/data.js"></script>
-<script src="assets/site.js"></script>
+<script src="assets/data.js?v={ver}"></script>
+<script src="assets/site.js?v={ver}"></script>
 {script}
 </body>
 </html>
@@ -66,19 +69,19 @@ PAGES['index.html'] = dict(
   desc='פסטיבל הג׳אז רעננה – World Jazz Music. 9–12 בדצמבר 2026, ארבעה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
   body=f'''
 <section class="hero grain">
-  <div class="dots" aria-hidden="true">
-    <span style="width:14px;height:14px;top:18%;left:12%"></span>
-    <span style="width:22px;height:22px;top:62%;left:22%"></span>
-    <span style="width:10px;height:10px;top:30%;right:16%"></span>
-    <span style="width:18px;height:18px;top:75%;right:30%"></span>
-    <span style="width:8px;height:8px;top:12%;right:42%"></span>
-  </div>
   <div class="hero-inner">
     <div>
       <img class="main-logo" src="images/44f224268148.png" alt="World Jazz Music – פסטיבל הג׳אז רעננה">
       <div class="meta">
         <div class="dates">9–12 <small>DEC 2026</small></div>
         <div class="dir"><span>ניהול אומנותי:</span> עמית פרידמן</div>
+        <div class="countdown-label" id="cdLabel">הפסטיבל נפתח ביום רביעי, 9 בדצמבר 2026</div>
+        <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
+          <div class="u"><b data-k="d">0</b><small>ימים</small></div>
+          <div class="u"><b data-k="h">0</b><small>שעות</small></div>
+          <div class="u"><b data-k="m">0</b><small>דקות</small></div>
+          <div class="u sec"><b data-k="s">0</b><small>שניות</small></div>
+        </div>
         <div class="ctas">
           <a href="tickets.html" class="btn primary">לרכישת כרטיסים</a>
           <a href="lineup.html" class="btn ghost">ללוח ההופעות ←</a>
@@ -87,7 +90,7 @@ PAGES['index.html'] = dict(
     </div>
   </div>
 </section>
-<section class="hero-photo" style="background-image:url(images/8300ce79d8cf.jpg)">
+<section class="hero-photo" style="background-image:url(images/8300ce79d8cf.jpg)" data-settle>
   <div class="cap">
     <div class="k">מפסטיבל 2025 · הפקה מיוחדת לפסטיבל</div>
     <h2>אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים</h2>
@@ -113,7 +116,7 @@ PAGES['index.html'] = dict(
   <div class="col">
     <h5>התוכנייה המלאה</h5>
     <a data-href="program" target="_blank" class="disc">לצפייה בתוכנייה ←</a>
-    <div class="frame program"><img src="images/413f2429c54a.png" alt="תוכניית הפסטיבל"></div>
+    <div class="frame program"><img src="images/413f2429c54a.png" alt="תוכניית הפסטיבל" loading="lazy" width="880" height="1240"></div>
     <a href="images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">להורדת התוכנייה ↓</a>
   </div>
   <div class="col">
@@ -198,7 +201,7 @@ PAGES['festival-2025.html'] = dict(
 ''',
   script='''<script>
   document.getElementById('artists').innerHTML = SHOWS.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
-    <a class="artist" href="lineup.html" style="background-image:url(${img(s.img)})">
+    <a class="artist" href="lineup.html" data-bg="${img(s.img)}">
       <div class="in"><small>יום ${dayOf(s.day).name} · ${s.venue}</small><h3>${s.title}</h3><p>${s.desc}</p></div>
     </a>`).join('');
 </script>''')
@@ -324,7 +327,7 @@ PAGES['media.html'] = dict(
   script='''<script>
   document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה')}`;
   document.getElementById('pressPhotos').innerHTML = SHOWS.filter(s => s.img).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `
-    <div class="dl"><div class="th photo" style="background-image:url(${img(s.img)})"></div><h3>${s.title}</h3><a href="${img(s.img)}" download>להורדה ↓</a></div>`).join('');
+    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${s.title}</h3><a href="${img(s.img)}" download>להורדה ↓</a></div>`).join('');
 </script>''')
 
 # ---------------------------------------------------------------- Tickets (Donate equivalent)
@@ -382,6 +385,6 @@ PAGES['contact.html'] = dict(
 </script>''')
 
 for name, p in PAGES.items():
-    html = HEAD.format(title=p['title'], desc=p['desc']) + p['body'] + FOOT.format(script=p.get('script', ''))
+    html = HEAD.format(title=p['title'], desc=p['desc'], ver=VER) + p['body'] + FOOT.format(script=p.get('script', ''), ver=VER)
     open(name, 'w').write(html)
     print('wrote', name)

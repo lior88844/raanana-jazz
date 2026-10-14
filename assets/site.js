@@ -112,7 +112,7 @@ function renderSchedule(el) {
 function renderCards(el, list = SHOWS.filter(s => s.featured)) {
   el.innerHTML = list.map(s => `
     <article class="card">
-      <div class="ph" style="background-image:url(${img(s.img)})"></div>
+      <div class="ph" data-bg="${img(s.img)}"></div>
       <div class="day">${dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
       <h4>${s.title}</h4>
       <div class="desc">${s.desc}</div>
@@ -124,7 +124,7 @@ function renderCards(el, list = SHOWS.filter(s => s.featured)) {
 function renderShowList(el, dayId) {
   el.innerHTML = SHOWS.filter(s => !dayId || s.day === dayId).map(s => `
     <article class="showrow">
-      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `style="background-image:url(${img(s.img)})"` : ''}></div>
+      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(s.img)}"` : ''}></div>
       <div>
         <div class="when">יום ${dayOf(s.day).name} ${dayOf(s.day).date} <time>${s.time}</time></div>
         <h3>${s.title}</h3>
@@ -140,12 +140,12 @@ function renderShowList(el, dayId) {
 
 function renderTeachers(el, asList = true) {
   el.innerHTML = asList
-    ? TEACHERS.map(([f, n, r]) => `<li><i style="background-image:url(${img(f)})"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
-    : TEACHERS.map(([f, n, r]) => `<div class="person"><div class="ph" style="background-image:url(${img(f)})"></div><b>${n}</b><span>${r}</span></div>`).join('');
+    ? TEACHERS.map(([f, n, r]) => `<li><i data-bg="${img(f)}"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
+    : TEACHERS.map(([f, n, r]) => `<div class="person"><div class="ph" data-bg="${img(f)}"></div><b>${n}</b><span>${r}</span></div>`).join('');
 }
 
 function renderMoments(el) {
-  el.innerHTML = MOMENTS.map(([f, cap]) => `<div style="background-image:url(${img(f)})"><span>${cap}</span></div>`).join('');
+  el.innerHTML = MOMENTS.map(([f, cap]) => `<div data-bg="${img(f)}"><span>${cap}</span></div>`).join('');
 }
 
 function renderPartners(el) {
@@ -165,4 +165,98 @@ document.querySelectorAll('[data-render]').forEach(el => {
 document.querySelectorAll('[data-href]').forEach(a => {
   const v = a.dataset.href;
   a.href = v === 'fullpass' ? T(SITE.fullPass) : v === 'form' ? SITE.workshopForm : v === 'program' ? SITE.program : '#';
+});
+
+// =====================================================================
+//  Enhancements: lazy images, scroll reveal, countdown, sticky CTA.
+//  Runs after every page script has rendered its content.
+// =====================================================================
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function lazyBackgrounds() {
+  const els = document.querySelectorAll('[data-bg]');
+  const load = el => { el.style.backgroundImage = `url(${el.dataset.bg})`; el.classList.add('bg-in'); el.removeAttribute('data-bg'); };
+  if (!('IntersectionObserver' in window)) return els.forEach(load);
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { load(e.target); io.unobserve(e.target); }
+  }), { rootMargin: '400px 0px' });
+  els.forEach(el => io.observe(el));
+}
+
+const REVEAL = [
+  '.stitle', '.intro h2', '.intro p', '.card', '.daycol', '.passes', '.duo .col', '.moments-h', '.grid > div',
+  '.partners h2', '.partners .logos img', '.showrow', '.artist', '.venue-card', '.tcard', '.cbtn', '.dl',
+  '.person', '.stat', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.year-bar', '.daytabs', '.cta-band > *', '.map',
+].join(',');
+
+function scrollReveal() {
+  const els = [...document.querySelectorAll(REVEAL)];
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+  // stagger siblings in the same container (max 6 steps, 60ms apart)
+  els.forEach(el => {
+    const sibs = [...el.parentElement.children].filter(c => els.includes(c));
+    const i = sibs.indexOf(el);
+    el.style.setProperty('--d', `${Math.min(i % 6, 5) * 60}ms`);
+    el.classList.add('rv');
+  });
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  els.forEach(el => io.observe(el));
+}
+
+// Festival opens 9 Dec 2026, 00:00 Israel time (UTC+2 in December)
+const FESTIVAL_START = new Date('2026-12-09T00:00:00+02:00');
+
+function countdown() {
+  const box = document.getElementById('countdown');
+  if (!box) return;
+  const out = Object.fromEntries([...box.querySelectorAll('[data-k]')].map(b => [b.dataset.k, b]));
+  let timer;
+  const tick = () => {
+    const ms = FESTIVAL_START - Date.now();
+    if (ms <= 0) {
+      box.hidden = true;
+      document.getElementById('cdLabel').textContent = 'הפסטיבל כבר כאן!';
+      return clearInterval(timer);
+    }
+    const s = Math.floor(ms / 1000);
+    out.d.textContent = Math.floor(s / 86400);
+    out.h.textContent = Math.floor(s / 3600) % 24;
+    out.m.textContent = Math.floor(s / 60) % 60;
+    out.s.textContent = s % 60;
+    box.hidden = false;
+  };
+  const start = () => { clearInterval(timer); tick(); timer = setInterval(tick, reduceMotion ? 60000 : 1000); };
+  // pause while the tab is hidden
+  document.addEventListener('visibilitychange', () => document.hidden ? clearInterval(timer) : start());
+  start();
+}
+
+function stickyCta() {
+  if (/tickets\.html$/.test(location.pathname)) return;
+  const btn = document.createElement('a');
+  btn.href = 'tickets.html';
+  btn.className = 'btn primary sticky-cta';
+  btn.textContent = 'לרכישת כרטיסים';
+  document.body.appendChild(btn);
+  const hero = document.querySelector('.hero, .page-hero');
+  const limit = () => (hero ? hero.offsetTop + hero.offsetHeight : 400);
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const nearFooter = innerHeight + scrollY > document.body.scrollHeight - 500;
+      btn.classList.toggle('show', scrollY > limit() && !nearFooter);
+      ticking = false;
+    });
+  }, { passive: true });
+}
+
+addEventListener('DOMContentLoaded', () => {
+  lazyBackgrounds();
+  scrollReveal();
+  countdown();
+  stickyCta();
 });
