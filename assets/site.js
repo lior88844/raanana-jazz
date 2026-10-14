@@ -6,11 +6,12 @@
 
 const LANG = document.documentElement.lang === 'en' ? 'en' : 'he';
 const EN = LANG === 'en';
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const L = (he, en) => (EN ? en : he);                   // pick a UI string
 const tr = (obj, key) => (EN && obj[key + '_en']) || obj[key];  // pick a data field
 const BASE = EN ? '/en/' : '/';
 const OTHER_BASE = EN ? '/' : '/en/';
-const ARROW = EN ? '→' : '←';
+const ARROW = `<i class="arr" aria-hidden="true">${EN ? '→' : '←'}</i>`;
 
 const T = slug => SITE.tickets + slug;
 const ext = 'target="_blank" rel="noopener"';
@@ -53,7 +54,8 @@ function otherLangHref() {
 
 function buildChrome() {
   const here = location.pathname.split('/').pop() || 'index.html';
-  const link = ([href, he, en]) => `<a href="${page(href)}"${href === here ? ' class="active" aria-current="page"' : ''}>${L(he, en)}</a>`;
+  let li = 0;
+  const link = ([href, he, en]) => `<a href="${page(href)}" style="--i:${li++}"${href === here ? ' class="active" aria-current="page"' : ''}>${L(he, en)}</a>`;
   const langBtn = cls => `<a class="${cls}" href="${otherLangHref()}" hreflang="${L('en', 'he')}" lang="${L('en', 'he')}">${L('English', 'עברית')}</a>`;
 
   document.body.insertAdjacentHTML('afterbegin', `
@@ -71,7 +73,7 @@ ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span
   </nav>
 </header>
 <div class="brand">
-  <a href="${page('index.html')}"><img src="${SITE.logo}" alt="${L('World Jazz Music – פסטיבל הג׳אז רעננה', 'World Jazz Music – Raanana Jazz Festival')}"></a>
+  <a class="logo-dots" href="${page('index.html')}"><img src="/images/logo-nodots.png" alt="${L('World Jazz Music – פסטיבל הג׳אז רעננה', 'World Jazz Music – Raanana Jazz Festival')}"><img class="ld ld1" src="/images/logo-dot1.png" alt=""><img class="ld ld2" src="/images/logo-dot2.png" alt=""><img class="ld ld3" src="/images/logo-dot3.png" alt=""></a>
   <button class="burger" aria-label="${L('פתיחת תפריט', 'Open menu')}" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
 </div>
 <div class="socials-fixed">${socials()}</div>
@@ -102,7 +104,7 @@ ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span
   </div>
   <div class="copy">© ${SITE.year} website by Lior Doron · graphic design by Dekel Hevroni</div>
 </footer>
-<a href="#" class="totop" aria-label="${L('חזרה למעלה', 'Back to top')}"><svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>`);
+<a href="#" class="totop" aria-label="${L('חזרה למעלה', 'Back to top')}"><svg class="ring" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25"/></svg><svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>`);
 
   // drawer behaviour
   const burger = document.querySelector('.burger');
@@ -206,7 +208,7 @@ function nowOnStage(el) {
     if (!rows.length) { el.hidden = true; return; }
     el.hidden = false;
     el.innerHTML = `<div class="now-in">
-      <div class="now-h"><span class="live" aria-hidden="true"></span>${L('עכשיו על הבמות', 'Now on stage')} · ${dayName(day)} ${day.date}</div>
+      <div class="now-h"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>${L('עכשיו על הבמות', 'Now on stage')} · ${dayName(day)} ${day.date}</div>
       <ul>${rows.map(r => r.cur
         ? `<li><b>${r.label}</b><strong>${tr(r.cur, 'title')}</strong><span>${L('התחיל ב־', 'Started ')}${r.cur.time}</span></li>`
         : `<li class="idle"><b>${r.label}</b><strong>${tr(r.next, 'title')}</strong><span>${L('בשעה', 'At')} ${r.next.time}</span></li>`).join('')}</ul>
@@ -263,13 +265,31 @@ function renderCloud(el) {
       ${chip('', L('כל הימים', 'All days'))}${DAYS.map(d => chip(d.id, `${dayName(d)} ${d.date}`)).join('')}
     </div>
     <ul class="cloud">${SHOWS.map(s => `
-      <li data-day="${s.day}"><button type="button" class="pill d-${s.day}" aria-expanded="false">
+      <li data-day="${s.day}" style="--i:${SHOWS.indexOf(s)}"><button type="button" class="pill d-${s.day}" aria-expanded="false">
         <span class="n">${tr(s, 'title')}</span>
         <span class="m">${dayName(dayOf(s.day))} · ${s.time} · ${tr(s, 'venue')}${s.free ? ' · ' + L('כניסה חופשית', 'Free entry') : ''}</span>
       </button></li>`).join('')}</ul>`;
+  const cloud = el.querySelector('.cloud');
+  // names pop in the first time the cloud scrolls into view
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    cloud.classList.add('pre');
+    const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { cloud.classList.replace('pre', 'pop'); io.disconnect(); } }, { threshold: .15 });
+    io.observe(cloud);
+    addEventListener('beforeprint', () => cloud.classList.remove('pre'));
+  }
   el.querySelectorAll('.cloud-filter button').forEach(b => b.addEventListener('click', () => {
     el.querySelectorAll('.cloud-filter button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
-    el.querySelectorAll('.cloud li').forEach(li => { li.hidden = !!b.dataset.day && li.dataset.day !== b.dataset.day; });
+    cloud.classList.remove('pre', 'pop');
+    const items = [...cloud.children], before = new Map(items.map(li => [li, li.hidden ? null : li.getBoundingClientRect()]));
+    items.forEach(li => { li.hidden = !!b.dataset.day && li.dataset.day !== b.dataset.day; });
+    if (reduceMotion) return;
+    // the names that stay glide to their new places; names that return grow back in
+    items.filter(li => !li.hidden).forEach(li => {
+      const a = before.get(li), z = li.getBoundingClientRect();
+      li.animate(a ? [{ transform: `translate(${a.left - z.left}px, ${a.top - z.top}px)` }, { transform: 'none' }]
+                   : [{ opacity: 0, transform: 'scale(.7)' }, { opacity: 1, transform: 'none' }],
+        { duration: 420, easing: 'cubic-bezier(.23, 1, .32, 1)' });
+    });
   }));
   el.querySelectorAll('.pill').forEach(p => p.addEventListener('click', () => {
     p.setAttribute('aria-expanded', p.getAttribute('aria-expanded') !== 'true');
@@ -285,7 +305,7 @@ const mins = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; 
 const hhmm = m => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 
 function renderTimetable(el) {
-  let day = DAYS[0].id, mine = false;
+  let day = DAYS[0].id, mine = false, dir = 0, popped = null;
   const favs = readFavs();
   el.innerHTML = `
     <div class="tt-bar">
@@ -318,16 +338,30 @@ function renderTimetable(el) {
       stages.map((v, r) => `<div class="tt-stage" style="grid-row:${r + 2}">${tr(shows.find(s => s.venue === v), 'venue')}</div>`).join('') +
       items.map(({ s, start, end }) => {
         const on = favs.has(showKey(s));
-        return `<div class="tt-show d-${s.day}${on ? ' fav' : ''}" style="grid-row:${stages.indexOf(s.venue) + 2};grid-column:${(start - from) / 15 + 2} / span ${Math.max(1, (end - start) / 15)}">
+        return `<div class="tt-show d-${s.day}${on ? ' fav' : ''}${dir ? ' in' : ''}" style="--i:${shows.indexOf(s)};--dir:${dir};grid-row:${stages.indexOf(s.venue) + 2};grid-column:${(start - from) / 15 + 2} / span ${Math.max(1, (end - start) / 15)}">
           <button type="button" class="star" data-key="${showKey(s)}" aria-pressed="${on}" aria-label="${L('הוספה לליינאפ שלי', 'Add to my line-up')}: ${tr(s, 'title')}">${on ? '★' : '☆'}</button>
           <b>${tr(s, 'title')}</b><small>${hhmm(start)}–${hhmm(end)}</small>
         </div>`;
       }).join('');
     grid.classList.toggle('mine', mine);
-    el.querySelector('.tt-count').textContent = favs.size ? `(${favs.size})` : '';
+    const count = el.querySelector('.tt-count');
+    count.textContent = favs.size ? `(${favs.size})` : '';
+    if (popped && !reduceMotion) {
+      const b = grid.querySelector(`.star[data-key="${CSS.escape(popped)}"]`);
+      if (b) {
+        b.classList.add('bump');
+        if (favs.has(popped)) for (let i = 0; i < 8; i++) { const sp = document.createElement('i'); sp.className = 'spark'; sp.style.setProperty('--a', `${i * 45}deg`); b.appendChild(sp); }
+        b.focus({ preventScroll: true });
+      }
+      count.classList.remove('bump'); void count.offsetWidth; count.classList.add('bump');
+    }
+    popped = null; dir = 0;
     el.querySelector('.tt-hint').hidden = !(mine && !shows.some(s => favs.has(showKey(s))));
   };
   el.querySelectorAll('.tt-days button').forEach(b => b.addEventListener('click', () => {
+    const order = id => DAYS.findIndex(d => d.id === id);
+    if (b.dataset.day === day) return;
+    dir = (order(b.dataset.day) > order(day) ? 1 : -1) * (EN ? 1 : -1);
     day = b.dataset.day;
     el.querySelectorAll('.tt-days button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
     draw();
@@ -339,6 +373,7 @@ function renderTimetable(el) {
   grid.addEventListener('click', e => {
     const b = e.target.closest('.star'); if (!b) return;
     favs.has(b.dataset.key) ? favs.delete(b.dataset.key) : favs.add(b.dataset.key);
+    popped = b.dataset.key;
     saveFavs(favs); draw();
   });
   draw();
@@ -349,11 +384,26 @@ function guideTabs() {
   const box = document.querySelector('.guide');
   if (!box) return;
   const tabs = [...box.querySelectorAll('[role="tab"]')];
-  const show = id => tabs.forEach(t => {
-    const on = t.dataset.tab === id;
-    t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
-    document.getElementById('g-' + t.dataset.tab).hidden = !on;
-  });
+  const list = box.querySelector('.g-tabs');
+  const ind = document.createElement('span');
+  ind.className = 'g-ind'; ind.setAttribute('aria-hidden', 'true');
+  list.prepend(ind);
+  const mark = () => {
+    const t = tabs.find(x => x.getAttribute('aria-selected') === 'true');
+    if (!t) return;
+    ind.style.width = t.offsetWidth + 'px'; ind.style.height = t.offsetHeight + 'px';
+    ind.style.transform = `translate(${t.offsetLeft}px, ${t.offsetTop}px)`;
+  };
+  const show = id => {
+    tabs.forEach(t => {
+      const on = t.dataset.tab === id;
+      t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
+      document.getElementById('g-' + t.dataset.tab).hidden = !on;
+    });
+    mark();
+  };
+  addEventListener('resize', mark);
+  document.fonts && document.fonts.ready.then(() => { ind.classList.add('still'); mark(); requestAnimationFrame(() => ind.classList.remove('still')); });
   tabs.forEach((t, i) => {
     t.addEventListener('click', () => { show(t.dataset.tab); history.replaceState(null, '', '#' + t.dataset.tab); });
     t.addEventListener('keydown', e => {
@@ -363,7 +413,49 @@ function guideTabs() {
     });
   });
   const fromHash = tabs.find(t => '#' + t.dataset.tab === location.hash);
+  ind.classList.add('still');
   show((fromHash || tabs[0]).dataset.tab);
+  requestAnimationFrame(() => ind.classList.remove('still'));
+}
+
+// ---------- FAQ answers open and close with a short height animation ----------
+function smoothDetails() {
+  if (reduceMotion) return;
+  document.querySelectorAll('.faq details').forEach(d => {
+    const sum = d.querySelector('summary'), body = d.querySelector('summary + div');
+    if (!body) return;
+    let anim;
+    sum.addEventListener('click', e => {
+      e.preventDefault();
+      if (anim) anim.cancel();
+      const ease = 'cubic-bezier(.23, 1, .32, 1)';
+      if (d.open) {
+        anim = body.animate([{ height: body.offsetHeight + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 240, easing: ease });
+        anim.onfinish = () => { d.open = false; anim = null; };
+      } else {
+        d.open = true;
+        anim = body.animate([{ height: '0px', opacity: 0 }, { height: body.offsetHeight + 'px', opacity: 1 }], { duration: 320, easing: ease });
+        anim.onfinish = () => { anim = null; };
+      }
+    });
+  });
+}
+
+// ---------- back-to-top ring fills with scroll progress ----------
+function scrollRing() {
+  const c = document.querySelector('.totop .ring circle');
+  if (!c) return;
+  const len = 2 * Math.PI * 25;
+  c.style.strokeDasharray = len;
+  let queued = false;
+  const set = () => {
+    queued = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    c.style.strokeDashoffset = len * (1 - (max > 0 ? Math.min(1, scrollY / max) : 0));
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(set); } }, { passive: true });
+  addEventListener('resize', set);
+  set();
 }
 
 buildChrome();
@@ -382,7 +474,6 @@ document.querySelectorAll('[data-href]').forEach(a => {
 //  Enhancements: lazy images, scroll reveal, countdown, sticky CTA.
 //  Runs after every page script has rendered its content.
 // =====================================================================
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // photos exist as name-800.webp and name-1600.webp; pick the one this element needs
 const sized = (src, el) => {
@@ -442,6 +533,14 @@ function scrollReveal() {
 // Festival opens 10 Dec 2026, 00:00 Israel time (UTC+2 in December)
 const FESTIVAL_START = new Date('2026-12-10T00:00:00+02:00');
 
+// each digit that changes rolls up into place, like a flip clock
+function roll(el, val) {
+  const old = el.dataset.v || '';
+  if (val === old) return;
+  el.innerHTML = [...val].map((c, i) => `<span${old && old[i] !== c && !reduceMotion ? ' class="in"' : ''}>${c}</span>`).join('');
+  el.dataset.v = val;
+}
+
 function countdown() {
   const box = document.getElementById('countdown');
   if (!box) return;
@@ -457,9 +556,9 @@ function countdown() {
     const s = Math.floor(ms / 1000);
     out.d.textContent = Math.floor(s / 86400);
     const two = n => String(n).padStart(2, '0');
-    out.h.textContent = two(Math.floor(s / 3600) % 24);
-    out.m.textContent = two(Math.floor(s / 60) % 60);
-    out.s.textContent = two(s % 60);
+    roll(out.h, two(Math.floor(s / 3600) % 24));
+    roll(out.m, two(Math.floor(s / 60) % 60));
+    roll(out.s, two(s % 60));
     box.hidden = false;
   };
   const start = () => { clearInterval(timer); tick(); timer = setInterval(tick, reduceMotion ? 60000 : 1000); };
@@ -514,4 +613,6 @@ addEventListener('DOMContentLoaded', () => {
   countdown();
   stickyCta();
   guideTabs();
+  smoothDetails();
+  scrollRing();
 });

@@ -9,8 +9,8 @@ import hashlib
 VER = hashlib.sha1(b''.join(open(f, 'rb').read() for f in ('assets/site.css', 'assets/site.js', 'assets/data.js'))).hexdigest()[:10]
 SITE_URL = 'https://raananajazzfestival.com'
 LANGS = {
-    'he': dict(dir='rtl', base='/', out='.', suffix=' | פסטיבל הג׳אז רעננה', arrow='←'),
-    'en': dict(dir='ltr', base='/en/', out='en', suffix=' | Raanana Jazz Festival', arrow='→'),
+    'he': dict(dir='rtl', base='/', out='.', suffix=' | פסטיבל הג׳אז רעננה', arrow='<i class="arr" aria-hidden="true">←</i>'),
+    'en': dict(dir='ltr', base='/en/', out='en', suffix=' | Raanana Jazz Festival', arrow='<i class="arr" aria-hidden="true">→</i>'),
 }
 
 HEAD = '''<!doctype html>
@@ -94,7 +94,7 @@ def page_index(t, P, A):
     <div>
       <h1 class="hero-title">
         <img class="hw hw-fest" src="/images/word-festival-{t('he','en')}.png" width="{t('411','597')}" height="{t('125','90')}" alt="">
-        <img class="main-logo" src="/images/logo-hero.png" width="1052" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}">
+        <span class="logo-dots"><img class="main-logo" src="/images/logo-nodots.png" width="1052" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}"><img class="ld ld1" src="/images/logo-dot1.png" alt=""><img class="ld ld2" src="/images/logo-dot2.png" alt=""><img class="ld ld3" src="/images/logo-dot3.png" alt=""></span>
         <img class="hw hw-raan" src="/images/word-raanana-{t('he','en')}.png" width="{t('416','604')}" height="{t('109','101')}" alt="">
       </h1>
       <div class="meta">
@@ -265,7 +265,7 @@ def page_venue(t, P, A):
   <p>{t('הפסטיבל מתקיים ב<b>מרכז למוזיקה פאיס רעננה</b>.', 'The festival takes place at the <b>Raanana Pais Music Center</b>.')}</p>
   <iframe class="map" loading="lazy" title="{t('מפה – המרכז למוזיקה רעננה', 'Map – Raanana Music Center')}"
     src="https://www.google.com/maps?q={maps_q}&output=embed"></iframe>
-  <p style="margin-top:14px"><a class="tix" style="font-family:var(--display);font-weight:700;border-bottom:3px solid var(--gold)" target="_blank" rel="noopener"
+  <p style="margin-top:14px"><a class="g-text" target="_blank" rel="noopener"
     href="https://www.google.com/maps/search/?api=1&query={maps_q}">{t('לפתיחה ב־Google Maps', 'Open in Google Maps')} {A}</a></p>
 </section>
 ''',

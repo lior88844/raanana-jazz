@@ -486,7 +486,6 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
   [dir="ltr"] .drawer .main a:hover { transform: translateX(4px); }
   .drawer .sub a:hover { color: var(--red-ink); }
   .drawer .drawer-lang:hover { background: var(--ink); color: var(--white); }
-  .card:hover .ph, .lead:hover .ph, .others li:hover .ph { transform: scale(1.02); }
   .card .buy:hover, .duo .disc:hover { color: var(--red-ink); }
   .slot .tix:hover { color: var(--red-ink); }
   .daycol .pass:hover { background: var(--field); }
@@ -690,7 +689,7 @@ html:not(.js) .g-panel { border-radius: 22px; margin-top: 18px; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: '+'; font-family: var(--latin); font-size: 26px; line-height: 1; transition: transform var(--hover) var(--ease-out); }
 .faq details[open] summary::after { transform: rotate(45deg); }
-.faq details > div { padding: 0 0 20px; font-size: var(--fs-body); line-height: 1.7; max-width: 68ch; }
+.faq details > div { overflow: hidden; padding: 0 0 20px; font-size: var(--fs-body); line-height: 1.7; max-width: 68ch; }
 .faq details a, .faq > p a { border-bottom: 2px solid var(--accent); font-weight: 700; }
 
 @media (hover: hover) and (pointer: fine) {
@@ -716,4 +715,104 @@ html:not(.js) .g-panel { border-radius: 22px; margin-top: 18px; }
   .tt-scroll { overflow: visible; border-color: #000; }
   .tt { min-width: 0; }
   .tt-show, .tt-days button.on { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* =====================================================================
+   Micro-animations (chosen from the motion test page, 2026-10-14)
+   ===================================================================== */
+/* logo with separate dots (hero: they pop in on the beat; top bar: they hop on hover) */
+.logo-dots { position: relative; display: block; line-height: 0; }
+.logo-dots .ld { position: absolute; width: 5.7%; height: 7.56%; right: auto; bottom: auto; }
+.logo-dots .ld1 { left: 78.9%; top: 22.04%; }
+.logo-dots .ld2 { left: 87.17%; top: 56.42%; }
+.logo-dots .ld3 { left: 92.59%; top: 88.79%; }
+.brand .logo-dots .ld { width: 5.7%; }
+.hero .ld { animation: beatIn 420ms cubic-bezier(.34, 1.56, .64, 1) both; }
+.hero .ld1 { animation-delay: 560ms; } .hero .ld2 { animation-delay: 860ms; } .hero .ld3 { animation-delay: 1160ms; }
+@keyframes beatIn { 0% { transform: scale(.3); opacity: 0; } 60% { transform: scale(1.35); opacity: 1; } 100% { transform: none; opacity: 1; } }
+@keyframes dotHop { 40% { transform: translateY(-45%) scale(1.15); } }
+
+/* countdown: changed digits roll up */
+.countdown .hms b { overflow: clip; overflow-clip-margin: 4px; }
+.countdown b span { display: inline-block; }
+.countdown b span.in { animation: rollIn 380ms var(--ease-out); }
+@keyframes rollIn { from { transform: translateY(90%); opacity: .2; } }
+
+/* line-up cloud: names pop in on first view */
+.cloud.pre li { opacity: 0; }
+.cloud.pop li { animation: pillPop 440ms cubic-bezier(.34, 1.56, .64, 1) backwards; animation-delay: calc(var(--i) * 35ms); }
+@keyframes pillPop { from { transform: scale(.6) translateY(10px); opacity: 0; } }
+
+/* timetable: day change slides in, star bursts, counter bumps */
+.tt-show.in { animation: blkIn 380ms var(--ease-out) backwards; animation-delay: calc(var(--i) * 30ms); }
+@keyframes blkIn { from { transform: translateX(calc(var(--dir) * 40px)); opacity: 0; } }
+.tt-show .star.bump { animation: starBump 440ms cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes starBump { 40% { transform: scale(1.5) rotate(-12deg); } }
+.spark { position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px; border-radius: 50%; background: var(--ink); pointer-events: none; animation: spark 520ms ease-out forwards; }
+.d-thu .spark { background: var(--accent); }
+@keyframes spark { from { transform: rotate(var(--a)) translateY(0) scale(1); opacity: 1; } to { transform: rotate(var(--a)) translateY(-24px) scale(.4); opacity: 0; } }
+.tt-count { display: inline-block; }
+.tt-count.bump { animation: countBump 360ms cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes countBump { 40% { transform: translateY(-5px) scale(1.25); } }
+
+/* visitor guide: the dark marker slides between tabs */
+.g-tabs { position: relative; }
+.g-tabs button { position: relative; z-index: 1; }
+.js .g-tabs button[aria-selected="true"] { background: transparent; }
+.g-ind { position: absolute; left: 0; top: 0; z-index: 0; background: var(--ink); border-radius: 16px 16px 0 0; pointer-events: none;
+  transition: transform 380ms var(--ease-in-out), width 380ms var(--ease-in-out), height 380ms var(--ease-in-out); }
+.g-ind.still { transition: none; }
+
+/* arrows nudge toward the reading direction */
+.arr { display: inline-block; font-style: normal; transition: transform var(--hover) var(--ease-out); }
+
+/* yellow underline grows from the start of the word (a faint line stays at rest) */
+:is(.prose a, .g-text, .g-more a, .faq details a, .faq > p a, .card .buy, .duo .disc, .tcard .go, .cbtn span, .dl a) {
+  border-bottom-color: transparent;
+  background-image: linear-gradient(var(--accent), var(--accent)), linear-gradient(rgba(247, 206, 70, .55), rgba(247, 206, 70, .55));
+  background-repeat: no-repeat; background-origin: border-box; background-clip: border-box;
+  background-size: 0 3px, 100% 3px; background-position: right bottom, right bottom;
+  transition: background-size 320ms var(--ease-out), color var(--hover) ease;
+}
+[dir="ltr"] :is(.prose a, .g-text, .g-more a, .faq details a, .faq > p a, .card .buy, .duo .disc, .tcard .go, .cbtn span, .dl a) { background-position: left bottom, left bottom; }
+
+/* menu links come in one after another */
+.drawer { --from: 24px; }
+[dir="ltr"] .drawer { --from: -24px; }
+.menu-open .drawer .main a, .menu-open .drawer .sub a { animation: linkIn 360ms var(--ease-out) backwards; animation-delay: calc(110ms + var(--i) * 40ms); }
+@keyframes linkIn { from { opacity: 0; transform: translateX(var(--from)); } }
+
+/* show photos zoom a little inside their frame */
+.lead .ph, .others .ph, .showrow .ph, .card .ph { position: relative; overflow: hidden; }
+.lead .ph::before, .others .ph::before, .showrow .ph::before, .card .ph::before { content: ''; position: absolute; inset: 0; background: inherit; transition: transform 600ms var(--ease-out); }
+
+/* back-to-top ring */
+.totop .ring { position: absolute; inset: -5px; width: 54px; height: 54px; transform: rotate(-90deg); }
+.totop .ring circle { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+
+/* equalizer next to "now on stage" */
+.now-strip .eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 16px; }
+.now-strip .eq i { width: 4px; height: 100%; background: var(--accent); border-radius: 2px; transform-origin: bottom; animation: eq 900ms ease-in-out infinite; }
+.now-strip .eq i:nth-child(2) { animation-duration: 700ms; animation-delay: -200ms; }
+.now-strip .eq i:nth-child(3) { animation-duration: 1100ms; animation-delay: -450ms; }
+@keyframes eq { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover .arr, a:focus-visible .arr, .lead:hover .arr, .others li:hover .arr, .card:hover .arr, .showrow:hover .arr { transform: translateX(-4px); }
+  [dir="ltr"] a:hover .arr, [dir="ltr"] a:focus-visible .arr, [dir="ltr"] .lead:hover .arr, [dir="ltr"] .card:hover .arr { transform: translateX(4px); }
+  :is(.prose a, .g-text, .g-more a, .faq details a, .faq > p a, .dl a, .duo .disc):hover,
+  .card:hover .buy, .tcard:hover .go, .cbtn:hover span { background-size: 100% 3px, 100% 3px; }
+  .lead:hover .ph::before, .others li:hover .ph::before, .showrow:hover .ph::before, .card:hover .ph::before { transform: scale(1.04); }
+  .brand .logo-dots:hover .ld { animation: dotHop 520ms cubic-bezier(.34, 1.56, .64, 1); }
+  .brand .logo-dots:hover .ld2 { animation-delay: 90ms; }
+  .brand .logo-dots:hover .ld3 { animation-delay: 180ms; }
+}
+:is(.g-text, .g-more a, .faq details a, .faq > p a, .prose a, .dl a, .duo .disc):focus-visible { background-size: 100% 3px, 100% 3px; }
+@media (max-width: 700px) { .g-ind { border-radius: 14px; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero .ld { animation: fade 250ms ease both; animation-delay: 0ms; }
+  .cloud.pop li, .tt-show.in, .menu-open .drawer .main a, .menu-open .drawer .sub a, .countdown b span.in, .now-strip .eq i,
+  .brand .logo-dots .ld, .tt-show .star.bump, .tt-count.bump, .spark { animation: none !important; }
+  .g-ind, .arr, .lead .ph::before, .others .ph::before, .showrow .ph::before, .card .ph::before { transition: none; }
+  .spark { display: none; }
 }
