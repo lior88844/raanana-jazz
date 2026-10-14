@@ -158,7 +158,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .hero h1 { margin: 0; }
 .hero .main-logo { width: 100%; max-width: 480px; margin: 0 auto; }
 /* "פסטיבל / FESTIVAL" over the logo's top-right corner, "רעננה / RAANANA" under its bottom-left – as on the original Wix hero */
-.hero-title { position: relative; max-width: 480px; margin: 0 auto; }
+.hero .hero-title { position: relative; max-width: 480px; margin: 0 auto; }
 .hero-title .hw { position: relative; z-index: 1; width: 44%; }
 .hero-title .hw-fest { margin: 0 -9% -3% auto; }
 .hero-title .hw-raan { margin: 1% auto 0 -9%; }
