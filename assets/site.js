@@ -146,6 +146,64 @@ function renderCards(el, list = SHOWS.filter(s => s.featured)) {
     </article>`).join('');
 }
 
+// Featured shows as an editorial list: the first is the lead, the rest follow as rows.
+function renderFeatured(el) {
+  const featured = SHOWS.filter(s => s.featured);
+  const lead = featured.find(s => s.lead) || featured[0];   // the headline production leads
+  const rest = featured.filter(s => s !== lead);
+  const meta = s => `${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time} · ${tr(s, 'venue')}`;
+  const link = (s, label, cls) => s.slug ? `<a href="${T(s.slug)}" class="${cls} stretch" ${ext}>${label}</a>` : '';
+  el.innerHTML = `
+    <article class="lead">
+      <div class="ph" data-bg="${img(lead.img)}" role="img" aria-label="${tr(lead, 'title')}"></div>
+      <div class="meta">${meta(lead)}</div>
+      <h3>${tr(lead, 'title')}</h3>
+      <p>${tr(lead, 'desc')}</p>
+      ${link(lead, L('לכרטיסים', 'Tickets') + ' ' + ARROW, 'buy')}
+    </article>
+    <ul class="others">
+      ${rest.map(s => `
+        <li>
+          <div class="ph" data-bg="${img(s.img)}"></div>
+          <div>
+            <div class="meta">${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time}</div>
+            <h3>${link(s, tr(s, 'title'), 'name') || tr(s, 'title')}</h3>
+            <div class="venue">${tr(s, 'venue')}</div>
+          </div>
+        </li>`).join('')}
+    </ul>`;
+}
+
+// "Now on stage": during festival days, what is playing on each stage right now (or next).
+// Preview any moment with ?now=2025-12-19T20:15
+function nowOnStage(el) {
+  const param = new URLSearchParams(location.search).get('now');
+  const clock = () => (param ? new Date(param + (/[+Z]/.test(param.slice(10)) ? '' : '+02:00')) : new Date());
+  const at = (iso, time) => new Date(`${iso}T${time}:00+02:00`);   // Israel time in December
+  const render = () => {
+    const now = clock();
+    const day = DAYS.find(d => d.iso && now >= at(d.iso, '00:00') && now < at(d.iso, '23:59'));
+    const shows = day ? SHOWS.filter(s => s.day === day.id) : [];
+    const stages = [...new Set(shows.map(s => s.venue))];
+    const rows = stages.map(v => {
+      const list = shows.filter(s => s.venue === v).sort((a, b) => a.time.localeCompare(b.time));
+      const cur = list.find((s, i) => at(day.iso, s.time) <= now && now < (list[i + 1] ? at(day.iso, list[i + 1].time) : new Date(+at(day.iso, s.time) + 90 * 60000)));
+      const next = list.find(s => at(day.iso, s.time) > now);
+      return { v, cur, next, label: tr(list[0], 'venue') };
+    }).filter(r => r.cur || r.next);
+    if (!rows.length) { el.hidden = true; return; }
+    el.hidden = false;
+    el.innerHTML = `<div class="now-in">
+      <div class="now-h"><span class="live" aria-hidden="true"></span>${L('עכשיו על הבמות', 'Now on stage')} · ${dayName(day)} ${day.date}</div>
+      <ul>${rows.map(r => r.cur
+        ? `<li><b>${r.label}</b><strong>${tr(r.cur, 'title')}</strong><span>${L('התחיל ב־', 'Started ')}${r.cur.time}</span></li>`
+        : `<li class="idle"><b>${r.label}</b><strong>${tr(r.next, 'title')}</strong><span>${L('בשעה', 'At')} ${r.next.time}</span></li>`).join('')}</ul>
+    </div>`;
+  };
+  render();
+  setInterval(render, 60000);
+}
+
 function renderShowList(el, dayId) {
   el.innerHTML = SHOWS.filter(s => !dayId || s.day === dayId).map(s => `
     <article class="showrow">
@@ -155,6 +213,7 @@ function renderShowList(el, dayId) {
         <h3>${tr(s, 'title')}</h3>
         <p>${tr(s, 'desc')}</p>
         <div class="venue">${tr(s, 'venue')}</div>
+        ${s.credit ? `<small class="credit">${L('צילום', 'Photo')}: ${s.credit}</small>` : ''}
       </div>
       <div class="act">
         ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}
@@ -171,7 +230,7 @@ function renderTeachers(el, asList = true) {
 }
 
 function renderMoments(el) {
-  el.innerHTML = MOMENTS.map(([f, cap, capEn]) => `<a href="${img(f)}" target="_blank" rel="noopener" data-bg="${img(f)}" aria-label="${EN ? capEn : cap}"><span>${EN ? capEn : cap}</span></a>`).join('');
+  el.innerHTML = MOMENTS.map(([f, cap, capEn, credit]) => `<a href="${img(f)}" target="_blank" rel="noopener" data-bg="${img(f)}" aria-label="${EN ? capEn : cap}"><span>${EN ? capEn : cap}</span>${credit ? `<small class="credit">${L('צילום', 'Photo')}: ${credit}</small>` : ''}</a>`).join('');
 }
 
 function renderPartners(el) {
@@ -184,7 +243,7 @@ function renderThemePasses(el) {
 
 buildChrome();
 document.querySelectorAll('[data-render]').forEach(el => {
-  const fn = { schedule: renderSchedule, cards: renderCards, showlist: renderShowList, teachers: renderTeachers,
+  const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
     people: el => renderTeachers(el, false), moments: renderMoments, partners: renderPartners, themes: renderThemePasses }[el.dataset.render];
   fn && fn(el);
 });

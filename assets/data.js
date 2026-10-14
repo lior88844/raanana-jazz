@@ -24,10 +24,11 @@ const SITE = {
   program: '/images/413f2429c54a.png',
 };
 
+// iso = the calendar date of each festival day (used by the "now on stage" strip)
 const DAYS = [
-  { id: 'thu', name: 'חמישי', name_en: 'Thursday', date: '18.12', pass: 'season/1980' },
-  { id: 'fri', name: 'שישי', name_en: 'Friday', date: '19.12', pass: 'season/1981' },
-  { id: 'sat', name: 'שבת', name_en: 'Saturday', date: '20.12', pass: 'season/1982' },
+  { id: 'thu', name: 'חמישי', name_en: 'Thursday', date: '18.12', iso: '2025-12-18', pass: 'season/1980' },
+  { id: 'fri', name: 'שישי', name_en: 'Friday', date: '19.12', iso: '2025-12-19', pass: 'season/1981' },
+  { id: 'sat', name: 'שבת', name_en: 'Saturday', date: '20.12', iso: '2025-12-20', pass: 'season/1982' },
 ];
 
 // day, time, title, venue, description, image, ticket slug, free entry, featured on home
@@ -43,7 +44,7 @@ const SHOWS = [
   { day: 'thu', time: '20:00', title: 'רביעיית אהרל׳ה קמינסקי', title_en: "Aharale Kaminsky Quartet", venue: 'מועדון הסלון', venue_en: 'The Salon Club',
     desc: 'מחווה לג׳ון קולטריין, אלווין ג׳ונס וסוני רולינס.',
     desc_en: "A tribute to John Coltrane, Elvin Jones and Sonny Rollins.",
-    img: '457a7b076e96.jpg', slug: '%D7%A8%D7%91%D7%99%D7%A2%D7%99%D7%99%D7%AA_%D7%90%D7%94%D7%A8%D7%9C_%D7%94_%D7%A7%D7%9E%D7%99%D7%A0%D7%A1%D7%A7%D7%99_-_%D7%9E%D7%97%D7%95%D7%95%D7%94_%D7%9C%D7%92_%D7%95%D7%9F_%D7%A7%D7%95%D7%9C%D7%98%D7%A8%D7%99%D7%99%D7%9F_%D7%95%D7%90%D7%9C%D7%95%D7%95%D7%99%D7%A1_%D7%92_%D7%95%D7%A0%D7%A1' },
+    img: '457a7b076e96.jpg', credit: 'Yossi Zwecker', slug: '%D7%A8%D7%91%D7%99%D7%A2%D7%99%D7%99%D7%AA_%D7%90%D7%94%D7%A8%D7%9C_%D7%94_%D7%A7%D7%9E%D7%99%D7%A0%D7%A1%D7%A7%D7%99_-_%D7%9E%D7%97%D7%95%D7%95%D7%94_%D7%9C%D7%92_%D7%95%D7%9F_%D7%A7%D7%95%D7%9C%D7%98%D7%A8%D7%99%D7%99%D7%9F_%D7%95%D7%90%D7%9C%D7%95%D7%95%D7%99%D7%A1_%D7%92_%D7%95%D7%A0%D7%A1' },
   { day: 'thu', time: '20:00', title: 'Zero Point – הדר נויברג וקטיה טובול', title_en: "Zero Point – Hadar Noiberg & Katia Toubol", venue: 'המועדון הקאמרי', venue_en: 'The Chamber Club',
     desc: 'עם רביעיית מודוסיקה – מסע מוזיקלי שבו הגבולות בין סגנונות מיטשטשים.',
     desc_en: "With the Modusica Quartet – a musical journey where the lines between styles blur.",
@@ -72,7 +73,7 @@ const SHOWS = [
   { day: 'fri', time: '21:30', title: 'Jerzy Malek – IQ Project', title_en: "Jerzy Malek – IQ Project", venue: 'אולם ערן', venue_en: 'Eran Hall', featured: true,
     desc: 'הרכב בינלאומי יוצא דופן: Jerzy Malek, Andy Middleton, Kalman Oláh, Doug Weiss ו־Alan Jones בפרויקט מקורי חדש.',
     desc_en: "An extraordinary international line-up: Jerzy Malek, Andy Middleton, Kalman Oláh, Doug Weiss and Alan Jones in a brand-new original project.",
-    img: 'b10be8da554f.jpg', slug: 'Jerzy_Malek_IQ_Project__%D7%A4%D7%95%D7%9C%D7%99%D7%9F_-_%D7%90%D7%A8%D7%94_%D7%91_' },
+    img: 'd51c0279d5e3.jpg', slug: 'Jerzy_Malek_IQ_Project__%D7%A4%D7%95%D7%9C%D7%99%D7%9F_-_%D7%90%D7%A8%D7%94_%D7%91_' },
 
   { day: 'sat', time: '11:00', title: 'ילדוג׳אז', title_en: "Yaldojazz – Kids' Jazz", venue: 'רחבת הפסטיבל', venue_en: 'Festival Plaza', free: true,
     desc: 'שירי הילדות היפים בעיבודי ג׳אז סוחפים – מופע אינטראקטיבי לכל המשפחה.',
@@ -85,7 +86,7 @@ const SHOWS = [
   { day: 'sat', time: '17:30', title: 'הופעת הרכבי הסדנאות', title_en: "Workshop Ensembles Showcase", venue: 'רחבת הפסטיבל', venue_en: 'Festival Plaza', free: true,
     desc: 'משתתפי סדנאות הפסטיבל עולים לבמה עם מה שבנו במהלך שלושת הימים.',
     desc_en: "Festival workshop participants take the stage with what they built over three days." },
-  { day: 'sat', time: '18:30', title: 'אבישי כהן ובקה גוצ׳יאשווילי (גאורגיה)', title_en: "Avishai Cohen & Beka Gochiashvili (Georgia)", venue: 'אולם ערן', venue_en: 'Eran Hall', featured: true,
+  { day: 'sat', time: '18:30', title: 'אבישי כהן ובקה גוצ׳יאשווילי (גאורגיה)', title_en: "Avishai Cohen & Beka Gochiashvili (Georgia)", venue: 'אולם ערן', venue_en: 'Eran Hall', featured: true, lead: true,
     desc: 'שיחה מוזיקלית בין שני ענקים – הפקה מיוחדת לפסטיבל.',
     desc_en: "A musical conversation between two giants – a special festival production.",
     img: '8300ce79d8cf.jpg', slug: '%D7%90%D7%91%D7%99%D7%A9%D7%99_%D7%9B%D7%94%D7%9F_%D7%95%D7%91%D7%A7%D7%94_%D7%92%D7%95%D7%A6_%D7%99%D7%90%D7%A9%D7%95%D7%95%D7%99%D7%9C%D7%99___%D7%A9%D7%99%D7%97%D7%94_%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%9C%D7%99%D7%AA_%D7%91%D7%99%D7%9F_%D7%A9%D7%A0%D7%99_%D7%A2%D7%A0%D7%A7%D7%99%D7%9D' },
@@ -121,7 +122,7 @@ const MOMENTS = [
   ['41fe4793261f.jpg', 'ביג בנד רעננה', 'Raanana Big Band'],
   ['92a2e4ad85b1.jpg', 'הישראדיקסי בנד', 'The Isradixie Band'],
   ['fe4d926b965d.jpg', 'אנסמבל שם טוב לוי', 'Shem Tov Levi Ensemble'],
-  ['457a7b076e96.jpg', 'רביעיית אהרל׳ה קמינסקי', 'Aharale Kaminsky Quartet'],
+  ['457a7b076e96.jpg', 'רביעיית אהרל׳ה קמינסקי', 'Aharale Kaminsky Quartet', 'Yossi Zwecker'],
   ['60d45e600820.jpg', 'Leonid Nesterov Quartet', 'Leonid Nesterov Quartet'],
   ['11e83fd3108a.jpg', 'Taulant Mehmeti Balkan Quartet', 'Taulant Mehmeti Balkan Quartet'],
   ['30b3759118a3.jpg', 'ילדוג׳אז', 'Yaldojazz'],

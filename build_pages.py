@@ -48,7 +48,7 @@ FOOT = '''
 
 
 def hero(eyebrow, title, chip='', lead='', ctas=''):
-    chip_html = f'<span class="chip">{chip}</span>' if chip else ''
+    chip_html = ''   # tilted chips removed (design review item 12)
     lead_html = f'<p class="lead">{lead}</p>' if lead else ''
     cta_html = f'<div class="ctas">{ctas}</div>' if ctas else ''
     return f'''<section class="page-hero grain">
@@ -61,19 +61,16 @@ def hero(eyebrow, title, chip='', lead='', ctas=''):
 
 
 
-def moments_head(t):
+def moments_head(t, level='h3'):
     return f'''<div class="moments-h">
-  <h2>{t('רגעים מהפסטיבל', 'Moments Captured')}</h2>
-  <div class="yr">2025</div>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
+  <{level} class="subhead" style="margin:0;padding:0">{t('רגעים מהפסטיבל', 'Moments captured')}</{level}>
 </div>'''
 
 
 def passes_box(t, P, A):
     return f'''<section class="passes grain" id="passes">
   <div class="love">{t('רוצים את כל הפסטיבל?', 'Want the whole festival?')}</div><br>
-  <div class="big">{t('פסים', 'Passes')}</div><br>
-  <span class="chip">{t('במחיר משתלם', 'Best value')}</span>
+  <div class="big">{t('פסים', 'Passes')}</div>
   <p>{t('פס יומי או פס לכל ימי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את כל ההופעות. אפשר גם לרכוש כרטיסים לפי מופע.',
        'A day pass or a full-festival pass is <b>the best-value way</b> to catch every show. Single-show tickets are available too.')}</p>
   <div class="ctas">
@@ -91,7 +88,6 @@ def page_index(t, P, A):
         desc=t('פסטיבל הג׳אז רעננה – World Jazz Music. 9–12 בדצמבר 2026, ארבעה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
                'Raanana Jazz Festival – World Jazz Music. 9–12 December 2026: four days of live music at the Raanana Music Center.'),
         no_suffix=True,
-        head='<link rel="preload" as="image" href="/images/8300ce79d8cf-1600.webp" imagesrcset="/images/8300ce79d8cf-800.webp 800w, /images/8300ce79d8cf-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">',
         body=f'''
 <section class="hero grain">
   <div class="hero-inner">
@@ -110,62 +106,67 @@ def page_index(t, P, A):
           </div>
         </div>
         <div class="ctas">
-          <a href="{P('tickets.html')}" class="btn primary">{t('לרכישת כרטיסים', 'Buy tickets')}</a>
-          <a href="{P('lineup.html')}" class="btn ghost">{t('ללוח ההופעות', 'See the line-up')} {A}</a>
+          <a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t('לעדכונים על התוכנייה', 'Get programme updates')}</a>
+          <a href="#festival-2025" class="btn ghost">{t('מה היה ב־2025', 'See 2025')} ↓</a>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section class="hero-photo" data-bg="/images/8300ce79d8cf.jpg">
-  <div class="cap">
-    <div class="k">{t('מפסטיבל 2025 · הפקה מיוחדת לפסטיבל', 'From the 2025 festival · Special festival production')}</div>
-    <h2>{t('אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים', 'Avishai Cohen & Beka Gochiashvili – a musical conversation between two giants')}</h2>
-  </div>
+
+<section class="now-strip" data-render="now" hidden aria-live="polite"></section>
+
+<section class="next" aria-labelledby="next-h">
+  <h2 id="next-h">{t('פסטיבל 2026', 'Festival 2026')}</h2>
+  <p>{t('ארבעה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
+        'Four days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
+  <ul class="facts">
+    <li><b>9–12.12</b><span>{t('ארבעה ימים, רביעי עד שבת', 'Four days, Wednesday to Saturday')}</span></li>
+    <li><b>4</b><span>{t('במות במרכז למוזיקה פאיס רעננה', 'stages at the Raanana Pais Music Center')}</span></li>
+    <li><b>14–25</b><span>{t('סדנאות לנגנים צעירים – ההרשמה תיפתח בקרוב.', 'Workshops for young musicians – sign-up opens soon.')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
+  </ul>
+  <p class="soon">{t('התוכנייה המלאה של 2026 תפורסם בקרוב. עקבו אחרינו באינסטגרם כדי לשמוע ראשונים.', 'The full 2026 programme will be announced soon. Follow us on Instagram to hear first.')}</p>
 </section>
 
-<section class="intro">
-  <h2>{t('פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival')} <span>2026</span></h2>
-  <p>{t('<b>9–12 בדצמבר 2026</b> · ארבעה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.',
-        '<b>9–12 December 2026</b> · four days of live music across the Raanana Music Center – artists from Israel and around the world, original productions, masterclasses and shows for the whole family.')}</p>
-</section>
-
-<div class="stitle"><h2>{t('הופעות', 'Shows')}<span class="chip">{t('רגעי שיא 2025', '2025 highlights')}</span></h2></div>
-<section class="cards" data-render="cards"></section>
-
-<div class="stitle" id="lineup"><h2>{t('לוח הופעות', 'Line-up')}<span class="chip">2025</span></h2></div>
-<p class="sched-note">{t('התוכנייה של 2026 תפורסם בקרוב. בינתיים – כך נראה הפסטיבל ב־18–20.12.2025.',
-                         'The 2026 programme will be announced soon. Meanwhile, here is how the festival looked on 18–20 December 2025.')}</p>
-<section class="schedule" data-render="schedule"></section>
-
-{passes_box(t, P, A)}
-
-<section class="duo">
-  <div class="col">
-    <h2>{t('התוכנייה המלאה', 'The full programme')}</h2>
-    <a data-href="program" target="_blank" class="disc">{t('לצפייה בתוכנייה', 'View the programme')} {A}</a>
-    <div class="frame program"><img src="/images/413f2429c54a.png" alt="{t('תוכניית הפסטיבל', 'Festival programme')}" loading="lazy" width="880" height="1240"></div>
-    <a href="/images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">{t('להורדת התוכנייה', 'Download the programme')} ↓</a>
+<section id="festival-2025" aria-labelledby="f25-h">
+  <div class="stitle">
+    <h2 id="f25-h">{t('פסטיבל 2025', 'Festival 2025')}</h2>
+    <p>{t('18–20 בדצמבר 2025 · כך נראה הפסטיבל בשנה שעברה.', '18–20 December 2025 · how last year’s festival looked.')}</p>
   </div>
-  <div class="col">
-    <h2>{t('סדנאות 2025', '2025 Workshops')}</h2>
-    <a href="{P('workshops.html')}" class="disc">{t('לכל הפרטים והרשמה', 'Details and sign-up')} {A}</a>
-    <div class="frame ws">
-      <div class="k">{t('סדנאות<span>למוזיקאים</span>', 'Workshops<span>for musicians</span>')}</div>
-      <div class="info">{t('לגילאי 14–25 · 18–20 בדצמבר (חופש חנוכה)<br>חמישי–שבת · 10:00–17:00<br>נגינה בהרכבים, סדנאות כלי, כיתות אמן והופעה במתחם הפסטיבל',
-                           'Ages 14–25 · 18–20 December (Hanukkah break)<br>Thursday–Saturday · 10:00–17:00<br>Ensemble playing, instrument workshops, masterclasses and a performance at the festival')}</div>
-      <ul data-render="teachers"></ul>
-      <div class="price">{t('2,000 ₪ · כולל כניסה להופעות*', '₪2,000 · includes festival shows*')}</div>
+  <section class="featured" data-render="featured" aria-label="{t('הופעות נבחרות', 'Selected shows')}"></section>
+
+  <h3 class="subhead" id="lineup">{t('לוח ההופעות', 'Line-up')}</h3>
+  <section class="schedule" data-render="schedule"></section>
+
+  {passes_box(t, P, A)}
+
+  <section class="duo">
+    <div class="col">
+      <h3 class="subhead" style="margin:0;padding:0">{t('התוכנייה', 'Programme')}</h3>
+      <a data-href="program" target="_blank" class="disc">{t('לצפייה בתוכנייה', 'View the programme')} {A}</a>
+      <div class="frame program"><img src="/images/413f2429c54a.png" alt="{t('תוכניית פסטיבל 2025', '2025 festival programme')}" loading="lazy" width="880" height="1240"></div>
+      <a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="hires">{t('להורדת התוכנייה', 'Download the programme')} ↓</a>
     </div>
-    <span class="hires">{t('*על בסיס מקום פנוי', '*subject to availability')}</span>
-  </div>
-</section>
+    <div class="col">
+      <h3 class="subhead" style="margin:0;padding:0">{t('הסדנאות', 'Workshops')}</h3>
+      <a href="{P('workshops.html')}" class="disc">{t('לכל הפרטים', 'All the details')} {A}</a>
+      <div class="frame ws">
+        <div class="k">{t('סדנאות<span>למוזיקאים</span>', 'Workshops<span>for musicians</span>')}</div>
+        <div class="info">{t('לגילאי 14–25 · 18–20 בדצמבר 2025<br>חמישי–שבת · 10:00–17:00<br>נגינה בהרכבים, סדנאות כלי, כיתות אמן והופעה במתחם הפסטיבל',
+                             'Ages 14–25 · 18–20 December 2025<br>Thursday–Saturday · 10:00–17:00<br>Ensemble playing, instrument workshops, masterclasses and a performance at the festival')}</div>
+        <ul data-render="teachers"></ul>
+        <div class="price">{t('2,000 ₪ · כולל כניסה להופעות*', '₪2,000 · includes festival shows*')}</div>
+      </div>
+      <span class="hires">{t('*על בסיס מקום פנוי', '*subject to availability')}</span>
+    </div>
+  </section>
 
-{moments_head(t)}
-<section class="grid" data-render="moments"></section>
+  {moments_head(t)}
+  <section class="grid" data-render="moments"></section>
+</section>
 
 <section class="partners" id="partners">
-  <h2>{t('תודה מיוחדת', 'Special thanks')}<span class="l2">{t('לשותפים ולתומכים', 'to our partners')}</span><span class="l3">{t('שלנו', '+ supporters')}</span></h2>
+  <h2>{t('תודה לשותפים ולתומכים', 'Thank you to our partners')}</h2>
   <p class="sub">{t('הפסטיבל לא היה מתקיים בלעדיכם.', "The festival wouldn't happen without you.")}</p>
   <div class="cat">{t('מפיקים ותומכים', 'Producers + supporters')}</div>
   <div class="logos" data-render="partners"></div>
@@ -177,7 +178,7 @@ def page_lineup(t, P, A):
     return dict(
         title=t('לוח הופעות', 'Line-up'),
         desc=t('לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 9–12 בדצמבר.', 'The Raanana Jazz Festival line-up. Festival 2026: 9–12 December.'),
-        body=hero(t('פסטיבל 2026 · 9–12 בדצמבר', 'Festival 2026 · 9–12 December'), t('לוח הופעות', 'Line-up'), '2025',
+        body=hero(t('הפסטיבל הבא: 9–12 בדצמבר 2026', 'Next festival: 9–12 December 2026'), t('לוח הופעות 2025', 'Line-up 2025'), '',
                   t('התוכנייה של פסטיבל 2026 תפורסם בקרוב. בינתיים, כך נראה לוח ההופעות של פסטיבל 2025 (18–20.12.2025).',
                     'The 2026 programme will be announced soon. Meanwhile, here is the 2025 festival line-up (18–20 December 2025).'),
                   f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("פס לכל הפסטיבל", "Full festival pass")}</a>'
@@ -189,6 +190,7 @@ def page_lineup(t, P, A):
     <button data-day="fri">{t('שישי 19.12', 'Fri 19.12')}</button>
     <button data-day="sat">{t('שבת 20.12', 'Sat 20.12')}</button>
   </div>
+  <h2 class="sr-only">{t('כל ההופעות', 'All shows')}</h2>
   <div class="showlist" id="showlist" data-render="showlist"></div>
 </section>
 <section class="cta-band">
@@ -210,15 +212,16 @@ def page_past(t, P, A):
     return dict(
         title=t('פסטיבל 2025 – האמנים', 'Festival 2025 – Artists'),
         desc=t('האמנים שהופיעו בפסטיבל הג׳אז רעננה 2025.', 'The artists who played the 2025 Raanana Jazz Festival.'),
-        body=hero(t('מהדורות קודמות', 'Past editions'), t('פסטיבל', 'Festival'), '2025',
+        body=hero(t('מהדורות קודמות', 'Past editions'), t('פסטיבל 2025', 'Festival 2025'), '',
                   t('האמנים שהפכו את פסטיבל 2025 לבלתי נשכח – מישראל, ממרוקו, מפולין, מהונגריה, מאוסטריה, מגאורגיה, מיוון, מקפריסין ומארה״ב.',
                     'The artists who made 2025 unforgettable – from Israel, Morocco, Poland, Hungary, Austria, Georgia, Greece, Cyprus and the USA.')) + f'''
 <div class="year-bar" style="margin-top:-40px;position:relative;z-index:2">
   <label for="year">{t('החליפו שנה', 'Switch year')}</label>
   <select id="year"><option selected>2025</option><option disabled>{t('2026 – בקרוב', '2026 – coming soon')}</option></select>
 </div>
+<h2 class="sr-only">{t('האמנים', 'The artists')}</h2>
 <section class="artists" id="artists"></section>
-{moments_head(t)}
+{moments_head(t, 'h2')}
 <section class="grid" data-render="moments"></section>
 <section class="cta-band" style="margin-top:0">
   <h2>{t('להורדת התוכנייה של 2025', 'Download the 2025 programme')}</h2>
@@ -295,7 +298,7 @@ def page_about(t, P, A):
   <div class="people" data-render="people"></div>
 </section>
 <section class="partners" style="margin-top:110px">
-  <h2>{t('השותפים', 'The partners')}<span class="l2">{t('שמאפשרים את', 'who make the')}</span><span class="l3">{t('הפסטיבל', 'festival possible')}</span></h2>
+  <h2>{t('השותפים שלנו', 'Our partners')}</h2>
   <div class="logos" data-render="partners" style="margin-top:50px"></div>
 </section>
 ''')
@@ -410,6 +413,7 @@ def page_contact(t, P, A):
         body=hero(t('נשמח לשמוע מכם', "We'd love to hear from you"), t('צור קשר', 'Contact'), '',
                   t('בחרו את נושא הפנייה – ייפתח מייל עם הנושא הנכון.', 'Choose a topic and an email will open with the right subject.')) + f'''
 <section class="wrap section">
+  <h2 class="sr-only">{t('נושאי פנייה', 'Topics')}</h2>
   <div class="contact-grid" id="contactGrid"></div>
 </section>
 <section class="narrow section prose" style="text-align:center">

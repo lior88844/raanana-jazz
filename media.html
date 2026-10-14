@@ -18,14 +18,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/assets/site.css?v=8e007c9d3d">
+<link rel="stylesheet" href="/assets/site.css?v=d3b0bc221b">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <main id="main">
 <section class="page-hero grain">
   <div class="eyebrow">לעיתונאים ולמדיה</div>
-  <h1>מדיה ועיתונות<span class="chip">Press</span></h1>
+  <h1>מדיה ועיתונות</h1>
   <p class="lead">כאן תמצאו את הלוגו, התוכנייה ותמונות להורדה. לבקשות אקרדיטציה, ראיונות וחומרים נוספים – צרו קשר.</p>
   <div class="ctas"><a id="pressMail" class="btn primary">בקשת אקרדיטציה</a></div>
 </section>
@@ -46,8 +46,8 @@
 
 </main>
 
-<script src="/assets/data.js?v=8e007c9d3d"></script>
-<script src="/assets/site.js?v=8e007c9d3d"></script>
+<script src="/assets/data.js?v=d3b0bc221b"></script>
+<script src="/assets/site.js?v=d3b0bc221b"></script>
 <script>
   document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent(L('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה', 'Press accreditation – Raanana Jazz Festival'))}`;
   document.getElementById('pressPhotos').innerHTML = SHOWS.filter(s => s.img).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `

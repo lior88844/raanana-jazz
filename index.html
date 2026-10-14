@@ -17,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&family=Rubik:ital,wght@0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="/images/8300ce79d8cf-1600.webp" imagesrcset="/images/8300ce79d8cf-800.webp 800w, /images/8300ce79d8cf-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
-<link rel="stylesheet" href="/assets/site.css?v=8e007c9d3d">
+
+<link rel="stylesheet" href="/assets/site.css?v=d3b0bc221b">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -41,36 +41,40 @@
           </div>
         </div>
         <div class="ctas">
-          <a href="/tickets.html" class="btn primary">לרכישת כרטיסים</a>
-          <a href="/lineup.html" class="btn ghost">ללוח ההופעות ←</a>
+          <a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">לעדכונים על התוכנייה</a>
+          <a href="#festival-2025" class="btn ghost">מה היה ב־2025 ↓</a>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section class="hero-photo" data-bg="/images/8300ce79d8cf.jpg">
-  <div class="cap">
-    <div class="k">מפסטיבל 2025 · הפקה מיוחדת לפסטיבל</div>
-    <h2>אבישי כהן ובקה גוצ׳יאשווילי – שיחה מוזיקלית בין שני ענקים</h2>
+
+<section class="now-strip" data-render="now" hidden aria-live="polite"></section>
+
+<section class="next" aria-labelledby="next-h">
+  <h2 id="next-h">פסטיבל 2026</h2>
+  <p>ארבעה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.</p>
+  <ul class="facts">
+    <li><b>9–12.12</b><span>ארבעה ימים, רביעי עד שבת</span></li>
+    <li><b>4</b><span>במות במרכז למוזיקה פאיס רעננה</span></li>
+    <li><b>14–25</b><span>סדנאות לנגנים צעירים – ההרשמה תיפתח בקרוב.</span><a href="/workshops.html">על הסדנאות ←</a></li>
+  </ul>
+  <p class="soon">התוכנייה המלאה של 2026 תפורסם בקרוב. עקבו אחרינו באינסטגרם כדי לשמוע ראשונים.</p>
+</section>
+
+<section id="festival-2025" aria-labelledby="f25-h">
+  <div class="stitle">
+    <h2 id="f25-h">פסטיבל 2025</h2>
+    <p>18–20 בדצמבר 2025 · כך נראה הפסטיבל בשנה שעברה.</p>
   </div>
-</section>
+  <section class="featured" data-render="featured" aria-label="הופעות נבחרות"></section>
 
-<section class="intro">
-  <h2>פסטיבל הג׳אז רעננה <span>2026</span></h2>
-  <p><b>9–12 בדצמבר 2026</b> · ארבעה ימים של מוזיקה חיה ברחבי המרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות אמן ומופעים לכל המשפחה.</p>
-</section>
+  <h3 class="subhead" id="lineup">לוח ההופעות</h3>
+  <section class="schedule" data-render="schedule"></section>
 
-<div class="stitle"><h2>הופעות<span class="chip">רגעי שיא 2025</span></h2></div>
-<section class="cards" data-render="cards"></section>
-
-<div class="stitle" id="lineup"><h2>לוח הופעות<span class="chip">2025</span></h2></div>
-<p class="sched-note">התוכנייה של 2026 תפורסם בקרוב. בינתיים – כך נראה הפסטיבל ב־18–20.12.2025.</p>
-<section class="schedule" data-render="schedule"></section>
-
-<section class="passes grain" id="passes">
+  <section class="passes grain" id="passes">
   <div class="love">רוצים את כל הפסטיבל?</div><br>
-  <div class="big">פסים</div><br>
-  <span class="chip">במחיר משתלם</span>
+  <div class="big">פסים</div>
   <p>פס יומי או פס לכל ימי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את כל ההופעות. אפשר גם לרכוש כרטיסים לפי מופע.</p>
   <div class="ctas">
     <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a>
@@ -79,35 +83,34 @@
   <div class="themes" data-render="themes"></div>
 </section>
 
-<section class="duo">
-  <div class="col">
-    <h2>התוכנייה המלאה</h2>
-    <a data-href="program" target="_blank" class="disc">לצפייה בתוכנייה ←</a>
-    <div class="frame program"><img src="/images/413f2429c54a.png" alt="תוכניית הפסטיבל" loading="lazy" width="880" height="1240"></div>
-    <a href="/images/413f2429c54a.png" download="raanana-jazz-program.png" class="hires">להורדת התוכנייה ↓</a>
-  </div>
-  <div class="col">
-    <h2>סדנאות 2025</h2>
-    <a href="/workshops.html" class="disc">לכל הפרטים והרשמה ←</a>
-    <div class="frame ws">
-      <div class="k">סדנאות<span>למוזיקאים</span></div>
-      <div class="info">לגילאי 14–25 · 18–20 בדצמבר (חופש חנוכה)<br>חמישי–שבת · 10:00–17:00<br>נגינה בהרכבים, סדנאות כלי, כיתות אמן והופעה במתחם הפסטיבל</div>
-      <ul data-render="teachers"></ul>
-      <div class="price">2,000 ₪ · כולל כניסה להופעות*</div>
+  <section class="duo">
+    <div class="col">
+      <h3 class="subhead" style="margin:0;padding:0">התוכנייה</h3>
+      <a data-href="program" target="_blank" class="disc">לצפייה בתוכנייה ←</a>
+      <div class="frame program"><img src="/images/413f2429c54a.png" alt="תוכניית פסטיבל 2025" loading="lazy" width="880" height="1240"></div>
+      <a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="hires">להורדת התוכנייה ↓</a>
     </div>
-    <span class="hires">*על בסיס מקום פנוי</span>
-  </div>
+    <div class="col">
+      <h3 class="subhead" style="margin:0;padding:0">הסדנאות</h3>
+      <a href="/workshops.html" class="disc">לכל הפרטים ←</a>
+      <div class="frame ws">
+        <div class="k">סדנאות<span>למוזיקאים</span></div>
+        <div class="info">לגילאי 14–25 · 18–20 בדצמבר 2025<br>חמישי–שבת · 10:00–17:00<br>נגינה בהרכבים, סדנאות כלי, כיתות אמן והופעה במתחם הפסטיבל</div>
+        <ul data-render="teachers"></ul>
+        <div class="price">2,000 ₪ · כולל כניסה להופעות*</div>
+      </div>
+      <span class="hires">*על בסיס מקום פנוי</span>
+    </div>
+  </section>
+
+  <div class="moments-h">
+  <h3 class="subhead" style="margin:0;padding:0">רגעים מהפסטיבל</h3>
+</div>
+  <section class="grid" data-render="moments"></section>
 </section>
 
-<div class="moments-h">
-  <h2>רגעים מהפסטיבל</h2>
-  <div class="yr">2025</div>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M5 14l7 7 7-7"/></svg>
-</div>
-<section class="grid" data-render="moments"></section>
-
 <section class="partners" id="partners">
-  <h2>תודה מיוחדת<span class="l2">לשותפים ולתומכים</span><span class="l3">שלנו</span></h2>
+  <h2>תודה לשותפים ולתומכים</h2>
   <p class="sub">הפסטיבל לא היה מתקיים בלעדיכם.</p>
   <div class="cat">מפיקים ותומכים</div>
   <div class="logos" data-render="partners"></div>
@@ -115,8 +118,8 @@
 
 </main>
 
-<script src="/assets/data.js?v=8e007c9d3d"></script>
-<script src="/assets/site.js?v=8e007c9d3d"></script>
+<script src="/assets/data.js?v=d3b0bc221b"></script>
+<script src="/assets/site.js?v=d3b0bc221b"></script>
 
 </body>
 </html>
