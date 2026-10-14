@@ -179,6 +179,9 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .countdown .hms { display: flex; flex-direction: column; gap: 3px; }
 .countdown .hms .u { display: flex; align-items: baseline; gap: 8px; text-align: left; }
 .countdown .hms b { font-size: var(--fs-2); min-width: 1.9em; text-align: right; color: var(--on-field); }
+[dir="rtl"] .countdown .hms { align-items: flex-end; }   /* Hebrew: word on the left, number on the right */
+[dir="rtl"] .countdown .hms .u { flex-direction: row-reverse; }
+[dir="rtl"] .countdown .hms b { text-align: left; }
 
 
 
