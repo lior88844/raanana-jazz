@@ -128,7 +128,7 @@ def page_index(t, P, A):
         'Three days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
   <ul class="facts">
     <li><b>10–12.12</b><span>{t('שלושה ימים, חמישי עד שבת', 'Three days, Thursday to Saturday')}</span></li>
-    <li><b>4</b><span>{t('במות במרכז למוזיקה פאיס רעננה', 'stages at the Raanana Pais Music Center')}</span></li>
+    <li><b>4</b><span>{t('במות במרכז למוזיקה פיס רעננה', 'stages at the Raanana Pais Music Center')}</span></li>
     <li><b>14–25</b><span>{t('סדנאות לנגנים צעירים – ההרשמה תיפתח בקרוב.', 'Workshops for young musicians – sign-up opens soon.')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>
   <p class="soon">{t('התוכנייה המלאה של 2026 תפורסם בקרוב. עקבו אחרינו באינסטגרם כדי לשמוע ראשונים.', 'The full 2026 programme will be announced soon. Follow us on Instagram to hear first.')}</p>
@@ -250,11 +250,11 @@ def page_past(t, P, A):
 
 
 def page_venue(t, P, A):
-    maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%90%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
+    maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
     return dict(
         title=t('המתחם', 'The Venue'),
-        desc=t('ארבע הבמות של פסטיבל הג׳אז רעננה במרכז למוזיקה פאיס רעננה.', 'The four stages of the Raanana Jazz Festival at the Raanana Pais Music Center.'),
-        body=hero(t('המרכז למוזיקה פאיס רעננה', 'Raanana Pais Music Center'), t('המתחם', 'The Venue'), t('4 במות', '4 stages'),
+        desc=t('ארבע הבמות של פסטיבל הג׳אז רעננה במרכז למוזיקה פיס רעננה.', 'The four stages of the Raanana Jazz Festival at the Raanana Pais Music Center.'),
+        body=hero(t('המרכז למוזיקה פיס רעננה', 'Raanana Pais Music Center'), t('המתחם', 'The Venue'), t('4 במות', '4 stages'),
                   t('מהאולם המרכזי ועד הרחבה הפתוחה – כל הפסטיבל מתקיים במתחם אחד, כך שאפשר לעבור בין הופעות בכמה צעדים.',
                     'From the main hall to the open plaza, the whole festival happens in one place – every show is just a few steps away.')) + f'''
 <section class="wrap section">
@@ -264,7 +264,7 @@ def page_venue(t, P, A):
 </section>
 <section class="wrap section">
   <h2 class="sec-h">{t('איך מגיעים', 'Getting here')}</h2>
-  <p>{t('הפסטיבל מתקיים ב<b>מרכז למוזיקה פאיס רעננה</b>.', 'The festival takes place at the <b>Raanana Pais Music Center</b>.')}</p>
+  <p>{t('הפסטיבל מתקיים ב<b>מרכז למוזיקה פיס רעננה</b>.', 'The festival takes place at the <b>Raanana Pais Music Center</b>.')}</p>
   <iframe class="map" loading="lazy" title="{t('מפה – המרכז למוזיקה רעננה', 'Map – Raanana Music Center')}"
     src="https://www.google.com/maps?q={maps_q}&output=embed"></iframe>
   <p style="margin-top:14px"><a class="g-text" target="_blank" rel="noopener"
@@ -300,7 +300,7 @@ def page_about(t, P, A):
 </section>
 <section class="narrow section prose">
   <h2>{t('מי אנחנו', 'Who we are')}</h2>
-  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פאיס רעננה</b> ו<b>עיריית רעננה</b>, בתמיכת המשרד לשיתוף פעולה אזורי. הניהול האומנותי בידי הפסנתרן והמלחין <b>עמית פרידמן</b>.',
+  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פיס רעננה</b> ו<b>עיריית רעננה</b>, בתמיכת המשרד לשיתוף פעולה אזורי. הניהול האומנותי בידי הפסנתרן והמלחין <b>עמית פרידמן</b>.',
         'The festival is produced by the <b>Raanana Pais Music Center</b> and the <b>Raanana Municipality</b>, with the support of the Ministry of Regional Cooperation. Artistic direction is by pianist and composer <b>Amit Friedman</b>.')}</p>
   <p>{t('לצד ההופעות, הפסטיבל הוא גם בית ספר: בכל שנה נגנים צעירים בגילאי 14–25 לומדים מאמנים בינלאומיים ומסיימים בהופעה על במת הפסטיבל.',
         'Alongside the concerts, the festival is also a school: every year young musicians aged 14–25 learn from international artists and finish with a performance on the festival stage.')}</p>
@@ -471,7 +471,7 @@ def page_accessibility(t, P, A):
     <li>{t('האתר זמין בעברית ובאנגלית ומותאם לטלפונים.', 'The site is available in Hebrew and English and works on phones.')}</li>
   </ul>
   <h2>{t('הסדרי נגישות בפסטיבל', 'Accessibility at the festival')}</h2>
-  <p>{t('לפרטים על הסדרי הנגישות במרכז למוזיקה פאיס רעננה (חניה, גישה לאולמות ומקומות ישיבה נגישים) – פנו אלינו בפרטים שלמטה.',
+  <p>{t('לפרטים על הסדרי הנגישות במרכז למוזיקה פיס רעננה (חניה, גישה לאולמות ומקומות ישיבה נגישים) – פנו אלינו בפרטים שלמטה.',
         'For accessibility arrangements at the Raanana Pais Music Center (parking, hall access and accessible seating), contact us using the details below.')}</p>
   <h2>{t('מגבלות ידועות', 'Known limitations')}</h2>
   <ul>
@@ -512,10 +512,10 @@ def page_404(t, P, A):
 
 
 def page_guide(t, P, A):
-    maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%90%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
+    maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
     tabs = [
         ('arrive', t('הגעה', 'Getting here'), t('הגעה למתחם', 'Getting here'), f"""
-      <p>{t('כל הפסטיבל מתקיים במתחם אחד – <b>המרכז למוזיקה פאיס רעננה</b>. ארבע הבמות קרובות זו לזו, כך שאפשר לעבור בין הופעות בכמה צעדים.',
+      <p>{t('כל הפסטיבל מתקיים במתחם אחד – <b>המרכז למוזיקה פיס רעננה</b>. ארבע הבמות קרובות זו לזו, כך שאפשר לעבור בין הופעות בכמה צעדים.',
             'The whole festival takes place in one venue – <b>the Raanana Pais Music Center</b>. The four stages are close together, so every show is a few steps away.')}</p>
       <div class="g-links">
         <a class="btn primary" target="_blank" rel="noopener" href="https://waze.com/ul?q={maps_q}&navigate=yes">{t('ניווט ב־Waze', 'Navigate with Waze')}</a>
@@ -564,7 +564,7 @@ def page_guide(t, P, A):
             (t('מתי הפסטיבל?', 'When is the festival?'),
              t('10–12 בדצמבר 2026, חמישי עד שבת.', '10–12 December 2026, Thursday to Saturday.')),
             (t('איפה הפסטיבל מתקיים?', 'Where does it take place?'),
-             t(f'במרכז למוזיקה פאיס רעננה, בארבע במות. <a href="{P("venue.html")}">על המתחם</a>.',
+             t(f'במרכז למוזיקה פיס רעננה, בארבע במות. <a href="{P("venue.html")}">על המתחם</a>.',
                f'At the Raanana Pais Music Center, on four stages. <a href="{P("venue.html")}">About the venue</a>.')),
             (t('מתי תתפרסם התוכנייה של 2026?', 'When will the 2026 programme be out?'),
              t(f'בקרוב. העדכונים הראשונים יעלו <a href="{ig}" target="_blank" rel="noopener">באינסטגרם של World Jazz Music</a>.',
