@@ -97,17 +97,6 @@ def page_index(t, P, A):
         <span class="logo-dots"><img class="main-logo" src="/images/logo-nodots.png" width="1052" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}"><img class="ld ld1" src="/images/logo-dot1.png" alt=""><img class="ld ld2" src="/images/logo-dot2.png" alt=""><img class="ld ld3" src="/images/logo-dot3.png" alt=""></span>
         <img class="hw hw-raan" src="/images/word-raanana-{t('he','en')}.png" width="{t('416','604')}" height="{t('109','101')}" alt="">
       </h1>
-      <div class="cd-strip">
-        <div class="cd-in">
-          <p class="cd-label" id="cdLabel">{t('הפסטיבל נפתח בעוד:', 'The festival opens in:')}</p>
-          <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
-            <div class="u"><b data-k="d">00</b><small>{t('ימים', 'days')}</small></div>
-            <div class="u"><b data-k="h">00</b><small>{t('שעות', 'hours')}</small></div>
-            <div class="u"><b data-k="m">00</b><small>{t('דקות', 'minutes')}</small></div>
-            <div class="u sec"><b data-k="s">00</b><small>{t('שניות', 'seconds')}</small></div>
-          </div>
-        </div>
-      </div>
       <div class="meta">
         <div class="dates" aria-label="10–12 DEC 2026"><span class="d-num">10–12</span><small>DEC 2026</small></div>
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
@@ -118,6 +107,17 @@ def page_index(t, P, A):
       </div>
     </div>
   </div>
+  <div class="cd-strip">
+    <div class="cd-in">
+      <p class="cd-label" id="cdLabel">{t('הפסטיבל נפתח בעוד:', 'The festival opens in:')}</p>
+      <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
+        <div class="u"><b data-k="d">00</b><small>{t('ימים', 'days')}</small></div>
+        <div class="u"><b data-k="h">00</b><small>{t('שעות', 'hours')}</small></div>
+        <div class="u"><b data-k="m">00</b><small>{t('דקות', 'minutes')}</small></div>
+        <div class="u sec"><b data-k="s">00</b><small>{t('שניות', 'seconds')}</small></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="now-strip" data-render="now" hidden aria-live="polite"></section>
@@ -125,7 +125,7 @@ def page_index(t, P, A):
 <section class="next" aria-labelledby="next-h">
   <h2 id="next-h">{t('פסטיבל 2026', 'Festival 2026')}</h2>
   <p>{t('שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
-        'Four days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
+        'Three days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
   <ul class="facts">
     <li><b>10–12.12</b><span>{t('שלושה ימים, חמישי עד שבת', 'Three days, Thursday to Saturday')}</span></li>
     <li><b>4</b><span>{t('במות במרכז למוזיקה פאיס רעננה', 'stages at the Raanana Pais Music Center')}</span></li>
