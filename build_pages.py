@@ -97,18 +97,20 @@ def page_index(t, P, A):
         <span class="logo-dots"><img class="main-logo" src="/images/logo-nodots.png" width="1052" height="794" alt="{t('World Jazz Music – פסטיבל הג׳אז רעננה 2026', 'World Jazz Music – Raanana Jazz Festival 2026')}"><img class="ld ld1" src="/images/logo-dot1.png" alt=""><img class="ld ld2" src="/images/logo-dot2.png" alt=""><img class="ld ld3" src="/images/logo-dot3.png" alt=""></span>
         <img class="hw hw-raan" src="/images/word-raanana-{t('he','en')}.png" width="{t('416','604')}" height="{t('109','101')}" alt="">
       </h1>
+      <div class="cd-strip">
+        <div class="cd-in">
+          <p class="cd-label" id="cdLabel">{t('הפסטיבל נפתח בעוד:', 'The festival opens in:')}</p>
+          <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
+            <div class="u"><b data-k="d">00</b><small>{t('ימים', 'days')}</small></div>
+            <div class="u"><b data-k="h">00</b><small>{t('שעות', 'hours')}</small></div>
+            <div class="u"><b data-k="m">00</b><small>{t('דקות', 'minutes')}</small></div>
+            <div class="u sec"><b data-k="s">00</b><small>{t('שניות', 'seconds')}</small></div>
+          </div>
+        </div>
+      </div>
       <div class="meta">
         <div class="dates" aria-label="10–12 DEC 2026"><span class="d-num">10–12</span><small>DEC 2026</small></div>
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
-        <div class="countdown-label" id="cdLabel">{t('הפסטיבל נפתח ביום חמישי, 10 בדצמבר 2026', 'The festival opens Thursday, 10 December 2026')}</div>
-        <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
-          <div class="u days"><b data-k="d">0</b><small>{t('ימים', 'Days')}</small></div>
-          <div class="hms">
-            <div class="u"><b data-k="h">00</b><small>{t('שעות', 'Hours')}</small></div>
-            <div class="u"><b data-k="m">00</b><small>{t('דקות', 'Minutes')}</small></div>
-            <div class="u sec"><b data-k="s">00</b><small>{t('שניות', 'Seconds')}</small></div>
-          </div>
-        </div>
         <div class="ctas">
           <a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t('לעדכונים על התוכנייה', 'Get programme updates')}</a>
           <a href="#festival-2025" class="btn ghost">{t('מה היה ב־2025', 'See 2025')} ↓</a>

@@ -554,8 +554,8 @@ function countdown() {
       return clearInterval(timer);
     }
     const s = Math.floor(ms / 1000);
-    out.d.textContent = Math.floor(s / 86400);
     const two = n => String(n).padStart(2, '0');
+    roll(out.d, two(Math.floor(s / 86400)));
     roll(out.h, two(Math.floor(s / 3600) % 24));
     roll(out.m, two(Math.floor(s / 60) % 60));
     roll(out.s, two(s % 60));
