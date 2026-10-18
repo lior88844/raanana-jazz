@@ -517,6 +517,8 @@ def page_guide(t, P, A):
         ('arrive', t('הגעה', 'Getting here'), t('הגעה למתחם', 'Getting here'), f"""
       <p>{t('כל הפסטיבל מתקיים במתחם אחד – <b>המרכז למוזיקה פיס רעננה</b>. ארבע הבמות קרובות זו לזו, כך שאפשר לעבור בין הופעות בכמה צעדים.',
             'The whole festival takes place in one venue – <b>the Raanana Pais Music Center</b>. The four stages are close together, so every show is a few steps away.')}</p>
+      <p>{t('<b>חניה:</b> החניה בכל אזור המרכז חופשית (מדרכה אפורה), ואפשר לחנות בכל מקום. אם הסביבה עמוסה, אפשר לחנות בחניון אשכול הפיס בפינת הרחובות החייל והנשיאים – גם שם החניה חופשית.',
+            '<b>Parking:</b> parking all around the center is free (grey kerb), so you can park anywhere. If the area is busy, use the Eshkol HaPais car park at the corner of HaChayal and HaNesi’im streets – also free.')}</p>
       <div class="g-links">
         <a class="btn primary" target="_blank" rel="noopener" href="https://waze.com/ul?q={maps_q}&navigate=yes">{t('ניווט ב־Waze', 'Navigate with Waze')}</a>
         <a class="g-text" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query={maps_q}">{t('לפתיחה ב־Google Maps', 'Open in Google Maps')} {A}</a>
@@ -557,6 +559,9 @@ def page_guide(t, P, A):
              t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם.', "Yes. A day pass covers all of that day's shows at a better price.")),
             (t('יש פס לכל הפסטיבל?', 'Is there a full festival pass?'),
              t('כן, וגם פסים לפי נושאים.', 'Yes, and themed passes too.')),
+            (t('אפשר לבטל כרטיס?', 'Can I cancel a ticket?'),
+             t(f'כן. ביטול עד 24 שעות לפני תחילת המופע מזכה בהחזר מלא. לביטול – <a href="{P("contact.html")}">פנו אלינו</a>.',
+               f'Yes. Cancel up to 24 hours before the show starts for a full refund. To cancel, <a href="{P("contact.html")}">contact us</a>.')),
             (t('כל המופעים בתשלום?', 'Are all shows ticketed?'),
              t('לא. המופעים ברחבת הפסטיבל בכניסה חופשית.', 'No. Shows on the Festival Plaza are free.')),
         ]),
@@ -569,6 +574,9 @@ def page_guide(t, P, A):
             (t('מתי תתפרסם התוכנייה של 2026?', 'When will the 2026 programme be out?'),
              t(f'בקרוב. העדכונים הראשונים יעלו <a href="{ig}" target="_blank" rel="noopener">באינסטגרם של World Jazz Music</a>.',
                f'Soon. The first news will be on <a href="{ig}" target="_blank" rel="noopener">World Jazz Music on Instagram</a>.')),
+            (t('איפה חונים?', 'Where do I park?'),
+             t('החניה בכל אזור המרכז חופשית (מדרכה אפורה). אם הסביבה עמוסה – בחניון אשכול הפיס בפינת הרחובות החייל והנשיאים, גם הוא בחינם.',
+               'Parking around the center is free (grey kerb). If it’s busy, use the Eshkol HaPais car park at the corner of HaChayal and HaNesi’im streets – also free.')),
             (t('יש מופעים לילדים?', 'Are there shows for children?'),
              t('כן. ברחבת הפסטיבל יש מופעים לכל המשפחה, בכניסה חופשית.', 'Yes. The Festival Plaza has shows for the whole family, free of charge.')),
             (t('הפסטיבל נגיש?', 'Is the festival accessible?'),
@@ -616,11 +624,152 @@ def page_guide(t, P, A):
 ''')
 
 
+def legal_body(t, P, sections, updated):
+    """sections: list of (heading_he, heading_en, [(he, en) | ('ul', [(he, en), ...])])"""
+    out = ''
+    for hh, he_, items in sections:
+        out += f'\n  <h2>{t(hh, he_)}</h2>'
+        for it in items:
+            if it[0] == 'ul':
+                out += '\n  <ul>' + ''.join(f'<li>{t(a, b)}</li>' for a, b in it[1]) + '</ul>'
+            else:
+                out += f'\n  <p>{t(it[0], it[1])}</p>'
+    out += f'\n  <p class="note">{t("עודכן לאחרונה: " + updated, "Last updated: " + updated)}</p>'
+    return f'\n<section class="narrow section prose">{out}\n</section>\n'
+
+
+def page_privacy(t, P, A):
+    contact = f'<a href="{P("contact.html")}">{t("עמוד יצירת הקשר", "the contact page")}</a>'
+    tickets = '<a href="https://tickets.raanana.muni.il/" target="_blank" rel="noopener">tickets.raanana.muni.il</a>'
+    S = [
+        ('כללי', 'General', [
+            ('מדיניות פרטיות זו חלה על אתר פסטיבל הג׳אז רעננה – World Jazz Music, בכתובת raananajazzfestival.com (״האתר״). הפסטיבל מתקיים במרכז למוזיקה פיס רעננה (״הפסטיבל״, ״אנחנו״).',
+             'This privacy policy applies to the Raanana Jazz Festival – World Jazz Music website at raananajazzfestival.com (“the site”). The festival takes place at the Raanana Pais Music Center (“the festival”, “we”).'),
+            ('אנו מכבדים את פרטיותכם. המדיניות מסבירה איזה מידע נאסף בזמן השימוש באתר, למה הוא משמש ואילו אפשרויות עומדות לרשותכם. השימוש באתר מהווה הסכמה למדיניות זו.',
+             'We respect your privacy. This policy explains what information is collected when you use the site, what it is used for and what choices you have. Using the site means you accept this policy.'),
+            (f'לשאלות בנושא פרטיות אפשר לפנות אלינו דרך {contact}. משתמשים מתחת לגיל 18 מתבקשים לקרוא את המדיניות יחד עם הורה או אפוטרופוס.',
+             f'For privacy questions, reach us through {contact}. Users under 18 should read this policy with a parent or guardian.'),
+            ('ייתכן שנעדכן מדיניות זו מעת לעת. הנוסח המעודכן יפורסם בעמוד זה ויחול ממועד פרסומו.',
+             'We may update this policy from time to time. The current version is always on this page and applies from the day it is published.'),
+        ]),
+        ('איזה מידע נאסף', 'What information is collected', [
+            ('האתר אינו דורש הרשמה ואינו מבקש מכם פרטים אישיים כדי לגלוש בו.',
+             'The site needs no registration and does not ask for personal details to browse it.'),
+            ('ul', [
+                ('<b>מידע טכני:</b> כמו בכל אתר, בזמן הגלישה מועבר מידע טכני – למשל כתובת IP וסוג הדפדפן – לספק האחסון של האתר (GitHub Pages) ולשירות הגופנים של Google (Google Fonts). מידע זה אינו מזהה אתכם באופן ישיר.',
+                 '<b>Technical information:</b> as with any website, technical details such as your IP address and browser type reach the site’s host (GitHub Pages) and Google’s font service (Google Fonts). This does not identify you directly.'),
+                ('<b>שמירה בדפדפן:</b> האתר שומר בדפדפן שלכם (localStorage) את בחירת השפה ואת ההופעות שסימנתם ב„הליינאפ שלי”. המידע נשאר במכשיר שלכם ואינו נשלח אלינו. אפשר למחוק אותו בהגדרות הדפדפן.',
+                 '<b>Stored in your browser:</b> the site keeps your language choice and the shows you starred in “My line-up” in your browser (localStorage). It stays on your device and is never sent to us. You can clear it in your browser settings.'),
+                ('<b>בלי עוגיות מעקב:</b> האתר אינו משתמש בעוגיות פרסום, בכלי סטטיסטיקה או במעקב אחר הגלישה.',
+                 '<b>No tracking cookies:</b> the site uses no advertising cookies, analytics tools or browsing trackers.'),
+            ]),
+        ]),
+        ('רכישת כרטיסים', 'Buying tickets', [
+            (f'הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה ({tickets}), ולא באתר זה. הפרטים האישיים ופרטי התשלום שתמסרו ברכישה נמסרים ישירות למערכת הכרטיסים ואינם עוברים דרכנו. על הרכישה חלה מדיניות הפרטיות של מערכת הכרטיסים, ומומלץ לקרוא אותה.',
+             f'Tickets are sold on the Raanana Municipality ticket site ({tickets}), not on this site. The personal and payment details you give when buying go straight to the ticket system and never pass through us. The ticket system’s own privacy policy applies to purchases, and we recommend reading it.'),
+        ]),
+        ('הרשמה לסדנאות ופניות', 'Workshop sign-up and enquiries', [
+            ('ההרשמה לסדנאות נעשית בטופס Google. הפרטים שתמלאו בטופס נשמרים אצל הפסטיבל ומשמשים רק לטיפול בהרשמה וליצירת קשר בנושא הסדנאות. פרטים שתשלחו לנו בפנייה משמשים רק כדי לענות לכם.',
+             'Workshop sign-up uses a Google Form. The details you enter are kept by the festival and used only to handle your registration and contact you about the workshops. Details you send us in a message are used only to reply to you.'),
+            ('נשלח לכם עדכונים ודברי פרסומת רק אם ביקשתם זאת, ותוכלו לבקש להסיר את עצמכם מרשימת התפוצה בכל עת.',
+             'We will only send you news or marketing if you asked for it, and you can ask to be removed from the mailing list at any time.'),
+            ('לא נעביר מידע אישי שמסרתם לנו לצד שלישי בלי הסכמתכם, אלא אם הדבר נדרש לפי דין, צו שיפוטי או דרישה של רשות מוסמכת.',
+             'We will not pass personal information you gave us to a third party without your consent, unless required by law, a court order or a competent authority.'),
+        ]),
+        ('קישורים ושירותים חיצוניים', 'Links and outside services', [
+            ('באתר יש קישורים ושירותים של גורמים אחרים – למשל אתר הכרטיסים, אינסטגרם, פייסבוק, Waze ומפת Google המוטמעת בעמוד המתחם. כשאתם משתמשים בהם חלה מדיניות הפרטיות של אותם גורמים, ואין לנו שליטה עליה.',
+             'The site links to and embeds services run by others – for example the ticket site, Instagram, Facebook, Waze and the Google map on the venue page. Their own privacy policies apply when you use them, and we have no control over them.'),
+        ]),
+        ('אבטחת מידע', 'Security', [
+            ('אנו נוקטים אמצעים סבירים כדי לשמור על המידע שמגיע אלינו. עם זאת, אין שיטה שמבטיחה הגנה מוחלטת מפני תקלה או פעולה זדונית. אם ייוודע לנו על פגיעה במידע אישי, נפעל להודיע על כך למי שנפגע.',
+             'We take reasonable steps to protect the information that reaches us. Still, no method guarantees complete protection against faults or malicious acts. If we learn that personal information has been compromised, we will work to tell the people affected.'),
+        ]),
+        ('עיון, תיקון ומחיקה', 'Access, correction and deletion', [
+            (f'אפשר לבקש בכל עת לעיין במידע שמסרתם לנו, לתקן אותו או למחוק אותו – דרך {contact}. נטפל בבקשה בהקדם.',
+             f'You can ask at any time to see, correct or delete information you gave us, through {contact}. We will handle your request promptly.'),
+        ]),
+        ('שונות', 'Other', [
+            (f'מדיניות זו היא חלק מ<a href="{P("terms.html")}">תנאי השימוש</a> באתר. על המדיניות חל הדין הישראלי.',
+             f'This policy is part of the site’s <a href="{P("terms.html")}">terms of use</a>. Israeli law applies to it.'),
+        ]),
+    ]
+    return dict(
+        title=t('מדיניות פרטיות', 'Privacy policy'),
+        desc=t('מדיניות הפרטיות של אתר פסטיבל הג׳אז רעננה – World Jazz Music.', 'Privacy policy of the Raanana Jazz Festival – World Jazz Music website.'),
+        body=hero(t('פרטיות', 'Privacy'), t('מדיניות פרטיות', 'Privacy policy'), '',
+                  t('מה נאסף כשאתם גולשים באתר, ומה עושים עם זה.', 'What is collected when you use the site, and what is done with it.'))
+        + legal_body(t, P, S, '18.10.2026'))
+
+
+def page_terms(t, P, A):
+    contact = f'<a href="{P("contact.html")}">{t("עמוד יצירת הקשר", "the contact page")}</a>'
+    tickets = '<a href="https://tickets.raanana.muni.il/" target="_blank" rel="noopener">tickets.raanana.muni.il</a>'
+    S = [
+        ('כללי', 'General', [
+            ('התנאים שלהלן חלים על השימוש באתר פסטיבל הג׳אז רעננה – World Jazz Music, בכתובת raananajazzfestival.com (״האתר״). הפסטיבל מתקיים במרכז למוזיקה פיס רעננה (״הפסטיבל״, ״אנחנו״).',
+             'These terms apply to the use of the Raanana Jazz Festival – World Jazz Music website at raananajazzfestival.com (“the site”). The festival takes place at the Raanana Pais Music Center (“the festival”, “we”).'),
+            (f'התנאים, יחד עם <a href="{P("privacy.html")}">מדיניות הפרטיות</a>, מסדירים את השימוש באתר. השימוש באתר מהווה הסכמה לתנאים. אם אינכם מסכימים להם, אנא הימנעו משימוש באתר.',
+             f'These terms, together with the <a href="{P("privacy.html")}">privacy policy</a>, govern the use of the site. Using the site means you accept them. If you do not agree, please do not use the site.'),
+            ('ייתכן שנעדכן את התנאים מעת לעת. הנוסח המעודכן יפורסם בעמוד זה ויחול ממועד פרסומו.',
+             'We may update these terms from time to time. The current version is always on this page and applies from the day it is published.'),
+        ]),
+        ('מה יש באתר', 'What the site offers', [
+            ('האתר מציג מידע על הפסטיבל: התוכנייה, האמנים, המתחם, מידע למבקרים, הסדנאות וקישורים לרכישת כרטיסים. האתר עצמו אינו מוכר כרטיסים ואינו גובה תשלום.',
+             'The site gives information about the festival: the programme, the artists, the venue, visitor information, the workshops and links for buying tickets. The site itself does not sell tickets or take payments.'),
+        ]),
+        ('כרטיסים וביטולים', 'Tickets and cancellations', [
+            (f'הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה ({tickets}), ועל הרכישה חלים גם התנאים של מערכת הכרטיסים.',
+             f'Tickets are sold on the Raanana Municipality ticket site ({tickets}), and that system’s terms also apply to your purchase.'),
+            ('ul', [
+                ('<b>ביטול עד 24 שעות לפני המופע:</b> החזר כספי מלא.', '<b>Cancel up to 24 hours before the show:</b> full refund.'),
+                ('<b>ביטול מאוחר יותר:</b> לא יינתן החזר.', '<b>Later cancellations:</b> no refund.'),
+            ]),
+            (f'לביטול כרטיס פנו אלינו דרך {contact}. האמור כפוף להוראות חוק הגנת הצרכן, התשמ״א–1981 ותקנותיו.',
+             f'To cancel a ticket, contact us through {contact}. All of this is subject to the Israeli Consumer Protection Law, 1981, and its regulations.'),
+            ('המקומות שמורים עד שעת תחילת המופע. כניסת מאחרים תתאפשר רק בשיקול דעת ההפקה וכשהדבר אינו מפריע למופע.',
+             'Seats are held until the show starts. Latecomers may be let in only at the production’s discretion and when it does not disturb the show.'),
+        ]),
+        ('שינויים בתוכנית', 'Programme changes', [
+            ('ההפקה רשאית לשנות מועדים, שעות, במות ואמנים. על שינוי או ביטול של מופע נודיע באתר ובערוצי הפסטיבל, וההחזר הכספי יינתן בהתאם לתנאי מערכת הכרטיסים ולכל דין.',
+             'The production may change dates, times, stages and artists. We will announce any change or cancellation of a show on the site and the festival’s channels, and refunds will follow the ticket system’s terms and the law.'),
+        ]),
+        ('קניין רוחני', 'Intellectual property', [
+            ('כל התכנים באתר – טקסטים, עיצוב, לוגו, צילומים וסרטונים – שייכים לפסטיבל או לבעלי הזכויות בהם (בהם צלמים ואמנים), ומוגנים בדיני זכויות יוצרים. אין להעתיק, לפרסם או להשתמש בהם בלי אישור מראש ובכתב.',
+             'All content on the site – text, design, logo, photos and videos – belongs to the festival or to its rights holders (including photographers and artists) and is protected by copyright. Do not copy, publish or use it without prior written permission.'),
+            (f'חומרי העיתונות ב<a href="{P("media.html")}">עמוד המדיה</a> מותרים לשימוש לצורך סיקור הפסטיבל, עם קרדיט לצלם כשמופיע.',
+             f'Press materials on <a href="{P("media.html")}">the media page</a> may be used to cover the festival, crediting the photographer where given.'),
+        ]),
+        ('קישורים לאתרים אחרים', 'Links to other sites', [
+            ('באתר יש קישורים לאתרים ולשירותים של גורמים אחרים, כמו אתר הכרטיסים, רשתות חברתיות ושירותי ניווט. איננו אחראים לתוכן של אתרים אלה או לשימוש בהם.',
+             'The site links to sites and services run by others, such as the ticket site, social networks and navigation apps. We are not responsible for their content or for your use of them.'),
+        ]),
+        ('אחריות', 'Liability', [
+            ('אנו משתדלים שהמידע באתר יהיה מדויק ועדכני, אך ייתכנו בו טעויות או שינויים. המידע מוצג כפי שהוא, ואיננו אחראים לנזק שייגרם כתוצאה מהסתמכות עליו או מתקלה בזמינות האתר, ככל שהדין מתיר.',
+             'We try to keep the information on the site accurate and current, but it may contain errors or change. It is provided as is, and to the extent the law allows we are not liable for damage caused by relying on it or by the site being unavailable.'),
+        ]),
+        ('שימוש הוגן', 'Fair use', [
+            ('אין לעשות באתר שימוש שעלול לפגוע בו, בפעילותו או במשתמשים אחרים, ואין להשתמש בו למטרה בלתי חוקית.',
+             'Do not use the site in a way that could harm it, its operation or other users, or for any unlawful purpose.'),
+        ]),
+        ('דין וסמכות שיפוט', 'Law and jurisdiction', [
+            ('על התנאים ועל השימוש באתר חל הדין הישראלי. אם ייקבע שסעיף כלשהו אינו בר אכיפה, יתר הסעיפים יעמדו בתוקפם.',
+             'Israeli law applies to these terms and to the use of the site. If any clause is found unenforceable, the rest remain in force.'),
+            (f'לשאלות על התנאים פנו אלינו דרך {contact}.', f'For questions about these terms, contact us through {contact}.'),
+        ]),
+    ]
+    return dict(
+        title=t('תנאי שימוש', 'Terms of use'),
+        desc=t('תנאי השימוש באתר פסטיבל הג׳אז רעננה – World Jazz Music.', 'Terms of use of the Raanana Jazz Festival – World Jazz Music website.'),
+        body=hero(t('תנאים', 'Terms'), t('תנאי שימוש', 'Terms of use'), '',
+                  t('הכללים לשימוש באתר, לכרטיסים ולביטולים.', 'The rules for using the site, tickets and cancellations.'))
+        + legal_body(t, P, S, '18.10.2026'))
+
+
 PAGES = {
     'index.html': page_index, 'lineup.html': page_lineup, 'festival-2025.html': page_past,
     'venue.html': page_venue, 'about.html': page_about, 'workshops.html': page_workshops,
     'media.html': page_media, 'tickets.html': page_tickets, 'contact.html': page_contact,
-    'accessibility.html': page_accessibility, 'guide.html': page_guide,
+    'accessibility.html': page_accessibility, 'guide.html': page_guide, 'privacy.html': page_privacy, 'terms.html': page_terms,
 }
 
 
