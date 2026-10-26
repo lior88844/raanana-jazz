@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/assets/site.css?v=47ff8c3d9e">
+<link rel="stylesheet" href="/assets/site.css?v=b867e6312b">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -44,13 +44,13 @@
 
 </main>
 
-<script src="/assets/data.js?v=47ff8c3d9e"></script>
-<script src="/assets/site.js?v=47ff8c3d9e"></script>
+<script src="/assets/data.js?v=b867e6312b"></script>
+<script src="/assets/site.js?v=b867e6312b"></script>
 <script>
-  document.getElementById('artists').innerHTML = SHOWS.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
-    <a class="artist" href="${page('lineup.html')}" data-bg="${img(s.img)}">
-      <div class="in"><small>${dayName(dayOf(s.day))} · ${tr(s, 'venue')}</small><h3>${tr(s, 'title')}</h3><p>${tr(s, 'desc')}</p></div>
-    </a>`).join('');
+  document.getElementById('artists').innerHTML = SHOWS_2025.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
+    <div class="artist" data-bg="${img(s.img)}">
+      <div class="in"><small>${dayName(dayOf(s.day, DAYS_2025))} ${dayOf(s.day, DAYS_2025).date} · ${tr(s, 'venue')}</small><h3>${tr(s, 'title')}</h3><p>${tr(s, 'desc')}</p></div>
+    </div>`).join('');
 </script>
 </body>
 </html>

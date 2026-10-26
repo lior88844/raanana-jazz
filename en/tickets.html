@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tickets + Passes | Raanana Jazz Festival</title>
-<meta name="description" content="Tickets, day passes and themed passes for the Raanana Jazz Festival.">
-<meta property="og:title" content="Tickets + Passes | Raanana Jazz Festival">
-<meta property="og:description" content="Tickets, day passes and themed passes for the Raanana Jazz Festival.">
+<title>Tickets | Raanana Jazz Festival</title>
+<meta name="description" content="Tickets for the 2026 Raanana Jazz Festival.">
+<meta property="og:title" content="Tickets | Raanana Jazz Festival">
+<meta property="og:description" content="Tickets for the 2026 Raanana Jazz Festival.">
 <meta property="og:image" content="https://raananajazzfestival.com/images/44f224268148.png">
 <link rel="canonical" href="https://raananajazzfestival.com/en/tickets.html">
 <link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/tickets.html">
@@ -18,45 +18,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/assets/site.css?v=47ff8c3d9e">
+<link rel="stylesheet" href="/assets/site.css?v=b867e6312b">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <main id="main">
 <section class="page-hero grain">
-  <div class="eyebrow">Tickets</div>
-  <h1>Tickets + Passes</h1>
-  <p class="lead">A full-festival pass, a day pass, a themed pass – or a single-show ticket. Entry to the Festival Plaza is free. Tickets are sold on the Raanana Municipality ticket site (in Hebrew).</p>
-  
+  <div class="eyebrow">10–12 December 2026</div>
+  <h1>Tickets</h1>
+  <p class="lead">Ticket and pass details for the 2026 festival will be published soon. Shows on the Festival Plaza are free.</p>
+  <div class="ctas"><a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">Updates on Instagram</a><a href="/en/lineup.html" class="btn ghost">See the line-up <i class="arr" aria-hidden="true">→</i></a></div>
 </section>
 
 <section class="wrap section">
-  <h2 class="sec-h">Passes</h2>
-  <p>The best-value way to hear the most music.</p>
-  <div class="ticket-grid" id="dayPasses"></div>
-</section>
-<section class="wrap section">
-  <h2 class="sec-h">Themed passes</h2>
-  <p>Pick a style and get the shows that match it.</p>
-  <div class="ticket-grid" id="themePasses"></div>
-</section>
-<section class="wrap section">
-  <h2 class="sec-h">Single-show tickets</h2>
-  <p>Every show has its own ticket.</p>
-  <div class="showlist" data-render="showlist"></div>
+  <h2 class="sec-h">Free entry</h2>
+  <p>These Festival Plaza shows are open to everyone, no ticket needed.</p>
+  <div class="showlist" id="freeShows"></div>
 </section>
 
 </main>
 
-<script src="/assets/data.js?v=47ff8c3d9e"></script>
-<script src="/assets/site.js?v=47ff8c3d9e"></script>
+<script src="/assets/data.js?v=b867e6312b"></script>
+<script src="/assets/site.js?v=b867e6312b"></script>
 <script>
-  const buy = L('לרכישה', 'Buy') + ' ' + ARROW;
-  document.getElementById('dayPasses').innerHTML =
-    `<a class="tcard hot" href="${T(SITE.fullPass)}" ${ext}><small>${L('הכי משתלם', 'Best value')}</small><h3>${L('פס לכל הפסטיבל', 'Full festival pass')}</h3><p>${L('כל שלושת ימי הפסטיבל.', 'All three festival days.')}</p><span class="go">${buy}</span></a>` +
-    DAYS.map(d => `<a class="tcard" href="${T(d.pass)}" ${ext}><small>${L('פס יומי', 'Day pass')}</small><h3>${dayName(d)} ${d.date}</h3><p>${SHOWS.filter(s => s.day === d.id && s.slug).length} ${L('מופעים בכרטיס אחד.', 'shows on one ticket.')}</p><span class="go">${buy}</span></a>`).join('');
-  document.getElementById('themePasses').innerHTML = THEME_PASSES.map(([n, slug]) =>
-    `<a class="tcard" href="${T(slug)}" ${ext}><small>${L('פס נושא', 'Themed pass')}</small><h3 style="direction:ltr;text-align:${EN ? 'left' : 'right'}">${n} Pass</h3><p>${L('מבחר מופעים בסגנון ' + n + '.', 'A selection of ' + n + ' shows.')}</p><span class="go">${buy}</span></a>`).join('');
+  renderShowList(document.getElementById('freeShows'));
+  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS[i].free && !SHOWS[i].kids) row.remove(); });
 </script>
 </body>
 </html>

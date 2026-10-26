@@ -15,7 +15,7 @@ const ARROW = `<i class="arr" aria-hidden="true">${EN ? '→' : '←'}</i>`;
 
 const T = slug => SITE.tickets + slug;
 const ext = 'target="_blank" rel="noopener"';
-const dayOf = id => DAYS.find(d => d.id === id);
+const dayOf = (id, list = DAYS) => list.find(d => d.id === id);
 const dayName = d => (EN ? d.name_en : 'יום ' + d.name);
 const img = f => '/images/' + f;
 const page = f => BASE + f;
@@ -62,7 +62,7 @@ function buildChrome() {
 <a class="skip" href="#main">${L('דילוג לתוכן', 'Skip to content')}</a>
 ${ICONS}
 ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span><b>${L(SITE.notice.he, SITE.notice.en)}</b>
-  <a href="${SITE.notice.href}" ${/^https?:/.test(SITE.notice.href) ? ext : ''}>${L(SITE.notice.link, SITE.notice.link_en)} ${ARROW}</a></div>` : ''}
+  <a href="${/^https?:/.test(SITE.notice.href) ? SITE.notice.href : page(SITE.notice.href)}" ${/^https?:/.test(SITE.notice.href) ? ext : ''}>${L(SITE.notice.link, SITE.notice.link_en)} ${ARROW}</a></div>` : ''}
 <header class="topbar">
   <div class="tag">World <em>Jazz</em> Music · <i>${L('רעננה', 'Raanana')}</i> · ${SITE.dates}</div>
   <nav>
@@ -133,6 +133,7 @@ ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span
 
 // ---------- render helpers ----------
 const freeTag = `<span class="free">${L('כניסה חופשית', 'Free entry')}</span>`;
+const kidsTag = `<span class="free kids">${L('לכל המשפחה', 'For families')}</span>`;
 
 function renderSchedule(el) {
   el.innerHTML = DAYS.map(d => `
@@ -141,10 +142,10 @@ function renderSchedule(el) {
       ${SHOWS.filter(s => s.day === d.id).map(s => `
         <div class="slot"><time>${s.time}</time><div>
           <div class="t">${tr(s, 'title')}</div>
-          <div class="v">${tr(s, 'venue')}${s.free ? freeTag : ''}</div>
+          <div class="v">${tr(s, 'venue')}${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
           ${s.slug ? `<a class="tix" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>` : ''}
         </div></div>`).join('')}
-      <a class="pass" href="${T(d.pass)}" ${ext}>${L('לרכישת פס יומי', 'Buy a day pass')} ${ARROW}</a>
+      ${d.pass ? `<a class="pass" href="${T(d.pass)}" ${ext}>${L('לרכישת פס יומי', 'Buy a day pass')} ${ARROW}</a>` : ''}
     </div>`).join('');
 }
 
@@ -201,7 +202,8 @@ function nowOnStage(el) {
     const stages = [...new Set(shows.map(s => s.venue))];
     const rows = stages.map(v => {
       const list = shows.filter(s => s.venue === v).sort((a, b) => a.time.localeCompare(b.time));
-      const cur = list.find((s, i) => at(day.iso, s.time) <= now && now < (list[i + 1] ? at(day.iso, list[i + 1].time) : new Date(+at(day.iso, s.time) + 90 * 60000)));
+      const end = (s, i) => s.dur ? new Date(+at(day.iso, s.time) + s.dur * 60000) : list[i + 1] ? at(day.iso, list[i + 1].time) : new Date(+at(day.iso, s.time) + 90 * 60000);
+      const cur = list.find((s, i) => at(day.iso, s.time) <= now && now < end(s, i));
       const next = list.find(s => at(day.iso, s.time) > now);
       return { v, cur, next, label: tr(list[0], 'venue') };
     }).filter(r => r.cur || r.next);
@@ -230,7 +232,7 @@ function renderShowList(el, dayId) {
         ${s.credit ? `<small class="credit">${L('צילום', 'Photo')}: ${s.credit}</small>` : ''}
       </div>
       <div class="act">
-        ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}
+        ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}${s.kids ? `<div class="free kids">${L('לכל המשפחה', 'For families')}</div><br>` : ''}
         ${s.slug ? `<a class="btn primary stretch" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')}</a>` : ''}
       </div>
     </article>`).join('');
@@ -326,19 +328,28 @@ function renderTimetable(el) {
     const items = shows.map(s => {
       const start = mins(s.time);
       const next = shows.filter(o => o.venue === s.venue && mins(o.time) > start).map(o => mins(o.time)).sort((a, b) => a - b)[0];
-      return { s, start, end: Math.min(next || Infinity, start + 90) };
+      return { s, start, end: s.dur ? start + s.dur : Math.min(next || Infinity, start + 90) };
     });
-    const from = Math.floor(Math.min(...items.map(i => i.start)) / 60) * 60;
-    const to = Math.ceil(Math.max(...items.map(i => i.end)) / 60) * 60;
-    const cols = (to - from) / 15;
-    grid.style.setProperty('--cols', cols);
-    const hours = [];
-    for (let m = from; m < to; m += 60) hours.push(`<div class="tt-h" style="grid-column:${(m - from) / 15 + 2} / span 4">${hhmm(m)}</div>`);
+    // the timeline runs in whole hours; an empty stretch of two hours or more folds into one narrow break column
+    const spans = items.map(i => [Math.floor(i.start / 60) * 60, Math.ceil(i.end / 60) * 60]).sort((a, b) => a[0] - b[0]);
+    const segs = [];
+    spans.forEach(([a, b]) => { const last = segs[segs.length - 1]; if (last && a - last[1] < 120) last[1] = Math.max(last[1], b); else segs.push([a, b]); });
+    const tracks = [], hours = [];
+    let col = 2;
+    const colOf = m => { let c = 2; for (const [a, b] of segs) { if (m < b || b === segs[segs.length - 1][1]) return c + Math.round((m - a) / 15); c += (b - a) / 15 + 1; } return c; };
+    segs.forEach(([a, b], k) => {
+      if (k) { tracks.push('34px'); hours.push(`<div class="tt-h tt-gap" style="grid-column:${col}" aria-hidden="true">⋯</div>`); col++; }
+      for (let m = a; m < b; m += 60) hours.push(`<div class="tt-h" style="grid-column:${col + (m - a) / 15} / span 4">${hhmm(m)}</div>`);
+      for (let m = a; m < b; m += 15) tracks.push('minmax(26px, 1fr)');
+      col += (b - a) / 15;
+    });
+    grid.style.setProperty('--cols', tracks.length);
+    grid.style.gridTemplateColumns = `var(--stage-w) ${tracks.join(' ')}`;
     grid.innerHTML = `<div class="tt-corner"></div>${hours.join('')}` +
       stages.map((v, r) => `<div class="tt-stage" style="grid-row:${r + 2}">${tr(shows.find(s => s.venue === v), 'venue')}</div>`).join('') +
       items.map(({ s, start, end }) => {
         const on = favs.has(showKey(s));
-        return `<div class="tt-show d-${s.day}${on ? ' fav' : ''}${dir ? ' in' : ''}" style="--i:${shows.indexOf(s)};--dir:${dir};grid-row:${stages.indexOf(s.venue) + 2};grid-column:${(start - from) / 15 + 2} / span ${Math.max(1, (end - start) / 15)}">
+        return `<div class="tt-show d-${s.day}${on ? ' fav' : ''}${dir ? ' in' : ''}" style="--i:${shows.indexOf(s)};--dir:${dir};grid-row:${stages.indexOf(s.venue) + 2};grid-column:${colOf(start)} / span ${Math.max(1, Math.round((end - start) / 15))}">
           <button type="button" class="star" data-key="${showKey(s)}" aria-pressed="${on}" aria-label="${L('הוספה לליינאפ שלי', 'Add to my line-up')}: ${tr(s, 'title')}">${on ? '★' : '☆'}</button>
           <b>${tr(s, 'title')}</b><small>${hhmm(start)}–${hhmm(end)}</small>
         </div>`;
