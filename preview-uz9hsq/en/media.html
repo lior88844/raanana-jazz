@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media + Press | Raanana Jazz Festival</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Press materials – logo, programme and photos from the Raanana Jazz Festival.">
+<meta property="og:title" content="Media + Press | Raanana Jazz Festival">
+<meta property="og:description" content="Press materials – logo, programme and photos from the Raanana Jazz Festival.">
+<meta property="og:image" content="https://raananajazzfestival.com/preview-uz9hsq/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/preview-uz9hsq/en/media.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/preview-uz9hsq/media.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/preview-uz9hsq/en/media.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/preview-uz9hsq/media.html">
+<link rel="icon" href="/preview-uz9hsq/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=cd999e3f65">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<main id="main">
+<section class="page-hero grain">
+  <div class="eyebrow">For journalists and media</div>
+  <h1>Media + Press</h1>
+  <p class="lead">Download the logo, programme and photos here. For accreditation, interviews and more materials, get in touch.</p>
+  <div class="ctas"><a id="pressMail" class="btn primary">Request accreditation</a></div>
+</section>
+
+<section class="wrap section">
+  <h2 class="sec-h">Downloads</h2>
+  <div class="dl-grid">
+    <div class="dl"><div class="th" style="background-image:url(/preview-uz9hsq/images/44f224268148.png)"></div><h3>Festival logo</h3><a href="/preview-uz9hsq/images/44f224268148.png" download="raanana-jazz-logo.png">Download (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/preview-uz9hsq/images/logo-dark.png);background-color:var(--ground)"></div><h3>Logo – dark</h3><a href="/preview-uz9hsq/images/logo-dark.png" download="raanana-jazz-logo-dark.png">Download (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/preview-uz9hsq/images/413f2429c54a.png);background-color:var(--red)"></div><h3>2025 programme</h3><a href="/preview-uz9hsq/images/413f2429c54a.png" download="raanana-jazz-program-2025.png">Download (PNG) ↓</a></div>
+  </div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">Artist photos</h2>
+  <p>Click a photo to download it in full resolution.</p>
+  <div class="dl-grid" id="pressPhotos"></div>
+</section>
+
+</main>
+
+<script src="/preview-uz9hsq/assets/data.js?v=cd999e3f65"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=cd999e3f65"></script>
+<script>
+  document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent(L('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה', 'Press accreditation – Raanana Jazz Festival'))}`;
+  document.getElementById('pressPhotos').innerHTML = SHOWS.concat(SHOWS_2025).filter(s => s.img).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `
+    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${tr(s, 'title')}</h3><a href="${img(s.img)}" download>${L('להורדה', 'Download')} ↓</a></div>`).join('');
+</script>
+</body>
+</html>

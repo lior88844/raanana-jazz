@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>צור קשר | פסטיבל הג׳אז רעננה</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="יצירת קשר עם פסטיבל הג׳אז רעננה.">
+<meta property="og:title" content="צור קשר | פסטיבל הג׳אז רעננה">
+<meta property="og:description" content="יצירת קשר עם פסטיבל הג׳אז רעננה.">
+<meta property="og:image" content="https://raananajazzfestival.com/preview-uz9hsq/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/preview-uz9hsq/contact.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/preview-uz9hsq/contact.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/preview-uz9hsq/en/contact.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/preview-uz9hsq/contact.html">
+<link rel="icon" href="/preview-uz9hsq/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=cd999e3f65">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<main id="main">
+<section class="page-hero grain">
+  <div class="eyebrow">נשמח לשמוע מכם</div>
+  <h1>צור קשר</h1>
+  <p class="lead">בחרו את נושא הפנייה – ייפתח מייל עם הנושא הנכון.</p>
+  
+</section>
+
+<section class="wrap section">
+  <h2 class="sr-only">נושאי פנייה</h2>
+  <div class="contact-grid" id="contactGrid"></div>
+</section>
+<section class="narrow section prose" style="text-align:center">
+  <p>אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.</p>
+</section>
+
+</main>
+
+<script src="/preview-uz9hsq/assets/data.js?v=cd999e3f65"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=cd999e3f65"></script>
+<script>
+  const TOPICS = EN ? [
+    ['Artists', 'Want to play the festival? Tell us about your band and send links to recordings.', 'Artist inquiry'],
+    ['Workshops', 'Questions about the workshops, auditions and sign-up.', 'Workshop question'],
+    ['Partners + sponsors', 'Interested in supporting the festival or working with us?', 'Partnership / sponsorship'],
+    ['General', 'Anything else – tickets, getting here, accessibility.', 'General inquiry'],
+  ] : [
+    ['אמנים', 'רוצים להופיע בפסטיבל? ספרו לנו על ההרכב ושלחו קישורים להקלטות.', 'פנייה של אמן/ית'],
+    ['סדנאות', 'שאלות על הסדנאות, האודישן וההרשמה.', 'שאלה על הסדנאות'],
+    ['שותפים וחסויות', 'מעוניינים לתמוך בפסטיבל או לשתף פעולה?', 'שותפות / חסות'],
+    ['פנייה כללית', 'כל שאלה אחרת – כרטיסים, הגעה, נגישות.', 'פנייה כללית'],
+  ];
+  const suffix = L(' – פסטיבל הג׳אז רעננה', ' – Raanana Jazz Festival');
+  document.getElementById('contactGrid').innerHTML = TOPICS.map(([h, p, subj]) =>
+    `<a class="cbtn" href="mailto:${SITE.email}?subject=${encodeURIComponent(subj + suffix)}"><h3>${h}</h3><p>${p}</p><span>${L('לכתיבת מייל', 'Write an email')} ${ARROW}</span></a>`).join('');
+</script>
+</body>
+</html>

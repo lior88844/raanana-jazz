@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Line-up | Raanana Jazz Festival</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="The Raanana Jazz Festival line-up. Festival 2026: 10–12 December.">
+<meta property="og:title" content="Line-up | Raanana Jazz Festival">
+<meta property="og:description" content="The Raanana Jazz Festival line-up. Festival 2026: 10–12 December.">
+<meta property="og:image" content="https://raananajazzfestival.com/preview-uz9hsq/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/preview-uz9hsq/en/lineup.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/preview-uz9hsq/lineup.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/preview-uz9hsq/en/lineup.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/preview-uz9hsq/lineup.html">
+<link rel="icon" href="/preview-uz9hsq/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=cd999e3f65">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<main id="main">
+<section class="page-hero grain">
+  <div class="eyebrow">10–12 December 2026</div>
+  <h1>Line-up 2026</h1>
+  <p class="lead">Three days, five stages and 18 shows – from children’s mornings to late nights in the Tent. Ticket details coming soon.</p>
+  <div class="ctas"><a href="/preview-uz9hsq/en/guide.html" class="btn primary">Visitor info</a><a href="/preview-uz9hsq/en/tickets.html" class="btn ghost">Tickets <i class="arr" aria-hidden="true">→</i></a></div>
+</section>
+
+<section class="wrap section lu">
+  <h2 class="sec-h">The artists</h2>
+  <p>Tap a name to see when and where.</p>
+  <div data-render="cloud"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">Timetable by stage</h2>
+  <p>Mark ☆ on the shows you don’t want to miss – they stay in “My line-up” in this browser.</p>
+  <div data-render="timetable"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">All shows</h2>
+  <div class="daytabs" role="tablist">
+    <button class="on" data-day="">All days</button>
+    <button data-day="thu">Thu 10.12</button>
+    <button data-day="fri">Fri 11.12</button>
+    <button data-day="sat">Sat 12.12</button>
+  </div>
+  <div class="showlist" id="showlist" data-render="showlist"></div>
+</section>
+<section class="cta-band">
+  <h2>Before you go</h2>
+  <p>Getting here, parking, families, accessibility and FAQ – all on one page.</p>
+  <a href="/preview-uz9hsq/en/guide.html" class="btn">Visitor info <i class="arr" aria-hidden="true">→</i></a>
+</section>
+
+</main>
+
+<script src="/preview-uz9hsq/assets/data.js?v=cd999e3f65"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=cd999e3f65"></script>
+<script>
+  document.querySelectorAll('.daytabs button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.daytabs button').forEach(x => x.classList.toggle('on', x === b));
+    renderShowList(document.getElementById('showlist'), b.dataset.day);
+    lazyBackgrounds();
+  }));
+</script>
+</body>
+</html>

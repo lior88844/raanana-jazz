@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הצהרת נגישות | פסטיבל הג׳אז רעננה</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="הצהרת הנגישות של אתר פסטיבל הג׳אז רעננה.">
+<meta property="og:title" content="הצהרת נגישות | פסטיבל הג׳אז רעננה">
+<meta property="og:description" content="הצהרת הנגישות של אתר פסטיבל הג׳אז רעננה.">
+<meta property="og:image" content="https://raananajazzfestival.com/preview-uz9hsq/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/preview-uz9hsq/accessibility.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/preview-uz9hsq/accessibility.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/preview-uz9hsq/en/accessibility.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/preview-uz9hsq/accessibility.html">
+<link rel="icon" href="/preview-uz9hsq/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=cd999e3f65">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<main id="main">
+<section class="page-hero grain">
+  <div class="eyebrow">נגישות</div>
+  <h1>הצהרת נגישות</h1>
+  <p class="lead">אנו רואים חשיבות רבה בכך שכל אחד ואחת יוכלו להשתמש באתר הפסטיבל ולהגיע להופעות.</p>
+  
+</section>
+
+<section class="narrow section prose">
+  <h2>רמת הנגישות באתר</h2>
+  <p>האתר נבנה בהתאם לתקן הישראלי ת״י 5568, המבוסס על הנחיות WCAG 2.1 ברמה AA, ולתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות).</p>
+  <h2>מה עשינו באתר</h2>
+  <ul>
+    <li>ניווט מלא במקלדת, עם סימון ברור של הרכיב שבפוקוס וקישור "דילוג לתוכן".</li>
+    <li>ניגודיות צבעים בהתאם לתקן בטקסט ובכפתורים.</li>
+    <li>מבנה כותרות תקין ותיאור טקסטואלי לתמונות.</li>
+    <li>אזורי לחיצה בגודל מתאים למסכי מגע.</li>
+    <li>כיבוד הגדרת "הפחתת תנועה" במכשיר – האנימציות מצטמצמות.</li>
+    <li>האתר זמין בעברית ובאנגלית ומותאם לטלפונים.</li>
+  </ul>
+  <h2>הסדרי נגישות בפסטיבל</h2>
+  <p>לפרטים על הסדרי הנגישות במרכז למוזיקה פיס רעננה (חניה, גישה לאולמות ומקומות ישיבה נגישים) – פנו אלינו בפרטים שלמטה.</p>
+  <h2>מגבלות ידועות</h2>
+  <ul>
+    <li>רכישת הכרטיסים מתבצעת באתר הכרטיסים של עיריית רעננה, שאינו בשליטתנו.</li>
+    <li>התוכנייה המלאה מוצגת כתמונה; כל המידע שבה זמין גם כטקסט בעמוד לוח ההופעות.</li>
+  </ul>
+  <h2>נתקלתם בבעיה?</h2>
+  <p id="a11yAsk">נשמח לשמוע ולתקן. פנו אלינו:</p>
+  <p class="note" id="a11yContact"></p>
+  <p>ההצהרה עודכנה לאחרונה: <span id="a11yDate"></span></p>
+</section>
+
+</main>
+
+<script src="/preview-uz9hsq/assets/data.js?v=cd999e3f65"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=cd999e3f65"></script>
+<script>
+  const c = SITE.a11yContact || {};
+  const lines = [c.name, c.phone, c.email || SITE.email].filter(Boolean);
+  if (c.name) document.getElementById('a11yAsk').textContent = L('נשמח לשמוע ולתקן. פנו לרכז/ת הנגישות:', 'Tell us and we will fix it. Contact the accessibility coordinator:');
+  document.getElementById('a11yContact').innerHTML = lines.map(l => /@/.test(l) ? `<a href="mailto:${l}">${l}</a>` : l).join('<br>');
+  document.getElementById('a11yDate').textContent = SITE.a11yUpdated;
+</script>
+</body>
+</html>

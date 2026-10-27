@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tickets | Raanana Jazz Festival</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Tickets for the 2026 Raanana Jazz Festival.">
+<meta property="og:title" content="Tickets | Raanana Jazz Festival">
+<meta property="og:description" content="Tickets for the 2026 Raanana Jazz Festival.">
+<meta property="og:image" content="https://raananajazzfestival.com/preview-uz9hsq/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/preview-uz9hsq/en/tickets.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/preview-uz9hsq/tickets.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/preview-uz9hsq/en/tickets.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/preview-uz9hsq/tickets.html">
+<link rel="icon" href="/preview-uz9hsq/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=cd999e3f65">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<main id="main">
+<section class="page-hero grain">
+  <div class="eyebrow">10–12 December 2026</div>
+  <h1>Tickets</h1>
+  <p class="lead">Ticket and pass details for the 2026 festival will be published soon. Shows on the Festival Plaza are free.</p>
+  <div class="ctas"><a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">Updates on Instagram</a><a href="/preview-uz9hsq/en/lineup.html" class="btn ghost">See the line-up <i class="arr" aria-hidden="true">→</i></a></div>
+</section>
+
+<section class="wrap section">
+  <h2 class="sec-h">Free entry</h2>
+  <p>These Festival Plaza shows are open to everyone, no ticket needed.</p>
+  <div class="showlist" id="freeShows"></div>
+</section>
+
+</main>
+
+<script src="/preview-uz9hsq/assets/data.js?v=cd999e3f65"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=cd999e3f65"></script>
+<script>
+  renderShowList(document.getElementById('freeShows'));
+  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS[i].free && !SHOWS[i].kids) row.remove(); });
+</script>
+</body>
+</html>

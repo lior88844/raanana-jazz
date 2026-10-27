@@ -2,16 +2,84 @@
 # Each page is a function of `t(he, en)`, so both languages live side by side.
 # Run: python3 build_pages.py
 import os
+import re
+import shutil
+import subprocess
+import sys
 import time
 
 import hashlib
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+# ---------------------------------------------------------------------
+#  Where the site lives
+#  Before launch the whole site (pages, assets, images) sits in one hidden
+#  folder whose name is the secret path, and the main address shows a
+#  "coming soon" page. The folder is found automatically: it is the
+#  top-level folder that holds assets/site.js, so its name is written
+#  nowhere else. To launch, run: python3 build_pages.py --launch
+#  (see README).
+# ---------------------------------------------------------------------
+def find_site_dir():
+    if os.path.isfile('assets/site.js'):
+        return ''
+    for d in sorted(os.listdir('.')):
+        if os.path.isfile(os.path.join(d, 'assets', 'site.js')):
+            return d
+    raise SystemExit('No site found: expected assets/site.js at the root or in one top-level folder.')
+
+
+SITE_DIR = find_site_dir()          # '' = live at the domain root
+
+
+def launch():
+    """python3 build_pages.py --launch: drop the coming-soon page, move the
+    hidden site to the root, then rebuild it as the public site."""
+    if not SITE_DIR:
+        raise SystemExit('The site is already at the root.')
+    subprocess.run(['git', 'rm', '-q', '-r', '--ignore-unmatch', 'index.html', '404.html', 'soon'], check=True)
+
+    def move(src, dst):
+        if os.path.isdir(src) and os.path.isdir(dst):      # merge into a folder that already exists
+            for name in os.listdir(src):
+                move(os.path.join(src, name), os.path.join(dst, name))
+            os.rmdir(src)
+        elif subprocess.run(['git', 'mv', src, dst], capture_output=True).returncode:
+            os.replace(src, dst)                            # untracked file: plain move
+    for name in os.listdir(SITE_DIR):
+        move(os.path.join(SITE_DIR, name), name)
+    os.rmdir(SITE_DIR)
+    print('Moved the site to the root. Rebuilding…')
+    os.execv(sys.executable, [sys.executable, os.path.abspath(__file__)])
+
+
+if '--launch' in sys.argv:
+    launch()
+
+HIDDEN = bool(SITE_DIR)
+ROOT = '/' + SITE_DIR if HIDDEN else ''
+OUT = SITE_DIR or '.'
+
 # cache-busting version = hash of the shared assets, so any change gets a new URL
-VER = hashlib.sha1(b''.join(open(f, 'rb').read() for f in ('assets/site.css', 'assets/site.js', 'assets/data.js'))).hexdigest()[:10]
+VER = hashlib.sha1(b''.join(open(os.path.join(OUT, f), 'rb').read() for f in ('assets/site.css', 'assets/site.js', 'assets/data.js'))).hexdigest()[:10]
 SITE_URL = 'https://raananajazzfestival.com'
 LANGS = {
-    'he': dict(dir='rtl', base='/', out='.', suffix=' | פסטיבל הג׳אז רעננה', arrow='<i class="arr" aria-hidden="true">←</i>'),
-    'en': dict(dir='ltr', base='/en/', out='en', suffix=' | Raanana Jazz Festival', arrow='<i class="arr" aria-hidden="true">→</i>'),
+    'he': dict(dir='rtl', base='/', out=OUT, suffix=' | פסטיבל הג׳אז רעננה', arrow='<i class="arr" aria-hidden="true">←</i>'),
+    'en': dict(dir='ltr', base='/en/', out=os.path.join(OUT, 'en'), suffix=' | Raanana Jazz Festival', arrow='<i class="arr" aria-hidden="true">→</i>'),
 }
+# hidden pages stay out of search engines
+ROBOTS = '<meta name="robots" content="noindex, nofollow">' if HIDDEN else ''
+
+
+def rooted(html):
+    """Pages are written as if they sat at the domain root; move every
+    root-relative URL (href="/…", src="/…", url(/…)) into ROOT."""
+    if not ROOT:
+        return html
+    html = re.sub(r'(\s[\w:-]+=")/(?!/)', lambda m: m.group(1) + ROOT + '/', html)
+    return re.sub(r"url\((['\"]?)/(?!/)", lambda m: 'url(' + m.group(1) + ROOT + '/', html)
+
 
 HEAD = '''<!doctype html>
 <html lang="{lang}" dir="{dir}">
@@ -19,6 +87,7 @@ HEAD = '''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
+{robots}
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
@@ -754,17 +823,136 @@ for lang, cfg in LANGS.items():
     for name, fn in PAGES.items():
         p = fn(t, P, cfg['arrow'])
         title = p['title'] if p.get('no_suffix') else p['title'] + cfg['suffix']
-        html = HEAD.format(lang=lang, dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL, extra_head=p.get('head', ''),
-                           self_path=url_path(cfg['base'], name),
+        html = HEAD.format(lang=lang, dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL + ROOT, extra_head=p.get('head', ''),
+                           robots=ROBOTS, self_path=url_path(cfg['base'], name),
                            he_path=url_path('/', name), en_path=url_path('/en/', name)) \
             + '<main id="main">\n' + p['body'] + '\n</main>\n' + FOOT.format(script=p.get('script', ''), ver=VER)
         with open(os.path.join(cfg['out'], name), 'w') as f:
-            f.write(html)
+            f.write(rooted(html))
     print(f'wrote {len(PAGES)} {lang} pages → {cfg["out"]}/')
-    if lang == 'he':
+    if lang == 'he' and not HIDDEN:
         p = page_404(t, P, cfg['arrow'])
         html = HEAD.format(lang=lang, dir=cfg['dir'], title=p['title'] + cfg['suffix'], desc=p['desc'], ver=VER, site=SITE_URL,
-                           extra_head='<meta name="robots" content="noindex">', self_path='/404.html', he_path='/', en_path='/en/') \
+                           robots='', extra_head='<meta name="robots" content="noindex">', self_path='/404.html', he_path='/', en_path='/en/') \
             + '<main id="main">\n' + p['body'] + '\n</main>\n' + FOOT.format(script='', ver=VER)
         open('404.html', 'w').write(html)
         print('wrote 404.html')
+
+
+# ---------------------------------------------------------------------
+#  Coming-soon page at the main address (only while the site is hidden).
+#  It uses its own copies of the logo, lettering and font in /soon/, so
+#  nothing on it points into the hidden folder. Dates and venue come
+#  from data.js.
+# ---------------------------------------------------------------------
+SOON_FILES = {
+    'images/logo-nodots.png': 'logo.png', 'images/logo-dot1.png': 'dot1.png', 'images/logo-dot2.png': 'dot2.png',
+    'images/logo-dot3.png': 'dot3.png', 'images/word-festival-he.png': 'word-festival.png',
+    'images/word-raanana-he.png': 'word-raanana.png', 'images/paper.png': 'paper.png',
+    'assets/fonts/xenon-ruckus.woff2': 'xenon-ruckus.woff2',
+}
+
+SOON = '''<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פסטיבל הג׳אז רעננה 2026 | האתר החדש יעלה בקרוב</title>
+__ROBOTS__
+<meta name="description" content="World Jazz Music – פסטיבל הג׳אז רעננה, __DATES__. האתר החדש יעלה בקרוב.">
+<meta property="og:title" content="פסטיבל הג׳אז רעננה 2026 · World Jazz Music">
+<meta property="og:description" content="__DATES__ · האתר החדש יעלה בקרוב">
+<meta property="og:image" content="__SITE__/soon/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/soon/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/soon/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Xenon Ruckus"; src: url("/soon/xenon-ruckus.woff2") format("woff2"); font-display: swap; unicode-range: U+0020-007E, U+2018-201D; }
+:root { --field: #C9473A; --accent: #F7CE46; --on-field: #FFFFFF; --ease-out: cubic-bezier(.23, 1, .32, 1); }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center;
+  padding: 32px 24px 28px; color: var(--on-field); background-color: var(--field); text-align: center;
+  font-family: "Rubik", system-ui, sans-serif;
+  background-image: url(/soon/paper.png), url(/soon/paper.png); background-size: 512px, 700px;
+  background-position: 0 0, 230px 140px; background-blend-mode: multiply;
+}
+main { width: 100%; max-width: 560px; }
+/* the whole page fits one screen: the logo shrinks on short screens */
+h1 { width: min(100%, 480px, max(240px, calc((100svh - 500px) * 1.15))); margin: 0 auto; font-size: inherit; }
+.hw { display: block; position: relative; z-index: 1; width: 44%; height: auto; }
+.hw-fest { margin: 0 -9% -3% auto; }
+.hw-raan { margin: 1% auto 0 -9%; }
+@media (max-width: 640px) { .hw-fest { margin-right: 0; } .hw-raan { margin-left: 0; } }
+.logo { position: relative; display: block; line-height: 0; }
+.logo .main { width: 100%; height: auto; }
+.logo .ld { position: absolute; width: 5.7%; height: 7.56%; }
+.ld1 { left: 78.9%; top: 22.04%; } .ld2 { left: 87.17%; top: 56.42%; } .ld3 { left: 92.59%; top: 88.79%; }
+.dates { display: inline-block; margin-top: 22px; direction: ltr; font-family: "Xenon Ruckus", "Rubik", sans-serif; font-size: 38px; line-height: 1; color: var(--accent); }
+.dates b { display: block; font-weight: 400; font-size: 1.92em; line-height: .92; }
+.dates small { display: block; font-size: 1em; color: var(--on-field); margin-top: -10px; letter-spacing: .06em; margin-right: -.06em; }
+.soon { margin: 26px 0 0; font-weight: 900; font-size: clamp(30px, 7vw, 44px); line-height: 1.1; }
+.soon-en { margin: 10px 0 0; font-weight: 500; font-size: 19px; }
+.ig { display: inline-block; margin-top: 16px; padding: 12px 6px; color: var(--on-field); font-weight: 700; font-size: 19px;
+  text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.ig:focus-visible { outline: 3px solid var(--on-field); outline-offset: 4px; }
+.ig:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .ig:hover { text-decoration-thickness: 4px; } }
+.venue { margin: 18px 0 0; font-size: 15px; font-weight: 500; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes beatIn { 0% { transform: scale(.3); opacity: 0; } 60% { transform: scale(1.35); opacity: 1; } 100% { transform: none; opacity: 1; } }
+.logo .main { animation: pop 450ms var(--ease-out) both; }
+.hw { animation: rise 380ms var(--ease-out) 120ms both; }
+.ld { animation: beatIn 420ms cubic-bezier(.34, 1.56, .64, 1) both; }
+.ld1 { animation-delay: 560ms; } .ld2 { animation-delay: 860ms; } .ld3 { animation-delay: 1160ms; }
+.dates { animation: rise 380ms var(--ease-out) 80ms both; }
+.soon, .soon-en { animation: rise 380ms var(--ease-out) 200ms both; }
+.ig, .venue { animation: rise 380ms var(--ease-out) 260ms both; }
+@media (prefers-reduced-motion: reduce) { .logo .main, .hw, .ld, .dates, .soon, .soon-en, .ig, .venue { animation: none; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>
+    <img class="hw hw-fest" src="/soon/word-festival.png" width="411" height="125" alt="">
+    <span class="logo"><img class="main" src="/soon/logo.png" width="1052" height="794" alt="World Jazz Music – פסטיבל הג׳אז רעננה 2026"><img class="ld ld1" src="/soon/dot1.png" alt=""><img class="ld ld2" src="/soon/dot2.png" alt=""><img class="ld ld3" src="/soon/dot3.png" alt=""></span>
+    <img class="hw hw-raan" src="/soon/word-raanana.png" width="416" height="109" alt="">
+  </h1>
+  <div class="dates" aria-label="__DATES__"><b>__NUM__</b><small>__MONTH__</small></div>
+  <p class="soon">האתר החדש יעלה בקרוב</p>
+  <p class="soon-en" lang="en" dir="ltr">New website coming soon</p>
+  <a class="ig" href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener">לעדכונים באינסטגרם</a>
+  <p class="venue">__VENUE__</p>
+</main>
+</body>
+</html>
+'''
+
+
+def data_str(key):
+    m = re.search(key + r":\s*'([^']*)'", open(os.path.join(OUT, 'assets/data.js'), encoding='utf-8').read())
+    return m.group(1) if m else ''
+
+
+if HIDDEN:
+    os.makedirs('soon', exist_ok=True)
+    for src, dst in SOON_FILES.items():
+        shutil.copy2(os.path.join(OUT, src), os.path.join('soon', dst))
+    num, month = re.match(r'\s*(.*?)\s*<small>(.*?)</small>', data_str('datesLatin')).groups()
+    soon = (SOON.replace('__SITE__', SITE_URL).replace('__DATES__', data_str('dates')).replace('__NUM__', num)
+            .replace('__MONTH__', month).replace('__VENUE__', data_str('venueName')))
+    open('index.html', 'w').write(soon.replace('__ROBOTS__\n', ''))
+    open('404.html', 'w').write(soon.replace('__ROBOTS__', '<meta name="robots" content="noindex">'))
+    print(f'wrote coming-soon index.html + 404.html; the site is at {ROOT}/ (noindex)')
+    stale = [f for f in PAGES if f != 'index.html' and os.path.exists(f)] + (['en'] if os.path.isdir('en') else [])
+    if stale:
+        print('WARNING: old public pages still at the root, delete them:', ', '.join(stale))
+elif os.path.isdir('soon'):
+    print('Site is live at the root: the soon/ folder is no longer used and can be deleted.')

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>לוח הופעות | פסטיבל הג׳אז רעננה</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 10–12 בדצמבר.">
+<meta property="og:title" content="לוח הופעות | פסטיבל הג׳אז רעננה">
+<meta property="og:description" content="לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 10–12 בדצמבר.">
+<meta property="og:image" content="https://raananajazzfestival.com/preview-uz9hsq/images/44f224268148.png">
+<link rel="canonical" href="https://raananajazzfestival.com/preview-uz9hsq/lineup.html">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/preview-uz9hsq/lineup.html">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/preview-uz9hsq/en/lineup.html">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/preview-uz9hsq/lineup.html">
+<link rel="icon" href="/preview-uz9hsq/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=cd999e3f65">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<main id="main">
+<section class="page-hero grain">
+  <div class="eyebrow">10–12 בדצמבר 2026</div>
+  <h1>לוח הופעות 2026</h1>
+  <p class="lead">שלושה ימים, חמש במות ו־18 הופעות – מבוקר לילדים ועד הופעות הלילה באוהל. פרטי הכרטיסים יפורסמו בקרוב.</p>
+  <div class="ctas"><a href="/preview-uz9hsq/guide.html" class="btn primary">מידע למבקרים</a><a href="/preview-uz9hsq/tickets.html" class="btn ghost">כרטיסים <i class="arr" aria-hidden="true">←</i></a></div>
+</section>
+
+<section class="wrap section lu">
+  <h2 class="sec-h">האמנים</h2>
+  <p>לחצו על שם כדי לראות מתי ואיפה.</p>
+  <div data-render="cloud"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">לו״ז לפי במות</h2>
+  <p>סמנו ☆ על ההופעות שלא תרצו לפספס – הן יישמרו ב״הליינאפ שלי״ בדפדפן הזה.</p>
+  <div data-render="timetable"></div>
+</section>
+<section class="wrap section">
+  <h2 class="sec-h">כל ההופעות</h2>
+  <div class="daytabs" role="tablist">
+    <button class="on" data-day="">כל הימים</button>
+    <button data-day="thu">חמישי 10.12</button>
+    <button data-day="fri">שישי 11.12</button>
+    <button data-day="sat">שבת 12.12</button>
+  </div>
+  <div class="showlist" id="showlist" data-render="showlist"></div>
+</section>
+<section class="cta-band">
+  <h2>לפני שמגיעים</h2>
+  <p>הגעה, חניה, משפחות, נגישות ושאלות נפוצות – הכל בעמוד אחד.</p>
+  <a href="/preview-uz9hsq/guide.html" class="btn">למידע למבקרים <i class="arr" aria-hidden="true">←</i></a>
+</section>
+
+</main>
+
+<script src="/preview-uz9hsq/assets/data.js?v=cd999e3f65"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=cd999e3f65"></script>
+<script>
+  document.querySelectorAll('.daytabs button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.daytabs button').forEach(x => x.classList.toggle('on', x === b));
+    renderShowList(document.getElementById('showlist'), b.dataset.day);
+    lazyBackgrounds();
+  }));
+</script>
+</body>
+</html>
