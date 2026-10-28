@@ -873,7 +873,7 @@ __ROBOTS__
 <link rel="preload" href="/soon/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face { font-family: "Xenon Ruckus"; src: url("/soon/xenon-ruckus.woff2") format("woff2"); font-display: swap; unicode-range: U+0020-007E, U+2018-201D; }
-:root { --field: #C9473A; --accent: #F7CE46; --on-field: #FFFFFF; --ease-out: cubic-bezier(.23, 1, .32, 1); }
+:root { --field: #DB5230; --accent: #F5B2BA; --ink: #3A1A14; --on-field: #FFFFFF; --ease-out: cubic-bezier(.23, 1, .32, 1); }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -894,7 +894,7 @@ h1 { width: min(100%, 480px, max(240px, calc((100svh - 500px) * 1.15))); margin:
 .logo .main { width: 100%; height: auto; }
 .logo .ld { position: absolute; width: 5.7%; height: 7.56%; }
 .ld1 { left: 78.9%; top: 22.04%; } .ld2 { left: 87.17%; top: 56.42%; } .ld3 { left: 92.59%; top: 88.79%; }
-.dates { display: inline-block; margin-top: 22px; direction: ltr; font-family: "Xenon Ruckus", "Rubik", sans-serif; font-size: 38px; line-height: 1; color: var(--accent); }
+.dates { display: inline-block; margin-top: 22px; direction: ltr; font-family: "Xenon Ruckus", "Rubik", sans-serif; font-size: 38px; line-height: 1; color: var(--ink); }
 .dates b { display: block; font-weight: 400; font-size: 1.92em; line-height: .92; }
 .dates small { display: block; font-size: 1em; color: var(--on-field); margin-top: -10px; letter-spacing: .06em; margin-right: -.06em; }
 .soon { margin: 26px 0 0; font-weight: 900; font-size: clamp(30px, 7vw, 44px); line-height: 1.1; }
