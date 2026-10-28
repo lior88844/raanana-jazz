@@ -197,12 +197,12 @@ const TEACHERS = [
 // moments from the 2025 festival (photos from the "World.Jazz.Music 2025" album; the full set is the gallery on festival-2025.html)
 const MOMENTS = [
   ['moment-2025-1.jpg', 'על הבמה', 'On stage'],
-  ['moment-2025-2.jpg', 'משפחות בהופעת בוקר', 'Families at a morning show'],
+  ['moment-2025-9.jpg', 'רביעייה על הבמה', 'A quartet on stage'],
   ['moment-2025-3.jpg', 'אולם מלא', 'A full house'],
   ['moment-2025-4.jpg', 'קרוב לבמה', 'Up close'],
-  ['moment-2025-5.jpg', 'הופעה לכל המשפחה', 'A show for the whole family'],
+  ['moment-2025-10.jpg', 'הקהל בהופעת ערב', 'The audience at an evening show'],
   ['moment-2025-6.jpg', 'גיטרה וקונטרבס', 'Guitar and bass'],
-  ['moment-2025-7.jpg', 'הקהל הצעיר', 'The young audience'],
+  ['moment-2025-11.jpg', 'הדלקת נר חנוכה בלובי', 'Lighting the Hanukkah candles in the lobby'],
   ['moment-2025-8.jpg', 'בלובי בין ההופעות', 'In the lobby between shows'],
 ];
 
