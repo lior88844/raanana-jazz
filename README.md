@@ -35,3 +35,7 @@ All paths below are inside the site folder (the hidden folder before launch, the
 - **Design**: `assets/site.css`.
 - **Page text/layout**: `build_pages.py` (at the repo root) holds each page's markup with Hebrew and English side by side (`t('עברית', 'English')`); run `python3 build_pages.py` to regenerate both languages and the coming-soon page.
 - Images live in `images/`.
+
+## Colours
+
+The festival palette, what each colour is for and which pairs are readable: [COLORS.md](COLORS.md).

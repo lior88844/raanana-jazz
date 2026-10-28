@@ -17,7 +17,7 @@
 }
 
 :root {
-  /* brand colours (the 2026 palette) */
+  /* brand colours – the source of truth is COLORS.md at the repo root; change it there first */
   --terracotta: #DB5230;
   --maroon: #622617;
   --pink: #F5B2BA;
