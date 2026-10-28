@@ -217,7 +217,7 @@ def page_index(t, P, A):
 <section id="festival-2025" aria-labelledby="f25-h">
   <div class="stitle">
     <h2 id="f25-h">{t('פסטיבל 2025', 'Festival 2025')}</h2>
-    <p>{t('18–20 בדצמבר 2025 · רגעים מהשנה שעברה.', '18–20 December 2025 · moments from last year.')} <a class="g-text" href="{P('festival-2025.html')}">{t('לכל האמנים של 2025', 'All the 2025 artists')} {A}</a></p>
+    <p>{t('18–20 בדצמבר 2025 · רגעים מהשנה שעברה.', '18–20 December 2025 · moments from last year.')} <a class="g-text" href="{P('festival-2025.html')}#gallery">{t('לגלריה המלאה – 665 תמונות', 'The full gallery – 665 photos')} {A}</a></p>
   </div>
   {moments_head(t)}
   <section class="grid" data-render="moments"></section>
@@ -285,9 +285,12 @@ def page_past(t, P, A):
                     'The artists who made 2025 unforgettable – from Israel, Morocco, Poland, Hungary, Austria, Georgia, Greece, Cyprus and the USA.')) + f'''
 <h2 class="sr-only">{t('האמנים', 'The artists')}</h2>
 <section class="artists" id="artists"></section>
-{moments_head(t, 'h2')}
-<section class="grid" data-render="moments"></section>
-<section class="cta-band" style="margin-top:0">
+<section class="wrap section" id="gallery" aria-labelledby="gal-h">
+  <h2 class="sec-h" id="gal-h">{t('גלריה מהפסטיבל', 'Festival gallery')}</h2>
+  <p>{t('תמונות מפסטיבל 2025, 18–20 בדצמבר. לחצו על תמונה כדי לראות אותה בגדול.', 'Photos from the 2025 festival, 18–20 December. Tap a photo to see it larger.')}</p>
+  <div id="gal2025"></div>
+</section>
+<section class="cta-band">
   <h2>{t('להורדת התוכנייה של 2025', 'Download the 2025 programme')}</h2>
   <p>{t('כל ההופעות, השעות והבמות בעמוד אחד.', 'Every show, time and stage on one page.')}</p>
   <a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="btn">{t('להורדה', 'Download')} ↓</a>
@@ -298,7 +301,9 @@ def page_past(t, P, A):
     <div class="artist" data-bg="${img(s.img)}">
       <div class="in"><small>${dayName(dayOf(s.day, DAYS_2025))} ${dayOf(s.day, DAYS_2025).date} · ${tr(s, 'venue')}</small><h3>${tr(s, 'title')}</h3><p>${tr(s, 'desc')}</p></div>
     </div>`).join('');
-</script>''')
+</script>''' + f'''
+<script src="/assets/gallery-2025.js?v={VER}"></script>
+<script>renderGallery(document.getElementById('gal2025'), window.GALLERY_2025, 'gallery-2025');</script>''')
 
 
 def page_venue(t, P, A):

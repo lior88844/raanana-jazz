@@ -850,3 +850,25 @@ body, .hero, .page-hero, .footer, .passes, .program, .ws, .cta-band, .daycol, .p
 @media print { body, .hero, .page-hero, .footer, .tt-scroll, .tt-corner, .tt-stage { background-image: none; } }
 
 .sched-more { max-width: 1100px; margin: 26px auto 0; padding: 0 24px; text-align: center; }
+
+/* ---------- photo gallery ---------- */
+.gal-grid { columns: 4 220px; column-gap: 10px; margin-top: 28px; }
+.gal-tile { display: block; width: 100%; margin: 0 0 10px; padding: 0; border: 0; background: var(--mauve); cursor: zoom-in; break-inside: avoid; overflow: hidden; border-radius: 6px; }
+.gal-tile img { display: block; width: 100%; height: auto; transition: transform 600ms var(--ease-out); }
+.gal-tile:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.gal-more { display: flex; margin: 26px auto 0; }
+.gal-more[hidden] { display: none; }
+.gal-box { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(58, 26, 20, .94); color: var(--white); }
+.gal-box[open] { display: grid; place-items: center; }
+.gal-box::backdrop { background: transparent; }
+.gal-box img { max-width: min(92vw, 1200px); max-height: 82dvh; width: auto; height: auto; object-fit: contain; box-shadow: 0 10px 40px rgba(0, 0, 0, .4); }
+.gal-count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-family: var(--latin); font-size: 15px; direction: ltr; }
+.gal-box button { position: absolute; width: 52px; height: 52px; border: 0; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 30px; line-height: 1; display: grid; place-items: center; cursor: pointer; }
+.gal-close { top: 16px; inset-inline-end: 16px; font-size: 22px !important; }
+.gal-prev { inset-inline-start: 16px; top: 50%; transform: translateY(-50%); }
+.gal-next { inset-inline-end: 16px; top: 50%; transform: translateY(-50%); }
+.gal-box button:active { transform: translateY(-50%) scale(.94); }
+.gal-close:active { transform: scale(.94) !important; }
+@media (hover: hover) and (pointer: fine) { .gal-tile:hover img { transform: scale(1.04); } }
+@media (max-width: 700px) { .gal-grid { columns: 2 140px; column-gap: 6px; } .gal-tile { margin-bottom: 6px; } .gal-box button { width: 44px; height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .gal-tile img { transition: none; } }

@@ -632,3 +632,60 @@ addEventListener('DOMContentLoaded', () => {
   smoothDetails();
   scrollRing();
 });
+
+// ---------- photo gallery: small thumbnails in batches, a larger view on click ----------
+// GALLERY_2025 (assets/gallery-2025.js) lists [width, height] per photo; files are images/gallery-2025/NNN-480.webp and NNN-1200.webp
+function renderGallery(el, list, dir) {
+  if (!el || !list) return;
+  const BATCH = 48, file = (i, w) => `${ROOT}/images/${dir}/${String(i + 1).padStart(3, '0')}-${w}.webp`;
+  let shown = 0;
+  el.innerHTML = `<div class="gal-grid"></div><button type="button" class="btn primary gal-more"></button>`;
+  const grid = el.querySelector('.gal-grid'), more = el.querySelector('.gal-more');
+  const add = () => {
+    const end = Math.min(list.length, shown + BATCH);
+    grid.insertAdjacentHTML('beforeend', list.slice(shown, end).map(([w, h], k) => {
+      const i = shown + k;
+      return `<button type="button" class="gal-tile" data-i="${i}" aria-label="${L('תמונה', 'Photo')} ${i + 1} ${L('מתוך', 'of')} ${list.length}">
+        <img src="${file(i, 480)}" width="${w}" height="${h}" loading="lazy" decoding="async" alt=""></button>`;
+    }).join(''));
+    shown = end;
+    more.hidden = shown >= list.length;
+    more.textContent = L(`עוד תמונות (${list.length - shown})`, `More photos (${list.length - shown})`);
+  };
+  add();
+  more.addEventListener('click', add);
+
+  // larger view
+  const box = document.createElement('dialog');
+  box.className = 'gal-box';
+  box.setAttribute('aria-label', L('גלריית תמונות', 'Photo gallery'));
+  box.innerHTML = `<img alt=""><p class="gal-count" aria-live="polite"></p>
+    <button type="button" class="gal-close" aria-label="${L('סגירה', 'Close')}">✕</button>
+    <button type="button" class="gal-prev" aria-label="${L('התמונה הקודמת', 'Previous photo')}">${EN ? '‹' : '›'}</button>
+    <button type="button" class="gal-next" aria-label="${L('התמונה הבאה', 'Next photo')}">${EN ? '›' : '‹'}</button>`;
+  document.body.appendChild(box);
+  const big = box.querySelector('img'), count = box.querySelector('.gal-count');
+  let cur = 0;
+  const show = i => {
+    cur = (i + list.length) % list.length;
+    big.src = file(cur, 1200); big.width = list[cur][0]; big.height = list[cur][1];
+    count.textContent = `${cur + 1} / ${list.length}`;
+    new Image().src = file((cur + 1) % list.length, 1200);          // the next one is ready when asked for
+  };
+  grid.addEventListener('click', e => { const t = e.target.closest('.gal-tile'); if (t) { show(+t.dataset.i); box.showModal(); } });
+  box.querySelector('.gal-close').addEventListener('click', () => box.close());
+  box.querySelector('.gal-prev').addEventListener('click', () => show(cur - 1));
+  box.querySelector('.gal-next').addEventListener('click', () => show(cur + 1));
+  box.addEventListener('click', e => { if (e.target === box) box.close(); });
+  box.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') show(cur + (EN ? -1 : 1));
+    if (e.key === 'ArrowRight') show(cur + (EN ? 1 : -1));
+  });
+  let x0 = null;
+  box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) show(cur + ((dx < 0) === EN ? 1 : -1));
+  });
+}
