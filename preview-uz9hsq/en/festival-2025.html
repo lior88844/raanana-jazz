@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Festival 2025 – Artists | Raanana Jazz Festival</title>
+<title>Festival 2025 | Raanana Jazz Festival</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="The artists who played the 2025 Raanana Jazz Festival.">
-<meta property="og:title" content="Festival 2025 – Artists | Raanana Jazz Festival">
-<meta property="og:description" content="The artists who played the 2025 Raanana Jazz Festival.">
+<meta name="description" content="The 2025 Raanana Jazz Festival in photos: moments from the shows, the audience and the lobby, and that year’s line-up.">
+<meta property="og:title" content="Festival 2025 | Raanana Jazz Festival">
+<meta property="og:description" content="The 2025 Raanana Jazz Festival in photos: moments from the shows, the audience and the lobby, and that year’s line-up.">
 <meta property="og:image" content="https://raananajazzfestival.com/preview-uz9hsq/images/44f224268148.png">
 <link rel="canonical" href="https://raananajazzfestival.com/preview-uz9hsq/en/festival-2025.html">
 <link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/preview-uz9hsq/festival-2025.html">
@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=3bc6b0cb66">
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=bb908809a4">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -27,16 +27,18 @@
 <section class="page-hero grain">
   <div class="eyebrow">Past editions</div>
   <h1>Festival 2025</h1>
-  <p class="lead">The artists who made 2025 unforgettable – from Israel, Morocco, Poland, Hungary, Austria, Georgia, Greece, Cyprus and the USA.</p>
+  <p class="lead">18–20 December 2025: three days of jazz and world music at the Raanana Music Center – as seen from the audience, the stage and the lobby.</p>
   
 </section>
 
-<h2 class="sr-only">The artists</h2>
-<section class="artists" id="artists"></section>
 <section class="wrap section" id="gallery" aria-labelledby="gal-h">
   <h2 class="sec-h" id="gal-h">Festival gallery</h2>
-  <p>Photos from the 2025 festival, 18–20 December. Tap a photo to see it larger.</p>
+  <p>Tap a photo to see it larger.</p>
   <div id="gal2025"></div>
+</section>
+<section class="wrap section" aria-labelledby="lu25-h">
+  <h2 class="sec-h" id="lu25-h">Who played in 2025</h2>
+  <div class="schedule" id="lineup2025"></div>
 </section>
 <section class="cta-band">
   <h2>Download the 2025 programme</h2>
@@ -46,15 +48,17 @@
 
 </main>
 
-<script src="/preview-uz9hsq/assets/data.js?v=3bc6b0cb66"></script>
-<script src="/preview-uz9hsq/assets/site.js?v=3bc6b0cb66"></script>
+<script src="/preview-uz9hsq/assets/data.js?v=bb908809a4"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=bb908809a4"></script>
 <script>
-  document.getElementById('artists').innerHTML = SHOWS_2025.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
-    <div class="artist" data-bg="${img(s.img)}">
-      <div class="in"><small>${dayName(dayOf(s.day, DAYS_2025))} ${dayOf(s.day, DAYS_2025).date} · ${tr(s, 'venue')}</small><h3>${tr(s, 'title')}</h3><p>${tr(s, 'desc')}</p></div>
+  document.getElementById('lineup2025').innerHTML = DAYS_2025.map(d => `
+    <div class="daycol">
+      <header><h3>${dayName(d)}</h3><span>${d.date}</span></header>
+      ${SHOWS_2025.filter(s => s.day === d.id).map(s => `
+        <div class="slot"><time>${s.time}</time><div><div class="t">${tr(s, 'title')}</div><div class="v">${tr(s, 'venue')}</div></div></div>`).join('')}
     </div>`).join('');
 </script>
-<script src="/preview-uz9hsq/assets/gallery-2025.js?v=3bc6b0cb66"></script>
+<script src="/preview-uz9hsq/assets/gallery-2025.js?v=bb908809a4"></script>
 <script>renderGallery(document.getElementById('gal2025'), window.GALLERY_2025, 'gallery-2025');</script>
 </body>
 </html>

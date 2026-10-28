@@ -251,7 +251,7 @@ function renderTeachers(el, asList = true) {
 }
 
 function renderMoments(el) {
-  el.innerHTML = MOMENTS.map(([f, cap, capEn, credit]) => `<a href="${img(f)}" target="_blank" rel="noopener" data-bg="${img(f)}" aria-label="${EN ? capEn : cap}"><span>${EN ? capEn : cap}</span>${credit ? `<small class="credit">${L('צילום', 'Photo')}: ${credit}</small>` : ''}</a>`).join('');
+  el.innerHTML = MOMENTS.map(([f, cap, capEn, credit]) => `<a href="${page('festival-2025.html')}#gallery" data-bg="${img(f)}" aria-label="${EN ? capEn : cap} – ${L('לגלריה', 'to the gallery')}"><span>${EN ? capEn : cap}</span>${credit ? `<small class="credit">${L('צילום', 'Photo')}: ${credit}</small>` : ''}</a>`).join('');
 }
 
 function renderPartners(el) {

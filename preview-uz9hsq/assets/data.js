@@ -194,15 +194,16 @@ const TEACHERS = [
   ['3266fc1fd5df.jpg', 'Kalman Oláh', 'פסנתר · הונגריה', 'Kalman Oláh', 'Piano · Hungary'],
 ];
 
+// moments from the 2025 festival (photos from the "World.Jazz.Music 2025" album; the full set is the gallery on festival-2025.html)
 const MOMENTS = [
-  ['41fe4793261f.jpg', 'ביג בנד רעננה', 'Raanana Big Band'],
-  ['92a2e4ad85b1.jpg', 'הישראדיקסי בנד', 'The Isradixie Band'],
-  ['fe4d926b965d.jpg', 'אנסמבל שם טוב לוי', 'Shem Tov Levi Ensemble'],
-  ['457a7b076e96.jpg', 'רביעיית אהרל׳ה קמינסקי', 'Aharale Kaminsky Quartet', 'Yossi Zwecker'],
-  ['60d45e600820.jpg', 'Leonid Nesterov Quartet', 'Leonid Nesterov Quartet'],
-  ['11e83fd3108a.jpg', 'Taulant Mehmeti Balkan Quartet', 'Taulant Mehmeti Balkan Quartet'],
-  ['30b3759118a3.jpg', 'ילדוג׳אז', 'Yaldojazz'],
-  ['68c50191e3aa.jpg', 'ד״ר רז יצחקי וחן לוי', 'Dr. Raz Yitzhaki & Chen Levi'],
+  ['moment-2025-1.jpg', 'על הבמה', 'On stage'],
+  ['moment-2025-2.jpg', 'משפחות בהופעת בוקר', 'Families at a morning show'],
+  ['moment-2025-3.jpg', 'אולם מלא', 'A full house'],
+  ['moment-2025-4.jpg', 'קרוב לבמה', 'Up close'],
+  ['moment-2025-5.jpg', 'הופעה לכל המשפחה', 'A show for the whole family'],
+  ['moment-2025-6.jpg', 'גיטרה וקונטרבס', 'Guitar and bass'],
+  ['moment-2025-7.jpg', 'הקהל הצעיר', 'The young audience'],
+  ['moment-2025-8.jpg', 'בלובי בין ההופעות', 'In the lobby between shows'],
 ];
 
 const VENUES = [

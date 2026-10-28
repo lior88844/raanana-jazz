@@ -278,17 +278,20 @@ def page_lineup(t, P, A):
 
 def page_past(t, P, A):
     return dict(
-        title=t('פסטיבל 2025 – האמנים', 'Festival 2025 – Artists'),
-        desc=t('האמנים שהופיעו בפסטיבל הג׳אז רעננה 2025.', 'The artists who played the 2025 Raanana Jazz Festival.'),
+        title=t('פסטיבל 2025', 'Festival 2025'),
+        desc=t('פסטיבל הג׳אז רעננה 2025 בתמונות: רגעים מההופעות, מהקהל ומהלובי, ולוח ההופעות של אותה שנה.',
+               'The 2025 Raanana Jazz Festival in photos: moments from the shows, the audience and the lobby, and that year’s line-up.'),
         body=hero(t('מהדורות קודמות', 'Past editions'), t('פסטיבל 2025', 'Festival 2025'), '',
-                  t('האמנים שהפכו את פסטיבל 2025 לבלתי נשכח – מישראל, ממרוקו, מפולין, מהונגריה, מאוסטריה, מגאורגיה, מיוון, מקפריסין ומארה״ב.',
-                    'The artists who made 2025 unforgettable – from Israel, Morocco, Poland, Hungary, Austria, Georgia, Greece, Cyprus and the USA.')) + f'''
-<h2 class="sr-only">{t('האמנים', 'The artists')}</h2>
-<section class="artists" id="artists"></section>
+                  t('18–20 בדצמבר 2025: שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – כך זה נראה מהקהל, מהבמה ומהלובי.',
+                    '18–20 December 2025: three days of jazz and world music at the Raanana Music Center – as seen from the audience, the stage and the lobby.')) + f'''
 <section class="wrap section" id="gallery" aria-labelledby="gal-h">
   <h2 class="sec-h" id="gal-h">{t('גלריה מהפסטיבל', 'Festival gallery')}</h2>
-  <p>{t('תמונות מפסטיבל 2025, 18–20 בדצמבר. לחצו על תמונה כדי לראות אותה בגדול.', 'Photos from the 2025 festival, 18–20 December. Tap a photo to see it larger.')}</p>
+  <p>{t('לחצו על תמונה כדי לראות אותה בגדול.', 'Tap a photo to see it larger.')}</p>
   <div id="gal2025"></div>
+</section>
+<section class="wrap section" aria-labelledby="lu25-h">
+  <h2 class="sec-h" id="lu25-h">{t('מי הופיע ב־2025', 'Who played in 2025')}</h2>
+  <div class="schedule" id="lineup2025"></div>
 </section>
 <section class="cta-band">
   <h2>{t('להורדת התוכנייה של 2025', 'Download the 2025 programme')}</h2>
@@ -297,9 +300,11 @@ def page_past(t, P, A):
 </section>
 ''',
         script='''<script>
-  document.getElementById('artists').innerHTML = SHOWS_2025.filter(s => s.img && !s.title.startsWith('ביג בנד רעננה – חגיגת')).map(s => `
-    <div class="artist" data-bg="${img(s.img)}">
-      <div class="in"><small>${dayName(dayOf(s.day, DAYS_2025))} ${dayOf(s.day, DAYS_2025).date} · ${tr(s, 'venue')}</small><h3>${tr(s, 'title')}</h3><p>${tr(s, 'desc')}</p></div>
+  document.getElementById('lineup2025').innerHTML = DAYS_2025.map(d => `
+    <div class="daycol">
+      <header><h3>${dayName(d)}</h3><span>${d.date}</span></header>
+      ${SHOWS_2025.filter(s => s.day === d.id).map(s => `
+        <div class="slot"><time>${s.time}</time><div><div class="t">${tr(s, 'title')}</div><div class="v">${tr(s, 'venue')}</div></div></div>`).join('')}
     </div>`).join('');
 </script>''' + f'''
 <script src="/assets/gallery-2025.js?v={VER}"></script>
