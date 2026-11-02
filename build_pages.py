@@ -926,7 +926,7 @@ h1 { position: relative; z-index: 1; width: calc(var(--u) * 1); margin: 0; font-
   .c-pais { width: calc(var(--u) * .52); } .c-raan { width: calc(var(--u) * .36); }
   .hw-fest { margin-right: 0; } .hw-raan { margin-left: 0; }
   .std { width: calc(var(--u) * 1.12); } .std span { font-size: calc(var(--u) * .095); }
-  .piano { width: 210vw; left: -70vw; bottom: calc(var(--u) * -.12); }
+  .piano { width: 290vw; left: -8vw; bottom: calc(var(--u) * -.2); }   /* a close-up of the ribbon's left end, big keys */
 }
 
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
