@@ -110,6 +110,14 @@ icons need **3** or more. Below 3 is decoration only.
 
 ---
 
+## Dekel's original print colours
+
+The exact CMYK values from Dekel Hevroni's 2025 poster, with a swatch sheet, are in
+`~/Development/raanana-jazz-social/dekel-assets-2025/colours/` (see its README). Use them for print jobs that
+reuse his artwork.
+
+---
+
 ## History
 
 - **2025:** navy `#202C45` and the Toronto-style site, then the Instagram palette: terracotta `#C9473A`,
