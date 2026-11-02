@@ -867,11 +867,11 @@ SOON = '''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>פסטיבל הג׳אז רעננה 2026 | האתר החדש יעלה בקרוב</title>
+<title>Save the Date · פסטיבל הג׳אז רעננה, __DATES__</title>
 __ROBOTS__
-<meta name="description" content="World Jazz Music – פסטיבל הג׳אז רעננה, __DATES__. האתר החדש יעלה בקרוב.">
-<meta property="og:title" content="פסטיבל הג׳אז רעננה 2026 · World Jazz Music">
-<meta property="og:description" content="__DATES__ · האתר החדש יעלה בקרוב">
+<meta name="description" content="Save the Date: World Jazz Music – פסטיבל הג׳אז רעננה, __DATES__, __VENUE__.">
+<meta property="og:title" content="Save the Date · פסטיבל הג׳אז רעננה 2026">
+<meta property="og:description" content="World Jazz Music · __DATES__ · __VENUE__">
 <meta property="og:image" content="__SITE__/soon/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -879,67 +879,84 @@ __ROBOTS__
 <link rel="icon" href="/soon/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="preload" href="/soon/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&family=Rubik:wght@500;700&display=swap" rel="stylesheet">
 <style>
-@font-face { font-family: "Xenon Ruckus"; src: url("/soon/xenon-ruckus.woff2") format("woff2"); font-display: swap; unicode-range: U+0020-007E, U+2018-201D; }
-:root { --field: #DB5230; --accent: #F7CE46; --ink: #3A1A14; --on-field: #FFFFFF; --ease-out: cubic-bezier(.23, 1, .32, 1); }
+:root { --field: #DB5230; --accent: #F7CE46; --ink: #3A1A14; --white: #FFFFFF; --ease-out: cubic-bezier(.23, 1, .32, 1);
+  /* one size drives the whole layout, so it always fits one screen */
+  --u: min(32vw, 60svh); }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center;
-  padding: 32px 24px 28px; color: var(--on-field); background-color: var(--field); text-align: center;
-  font-family: "Rubik", system-ui, sans-serif;
+body { margin: 0; overflow-x: hidden; color: var(--ink); background-color: var(--field); font-family: "Rubik", system-ui, sans-serif;
   background-image: url(/soon/paper.png), url(/soon/paper.png); background-size: 512px, 700px;
-  background-position: 0 0, 230px 140px; background-blend-mode: multiply;
-}
-main { width: 100%; max-width: 560px; }
-/* the whole page fits one screen: the logo shrinks on short screens */
-h1 { width: min(100%, 480px, max(240px, calc((100svh - 500px) * 1.15))); margin: 0 auto; font-size: inherit; }
+  background-position: 0 0, 230px 140px; background-blend-mode: multiply; }
+.stage { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; display: flex; flex-direction: column; align-items: center;
+  padding: max(4svh, 22px) 16px calc(var(--u) * .5); }
+
+/* partner logos on white paint shapes in the top corners */
+.corner { position: absolute; top: 0; z-index: 2; line-height: 0; }
+.corner .blob { display: block; width: 100%; height: auto; }
+.corner .logo { position: absolute; height: auto; }
+.c-pais { left: 0; width: calc(var(--u) * .56); }
+.c-pais .logo { left: 13%; top: 17%; width: 65%; }
+.c-raan { right: 0; width: calc(var(--u) * .36); }
+.c-raan .logo { right: 30%; top: 7%; width: 33%; }
+
+/* the lettering: פסטיבל / WORLD. JAZZ. MUSIC. / רעננה */
+h1 { position: relative; z-index: 1; width: calc(var(--u) * 1); margin: 0; font-size: inherit; }
 .hw { display: block; position: relative; z-index: 1; width: 44%; height: auto; }
 .hw-fest { margin: 0 -9% -3% auto; }
 .hw-raan { margin: 1% auto 0 -9%; }
-@media (max-width: 640px) { .hw-fest { margin-right: 0; } .hw-raan { margin-left: 0; } }
-.logo { position: relative; display: block; line-height: 0; }
-.logo .main { width: 100%; height: auto; }
-.logo .ld { position: absolute; width: 5.7%; height: 7.56%; }
+.mark { position: relative; display: block; line-height: 0; }
+.mark .main { width: 100%; height: auto; }
+.mark .ld { position: absolute; width: 5.7%; height: 7.56%; }
 .ld1 { left: 78.9%; top: 22.04%; } .ld2 { left: 87.17%; top: 56.42%; } .ld3 { left: 92.59%; top: 88.79%; }
-.dates { display: inline-block; margin-top: 22px; direction: ltr; font-family: "Xenon Ruckus", "Rubik", sans-serif; font-size: 38px; line-height: 1; color: var(--accent); }
-.dates b { display: block; font-weight: 400; font-size: 1.92em; line-height: .92; }
-.dates small { display: block; font-size: 1em; color: var(--on-field); margin-top: -10px; letter-spacing: .06em; margin-right: -.06em; }
-.soon { margin: 26px 0 0; font-weight: 900; font-size: clamp(30px, 7vw, 44px); line-height: 1.1; }
-.soon-en { margin: 10px 0 0; font-weight: 500; font-size: 19px; }
-.ig { display: inline-block; margin-top: 16px; padding: 12px 6px; color: var(--on-field); font-weight: 700; font-size: 19px;
-  text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 7px; }
-.ig:focus-visible { outline: 3px solid var(--on-field); outline-offset: 4px; }
-.ig:active { transform: scale(.97); }
-@media (hover: hover) and (pointer: fine) { .ig:hover { text-decoration-thickness: 4px; } }
-.venue { margin: 18px 0 0; font-size: 15px; font-weight: 500; }
+
+/* SAVE THE DATE on a yellow brush stroke (real text over the paint) */
+.std { position: relative; z-index: 1; display: grid; place-items: center; width: calc(var(--u) * 1.22); aspect-ratio: 1569 / 288;
+  margin: calc(var(--u) * .03) 0 0; background: url(/soon/brush.webp) center / 100% 100% no-repeat; }
+.std span { font-family: "Quicksand", "Rubik", sans-serif; font-weight: 700; font-size: calc(var(--u) * .1); letter-spacing: .01em; color: var(--ink); line-height: 1; padding-top: .06em; }
+.date { position: relative; z-index: 1; display: block; width: calc(var(--u) * .7); height: auto; margin-top: calc(var(--u) * .05); rotate: 4deg; }
+
+/* the piano ribbon along the bottom */
+.piano { position: absolute; z-index: 0; left: -6vw; bottom: calc(var(--u) * -.1); width: 112vw; max-width: none; height: auto; pointer-events: none; }
+
+@media (max-aspect-ratio: 4/5) {          /* phones and tall windows */
+  :root { --u: min(78vw, 37svh); }
+  .stage { padding-top: calc(var(--u) * .4); padding-bottom: calc(var(--u) * .78); justify-content: center; }
+  .c-pais { width: calc(var(--u) * .52); } .c-raan { width: calc(var(--u) * .36); }
+  .hw-fest { margin-right: 0; } .hw-raan { margin-left: 0; }
+  .std { width: calc(var(--u) * 1.12); } .std span { font-size: calc(var(--u) * .095); }
+  .piano { width: 210vw; left: -70vw; bottom: calc(var(--u) * -.12); }
+}
+
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
 @keyframes beatIn { 0% { transform: scale(.3); opacity: 0; } 60% { transform: scale(1.35); opacity: 1; } 100% { transform: none; opacity: 1; } }
-.logo .main { animation: pop 450ms var(--ease-out) both; }
+@keyframes sweep { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes glide { from { opacity: 0; transform: translateX(-6vw); } to { opacity: 1; transform: none; } }
+.mark .main { animation: pop 450ms var(--ease-out) both; }
 .hw { animation: rise 380ms var(--ease-out) 120ms both; }
 .ld { animation: beatIn 420ms cubic-bezier(.34, 1.56, .64, 1) both; }
 .ld1 { animation-delay: 560ms; } .ld2 { animation-delay: 860ms; } .ld3 { animation-delay: 1160ms; }
-.dates { animation: rise 380ms var(--ease-out) 80ms both; }
-.soon, .soon-en { animation: rise 380ms var(--ease-out) 200ms both; }
-.ig, .venue { animation: rise 380ms var(--ease-out) 260ms both; }
-@media (prefers-reduced-motion: reduce) { .logo .main, .hw, .ld, .dates, .soon, .soon-en, .ig, .venue { animation: none; } }
+.std { animation: sweep 700ms var(--ease-out) 300ms both; }
+.date { animation: rise 420ms var(--ease-out) 650ms both; }
+.piano { animation: glide 1100ms var(--ease-out) 200ms both; }
+.corner { animation: rise 420ms var(--ease-out) both; }
+@media (prefers-reduced-motion: reduce) { .mark .main, .hw, .ld, .std, .date, .piano, .corner { animation: none; } }
 </style>
 </head>
 <body>
-<main>
+<main class="stage">
+  <div class="corner c-pais"><img class="blob" src="/soon/blob-tl.webp" width="611" height="351" alt=""><img class="logo" src="/soon/logo-pais.webp" width="476" height="211" alt="מרכז פיס למוסיקה רעננה"></div>
+  <div class="corner c-raan"><img class="blob" src="/soon/blob-tr.webp" width="557" height="399" alt=""><img class="logo" src="/soon/logo-raanana.webp" width="356" height="520" alt="עיריית רעננה"></div>
   <h1>
     <img class="hw hw-fest" src="/soon/word-festival.png" width="411" height="125" alt="">
-    <span class="logo"><img class="main" src="/soon/logo.png" width="1052" height="794" alt="World Jazz Music – פסטיבל הג׳אז רעננה 2026"><img class="ld ld1" src="/soon/dot1.png" alt=""><img class="ld ld2" src="/soon/dot2.png" alt=""><img class="ld ld3" src="/soon/dot3.png" alt=""></span>
+    <span class="mark"><img class="main" src="/soon/logo.png" width="1052" height="794" alt="פסטיבל World Jazz Music רעננה"><img class="ld ld1" src="/soon/dot1.png" alt=""><img class="ld ld2" src="/soon/dot2.png" alt=""><img class="ld ld3" src="/soon/dot3.png" alt=""></span>
     <img class="hw hw-raan" src="/soon/word-raanana.png" width="416" height="109" alt="">
   </h1>
-  <div class="dates" aria-label="__DATES__"><b>__NUM__</b><small>__MONTH__</small></div>
-  <p class="soon">האתר החדש יעלה בקרוב</p>
-  <p class="soon-en" lang="en" dir="ltr">New website coming soon</p>
-  <a class="ig" href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener">לעדכונים באינסטגרם</a>
-  <p class="venue">__VENUE__</p>
+  <p class="std" lang="en" dir="ltr"><span>SAVE THE DATE</span></p>
+  <img class="date" src="/soon/date.webp" width="900" height="267" alt="__DATES__ · __VENUE__">
+  <img class="piano" src="/soon/piano.webp" width="2000" height="667" alt="" fetchpriority="low">
 </main>
 </body>
 </html>
