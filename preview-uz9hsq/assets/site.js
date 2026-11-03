@@ -219,6 +219,30 @@ function renderFree(el) {
     </div>`;
 }
 
+// "Festival 2026" fact tiles: rise in one by one, and every number in them counts up from zero (10–12.12, 20, 14–25).
+function factsMotion() {
+  const list = document.querySelector('.facts');
+  if (!list || reduceMotion || !('IntersectionObserver' in window)) return;
+  const nums = [...list.querySelectorAll('[data-count]')].map(el => ({ el, text: el.textContent }));
+  const frame = (text, p) => text.replace(/\d+/g, m => String(Math.round(+m * p)).padStart(m.length, '0'));
+  list.classList.add('pre');
+  nums.forEach(n => { n.el.setAttribute('aria-label', n.text); n.el.textContent = frame(n.text, 0); });
+  const run = () => {
+    list.classList.replace('pre', 'go');
+    nums.forEach((n, i) => {
+      const start = performance.now() + 150 + i * 120, dur = 1300;
+      const step = t => {
+        const p = Math.min(1, Math.max(0, (t - start) / dur));
+        n.el.textContent = frame(n.text, 1 - Math.pow(1 - p, 4));   // fast start, gentle landing
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  };
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); run(); } }, { threshold: 0.35 });
+  io.observe(list);
+}
+
 // Hero background video: portrait cut on phones, landscape on wider screens; poster only for reduced motion or data saver.
 function heroVideo() {
   const v = document.querySelector('.hero-vid');
@@ -868,6 +892,7 @@ function chromeContrast() {
 addEventListener('DOMContentLoaded', () => {
   chromeContrast();
   heroVideo();
+  factsMotion();
   lazyBackgrounds();
   scrollReveal();
   countdown();

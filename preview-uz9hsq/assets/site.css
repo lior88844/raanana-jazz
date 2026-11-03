@@ -447,13 +447,32 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .next { max-width: 1180px; margin: 0 auto; padding: 90px 40px 0; }
 .next h2 { font-family: var(--brush); font-weight: 900; font-size: var(--fs-1); line-height: 1; }
 .next > p { font-size: var(--fs-body); line-height: 1.6; max-width: 640px; margin-top: 14px; }
-.facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px; background: var(--surface); }
-.facts li { padding: 28px 28px 30px; }
-.facts li + li { border-inline-start: 2px solid var(--ground); }
-.facts b { display: block; font-family: var(--brush); font-size: var(--fs-1); line-height: 1; color: var(--red-ink); direction: ltr; text-align: left; }
+/* three fact tiles in the festival colours; they rise in one by one and their numbers count up (factsMotion in site.js) */
+.facts { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 44px; }
+.facts li { position: relative; display: flex; flex-direction: column; padding: 30px 30px 26px; border-radius: 18px; overflow: hidden;
+  background: var(--tile); color: var(--on-tile); transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out); }
+.facts .f-days { --tile: var(--field); --on-tile: var(--white); }
+.facts .f-shows { --tile: var(--gold); --on-tile: var(--brown); }
+.facts .f-work { --tile: var(--sky); --on-tile: var(--brown); }
+.facts li::after { content: ""; position: absolute; width: 220px; height: 220px; border-radius: 50%; inset-block-start: -90px; inset-inline-end: -70px;
+  background: rgba(255, 255, 255, .16); transition: transform .8s var(--ease-out); pointer-events: none; }
+.facts b { display: block; font-family: var(--brush); font-weight: 400; font-size: clamp(54px, 6vw, 92px); line-height: .9; direction: ltr; text-align: left;
+  font-variant-numeric: tabular-nums; white-space: nowrap; position: relative; z-index: 1; }
 [dir="rtl"] .facts b { text-align: right; }
-.facts span { display: block; margin-top: 10px; font-size: var(--fs-meta); line-height: 1.5; }
-.facts a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; text-decoration: underline; text-decoration-color: var(--line); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.facts span { display: block; margin-top: 16px; font-family: var(--display); font-weight: 600; font-size: var(--fs-body); line-height: 1.45; position: relative; z-index: 1; }
+.facts a { margin-top: auto; padding-top: 14px; display: inline-flex; align-items: center; min-height: 44px; align-self: flex-start; font-weight: 800; color: inherit; position: relative; z-index: 1;
+  text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+@media (hover: hover) {
+  .facts li:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 18px 30px -18px rgba(58, 26, 20, .55); }
+  .facts li:nth-child(2):hover { transform: translateY(-6px) rotate(1deg); }
+  .facts li:hover::after { transform: scale(1.35); }
+}
+/* entrance: tiles rise and straighten one after another */
+.facts.pre li { opacity: 0; transform: translateY(46px) rotate(var(--tilt, -3deg)); }
+.facts li:nth-child(2) { --tilt: 2deg; }
+.facts.go li { opacity: 1; transform: none; transition: opacity .6s ease, transform .9s cubic-bezier(.2, .9, .25, 1.15); }
+.facts.go li:nth-child(2) { transition-delay: .12s; }
+.facts.go li:nth-child(3) { transition-delay: .24s; }
 .next .soon { margin-top: 22px; font-size: var(--fs-meta); }
 
 /* ---------- Featured 2025 shows: one lead, then a list ---------- */
@@ -584,8 +603,8 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
   
   .cards, .schedule { grid-template-columns: minmax(0,1fr); padding: 0 16px; }
   .stitle, .subhead, .sched-note, .moments-h, .featured, .next { padding-inline: 16px; }
-  .facts { grid-template-columns: minmax(0,1fr); }
-  .facts li + li { border-inline-start: 0; border-top: 2px solid var(--ground); }
+  .facts { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .facts li { padding: 24px 22px 20px; }
   .others li { grid-template-columns: 96px minmax(0,1fr); }
   .others h3 { font-size: var(--fs-meta); }
   .now-strip { padding: 18px 16px 22px; }
