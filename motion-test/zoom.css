@@ -1,0 +1,28 @@
+/* ===== demo: "opening" reveal – the hero opens out of a dot ===== */
+.zoom-on .zoom-wrap { position: relative; height: 260vh; }
+.zoom-on .zoom-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.zoom-on .zoom-stage > .hero { height: 100%; min-height: 0; padding-top: 40px; padding-bottom: 40px; display: grid; align-items: center; overflow: hidden;
+  clip-path: circle(var(--r, 60px) at 50% 50%); will-change: clip-path; }
+.zoom-on .zoom-stage > .hero .hero-inner { transform: scale(var(--s, 1)); will-change: transform; }
+.zoom-on .hero .hero-title { max-width: min(480px, 44vh); }
+.zoom-on .hero .countdown { margin-top: 12px; }
+.zoom-on .hero .countdown-label, .zoom-on .hero .meta { margin-top: 10px; }
+/* the intro around the dot (outside the clip) */
+.zoom-intro { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.zoom-intro .t { position: absolute; left: 0; right: 0; text-align: center; font-family: var(--display); color: var(--ink); }
+.zoom-intro .t1 { top: calc(50% - 150px); font: 900 clamp(26px, 3vw, 40px) var(--display); }
+.zoom-intro .t2 { top: calc(50% + 110px); font: 700 18px var(--display); }
+.zoom-intro .t2 b { font-family: var(--latin); font-weight: 400; }
+.zoom-intro .hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; font: 700 15px var(--display); color: var(--ink); }
+.zoom-intro .hint i { width: 2px; height: 28px; background: currentColor; transform-origin: top; animation: hint 1.6s ease-in-out infinite; }
+@keyframes hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* ===== demo panel ===== */
+.zp { position: fixed; inset-inline-start: 16px; bottom: 16px; z-index: 300; background: var(--surface); color: var(--ink); border: 2px solid var(--ink); border-radius: 18px; padding: 14px 16px; width: 240px; font-family: var(--display); }
+.zp b { display: block; font-size: 16px; font-weight: 900; }
+.zp small { display: block; font-size: 13px; margin-top: 2px; color: #5d5a5e; }
+.zp fieldset { border: 0; padding: 0; margin: 12px 0 0; }
+.zp legend { font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+.zp label { display: inline-flex; align-items: center; gap: 6px; margin-inline-end: 10px; font-size: 15px; font-weight: 500; cursor: pointer; }
+.zp input { accent-color: var(--red-ink); width: 18px; height: 18px; }
+.zp button { margin-top: 10px; min-height: 36px; padding: 2px 14px; border-radius: 999px; border: 2px solid var(--ink); background: none; font: 700 14px var(--display); }

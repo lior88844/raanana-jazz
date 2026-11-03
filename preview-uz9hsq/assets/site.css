@@ -1015,3 +1015,27 @@ html:has(.show-box[open]) { overflow: hidden; }
 }
 @media (hover: none) { .river-row span { opacity: 1; transform: none; } }
 @media (max-width: 700px) { .river, .river-row { gap: 8px; } .river-row a { border-radius: 8px; } }
+
+/* ---------- home: all 2026 shows in three rolling day columns, equal weight ---------- */
+.mq { max-width: 1180px; margin: 8px auto 0; padding: 0 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.mq-col { background: var(--day); color: var(--on-day); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.mq-day { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 16px 22px 12px; border-bottom: 2px solid rgba(58, 26, 20, .2);
+  font-family: var(--display); font-weight: 800; font-size: var(--fs-2); }
+.mq-day b { font-family: var(--latin); font-weight: 400; font-size: var(--fs-2); direction: ltr; }
+.mq-win { position: relative; height: 620px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); }
+.mq-track { will-change: transform; }
+.mq-item { display: block; width: 100%; padding: 16px 16px 20px; border: 0; border-bottom: 1px dashed rgba(58, 26, 20, .3); background: none; color: inherit; cursor: pointer; text-align: center;
+  font-family: var(--display); font-weight: 800; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.15; }
+.mq-item time { display: block; font-family: var(--latin); font-weight: 400; font-size: var(--fs-meta); opacity: .8; margin-bottom: 4px; direction: ltr; }
+.mq-item small { display: block; margin-top: 5px; font-weight: 500; font-size: var(--fs-small); opacity: .8; }
+.mq-item bdi { text-decoration: underline 3px transparent; text-underline-offset: 6px; transition: text-decoration-color var(--hover) ease; }
+.mq-ph { display: block; aspect-ratio: 3 / 2; margin-bottom: 12px; border-radius: 10px; overflow: hidden; background: rgba(58, 26, 20, .18); position: relative; }
+.mq-ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease-out); }
+.mq-ph.none::after { content: ""; position: absolute; inset: 24% 28%; background: url(../images/logo-nodots.png) center/contain no-repeat; filter: brightness(0) invert(1); opacity: .85; }
+@media (hover: hover) { .mq-item:hover .mq-ph img { transform: scale(1.05); } }
+.mq-more { text-align: center; margin-top: 30px; }
+.mq.still .mq-win { height: auto; -webkit-mask-image: none; mask-image: none; }
+.mq.still .mq-set[aria-hidden] { display: none; }
+@media (hover: hover) { .mq-item:hover bdi { text-decoration-color: currentColor; } }
+@media (max-width: 900px) { .mq { grid-template-columns: minmax(0, 1fr); padding: 0 16px; gap: 10px; } .mq-win { height: 420px; } .mq-item { padding-inline: 40px; } }

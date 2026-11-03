@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>מיקרו־אנימציות – דף ניסיון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=motiontest">
+<style>
+  body { padding: 0 0 140px; }
+  .mt-head { background: var(--field); color: var(--on-field); padding: 56px 24px 64px; text-align: center; }
+  .mt-head h1 { font-family: var(--brush); font-size: var(--fs-1); line-height: 1.1; }
+  .mt-head p { max-width: 640px; margin: 14px auto 0; font-size: var(--fs-body); line-height: 1.6; }
+  .mt-group { max-width: 1180px; margin: 0 auto; padding: 56px 24px 0; }
+  .mt-group > h2 { font-size: var(--fs-2); font-weight: 900; padding-bottom: 10px; border-bottom: 3px solid var(--terracotta); }
+  .mt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 22px; margin-top: 24px; }
+  .mt-card { background: var(--surface); border: 2px solid var(--ink); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; }
+  .mt-stage { position: relative; min-height: 230px; display: grid; place-items: center; padding: 22px; background: var(--ground); border-bottom: 2px solid var(--ink); overflow: hidden; }
+  .mt-stage.field { background: var(--field); color: var(--on-field); }
+  .mt-stage.dark { background: var(--dark); color: var(--white); }
+  .mt-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .mt-body h3 { display: flex; gap: 10px; align-items: baseline; font-size: 20px; font-weight: 900; }
+  .mt-body h3 em { font-family: var(--latin); font-style: normal; color: var(--red-ink); }
+  .mt-body p { font-size: var(--fs-meta); line-height: 1.55; }
+  .mt-body .how { font-size: var(--fs-small); color: #5d5a5e; }
+  .mt-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 6px; }
+  .mt-replay { min-height: 40px; padding: 4px 16px; border-radius: 999px; border: 2px solid var(--ink); background: transparent; font: 700 15px var(--display); color: var(--ink); }
+  .mt-replay:active { transform: scale(.97); }
+  .mt-pick { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; cursor: pointer; }
+  .mt-pick input { width: 22px; height: 22px; accent-color: var(--red-ink); }
+  .mt-card:has(.mt-pick input:checked) { box-shadow: inset 0 0 0 4px var(--accent); }
+  .mt-tray { position: fixed; inset-inline: 0; bottom: 0; z-index: 50; background: var(--dark); color: var(--white); padding: 14px 20px; display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; font-weight: 700; }
+  .mt-tray b { color: var(--accent); font-family: var(--latin); font-weight: 400; letter-spacing: .02em; }
+  .mt-tray small { font-weight: 500; opacity: .75; }
+
+  /* ---------- 1 · dots on the beat ---------- */
+  .logo-box { position: relative; width: min(300px, 80%); aspect-ratio: 1052 / 794; }
+  .logo-box > img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo-box .dt { position: absolute; width: 5.7%; height: 7.56%; right: auto; bottom: auto; }
+  .logo-box .dt1 { left: 78.9%; top: 22.04%; } .logo-box .dt2 { left: 87.17%; top: 56.42%; } .logo-box .dt3 { left: 92.59%; top: 88.79%; }
+  .play .beat .dt { animation: beatIn 420ms cubic-bezier(.34, 1.56, .64, 1) both; }
+  .play .beat .dt1 { animation-delay: 350ms; } .play .beat .dt2 { animation-delay: 700ms; } .play .beat .dt3 { animation-delay: 1050ms; }
+  @keyframes beatIn { 0% { transform: scale(0.3); opacity: 0; } 60% { transform: scale(1.35); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+
+  /* ---------- 2 · brush reveal ---------- */
+  .brush-box { display: grid; gap: 18px; justify-items: center; }
+  .brush-box img { width: 200px; }
+  .play .brush-box img { animation: brushIn 750ms var(--ease-out) both; }
+  .play .brush-box img + img { animation-delay: 250ms; }
+  @keyframes brushIn { from { clip-path: inset(-10% 0 -10% 100%); transform: translateX(14px); } to { clip-path: inset(-10% 0 -10% 0); transform: none; } }
+
+  /* ---------- 3 · rolling seconds ---------- */
+  .roll { display: flex; align-items: center; gap: 22px; direction: ltr; }
+  .roll .big { font-family: var(--brush); font-size: 92px; line-height: .82; color: var(--accent); }
+  .roll .hms { display: grid; gap: 4px; }
+  .roll .u { display: flex; align-items: baseline; gap: 8px; }
+  .roll .u small { font: 700 14px var(--display); }
+  .digits { display: inline-flex; font-family: var(--brush); font-size: 30px; line-height: 1; height: 1em; overflow: hidden; }
+  .digits span { display: block; width: .62em; text-align: center; }
+  .digits span.in { animation: rollIn 380ms var(--ease-out); }
+  @keyframes rollIn { from { transform: translateY(100%); opacity: .2; } to { transform: none; opacity: 1; } }
+
+  /* ---------- pills (4, 5) ---------- */
+  .mini-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 320px; }
+  .mini-cloud .pill { font-size: 15px; min-height: 38px; padding: 4px 14px; }
+  .play .pop .pill { animation: pillPop 420ms cubic-bezier(.34, 1.56, .64, 1) both; animation-delay: calc(var(--i) * 55ms); }
+  @keyframes pillPop { from { transform: scale(.6) translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .chips { display: flex; gap: 6px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+  .chips button { min-height: 34px; padding: 2px 12px; border-radius: 999px; border: 2px solid var(--ink); background: var(--surface); font: 700 14px var(--display); }
+  .chips button.on { background: var(--ink); color: var(--white); }
+  .shuffle .pill.out { position: absolute; opacity: 0; transform: scale(.6); pointer-events: none; }
+  .shuffle-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  /* ---------- 6 · star burst ---------- */
+  .fav-demo { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .fav-card { position: relative; width: 230px; padding: 16px 18px 16px 50px; border-radius: 14px; background: var(--terracotta); color: var(--white); }
+  .fav-card b { display: block; font-size: 16px; } .fav-card small { font-family: var(--latin); }
+  .fav-card .star { position: absolute; left: 8px; top: 8px; width: 36px; height: 36px; border: 0; background: none; color: inherit; font-size: 24px; line-height: 1; }
+  .fav-card .star.bump { animation: starBump 420ms cubic-bezier(.34, 1.56, .64, 1); }
+  @keyframes starBump { 0% { transform: scale(1); } 40% { transform: scale(1.5) rotate(-12deg); } 100% { transform: scale(1); } }
+  .spark { position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px; border-radius: 50%; background: var(--accent); animation: spark 520ms ease-out forwards; }
+  @keyframes spark { from { transform: rotate(var(--a)) translateY(0) scale(1); opacity: 1; } to { transform: rotate(var(--a)) translateY(-26px) scale(.4); opacity: 0; } }
+  .mine-btn { min-height: 40px; padding: 4px 16px; border-radius: 999px; border: 2px solid var(--ink); background: var(--surface); font: 700 15px var(--display); }
+  .mine-btn b { display: inline-block; font-family: var(--latin); font-weight: 400; }
+  .mine-btn b.bump { animation: countBump 360ms cubic-bezier(.34, 1.56, .64, 1); }
+  @keyframes countBump { 40% { transform: translateY(-6px) scale(1.25); } }
+
+  /* ---------- 7 · day switch ---------- */
+  .tt-mini { width: 100%; max-width: 330px; }
+  .tt-mini .rowx { display: grid; grid-template-columns: 70px 1fr; align-items: center; min-height: 52px; border-top: 1px solid var(--rule); }
+  .tt-mini .rowx span { font-size: 13px; font-weight: 700; }
+  .tt-mini .lane { position: relative; height: 40px; }
+  .tt-mini .blk { position: absolute; top: 4px; bottom: 4px; border-radius: 9px; background: var(--day); color: var(--on-day); font-size: 12px; font-weight: 700; padding: 4px 8px; overflow: hidden; white-space: nowrap; }
+  .tt-mini .blk.in { animation: blkIn 380ms var(--ease-out) both; animation-delay: calc(var(--i) * 40ms); }
+  @keyframes blkIn { from { transform: translateX(calc(var(--dir) * 40px)); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  /* ---------- 8 · sliding tab marker ---------- */
+  .tabs-demo { position: relative; display: flex; gap: 4px; padding: 5px; border: 2px solid var(--ink); border-radius: 999px; background: var(--surface); }
+  .tabs-demo button { position: relative; z-index: 1; min-height: 40px; padding: 4px 14px; border: 0; background: none; border-radius: 999px; font: 700 15px var(--display); color: var(--ink); transition: color 250ms ease; }
+  .tabs-demo button.on { color: var(--white); }
+  .tabs-demo .ind { position: absolute; top: 5px; bottom: 5px; border-radius: 999px; background: var(--ink); transition: transform 380ms cubic-bezier(.65, 0, .35, 1), width 380ms cubic-bezier(.65, 0, .35, 1); }
+
+  /* ---------- 9 · smooth FAQ ---------- */
+  .faq-demo { width: 100%; max-width: 330px; }
+  .faq-demo details { border-bottom: 1px solid var(--rule); }
+  .faq-demo summary { list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 52px; font-weight: 700; cursor: pointer; }
+  .faq-demo summary::-webkit-details-marker { display: none; }
+  .faq-demo summary::after { content: '+'; font-family: var(--latin); font-size: 24px; transition: transform var(--hover) var(--ease-out); }
+  .faq-demo details[open] summary::after { transform: rotate(45deg); }
+  .faq-demo .ans { overflow: hidden; } .faq-demo .ans p { padding: 0 0 14px; font-size: 15px; line-height: 1.6; }
+
+  /* ---------- 10 · arrow nudge, 11 · underline ---------- */
+  .nudge { display: inline-flex; gap: 8px; align-items: center; }
+  .nudge i { font-style: normal; display: inline-block; transition: transform 220ms var(--ease-out); }
+  .nudge:hover i, .nudge:focus-visible i, .nudge.demo i { transform: translateX(-5px); }
+  [dir="ltr"] .nudge:hover i { transform: translateX(5px); }
+  .uline { font: 700 20px var(--display); background: linear-gradient(var(--accent), var(--accent)) no-repeat right bottom / 0 3px; padding-bottom: 3px; transition: background-size 320ms var(--ease-out); }
+  .uline:hover, .uline:focus-visible, .uline.demo { background-size: 100% 3px; }
+  .stack { display: grid; gap: 18px; justify-items: center; }
+
+  /* ---------- 12 · menu stagger ---------- */
+  .menu-demo { position: relative; width: 100%; max-width: 300px; height: 210px; border-radius: 16px; overflow: hidden; background: rgba(28,27,29,.55); }
+  .menu-demo .panel { position: absolute; inset-block: 0; right: 0; width: 72%; background: var(--cream); padding: 16px 18px; display: grid; align-content: start; gap: 8px; transform: translateX(100%); transition: transform 420ms var(--ease-drawer); }
+  .menu-demo.open .panel { transform: none; }
+  .menu-demo .panel a { font: 900 19px var(--display); opacity: 0; transform: translateX(18px); }
+  .menu-demo.open .panel a { animation: linkIn 360ms var(--ease-out) both; animation-delay: calc(140ms + var(--i) * 55ms); }
+  @keyframes linkIn { to { opacity: 1; transform: none; } }
+
+  /* ---------- 13 · photo zoom ---------- */
+  .ph-demo { width: 100%; max-width: 300px; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; }
+  .ph-demo img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out); }
+  .ph-demo:hover img, .ph-demo.demo img { transform: scale(1.04); }
+
+  /* ---------- 14 · back-to-top ring ---------- */
+  .scroll-demo { position: relative; width: 100%; max-width: 300px; height: 200px; overflow-y: auto; border-radius: 14px; background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; font-size: 14px; line-height: 1.7; }
+  .ring-btn { position: absolute; left: 14px; bottom: 14px; width: 52px; height: 52px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; }
+  .ring-btn svg { position: absolute; inset: -5px; width: 62px; height: 62px; transform: rotate(-90deg); }
+  .ring-btn circle { fill: none; stroke: var(--ink); stroke-width: 3; stroke-dasharray: 182; stroke-dashoffset: 182; transition: stroke-dashoffset 80ms linear; }
+  .ring-wrap { position: relative; width: 100%; max-width: 300px; }
+
+  /* ---------- 15 · equalizer ---------- */
+  .eq-strip { display: flex; align-items: center; gap: 12px; background: var(--dark); color: var(--white); padding: 14px 20px; border-radius: 14px; font-weight: 700; }
+  .eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 18px; }
+  .eq i { width: 4px; height: 100%; background: var(--accent); border-radius: 2px; transform-origin: bottom; animation: eq 900ms ease-in-out infinite; }
+  .eq i:nth-child(2) { animation-duration: 700ms; animation-delay: -200ms; } .eq i:nth-child(3) { animation-duration: 1100ms; animation-delay: -450ms; }
+  @keyframes eq { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+
+  /* ---------- 16 · logo dots bounce ---------- */
+  .small-logo { width: 140px; cursor: pointer; }
+  .small-logo:hover .dt, .small-logo.demo .dt { animation: dotHop 520ms cubic-bezier(.34, 1.56, .64, 1); }
+  .small-logo:hover .dt2, .small-logo.demo .dt2 { animation-delay: 90ms; } .small-logo:hover .dt3, .small-logo.demo .dt3 { animation-delay: 180ms; }
+  @keyframes dotHop { 40% { transform: translateY(-45%) scale(1.15); } }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<main id="main">
+<header class="mt-head">
+  <h1>מיקרו־אנימציות</h1>
+  <p>כל כרטיס מראה אנימציה אחת. לחצי ״שוב״ כדי לראות אותה שוב, נסי לרחף או ללחוץ, וסמני ״רוצה״ על מה שאהבת. למטה תופיע רשימת המספרים שבחרת.</p>
+</header>
+
+<section class="mt-group">
+  <h2>בראש העמוד הראשי</h2>
+  <div class="mt-grid">
+    <article class="mt-card" data-n="1">
+      <div class="mt-stage field"><div class="logo-box beat"><img src="motion-test/logo-nodots.png" alt=""><img class="dt dt1" src="motion-test/dot1.png" alt=""><img class="dt dt2" src="motion-test/dot2.png" alt=""><img class="dt dt3" src="motion-test/dot3.png" alt=""></div></div>
+      <div class="mt-body"><h3><em>01</em>נקודות בקצב</h3><p>שלוש הנקודות אחרי WORLD. JAZZ. MUSIC. קופצות אחת אחרי השנייה, כמו ספירה של 1-2-3 לפני שיר.</p>
+        <div class="mt-row"><button class="mt-replay">▶ שוב</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="2">
+      <div class="mt-stage field"><div class="brush-box"><img src="images/word-festival-he.png" alt=""><img src="images/word-raanana-he.png" alt=""></div></div>
+      <div class="mt-body"><h3><em>02</em>מכחול חושף</h3><p>״פסטיבל״ ו״רעננה״ נחשפות כאילו מישהו צובע אותן במשיכת מכחול, מימין לשמאל.</p>
+        <div class="mt-row"><button class="mt-replay">▶ שוב</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="3">
+      <div class="mt-stage field"><div class="roll"><div class="hms">
+          <div class="u"><span class="digits" data-u="h"></span><small>שעות</small></div>
+          <div class="u"><span class="digits" data-u="m"></span><small>דקות</small></div>
+          <div class="u"><span class="digits" data-u="s"></span><small>שניות</small></div></div>
+        <div style="text-align:center"><div class="big" id="rollDays">57</div><small style="font:700 16px var(--display)">ימים</small></div></div></div>
+      <div class="mt-body"><h3><em>03</em>שניות מתגלגלות</h3><p>בספירה לאחור, כל ספרה שמשתנה מתגלגלת למעלה כמו שעון מתהפך, במקום להתחלף בבת אחת. רץ כל הזמן.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="mt-group">
+  <h2>עמוד לוח ההופעות</h2>
+  <div class="mt-grid">
+    <article class="mt-card" data-n="4">
+      <div class="mt-stage"><div class="mini-cloud pop" id="popCloud"></div></div>
+      <div class="mt-body"><h3><em>04</em>כדורים קופצים</h3><p>שמות האמנים קופצים פנימה אחד אחרי השני, בפעם הראשונה שגוללים אליהם.</p>
+        <div class="mt-row"><button class="mt-replay">▶ שוב</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="5">
+      <div class="mt-stage"><div class="shuffle-wrap"><div class="chips" id="shufChips"><button class="on" data-d="">הכל</button><button data-d="thu">חמישי</button><button data-d="fri">שישי</button><button data-d="sat">שבת</button></div><div class="mini-cloud shuffle" id="shufCloud" style="position:relative"></div></div></div>
+      <div class="mt-body"><h3><em>05</em>ערבוב בסינון</h3><p>כשבוחרים יום, השמות שנשארים מחליקים בעדינות למקום החדש שלהם, במקום לקפוץ. נסי ללחוץ על הימים.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="6">
+      <div class="mt-stage"><div class="fav-demo"><div class="fav-card"><button class="star" id="favStar" aria-pressed="false">☆</button><b>גלעד הקסלמן טריו</b><small>21:30–23:00</small></div><button class="mine-btn">★ הליינאפ שלי <b id="favCount">(2)</b></button></div></div>
+      <div class="mt-body"><h3><em>06</em>כוכב עם ניצוצות</h3><p>סימון ☆ על הופעה: הכוכב קופץ עם התפרצות קטנה של ניצוצות, והמספר ב״הליינאפ שלי״ קופץ גם הוא. לחצי על הכוכב.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="7">
+      <div class="mt-stage"><div class="tt-mini"><div class="chips" id="ttChips"><button class="on" data-d="0">חמישי</button><button data-d="1">שישי</button><button data-d="2">שבת</button></div><div id="ttMini"></div></div></div>
+      <div class="mt-body"><h3><em>07</em>החלפת יום בלו״ז</h3><p>בטבלת הלו״ז, ההופעות מחליקות פנימה מהצד כשמחליפים יום. נסי ללחוץ על הימים.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="mt-group">
+  <h2>עמוד מידע למבקרים</h2>
+  <div class="mt-grid">
+    <article class="mt-card" data-n="8">
+      <div class="mt-stage"><div class="tabs-demo" id="tabsDemo"><span class="ind"></span><button class="on">הגעה</button><button>כרטיסים</button><button>משפחות</button><button>שבת</button></div></div>
+      <div class="mt-body"><h3><em>08</em>סמן לשוניות מחליק</h3><p>הסימון הכהה מחליק מלשונית ללשונית, במקום לקפוץ. נסי ללחוץ על הלשוניות.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="9">
+      <div class="mt-stage"><div class="faq-demo" id="faqDemo">
+        <details><summary>יש פס יומי?</summary><div class="ans"><p>כן. פס יומי מכסה את כל מופעי היום במחיר משתלם.</p></div></details>
+        <details><summary>כל המופעים בתשלום?</summary><div class="ans"><p>לא. המופעים ברחבת הפסטיבל בכניסה חופשית.</p></div></details>
+        <details><summary>מתי הפסטיבל?</summary><div class="ans"><p>10–12 בדצמבר 2026, חמישי עד שבת.</p></div></details></div></div>
+      <div class="mt-body"><h3><em>09</em>שאלות שנפתחות ברכות</h3><p>התשובה נפתחת ונסגרת בתנועה רכה במקום להופיע בבת אחת. נסי לפתוח שאלה.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="mt-group">
+  <h2>בכל האתר</h2>
+  <div class="mt-grid">
+    <article class="mt-card" data-n="10">
+      <div class="mt-stage"><div class="stack"><a class="btn primary nudge" href="#" onclick="return false">לכל אפשרויות הכרטיסים <i>←</i></a><a class="nudge" href="#" onclick="return false" style="font:700 18px var(--display)">ללוח ההופעות <i>←</i></a></div></div>
+      <div class="mt-body"><h3><em>10</em>חץ שזז</h3><p>כשמרחפים על כפתור או קישור, החץ זז כמה פיקסלים לכיוון הקריאה. רחפי עם העכבר.</p>
+        <div class="mt-row"><button class="mt-replay" data-demo>▶ הדגמה</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="11">
+      <div class="mt-stage"><div class="stack"><a class="uline" href="#" onclick="return false">להצהרת הנגישות</a><a class="uline" href="#" onclick="return false">פרטים והרשמה</a></div></div>
+      <div class="mt-body"><h3><em>11</em>קו צהוב שגדל</h3><p>הקו הצהוב מתחת לקישור גדל מתחילת המילה כשמרחפים עליו. רחפי עם העכבר.</p>
+        <div class="mt-row"><button class="mt-replay" data-demo>▶ הדגמה</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="12">
+      <div class="mt-stage"><div class="menu-demo" id="menuDemo"><div class="panel"><a style="--i:0">לוח הופעות</a><a style="--i:1">מידע למבקרים</a><a style="--i:2">מהדורות קודמות</a><a style="--i:3">המתחם</a><a style="--i:4">שותפים</a></div></div></div>
+      <div class="mt-body"><h3><em>12</em>תפריט מדורג</h3><p>כשהתפריט נפתח, הקישורים נכנסים אחד אחרי השני במקום כולם יחד.</p>
+        <div class="mt-row"><button class="mt-replay">▶ שוב</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="13">
+      <div class="mt-stage"><div class="ph-demo"><img src="images/65ff5bebae7b-800.webp" alt=""></div></div>
+      <div class="mt-body"><h3><em>13</em>זום על תמונה</h3><p>כשמרחפים על תמונת הופעה היא מתקרבת קצת (4%). רחפי עם העכבר.</p>
+        <div class="mt-row"><button class="mt-replay" data-demo>▶ הדגמה</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="14">
+      <div class="mt-stage"><div class="ring-wrap"><div class="scroll-demo" id="scrollDemo">
+        <p>גללי בתוך המסגרת הזאת. הטבעת סביב הכפתור הצהוב מתמלאת ככל שיורדים בעמוד, וכך רואים כמה נשאר.</p><p>שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.</p><p>ארבע במות במתחם אחד: אולם ערן, מועדון הסלון, המועדון הקאמרי ורחבת הפסטיבל.</p><p>הפסטיבל נמשך עד מוצאי שבת.</p><p>בחמישי, בשישי ובשבת – הופעות בכל הבמות, מהבוקר ועד הלילה.</p><p>ברחבת הפסטיבל: מופעים לכל המשפחה, בכניסה חופשית.</p><p>סדנאות לנגנים צעירים בגילאי 14–25, עם אמנים בינלאומיים.</p><p>סוף העמוד.</p></div>
+        <span class="ring-btn" aria-hidden="true"><svg viewBox="0 0 62 62"><circle cx="31" cy="31" r="29"/></svg>⌃</span></div></div>
+      <div class="mt-body"><h3><em>14</em>טבעת ״חזרה למעלה״</h3><p>לכפתור הצהוב ⌃ נוספת טבעת דקה שמתמלאת ככל שגוללים למטה. גללי בתוך המסגרת.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="mt-group">
+  <h2>נגיעות מוזיקליות</h2>
+  <div class="mt-grid">
+    <article class="mt-card" data-n="15">
+      <div class="mt-stage"><div class="eq-strip"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>עכשיו על הבמות · שישי 11.12</div></div>
+      <div class="mt-body"><h3><em>15</em>אקולייזר</h3><p>שלושה פסים קטנים קופצים ליד ״עכשיו על הבמות״ בזמן הפסטיבל, כמו מד עוצמה. רץ כל הזמן.</p>
+        <div class="mt-row"><span></span><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+    <article class="mt-card" data-n="16">
+      <div class="mt-stage field"><div class="logo-box small-logo"><img src="motion-test/logo-nodots.png" alt=""><img class="dt dt1" src="motion-test/dot1.png" alt=""><img class="dt dt2" src="motion-test/dot2.png" alt=""><img class="dt dt3" src="motion-test/dot3.png" alt=""></div></div>
+      <div class="mt-body"><h3><em>16</em>נקודות הלוגו קופצות</h3><p>כשמרחפים על הלוגו הקטן בסרגל העליון, שלוש הנקודות קופצות כמו מכה בתוף. רחפי עם העכבר.</p>
+        <div class="mt-row"><button class="mt-replay" data-demo>▶ הדגמה</button><label class="mt-pick"><input type="checkbox"> רוצה</label></div></div>
+    </article>
+  </div>
+</section>
+</main>
+
+<div class="mt-tray" aria-live="polite">בחרת: <b id="picked">עוד כלום</b> <small>· תגידי לי את המספרים ואממש אותם</small></div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const NAMES = [['ביג בנד רעננה','thu'],['Hind Ennaira ועומרי מור','thu'],['גלעד הקסלמן טריו','thu'],['הישראדיקסי בנד','fri'],['Jerzy Malek','fri'],['אנסמבל שם טוב לוי','fri'],['ילדוג׳אז','sat'],['אבישי כהן ובקה','sat'],['עמית פרידמן','sat']];
+const pills = cls => NAMES.map(([n, d], i) => `<button class="pill d-${d}" data-d="${d}" style="--i:${i}">${n}</button>`).join('');
+
+// replay: restart the card's CSS animations by toggling .play, or run a one-off hover demo
+function replay(card) {
+  const demo = card.querySelector('[data-demo]');
+  if (demo) {
+    const t = card.querySelector('.nudge, .uline, .ph-demo, .small-logo') && $$('.nudge, .uline, .ph-demo, .small-logo', card);
+    t.forEach(e => e.classList.add('demo'));
+    setTimeout(() => t.forEach(e => e.classList.remove('demo')), 900);
+    return;
+  }
+  if (card.dataset.n === '12') { const m = $('#menuDemo'); m.classList.remove('open'); setTimeout(() => m.classList.add('open'), 350); return; }
+  card.classList.remove('play'); void card.offsetWidth; card.classList.add('play');
+}
+$$('.mt-replay').forEach(b => b.addEventListener('click', () => replay(b.closest('.mt-card'))));
+
+// play the entrance demos the first time each card scrolls into view
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { replay(e.target); io.unobserve(e.target); } }), { threshold: .5 });
+$$('.mt-card[data-n="1"], .mt-card[data-n="2"], .mt-card[data-n="4"], .mt-card[data-n="12"]').forEach(c => io.observe(c));
+
+// picks tray
+$$('.mt-pick input').forEach(i => i.addEventListener('change', () => {
+  const n = $$('.mt-card').filter(c => $('.mt-pick input', c).checked).map(c => c.dataset.n);
+  $('#picked').textContent = n.length ? n.join(', ') : 'עוד כלום';
+}));
+
+// 3 · rolling digits
+const FEST = new Date('2026-12-10T00:00:00+02:00');
+const setDigits = (el, val) => {
+  const s = String(val).padStart(2, '0'), old = el.dataset.v || '';
+  if (s === old) return;
+  el.innerHTML = [...s].map((c, i) => `<span class="${old && old[i] !== c ? 'in' : ''}">${c}</span>`).join('');
+  el.dataset.v = s;
+};
+function tick() {
+  let d = Math.max(0, FEST - new Date()) / 1000;
+  $('#rollDays').textContent = Math.floor(d / 86400);
+  setDigits($('[data-u="h"]'), Math.floor(d % 86400 / 3600));
+  setDigits($('[data-u="m"]'), Math.floor(d % 3600 / 60));
+  setDigits($('[data-u="s"]'), Math.floor(d % 60));
+}
+tick(); setInterval(tick, 1000);
+
+// 4 · pop
+$('#popCloud').innerHTML = pills();
+
+// 5 · shuffle with FLIP
+const sc = $('#shufCloud'); sc.innerHTML = pills();
+$$('#shufChips button').forEach(b => b.addEventListener('click', () => {
+  $$('#shufChips button').forEach(x => x.classList.toggle('on', x === b));
+  const items = $$('.pill', sc), first = new Map(items.map(p => [p, p.getBoundingClientRect()]));
+  items.forEach(p => p.classList.toggle('out', !!b.dataset.d && p.dataset.d !== b.dataset.d));
+  items.forEach(p => {
+    if (p.classList.contains('out')) return;
+    const a = first.get(p), z = p.getBoundingClientRect();
+    const wasOut = a.width === 0 || p.dataset.wasOut === '1';
+    p.animate(wasOut ? [{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }]
+      : [{ transform: `translate(${a.left - z.left}px, ${a.top - z.top}px)` }, { transform: 'none' }],
+      { duration: 420, easing: 'cubic-bezier(.23,1,.32,1)' });
+  });
+  items.forEach(p => p.dataset.wasOut = p.classList.contains('out') ? '1' : '0');
+}));
+
+// 6 · star burst
+let favN = 2;
+$('#favStar').addEventListener('click', e => {
+  const b = e.currentTarget, on = b.getAttribute('aria-pressed') !== 'true';
+  b.setAttribute('aria-pressed', on); b.textContent = on ? '★' : '☆';
+  b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump');
+  if (on) for (let i = 0; i < 8; i++) { const s = document.createElement('i'); s.className = 'spark'; s.style.setProperty('--a', `${i * 45}deg`); b.appendChild(s); setTimeout(() => s.remove(), 560); }
+  favN += on ? 1 : -1; const c = $('#favCount'); c.textContent = `(${favN})`;
+  c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
+});
+
+// 7 · day switch
+const DAYSX = [
+  { c: 'thu', rows: [[['Hind Ennaira', 30, 40], ['הקסלמן', 72, 26]], [['קמינסקי', 52, 30]], [['ביג בנד', 8, 30]]] },
+  { c: 'fri', rows: [[['שם טוב לוי', 30, 40], ['Jerzy Malek', 72, 26]], [['Nesterov', 52, 30]], [['ישראדיקסי', 8, 30]]] },
+  { c: 'sat', rows: [[['אבישי כהן', 30, 40], ['ביג בנד', 72, 26]], [['תמוז נסים', 52, 30]], [['ילדוג׳אז', 4, 26]]] },
+];
+let dayX = 0;
+function drawTT(dir) {
+  const d = DAYSX[dayX], stages = ['אולם ערן', 'הסלון', 'הרחבה'];
+  let i = 0;
+  $('#ttMini').innerHTML = d.rows.map((r, k) => `<div class="rowx"><span>${stages[k]}</span><div class="lane">${r.map(([n, at, w]) =>
+    `<div class="blk d-${d.c}${dir ? ' in' : ''}" style="right:${at}%;width:${w}%;--i:${i++};--dir:${dir}">${n}</div>`).join('')}</div></div>`).join('');
+}
+drawTT(0);
+$$('#ttChips button').forEach(b => b.addEventListener('click', () => {
+  const n = +b.dataset.d; if (n === dayX) return;
+  const dir = n > dayX ? -1 : 1; dayX = n;
+  $$('#ttChips button').forEach(x => x.classList.toggle('on', x === b)); drawTT(dir);
+}));
+
+// 8 · sliding tab marker
+const td = $('#tabsDemo'), ind = $('.ind', td);
+const moveInd = b => { ind.style.width = b.offsetWidth + 'px'; ind.style.transform = `translateX(${b.offsetLeft - 5}px)`; ind.style.left = '5px'; };
+$$('button', td).forEach(b => b.addEventListener('click', () => { $$('button', td).forEach(x => x.classList.toggle('on', x === b)); moveInd(b); }));
+requestAnimationFrame(() => { ind.style.transition = 'none'; moveInd($('button.on', td)); requestAnimationFrame(() => ind.style.transition = ''); });
+
+// 9 · smooth details
+$$('#faqDemo details').forEach(d => {
+  const s = $('summary', d), a = $('.ans', d);
+  s.addEventListener('click', e => {
+    e.preventDefault();
+    if (d.open) {
+      a.animate([{ height: a.offsetHeight + 'px' }, { height: '0px' }], { duration: 260, easing: 'cubic-bezier(.23,1,.32,1)' }).onfinish = () => d.open = false;
+    } else {
+      d.open = true; const h = a.offsetHeight;
+      a.animate([{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }], { duration: 320, easing: 'cubic-bezier(.23,1,.32,1)' });
+    }
+  });
+});
+
+// 14 · scroll ring
+const sd = $('#scrollDemo'), circ = $('.ring-btn circle');
+sd.addEventListener('scroll', () => { const p = sd.scrollTop / (sd.scrollHeight - sd.clientHeight); circ.style.strokeDashoffset = 182 * (1 - p); }, { passive: true });
+</script>
+</body>
+</html>

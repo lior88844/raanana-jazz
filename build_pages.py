@@ -204,14 +204,11 @@ def page_index(t, P, A):
 
 <section id="programme-2026" aria-labelledby="p26-h">
   <div class="stitle">
-    <h2 id="p26-h">{t('התוכנייה 2026', 'The 2026 programme')}</h2>
-    <p>{t('10–12 בדצמבר 2026 · פרטי הכרטיסים יפורסמו בקרוב.', '10–12 December 2026 · ticket details coming soon.')}</p>
+    <h2 id="p26-h">{t('על הבמות ב־2026', 'On stage in 2026')}</h2>
+    <p>{t('10–12 בדצמבר 2026 · לחצו על שם כדי לראות את פרטי ההופעה.', '10–12 December 2026 · tap a name for the show’s details.')}</p>
   </div>
-  <section class="featured" data-render="featured" aria-label="{t('הופעות נבחרות', 'Selected shows')}"></section>
-
-  <h3 class="subhead" id="lineup">{t('לוח ההופעות', 'Line-up')}</h3>
-  <section class="schedule" data-render="schedule"></section>
-  <p class="sched-more"><a class="g-text" href="{P('lineup.html')}">{t('ללו״ז המלא לפי במות, עם ״הליינאפ שלי״', 'Full timetable by stage, with “My line-up”')} {A}</a></p>
+  <section class="mq" data-render="marquee" aria-label="{t('כל ההופעות לפי ימים', 'All shows by day')}"></section>
+  <p class="mq-more"><a class="btn primary" href="{P('lineup.html')}">{t('ללו״ז המלא לפי במות', 'Full timetable by stage')} {A}</a></p>
 </section>
 
 <section id="festival-2025" aria-labelledby="f25-h">

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ניסוי סמנים | פסטיבל הג׳אז רעננה</title>
+<link rel="icon" href="/images/44f224268148.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=b867e6312b">
+<link rel="stylesheet" href="/assets/cursor-fx.css?v=d3b0bc221b">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<section class="hero grain">
+  <div class="hero-inner">
+    <div>
+      <img class="main-logo" src="/images/44f224268148.png" alt="World Jazz Music – פסטיבל הג׳אז רעננה">
+      <div class="meta">
+        <div class="dates" aria-label="9–12 DEC 2026"><span class="d-num">9–12</span><small>DEC 2026</small></div>
+        <div class="dir"><span>ניהול אומנותי:</span> עמית פרידמן</div>
+        <div class="ctas">
+          <a href="/tickets.html" class="btn primary">לרכישת כרטיסים</a>
+          <a href="/lineup.html" class="btn ghost">ללוח ההופעות ←</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="test-note">
+  <b>דף ניסוי לאפקטים של הסמן.</b> הזיזי את העכבר על החלק הכחול, על כרטיסי ההופעות ועל הכפתורים, ולחצי על כפתור כדי להרגיש את ה"טאפ".
+  בפינה יש פאנל להדלקה ולכיבוי של כל אפקט בנפרד.
+</div>
+
+<div class="stitle"><h3>הופעות</h3></div>
+<section class="cards" data-render="cards"></section>
+
+<section class="passes grain" id="passes">
+  <div class="love">רוצים את כל הפסטיבל?</div><br>
+  <div class="big">פסים</div><br>
+  
+  <p>פס יומי או פס לכל ימי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את כל ההופעות.</p>
+  <div class="ctas">
+    <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">פס לכל הפסטיבל</a>
+    <a href="/tickets.html" class="btn ghost">כל אפשרויות הכרטיסים ←</a>
+  </div>
+</section>
+
+<section class="wrap" style="margin-top:90px">
+  <h2 class="sec-h">לוח הופעות</h2>
+  <div class="showlist" id="rows"></div>
+</section>
+
+<details class="fx-panel" aria-label="פאנל ניסוי" open>
+  <summary><h3>אפקטים של הסמן</h3></summary>
+  <p>הדליקי וכבי כל אפקט כדי להשוות.</p>
+  <label><input type="checkbox" data-fx="swing" checked><span>8 · נקודת סווינג<small>נקודה זהובה שמשתרכת "מאחורי הביט"</small></span></label>
+  <label><input type="checkbox" data-fx="spot" checked><span>1 · זרקור<small>על החלקים הכחולים ועל תמונות ההופעות</small></span></label>
+  <label><input type="checkbox" data-fx="brush" checked><span>4 · מברשות<small>סמן מברשות, "סוויש" במעבר וטאפ בלחיצה</small></span></label>
+  <span class="fine-only">האפקטים פועלים רק עם עכבר (לא בטלפון).</span>
+</details>
+
+<script src="/assets/data.js?v=b867e6312b"></script>
+<script src="/assets/site.js?v=b867e6312b"></script>
+<script>
+  // a few line-up rows are enough for the test
+  renderShowList(document.getElementById('rows'), 'sat');
+</script>
+<script src="/assets/cursor-fx.js?v=d3b0bc221b"></script>
+<script>
+  if (innerWidth < 900) document.querySelector('.fx-panel').open = false;   // start folded on narrow windows
+  document.querySelectorAll('[data-fx]').forEach(cb => cb.addEventListener('change', () => window.CursorFX && CursorFX.set(cb.dataset.fx, cb.checked)));
+</script>
+</body>
+</html>

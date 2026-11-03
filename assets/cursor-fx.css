@@ -1,0 +1,75 @@
+/* =====================================================================
+   Jazz-show pointer effects (test) – see cursor-fx.js
+   ===================================================================== */
+.fx-layer { position: fixed; inset: 0; pointer-events: none; z-index: 300; }
+.fx-none .fx-layer { display: none; }
+
+/* ---------- 8 · Swing dot ---------- */
+/* fixed 44px box that only moves; the <i> inside scales between dot (10px) and ring (44px) */
+.fx-dot { position: fixed; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; transition: opacity .2s ease; }
+.fx-dot i { position: absolute; inset: 0; border-radius: 50%; background: var(--accent); border: 2px solid transparent;
+  box-shadow: 0 0 0 1.5px rgba(28,27,29,.45); transform: scale(.23);
+  transition: transform 220ms var(--ease-out), background-color 200ms ease, border-color 200ms ease; }
+.fx-dot.ring i { transform: scale(1); background: rgba(247,206,70,.14); border-color: var(--accent); box-shadow: 0 0 0 1px rgba(28,27,29,.3); }
+.fx-dot.press i { transform: scale(.7); }
+.fx-dot.hide, html:not(.fxon-swing) .fx-dot { opacity: 0; }
+
+/* ---------- 1 · Spotlight ---------- */
+.fx-spot-host { position: relative; }
+.fx-spot {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .45s ease;
+  background: radial-gradient(circle 300px at var(--x, 50%) var(--y, 50%), rgba(255,224,160,.26) 0%, rgba(255,224,160,.10) 38%, transparent 70%);
+  mix-blend-mode: screen;
+}
+.fx-spot-host.lit > .fx-spot { opacity: 1; }
+html:not(.fxon-spot) .fx-spot { opacity: 0 !important; }
+/* tighter follow-spot on show photos: warm centre, the rest of the stage dims */
+.fx-spot.card-spot {
+  mix-blend-mode: normal;
+  background:
+    radial-gradient(circle 130px at var(--x, 50%) var(--y, 50%), rgba(255,236,190,.28) 0%, rgba(255,236,190,0) 60%),
+    radial-gradient(circle 170px at var(--x, 50%) var(--y, 50%), transparent 45%, rgba(12,16,28,.55) 100%);
+}
+.card .ph.lit { filter: brightness(1.06) saturate(1.08); }
+.hero-inner, .hero-photo .cap, .passes > *, .footer > *, .page-hero > * { position: relative; z-index: 2; }
+
+/* ---------- 4 · Brushes ---------- */
+/* original jazz-brush cursor: yellow handle, fanned wire bristles; hotspot at the bristle tips */
+.fxon-brush :is(a[href], button, [role="button"], label, select, .card:has(.stretch), .showrow:has(.stretch)),
+.fxon-brush :is(a[href], button, [role="button"], label, select, .card:has(.stretch), .showrow:has(.stretch)) * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg stroke-linecap='round' fill='none'%3E%3Cpath d='M3 29 L14 18' stroke='%23202C45' stroke-width='5'/%3E%3Cpath d='M3 29 L14 18' stroke='%23F2D36B' stroke-width='3'/%3E%3Cg stroke='%23202C45' stroke-width='2.4'%3E%3Cpath d='M14 18 L22 3'/%3E%3Cpath d='M14 18 L25 4'/%3E%3Cpath d='M14 18 L27.5 6'/%3E%3Cpath d='M14 18 L29 9'/%3E%3Cpath d='M14 18 L29.5 12.5'/%3E%3C/g%3E%3Cg stroke='%23F5EBDD' stroke-width='1'%3E%3Cpath d='M14 18 L22 3'/%3E%3Cpath d='M14 18 L25 4'/%3E%3Cpath d='M14 18 L27.5 6'/%3E%3Cpath d='M14 18 L29 9'/%3E%3Cpath d='M14 18 L29.5 12.5'/%3E%3C/g%3E%3Ccircle cx='14' cy='18' r='2.4' fill='%23D44836' stroke='%23202C45' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 26 5, pointer;
+}
+
+.fx-swish { position: fixed; width: 40px; height: 24px; margin: -26px 0 0 -6px; overflow: visible; animation: swishOut .42s ease-out forwards; }
+.fx-swish path { fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 46; stroke-dashoffset: 46; animation: swishDraw .42s ease-out forwards; }
+.fx-swish path + path { stroke: var(--cream); stroke-width: 1.1; animation-delay: .04s; }
+@keyframes swishDraw { to { stroke-dashoffset: 0; } }
+@keyframes swishOut { 0%, 55% { opacity: 1; } 100% { opacity: 0; transform: translate(6px, -4px); } }
+
+.fx-tap { position: fixed; width: 0; height: 0; }
+.fx-tap i { position: absolute; left: -24px; top: -24px; width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); opacity: 0; animation: tapRing .5s ease-out forwards; }
+.fx-tap i.r2 { border-color: var(--cream); border-width: 1.5px; animation-delay: .07s; }
+.fx-tap b { position: absolute; left: -1px; top: -1px; width: 2px; height: 9px; background: var(--gold); border-radius: 2px; transform-origin: 1px 1px;
+  transform: rotate(var(--a)) translateY(8px); opacity: 0; animation: tapSplash .45s ease-out forwards; }
+@keyframes tapRing { 0% { transform: scale(.2); opacity: .95; } 100% { transform: scale(1.5); opacity: 0; } }
+@keyframes tapSplash { 0% { transform: rotate(var(--a)) translateY(6px) scaleY(.4); opacity: 1; } 100% { transform: rotate(var(--a)) translateY(26px) scaleY(1); opacity: 0; } }
+
+/* ---------- test panel ---------- */
+.fx-panel {
+  position: fixed; left: 20px; bottom: 70px; z-index: 250; background: var(--cream); color: var(--ink);
+  border: 2px solid var(--ink); box-shadow: -6px 6px 0 var(--ink); padding: 16px 18px; width: 250px; font-family: var(--display);
+}
+.fx-panel summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.fx-panel summary::-webkit-details-marker { display: none; }
+.fx-panel summary::after { content: '▾'; font-size: 14px; transition: transform .2s; }
+.fx-panel:not([open]) summary::after { transform: rotate(90deg); }
+.fx-panel:not([open]) { width: auto; padding: 10px 14px; }
+.fx-panel h3 { font-size: 16px; font-weight: 900; }
+.fx-panel p { font-size: 13px; font-family: var(--body); margin-top: 4px; line-height: 1.4; }
+.fx-panel label { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-weight: 700; font-size: 15px; }
+.fx-panel input { width: 18px; height: 18px; accent-color: var(--red-ink); cursor: pointer; }
+.fx-panel small { display: block; font-weight: 500; font-size: 12px; opacity: .75; }
+.fx-none .fx-panel .fine-only { display: block; }
+.fx-panel .fine-only { display: none; margin-top: 10px; font-size: 13px; color: var(--red-ink); font-weight: 700; }
+.test-note { max-width: 720px; margin: 70px auto 0; padding: 22px 26px; background: var(--cream); border-right: 6px solid var(--red-ink); font-size: 18px; line-height: 1.6; }
+[dir="ltr"] .test-note { border-right: 0; border-left: 6px solid var(--red-ink); }

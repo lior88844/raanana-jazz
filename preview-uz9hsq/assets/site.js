@@ -194,6 +194,54 @@ function renderFeatured(el) {
     </ul>`;
 }
 
+// Home: every 2026 show in three day columns, all names the same size (no headliner).
+// Each column rolls vertically on its own (alternating up / down), like a departures board; scrolling the page pushes it faster.
+function renderMarquee(el) {
+  const byTime = (a, b) => a.time.localeCompare(b.time);
+  const photo = s => s.img
+    ? `<span class="mq-ph"><img src="${img(s.img.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}></span>`
+    : '<span class="mq-ph none" aria-hidden="true"></span>';
+  const item = (s, dup) => `<button type="button" class="mq-item" data-show="${s.id}" aria-haspopup="dialog"${dup ? ' tabindex="-1"' : ''}>
+    ${photo(s)}<time>${s.time}</time><bdi>${tr(s, 'title')}</bdi><small>${tr(s, 'venue')}</small></button>`;
+  const set = (list, dup) => `<div class="mq-set"${dup ? ' aria-hidden="true"' : ''}>${list.map(s => item(s, dup)).join('')}</div>`;
+  el.innerHTML = DAYS.map(d => {
+    const list = SHOWS.filter(s => s.day === d.id).sort(byTime);
+    return `<div class="mq-col d-${d.id}" role="group" aria-label="${dayName(d)} ${d.date}">
+      <div class="mq-day" aria-hidden="true"><span>${dayName(d)}</span><b>${d.date}</b></div>
+      <div class="mq-win"><div class="mq-track">${set(list, false)}${set(list, true)}</div></div>
+    </div>`;
+  }).join('');
+  if (reduceMotion) { el.classList.add('still'); return; }
+  const cols = [...el.querySelectorAll('.mq-col')].map((col, i) => ({
+    col, track: col.querySelector('.mq-track'), set: col.querySelector('.mq-set'),
+    dir: i % 2 ? 1 : -1, y: i * 140, speed: 1, hold: false,
+  }));
+  cols.forEach(c => {
+    const off = () => { c.hold = c.col.matches(':focus-within'); };
+    c.col.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') c.hold = true; });
+    c.col.addEventListener('pointerleave', off);
+    c.col.addEventListener('focusin', () => { c.hold = true; });
+    c.col.addEventListener('focusout', () => setTimeout(off));
+  });
+  let boost = 0, lastY = scrollY, last = 0, visible = false, raf = 0;
+  addEventListener('scroll', () => { boost = Math.min(boost + Math.abs(scrollY - lastY) * 0.7, 900); lastY = scrollY; }, { passive: true });
+  const tick = t => {
+    const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
+    boost *= Math.pow(0.04, dt);                                   // the push fades out in about a second
+    cols.forEach(c => {
+      c.speed += ((c.hold ? 0 : 1) - c.speed) * Math.min(1, dt * 6);   // ease to a stop on hover / focus
+      const h = c.set.offsetHeight;
+      c.y = (((c.y + c.dir * (30 + boost) * c.speed * dt) % h) + h) % h;
+      c.track.style.transform = `translate3d(0,${-c.y}px,0)`;
+    });
+    raf = visible ? requestAnimationFrame(tick) : 0;
+  };
+  new IntersectionObserver(([e]) => {
+    visible = e.isIntersecting;
+    if (visible && !raf) { last = 0; raf = requestAnimationFrame(tick); }
+  }).observe(el);
+}
+
 // "Now on stage": during festival days, what is playing on each stage right now (or next).
 // Preview any moment with ?now=2025-12-19T20:15
 function nowOnStage(el) {
@@ -668,7 +716,7 @@ function showDialogs() {
 
 buildChrome();
 document.querySelectorAll('[data-render]').forEach(el => {
-  const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
+  const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, marquee: renderMarquee, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
     people: el => renderTeachers(el, false), moments: renderMoments, partners: renderPartners, themes: renderThemePasses,
     cloud: renderCloud, timetable: renderTimetable }[el.dataset.render];
   fn && fn(el);
