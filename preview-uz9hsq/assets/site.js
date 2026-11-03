@@ -146,7 +146,7 @@ function renderSchedule(el) {
       <header><h3>${dayName(d)}</h3><span>${d.date}</span></header>
       ${SHOWS.filter(s => s.day === d.id).map(s => `
         <div class="slot"><time>${s.time}</time><div>
-          <div class="t">${tr(s, 'title')}</div>
+          <button type="button" class="t" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button>
           <div class="v">${tr(s, 'venue')}${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
           ${s.slug ? `<a class="tix" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>` : ''}
         </div></div>`).join('')}
@@ -160,9 +160,9 @@ function renderCards(el, list = SHOWS.filter(s => s.featured)) {
       <div class="ph" data-bg="${img(s.img)}"></div>
       <div class="day">${EN ? dayOf(s.day).name_en : dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
       <h3>${tr(s, 'title')}</h3>
-      <div class="desc">${tr(s, 'desc')}</div>
+      <div class="desc">${tr(s, 'sub')}</div>
       <div class="venue">${tr(s, 'venue')}</div>
-      ${s.slug ? `<a href="${T(s.slug)}" class="buy stretch" ${ext}>${L('לרכישת כרטיסים', 'Buy tickets')}</a>` : ''}
+      <button type="button" class="buy stretch" data-show="${s.id}" aria-haspopup="dialog">${L('לכל הפרטים', 'Full details')}</button>
     </article>`).join('');
 }
 
@@ -172,14 +172,14 @@ function renderFeatured(el) {
   const lead = featured.find(s => s.lead) || featured[0];   // the headline production leads
   const rest = featured.filter(s => s !== lead);
   const meta = s => `${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time} · ${tr(s, 'venue')}`;
-  const link = (s, label, cls) => s.slug ? `<a href="${T(s.slug)}" class="${cls} stretch" ${ext}>${label}</a>` : '';
+  const link = (s, label, cls) => `<button type="button" class="${cls} stretch" data-show="${s.id}" aria-haspopup="dialog">${label}</button>`;
   el.innerHTML = `
     <article class="lead">
       <div class="ph" data-bg="${img(lead.img)}" role="img" aria-label="${tr(lead, 'title')}"></div>
       <div class="meta">${meta(lead)}</div>
       <h3>${tr(lead, 'title')}</h3>
-      <p>${tr(lead, 'desc')}</p>
-      ${link(lead, L('לכרטיסים', 'Tickets') + ' ' + ARROW, 'buy')}
+      <p>${tr(lead, 'sub')}</p>
+      ${link(lead, L('לכל הפרטים', 'Full details') + ' ' + ARROW, 'buy')}
     </article>
     <ul class="others">
       ${rest.map(s => `
@@ -187,7 +187,7 @@ function renderFeatured(el) {
           <div class="ph" data-bg="${img(s.img)}"></div>
           <div>
             <div class="meta">${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time}</div>
-            <h3>${link(s, tr(s, 'title'), 'name') || tr(s, 'title')}</h3>
+            <h3>${link(s, tr(s, 'title'), 'name')}</h3>
             <div class="venue">${tr(s, 'venue')}</div>
           </div>
         </li>`).join('')}
@@ -232,13 +232,13 @@ function renderShowList(el, dayId) {
       <div>
         <div class="when">${dayName(dayOf(s.day))} ${dayOf(s.day).date} <time>${s.time}</time></div>
         <h3>${tr(s, 'title')}</h3>
-        <p>${tr(s, 'desc')}</p>
+        <p>${tr(s, 'sub')}</p>
         <div class="venue">${tr(s, 'venue')}</div>
-        ${s.credit ? `<small class="credit">${L('צילום', 'Photo')}: ${s.credit}</small>` : ''}
+        ${s.credit ? `<small class="credit">${L('צילום', 'Photo')}: ${tr(s, 'credit')}</small>` : ''}
       </div>
       <div class="act">
         ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}${s.kids ? `<div class="free kids">${L('לכל המשפחה', 'For families')}</div><br>` : ''}
-        ${s.slug ? `<a class="btn primary stretch" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')}</a>` : ''}
+        <button type="button" class="btn primary stretch" data-show="${s.id}" aria-haspopup="dialog">${L('לכל הפרטים', 'Full details')}</button>
       </div>
     </article>`).join('');
 }
@@ -272,9 +272,9 @@ function renderCloud(el) {
       ${chip('', L('כל הימים', 'All days'))}${DAYS.map(d => chip(d.id, `${dayName(d)} ${d.date}`)).join('')}
     </div>
     <ul class="cloud">${SHOWS.map(s => `
-      <li data-day="${s.day}" style="--i:${SHOWS.indexOf(s)}"><button type="button" class="pill d-${s.day}" aria-expanded="false">
+      <li data-day="${s.day}" style="--i:${SHOWS.indexOf(s)}"><button type="button" class="pill d-${s.day}" data-show="${s.id}" aria-haspopup="dialog">
         <span class="n">${tr(s, 'title')}</span>
-        <span class="m">${dayName(dayOf(s.day))} · ${s.time} · ${tr(s, 'venue')}${s.free ? ' · ' + L('כניסה חופשית', 'Free entry') : ''}</span>
+        <span class="sr-only">${dayName(dayOf(s.day))} · ${s.time} · ${tr(s, 'venue')}</span>
       </button></li>`).join('')}</ul>`;
   const cloud = el.querySelector('.cloud');
   // names pop in the first time the cloud scrolls into view
@@ -297,9 +297,6 @@ function renderCloud(el) {
                    : [{ opacity: 0, transform: 'scale(.7)' }, { opacity: 1, transform: 'none' }],
         { duration: 420, easing: 'cubic-bezier(.23, 1, .32, 1)' });
     });
-  }));
-  el.querySelectorAll('.pill').forEach(p => p.addEventListener('click', () => {
-    p.setAttribute('aria-expanded', p.getAttribute('aria-expanded') !== 'true');
   }));
 }
 
@@ -356,7 +353,7 @@ function renderTimetable(el) {
         const on = favs.has(showKey(s));
         return `<div class="tt-show d-${s.day}${on ? ' fav' : ''}${dir ? ' in' : ''}" style="--i:${shows.indexOf(s)};--dir:${dir};grid-row:${stages.indexOf(s.venue) + 2};grid-column:${colOf(start)} / span ${Math.max(1, Math.round((end - start) / 15))}">
           <button type="button" class="star" data-key="${showKey(s)}" aria-pressed="${on}" aria-label="${L('הוספה לליינאפ שלי', 'Add to my line-up')}: ${tr(s, 'title')}">${on ? '★' : '☆'}</button>
-          <b>${tr(s, 'title')}</b><small>${hhmm(start)}–${hhmm(end)}</small>
+          <button type="button" class="tt-open" data-show="${s.id}" aria-haspopup="dialog"><b>${tr(s, 'title')}</b><small>${hhmm(start)}–${hhmm(end)}</small></button>
         </div>`;
       }).join('');
     grid.classList.toggle('mine', mine);
@@ -392,6 +389,8 @@ function renderTimetable(el) {
     popped = b.dataset.key;
     saveFavs(favs); draw();
   });
+  // a star set from a show's dialog
+  addEventListener('rjf-favs', () => { favs.clear(); readFavs().forEach(k => favs.add(k)); draw(); });
   draw();
 }
 
@@ -472,6 +471,137 @@ function scrollRing() {
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(set); } }, { passive: true });
   addEventListener('resize', set);
   set();
+}
+
+// ---------- one page per show: a dialog with the full text, line-up and video ----------
+// Every element with data-show="<id>" opens it. Each show has its own address: lineup.html#<id>
+const showById = id => SHOWS.find(s => s.id === id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const showUrl = s => location.origin + page('lineup.html') + '#' + s.id;
+const ytThumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+let showBox = null;
+
+// "name – role · name – role" → rows; "label: name" and plain notes are kept as they are
+function castRows(line) {
+  return line.split(' · ').map(p => {
+    const k = p.lastIndexOf(' – ');
+    return k > 0 ? `<li><b>${esc(p.slice(0, k))}</b><span>${esc(p.slice(k + 3))}</span></li>` : `<li><b>${esc(p)}</b></li>`;
+  }).join('');
+}
+
+function videoBlock(s) {
+  const yt = s.yt || [];
+  if (!yt.length && !s.drive) return '';
+  const main = s.drive
+    ? `<button type="button" class="sb-play" data-drive="${s.drive}" ${s.img ? `style="background-image:url(${img(s.img.replace(/\.jpe?g$/, '-800.webp'))})"` : ''} aria-label="${L('ניגון הסרטון', 'Play the video')}"><i aria-hidden="true"></i></button>`
+    : `<button type="button" class="sb-play" data-yt="${yt[0]}" style="background-image:url(${ytThumb(yt[0])})" aria-label="${L('ניגון הסרטון', 'Play the video')}"><i aria-hidden="true"></i></button>`;
+  const more = (s.drive ? yt : yt.slice(1)).map((id, k) =>
+    `<button type="button" class="sb-thumb" data-yt="${id}" style="background-image:url(${ytThumb(id)})" aria-label="${L('סרטון נוסף', 'Another video')} ${k + 1}"></button>`).join('');
+  return `<section class="sb-sec"><h3>${L('וידאו', 'Video')}</h3><div class="sb-video">${main}</div>
+    ${more ? `<div class="sb-more">${more}</div>` : ''}
+    ${s.playlist ? `<a class="sb-link" href="https://www.youtube.com/playlist?list=${s.playlist}" ${ext}>${L('לעוד הופעות ביוטיוב', 'More live videos on YouTube')} ${ARROW}</a>` : ''}</section>`;
+}
+
+function showHtml(s) {
+  const d = dayOf(s.day), i = SHOWS.indexOf(s), prev = SHOWS[i - 1], next = SHOWS[i + 1];
+  const on = readFavs().has(showKey(s));
+  const list = k => (EN && s[k + '_en']) || s[k] || [];
+  const quotes = list('quotes').map(q => {
+    const m = q.match(/^(.*[”"])\s*–\s*(.+)$/);
+    return m ? `<blockquote><p>${esc(m[1])}</p><cite>${esc(m[2])}</cite></blockquote>` : `<blockquote><p>${esc(q)}</p></blockquote>`;
+  }).join('');
+  const tickets = s.slug
+    ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>`
+    : `<span class="sb-soon">${s.free ? L('כניסה חופשית', 'Free entry') : L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
+  return `
+    <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
+    <figure class="sb-ph${s.img ? '' : ' noimg'} d-${s.day}">
+      ${s.img ? `<img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async">` : '<span class="sb-ph-logo" aria-hidden="true"></span>'}
+      ${s.credit ? `<figcaption>${L('צילום', 'Photo')}: ${esc(tr(s, 'credit'))}</figcaption>` : ''}
+    </figure>
+    <div class="sb-body">
+      <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${dayName(d)} ${d.date} · <time>${s.time}</time> · ${tr(s, 'venue')}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>
+      <h2 id="sb-title">${esc(tr(s, 'title'))}</h2>
+      ${tr(s, 'sub') ? `<p class="sb-sub">${esc(tr(s, 'sub'))}</p>` : ''}
+      <div class="sb-tags">${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
+      <div class="sb-actions">
+        ${tickets}
+        <button type="button" class="sb-fav" data-key="${showKey(s)}" aria-pressed="${on}">${on ? '★' : '☆'} ${L('לליינאפ שלי', 'My line-up')}</button>
+        <button type="button" class="sb-share">${L('שיתוף', 'Share')}</button>
+      </div>
+      ${list('about').length ? `<div class="sb-about">${list('about').map(p => `<p>${esc(p)}</p>`).join('')}</div>` : `<p class="sb-about">${L('פרטים נוספים יפורסמו בקרוב.', 'More details coming soon.')}</p>`}
+      ${quotes}
+      ${list('cast').length ? `<section class="sb-sec"><h3>${s.film ? L('על הסרט', 'About the film') : L('על הבמה', 'On stage')}</h3><ul class="sb-cast">${list('cast').map(castRows).join('')}</ul></section>` : ''}
+      ${videoBlock(s)}
+      <nav class="sb-nav" aria-label="${L('הופעות נוספות', 'More shows')}">
+        ${prev ? `<button type="button" class="prev" data-show="${prev.id}"><small>${EN ? '←' : '→'} ${L('הקודם', 'Previous')}</small>${esc(tr(prev, 'title'))}</button>` : '<span></span>'}
+        ${next ? `<button type="button" class="next" data-show="${next.id}"><small>${L('הבא', 'Next')} ${EN ? '→' : '←'}</small>${esc(tr(next, 'title'))}</button>` : '<span></span>'}
+      </nav>
+    </div>`;
+}
+
+function openShow(id) {
+  const s = showById(id);
+  if (!s) return;
+  if (!showBox) {
+    showBox = document.createElement('dialog');
+    showBox.className = 'show-box';
+    showBox.setAttribute('aria-labelledby', 'sb-title');
+    showBox.innerHTML = '<div class="sb-card"></div>';
+    document.body.appendChild(showBox);
+    showBox.addEventListener('click', e => {
+      if (e.target === showBox) return showBox.close();           // a click on the dimmed backdrop
+      if (e.target.closest('.sb-close')) return showBox.close();
+      const play = e.target.closest('.sb-play, .sb-thumb');
+      if (play) {
+        const box = showBox.querySelector('.sb-video');
+        box.innerHTML = play.dataset.drive
+          ? `<iframe src="https://drive.google.com/file/d/${play.dataset.drive}/preview" allow="autoplay; fullscreen" allowfullscreen title="${L('וידאו', 'Video')}"></iframe>`
+          : `<iframe src="https://www.youtube-nocookie.com/embed/${play.dataset.yt}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="${L('וידאו', 'Video')}"></iframe>`;
+        return;
+      }
+      const fav = e.target.closest('.sb-fav');
+      if (fav) {
+        const f = readFavs(), k = fav.dataset.key;
+        f.has(k) ? f.delete(k) : f.add(k);
+        saveFavs(f);
+        fav.setAttribute('aria-pressed', f.has(k));
+        fav.textContent = `${f.has(k) ? '★' : '☆'} ${L('לליינאפ שלי', 'My line-up')}`;
+        dispatchEvent(new Event('rjf-favs'));
+        return;
+      }
+      const share = e.target.closest('.sb-share');
+      if (share) {
+        const s = showById(showBox.dataset.id), url = showUrl(s);
+        if (navigator.share) navigator.share({ title: tr(s, 'title'), url }).catch(() => {});
+        else navigator.clipboard.writeText(url).then(() => { share.textContent = L('הקישור הועתק', 'Link copied'); });
+      }
+    });
+    showBox.addEventListener('close', () => {
+      showBox.querySelector('.sb-card').innerHTML = '';           // stops a playing video
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    });
+  }
+  const card = showBox.querySelector('.sb-card');
+  showBox.dataset.id = s.id;
+  card.innerHTML = showHtml(s);
+  card.scrollTop = 0;
+  if (location.hash !== '#' + s.id) history.replaceState(null, '', '#' + s.id);
+  if (!showBox.open) showBox.showModal();
+  else if (!reduceMotion) card.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 240, easing: 'cubic-bezier(.23, 1, .32, 1)' });
+  showBox.querySelector('.sb-close').focus({ preventScroll: true });
+}
+
+function showDialogs() {
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-show]');
+    if (!t || (showBox && showBox.contains(t) && !t.closest('.sb-nav'))) return;
+    e.preventDefault();
+    openShow(t.dataset.show);
+  });
+  const fromHash = () => { const id = decodeURIComponent(location.hash.slice(1)); if (showById(id)) openShow(id); };
+  addEventListener('hashchange', fromHash);
+  fromHash();
 }
 
 buildChrome();
@@ -631,6 +761,7 @@ addEventListener('DOMContentLoaded', () => {
   guideTabs();
   smoothDetails();
   scrollRing();
+  showDialogs();
 });
 
 // ---------- photo gallery: small thumbnails in batches, a larger view on click ----------

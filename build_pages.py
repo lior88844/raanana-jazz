@@ -237,13 +237,13 @@ def page_lineup(t, P, A):
         title=t('לוח הופעות', 'Line-up'),
         desc=t('לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 10–12 בדצמבר.', 'The Raanana Jazz Festival line-up. Festival 2026: 10–12 December.'),
         body=hero(t('10–12 בדצמבר 2026', '10–12 December 2026'), t('לוח הופעות 2026', 'Line-up 2026'), '',
-                  t('שלושה ימים, חמש במות ו־18 הופעות – מבוקר לילדים ועד הופעות הלילה באוהל. פרטי הכרטיסים יפורסמו בקרוב.',
-                    'Three days, five stages and 18 shows – from children’s mornings to late nights in the Tent. Ticket details coming soon.'),
+                  t('שלושה ימים, חמש במות, 20 הופעות, הקרנת סרט וג׳אם סשן בכל לילה – מבוקר לילדים ועד הופעות הלילה באוהל. לחצו על הופעה לכל הפרטים. פרטי הכרטיסים יפורסמו בקרוב.',
+                    'Three days, five stages, 20 shows, a film screening and a jam session every night – from children’s mornings to late nights in the Tent. Tap a show for the full details. Ticket details coming soon.'),
                   f'<a href="{P("guide.html")}" class="btn primary">{t("מידע למבקרים", "Visitor info")}</a>'
                   f'<a href="{P("tickets.html")}" class="btn ghost">{t("כרטיסים", "Tickets")} {A}</a>') + f'''
 <section class="wrap section lu">
   <h2 class="sec-h">{t('האמנים', 'The artists')}</h2>
-  <p>{t('לחצו על שם כדי לראות מתי ואיפה.', 'Tap a name to see when and where.')}</p>
+  <p>{t('לחצו על שם כדי לראות את כל פרטי ההופעה.', 'Tap a name for the full details of the show.')}</p>
   <div data-render="cloud"></div>
 </section>
 <section class="wrap section">
@@ -339,7 +339,7 @@ def page_venue(t, P, A):
       <h3>${tr(v, 'name')}</h3>
       <p>${tr(v, 'desc')}</p>
       <ul>${SHOWS.filter(s => s.venue === v.name).map(s =>
-        `<li><time>${dayOf(s.day).date} · ${s.time}</time><span>${tr(s, 'title')}</span></li>`).join('')}</ul>
+        `<li><time>${dayOf(s.day).date} · ${s.time}</time><button type="button" class="vc-show" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button></li>`).join('')}</ul>
     </div>`).join('');
 </script>''')
 
