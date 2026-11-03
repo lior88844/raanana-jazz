@@ -25,12 +25,21 @@
   .o-logo { display: block; width: 100%; height: 100%; background: var(--day) url(${img('logo-nodots.png')}) center / 55% no-repeat; }
   .opt button { border: 0; background: none; padding: 0; color: inherit; font: inherit; cursor: pointer; text-align: inherit; }
 
-  /* 1 – names */
-  .o1 { max-width: 1180px; margin: 0 auto; padding: 0 40px; font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3.4vw, 50px); line-height: 1.2; }
-  .o1 .nm { display: inline; opacity: .18; transition: opacity .5s ease, color .3s ease; }
-  .o1 .nm.lit { opacity: 1; }
+  /* 1 – names, three rows (one per day) scrolling sideways on their own */
+  .o1 { display: grid; gap: 6px; overflow: hidden; }
+  .o1-row { position: relative; direction: ltr; overflow: hidden; }
+  .o1-day { position: absolute; inset-block: 0; right: 0; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 0 40px 0 30px;
+    background: linear-gradient(to left, var(--ground) 70%, transparent); font-family: var(--display); font-weight: 800; font-size: var(--fs-meta); direction: rtl; }
+  [dir="ltr"] .o1-day { right: auto; left: 0; padding: 0 30px 0 40px; background: linear-gradient(to right, var(--ground) 70%, transparent); direction: ltr; }
+  .o1-day i { width: 14px; height: 14px; border-radius: 50%; background: var(--day); }
+  .o1-day b { font-family: var(--latin); font-weight: 400; }
+  .o1-track { display: flex; width: max-content; will-change: transform; }
+  .o1-set { display: flex; align-items: center; flex: none; }
+  .o1 .nm { padding: 10px 0; font-family: var(--display); font-weight: 800; font-size: clamp(30px, 4.2vw, 62px); line-height: 1.1; white-space: nowrap; transition: color .25s ease; }
   .o1 .nm:hover { color: var(--field); }
-  .o1 .dot { display: inline-block; width: .3em; height: .3em; border-radius: 50%; background: var(--day); margin: 0 .3em; vertical-align: .18em; }
+  .o1 .dot { flex: none; width: .32em; height: .32em; border-radius: 50%; background: var(--day); margin: 0 .55em; font-size: clamp(30px, 4.2vw, 62px); }
+  .o1.still .o1-track { flex-wrap: wrap; width: auto; padding: 0 40px; } .o1.still .o1-set[aria-hidden] { display: none; } .o1.still .o1-set { flex-wrap: wrap; }
+  @media (max-width: 700px) { .o1-day { padding: 0 14px 0 18px; } [dir="ltr"] .o1-day { padding: 0 18px 0 14px; } .o1 .nm, .o1 .dot { font-size: 30px; } }
   .o1-float { position: fixed; z-index: 50; width: 260px; aspect-ratio: 3/2; border-radius: 12px; overflow: hidden; pointer-events: none; opacity: 0; transform: scale(.85) rotate(-4deg);
     transition: opacity .25s ease, transform .35s var(--ease-out); box-shadow: 0 20px 40px -20px rgba(58,26,20,.6); }
   .o1-float.on { opacity: 1; transform: scale(1) rotate(-2deg); }
@@ -107,17 +116,45 @@
   const $ = k => document.querySelector(`[data-opt="${k}"]`);
   const inView = (el, cb, opts = { threshold: .2 }) => { const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); cb(); } }, opts); io.observe(el); };
 
-  // 1 – big name list, lights up with the scroll, photo follows the cursor
+  // 1 – names in three rows (one per day) that scroll sideways on their own, alternating direction;
+  //     scrolling the page pushes them faster, hovering a row stops it, hovering a name shows its photo
   {
     const el = $('names');
-    el.innerHTML = `<p class="o1">${ordered.map(s => btn(s, `<bdi>${tr(s, 'title')}</bdi>`, `nm d-${s.day}`)).join('<span class="dot" aria-hidden="true"></span>')}</p>`;
-    el.querySelectorAll('.dot').forEach((d, i) => d.classList.add('d-' + ordered[i + 1].day));
-    const names = [...el.querySelectorAll('.nm')];
-    const light = () => names.forEach(n => n.classList.toggle('lit', reduceMotion || n.getBoundingClientRect().top < innerHeight * .62));
-    addEventListener('scroll', () => requestAnimationFrame(light), { passive: true }); light();
+    const item = (s, dup) => `<button type="button" class="nm" data-show="${s.id}" aria-haspopup="dialog"${dup ? ' tabindex="-1"' : ''}><bdi>${tr(s, 'title')}</bdi></button><i class="dot" aria-hidden="true"></i>`;
+    el.innerHTML = `<div class="o1">${DAYS.map(d => {
+      const shows = byDay(d.id); if (!EN) shows.reverse();      // the track runs left-to-right; Hebrew reads from the right
+      const set = dup => `<div class="o1-set"${dup ? ' aria-hidden="true"' : ''}>${shows.map(s => item(s, dup)).join('')}</div>`;
+      return `<div class="o1-row d-${d.id}" role="group" aria-label="${dayName(d)} ${d.date}"><div class="o1-day" aria-hidden="true"><i></i>${dayName(d)} <b>${d.date}</b></div>
+        <div class="o1-track">${set(false)}${set(true)}${set(true)}</div></div>`;
+    }).join('')}</div>`;
+    const box = el.firstElementChild;
+    if (reduceMotion) box.classList.add('still');
+    else {
+      const rows = [...box.querySelectorAll('.o1-row')].map((row, i) => ({ row, track: row.querySelector('.o1-track'), set: row.querySelector('.o1-set'), dir: i % 2 ? 1 : -1, x: i * 400, speed: 1, hold: false }));
+      rows.forEach(r => {
+        r.row.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') r.hold = true; });
+        r.row.addEventListener('pointerleave', () => { r.hold = false; });
+        r.row.addEventListener('focusin', () => { r.hold = true; });
+        r.row.addEventListener('focusout', () => { r.hold = false; });
+      });
+      let boost = 0, lastY = scrollY, last = 0, visible = false, raf = 0;
+      addEventListener('scroll', () => { boost = Math.min(boost + Math.abs(scrollY - lastY) * .8, 1200); lastY = scrollY; }, { passive: true });
+      const tick = t => {
+        const dt = Math.min(.05, (t - (last || t)) / 1000); last = t;
+        boost *= Math.pow(.04, dt);
+        rows.forEach(r => {
+          r.speed += ((r.hold ? 0 : 1) - r.speed) * Math.min(1, dt * 6);
+          const w = r.set.offsetWidth;
+          r.x = (((r.x + r.dir * (55 + boost) * r.speed * dt) % w) + w) % w;
+          r.track.style.transform = `translate3d(${-r.x}px,0,0)`;
+        });
+        raf = visible ? requestAnimationFrame(tick) : 0;
+      };
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) { last = 0; raf = requestAnimationFrame(tick); } }).observe(box);
+    }
     if (matchMedia('(hover: hover)').matches) {
       const f = document.createElement('div'); f.className = 'o1-float'; document.body.append(f);
-      names.forEach(n => {
+      box.querySelectorAll('.nm').forEach(n => {
         const s = SHOWS.find(x => x.id === n.dataset.show);
         n.addEventListener('mouseenter', () => { f.innerHTML = pic(s); f.classList.add('on'); });
         n.addEventListener('mouseleave', () => f.classList.remove('on'));

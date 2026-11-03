@@ -608,9 +608,6 @@ def page_guide(t, P, A):
       <p>{t('אנחנו רוצים שכולם יוכלו ליהנות מהפסטיבל. פרטים על הסדרי הנגישות ועל דרכי הפנייה בנושא נמצאים בהצהרת הנגישות.',
             'We want everyone to enjoy the festival. Details of the accessibility arrangements and how to contact us about them are in the accessibility statement.')}</p>
       <p class="g-more"><a href="{P('accessibility.html')}">{t('להצהרת הנגישות', 'Accessibility statement')} {A}</a></p>"""),
-        ('shabbat', t('שבת', 'Saturday'), t('שבת בפסטיבל', 'Saturday at the festival'), f"""
-      <p>{t('הפסטיבל נמשך עד מוצאי שבת. בשבת, 12 בדצמבר: ״ילדוג׳אז״ ב־11:00, הרצאה של ד״ר רז יצחקי עם הזמרת חן לוי ב־12:00, הופעת הרכבי הסדנאות בכניסה חופשית ב־17:00, ומופעי הערב מ־18:00 ועד הופעת הסיום באוהל ב־21:00.',
-            'The festival runs until Saturday night. On Saturday 12 December: “Yaldojazz” at 11:00, a talk by Dr. Raz Yitzhaki with singer Chen Levi at 12:00, the free workshop-ensembles concert at 17:00, and the evening shows from 18:00 to the closing show in the Tent at 21:00.')}</p>"""),
         ('workshops', t('סדנאות', 'Workshops'), t('סדנאות לנגנים צעירים', 'Workshops for young musicians'), f"""
       <p>{t('לצד ההופעות מתקיימות סדנאות ג׳אז לנגנים בגילאי 14–25: נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים בינלאומיים – ובסוף, הופעה על במת הפסטיבל.',
             'Alongside the shows there are jazz workshops for musicians aged 14–25: ensemble playing, instrument workshops and masterclasses with international artists – ending with a performance on the festival stage.')}</p>
@@ -672,11 +669,11 @@ def page_guide(t, P, A):
     nofaq = t(f'לא מצאתם תשובה? <a href="{P("contact.html")}">כתבו לנו</a>.', f'Didn’t find your answer? <a href="{P("contact.html")}">Write to us</a>.')
     return dict(
         title=t('מידע למבקרים', 'Visitor info'),
-        desc=t('כל מה שכדאי לדעת לפני שמגיעים לפסטיבל הג׳אז רעננה: הגעה, כרטיסים, משפחות, נגישות, שבת, סדנאות ושאלות נפוצות.',
-               'Everything to know before you come to the Raanana Jazz Festival: getting here, tickets, families, accessibility, Saturday, workshops and FAQ.'),
+        desc=t('כל מה שכדאי לדעת לפני שמגיעים לפסטיבל הג׳אז רעננה: הגעה, כרטיסים, משפחות, נגישות, סדנאות ושאלות נפוצות.',
+               'Everything to know before you come to the Raanana Jazz Festival: getting here, tickets, families, accessibility, workshops and FAQ.'),
         body=hero(t('לפני שמגיעים', 'Before you go'), t('מידע למבקרים', 'Visitor info'), '',
-                  t('הגעה, כרטיסים, משפחות, נגישות, שבת וסדנאות – ולמטה, תשובות לשאלות הנפוצות.',
-                    'Getting here, tickets, families, accessibility, Saturday and workshops – and below, answers to common questions.'))
+                  t('הגעה, כרטיסים, משפחות, נגישות וסדנאות – ולמטה, תשובות לשאלות הנפוצות.',
+                    'Getting here, tickets, families, accessibility and workshops – and below, answers to common questions.'))
         + f'''
 <section class="wrap section">
   <h2 class="sr-only">{t('מידע לפי נושא', 'Information by topic')}</h2>
@@ -844,7 +841,7 @@ def page_options(t, P, A):
         body=f'''<section class="opt-intro"><h1>{t('5 אפשרויות ללוח ההופעות בדף הבית', '5 ways to show the line-up on the home page')}</h1>
   <p>{t('גללי למטה – כל אפשרות עם התנועה שלה. לחיצה על שם פותחת את עמוד ההופעה.', 'Scroll down – each option with its own motion. Click a name to open the show.')}</p>
   <nav class="opt-nav">{''.join(f'<a href="#opt{i}">{i}</a>' for i in range(1, 6))}</nav></section>
-''' + sec(1, 'רשימת שמות גדולה', 'Big name list', 'כל השמות באותו גודל. השמות נדלקים כשגוללים; ריחוף על שם מראה את התמונה.', 'Every name the same size. Names light up as you scroll; hover a name to see its photo.', 'names')
+''' + sec(1, 'שמות בתנועה', 'Moving names', 'שלוש שורות, שורה לכל יום, שזזות לצדדים לבד – כל השמות באותו גודל. גלילה מאיצה אותן, ריחוף עוצר את השורה ומראה את תמונת האמן.', 'Three rows, one per day, moving sideways on their own – every name the same size. Scrolling speeds them up; hovering stops the row and shows the artist photo.', 'names')
   + sec(2, 'גריד תמונות שווה', 'Equal photo grid', 'אותה משבצת לכל הופעה. התמונה בשחור־לבן ונצבעת בריחוף (בטלפון – כשהיא באמצע המסך).', 'The same tile for every show. Black and white, turning to colour on hover (on a phone – when it reaches the middle).', 'grid')
   + sec(3, 'מתג ימים', 'Day switcher', 'שלוש לשוניות – חמישי, שישי, שבת. ההופעות של היום כציר זמן, והרשימה מחליקה במעבר בין ימים.', 'Three tabs – Thu, Fri, Sat. The day\'s shows as a timeline that slides when you switch days.', 'days')
   + sec(4, 'זרקור מתחלף', 'Rotating spotlight', 'הופעה אחת בכל פעם, בסדר אקראי, מתחלפת כל כמה שניות. עצירה בריחוף; חצים ונקודות למעבר.', 'One show at a time, in random order, changing every few seconds. Pauses on hover; arrows and dots to move.', 'spot')
