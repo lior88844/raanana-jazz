@@ -200,18 +200,25 @@ function renderSpotlight(el) {
   const order = SHOWS.filter(s => !s.jam);
   for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
   const big = s => img(s.img.replace(/\.jpe?g$/, '-1600.webp'));
+  const DOTS = 7;                                               // only a short window of dots, sliding with the current show
   el.innerHTML = `<div class="sp-stage">${order.map((s, i) => `<div class="sp-slide${i ? '' : ' on'}" aria-hidden="${!!i}">
       ${s.img ? `<img src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>` : `<span class="sp-logo d-${s.day}"></span>`}
       <div class="sp-cap"><small>${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time} · ${tr(s, 'venue')}</small>
         <button type="button" data-show="${s.id}" aria-haspopup="dialog"${i ? ' tabindex="-1"' : ''}><bdi>${tr(s, 'title')}</bdi></button></div></div>`).join('')}</div>
-    <div class="sp-ctl"><button type="button" class="sp-arr" data-step="-1" aria-label="${L('ההופעה הקודמת', 'Previous show')}">${EN ? '←' : '→'}</button><button type="button" class="sp-arr" data-step="1" aria-label="${L('ההופעה הבאה', 'Next show')}">${EN ? '→' : '←'}</button>
-      <div class="sp-dots" aria-hidden="true">${order.map(() => '<i></i>').join('')}</div></div>`;
+    <div class="sp-ctl"><button type="button" class="sp-arr" data-step="-1" aria-label="${L('ההופעה הקודמת', 'Previous show')}">${EN ? '←' : '→'}</button>
+      <div class="sp-dots" aria-hidden="true">${'<i></i>'.repeat(Math.min(DOTS, order.length))}</div>
+      <button type="button" class="sp-arr" data-step="1" aria-label="${L('ההופעה הבאה', 'Next show')}">${EN ? '→' : '←'}</button></div>`;
   const slides = [...el.querySelectorAll('.sp-slide')], dots = [...el.querySelectorAll('.sp-dots i')], stage = el.querySelector('.sp-stage');
   let i = 0, timer, hold = false, visible = false;
   const go = n => {
     i = (n + slides.length) % slides.length;
     slides.forEach((s, j) => { s.classList.toggle('on', j === i); s.setAttribute('aria-hidden', j !== i); s.querySelector('button').tabIndex = j === i ? 0 : -1; });
-    dots.forEach((d, j) => d.classList.toggle('on', j === i));
+    const total = slides.length, start = Math.max(0, Math.min(i - (DOTS >> 1), total - dots.length));
+    dots.forEach((d, j) => {
+      const k = start + j;
+      d.classList.toggle('on', k === i);
+      d.classList.toggle('edge', (j === 0 && k > 0) || (j === dots.length - 1 && k < total - 1));   // smaller end dots hint there are more
+    });
   };
   const tick = () => { clearTimeout(timer); timer = setTimeout(() => { if (!hold && visible) go(i + 1); tick(); }, 4000); };
   el.querySelectorAll('.sp-arr').forEach(b => b.addEventListener('click', () => { go(i + +b.dataset.step); tick(); }));

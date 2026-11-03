@@ -1077,11 +1077,12 @@ html:has(.show-box[open]) { overflow: hidden; }
 @media (hover: hover) { .sp-cap button:hover { text-decoration: underline 3px var(--accent); text-underline-offset: 8px; } }
 .sp-slide.on .sp-cap { animation: spUp .8s var(--ease-out) both .2s; }
 @keyframes spUp { from { opacity: 0; transform: translateY(24px); } }
-.sp-ctl { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.sp-ctl { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 16px; }
 .sp-arr { width: 44px; height: 44px; flex: none; border: 0; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 20px; display: grid; place-items: center; cursor: pointer; transition: transform var(--press) var(--ease-out); }
 .sp-arr:active { transform: scale(.94); }
-.sp-dots { display: flex; flex-wrap: wrap; gap: 6px; margin-inline-start: 6px; }
+.sp-dots { display: flex; align-items: center; gap: 7px; }
 .sp-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--rule); transition: background .3s, transform .3s; }
+.sp-dots i.edge { transform: scale(.6); }
 .sp-dots i.on { background: var(--field); transform: scale(1.35); }
 
 .dy-h { margin-top: 70px; }
