@@ -206,6 +206,17 @@ def page_index(t, P, A):
   </ul>
 </section>
 
+<section class="onstage" aria-labelledby="onstage-h">
+  <div class="stitle">
+    <h2 id="onstage-h">{t('ההופעות של 2026', 'The 2026 shows')}</h2>
+    <p>{t('10–12 בדצמבר 2026 · לחצו על הופעה לכל הפרטים.', '10–12 December 2026 · click a show for the details.')}</p>
+  </div>
+  <div class="spot" data-render="spotlight"></div>
+  <h3 class="subhead dy-h">{t('לפי ימים', 'Day by day')}</h3>
+  <div class="dy" data-render="days"></div>
+  <p class="dy-more"><a class="btn primary" href="{P('lineup.html')}">{t('ללו״ז המלא לפי במות', 'Full timetable by stage')} {A}</a></p>
+</section>
+
 <section class="stages" aria-labelledby="stages-h">
   <div class="stitle">
     <h2 id="stages-h">{t('חמש במות, מתחם אחד', 'Five stages, one venue')}</h2>
@@ -829,32 +840,12 @@ def page_terms(t, P, A):
         + legal_body(t, P, S, '18.10.2026'))
 
 
-def page_options(t, P, A):
-    """Temporary: five ways to show the line-up on the home page, for Lior to choose from. Not linked anywhere."""
-    sec = lambda n, he, en, he_d, en_d, key: f'''<section class="opt" id="opt{n}">
-  <div class="opt-h"><span class="opt-n">{n}</span><div><h2>{t(he, en)}</h2><p>{t(he_d, en_d)}</p></div></div>
-  <div class="opt-body" data-opt="{key}"></div>
-</section>'''
-    return dict(
-        title=t('אפשרויות ללוח ההופעות', 'Line-up options'),
-        desc=t('חמש אפשרויות להצגת לוח ההופעות בדף הבית.', 'Five ways to show the line-up on the home page.'),
-        body=f'''<section class="opt-intro"><h1>{t('5 אפשרויות ללוח ההופעות בדף הבית', '5 ways to show the line-up on the home page')}</h1>
-  <p>{t('גללי למטה – כל אפשרות עם התנועה שלה. לחיצה על שם פותחת את עמוד ההופעה.', 'Scroll down – each option with its own motion. Click a name to open the show.')}</p>
-  <nav class="opt-nav">{''.join(f'<a href="#opt{i}">{i}</a>' for i in range(1, 6))}</nav></section>
-''' + sec(1, 'שמות בתנועה', 'Moving names', 'שלוש שורות, שורה לכל יום, שזזות לצדדים לבד – כל השמות באותו גודל. גלילה מאיצה אותן, ריחוף עוצר את השורה ומראה את תמונת האמן.', 'Three rows, one per day, moving sideways on their own – every name the same size. Scrolling speeds them up; hovering stops the row and shows the artist photo.', 'names')
-  + sec(2, 'גריד תמונות שווה', 'Equal photo grid', 'אותה משבצת לכל הופעה. התמונה בשחור־לבן ונצבעת בריחוף (בטלפון – כשהיא באמצע המסך).', 'The same tile for every show. Black and white, turning to colour on hover (on a phone – when it reaches the middle).', 'grid')
-  + sec(3, 'מתג ימים', 'Day switcher', 'שלוש לשוניות – חמישי, שישי, שבת. ההופעות של היום כציר זמן, והרשימה מחליקה במעבר בין ימים.', 'Three tabs – Thu, Fri, Sat. The day\'s shows as a timeline that slides when you switch days.', 'days')
-  + sec(4, 'זרקור מתחלף', 'Rotating spotlight', 'הופעה אחת בכל פעם, בסדר אקראי, מתחלפת כל כמה שניות. עצירה בריחוף; חצים ונקודות למעבר.', 'One show at a time, in random order, changing every few seconds. Pauses on hover; arrows and dots to move.', 'spot')
-  + sec(5, 'גלויות', 'Postcards', 'גלויה לכל הופעה, מפוזרות כמו על שולחן, בסדר אחר בכל ביקור. הן נוחתות למקום כשגוללים.', 'A postcard for every show, scattered like on a table, in a new order each visit. They land as you scroll.', 'cards'),
-        script='<script src="/assets/lineup-options.js?v=' + VER + '"></script>')
-
 
 PAGES = {
     'index.html': page_index, 'lineup.html': page_lineup, 'festival-2025.html': page_past,
     'venue.html': page_venue, 'about.html': page_about, 'workshops.html': page_workshops,
     'media.html': page_media, 'tickets.html': page_tickets, 'contact.html': page_contact,
     'accessibility.html': page_accessibility, 'guide.html': page_guide, 'privacy.html': page_privacy, 'terms.html': page_terms,
-    'lineup-options.html': page_options,   # temporary: line-up options for the home page
 }
 
 
