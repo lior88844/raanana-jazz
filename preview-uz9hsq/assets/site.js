@@ -194,6 +194,31 @@ function renderFeatured(el) {
     </ul>`;
 }
 
+// Home: the five stages as photo cards, each with its show count, linking to the venue page.
+function renderStages(el) {
+  const g = f => img(`${f}-480.webp`);
+  el.innerHTML = VENUES.map(v => {
+    const n = SHOWS.filter(s => s.venue === v.name).length;
+    return `<a class="stage${v.img ? '' : ' new'}" href="${page('venue.html')}#venues">
+      <span class="stage-ph">${v.img ? `<img src="${g(v.img)}" srcset="${g(v.img)} 480w, ${img(v.img + '-1200.webp')} 1200w" sizes="(max-width: 700px) 70vw, 240px" alt="" loading="lazy" decoding="async">` : `<em>${L('חדש', 'New')}</em>`}</span>
+      <b>${tr(v, 'name')}</b><small>${n} ${L(n === 1 ? 'הופעה' : 'הופעות', n === 1 ? 'show' : 'shows')}</small>
+      <span class="stage-d">${tr(v, 'desc')}</span></a>`;
+  }).join('');
+}
+
+// Home: everything with free entry, grouped by day, on a photo of the 2025 plaza.
+function renderFree(el) {
+  const free = SHOWS.filter(s => s.free);
+  el.innerHTML = `<div class="free-ph" aria-hidden="true"><img src="${img('gallery-2025/300-1200.webp')}" alt="" loading="lazy" decoding="async"></div>
+    <div class="free-in">
+      <p class="love">${L('בלי כרטיס', 'No ticket needed')}</p>
+      <h2 id="free-h">${L('בכניסה חופשית', 'Free entry')}</h2>
+      <p>${L('ברחבת הפסטיבל יש מוזיקה כל היום, פתוחה לכולם – וכל ערב נגמר בג׳אם סשן.', 'The Festival Plaza has music all day, open to everyone – and every night ends with a jam session.')}</p>
+      <div class="free-days">${DAYS.map(d => `<div><h3>${dayName(d)} <span>${d.date}</span></h3><ul>${free.filter(s => s.day === d.id).map(s =>
+        `<li><time>${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul></div>`).join('')}</div>
+    </div>`;
+}
+
 // Hero background video: portrait cut on phones, landscape on wider screens; poster only for reduced motion or data saver.
 function heroVideo() {
   const v = document.querySelector('.hero-vid');
@@ -694,7 +719,7 @@ function showDialogs() {
 
 buildChrome();
 document.querySelectorAll('[data-render]').forEach(el => {
-  const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
+  const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, stages: renderStages, free: renderFree, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
     people: el => renderTeachers(el, false), moments: renderMoments, partners: renderPartners, themes: renderThemePasses,
     cloud: renderCloud, timetable: renderTimetable }[el.dataset.render];
   fn && fn(el);
@@ -729,7 +754,7 @@ function lazyBackgrounds() {
 const REVEAL = [
   '.stitle', '.intro h2', '.intro p', '.card', '.daycol', '.passes', '.duo .col', '.moments-h', '.grid > div',
   '.partners h2', '.partners .logos img', '.grid > a', '.showrow', '.artist', '.venue-card', '.tcard', '.cbtn', '.dl',
-  '.person', '.stat', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.daytabs', '.cta-band > *', '.map',
+  '.person', '.stat', '.stage', '.free-in', '.tix-in > *', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.daytabs', '.cta-band > *', '.map',
 ].join(',');
 
 function scrollReveal() {

@@ -206,6 +206,36 @@ def page_index(t, P, A):
   </ul>
 </section>
 
+<section class="stages" aria-labelledby="stages-h">
+  <div class="stitle">
+    <h2 id="stages-h">{t('חמש במות, מתחם אחד', 'Five stages, one venue')}</h2>
+    <p>{t('כל הפסטיבל מתקיים במרכז למוזיקה פיס רעננה – מהאולם הגדול ועד האוהל, כל הופעה במרחק כמה צעדים.', 'The whole festival happens at the Raanana Pais Music Center – from the big hall to the Tent, every show is a few steps away.')}</p>
+  </div>
+  <div class="stage-row" data-render="stages"></div>
+</section>
+
+<section class="free-band" aria-labelledby="free-h" data-render="free"></section>
+
+<section class="tix-box grain" aria-labelledby="tix-h">
+  <div class="tix-in">
+    <div class="tix-copy">
+      <p class="love">{t('כרטיסים ופסים', 'Tickets and passes')}</p>
+      <h2 id="tix-h" class="big">{t('בקרוב', 'Coming soon')}</h2>
+      <p>{t('המכירה לפסטיבל 2026 תיפתח בקרוב באתר הכרטיסים של עיריית רעננה. עקבו אחרינו כדי לשמוע ראשונים.', 'Sales for the 2026 festival open soon on the Raanana Municipality ticket site. Follow us to hear first.')}</p>
+      <div class="ctas">
+        <a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t('לעדכונים באינסטגרם', 'Updates on Instagram')}</a>
+        <a href="{P('tickets.html')}" class="btn ghost">{t('על הכרטיסים', 'About tickets')} {A}</a>
+      </div>
+    </div>
+    <ul class="tix-opts">
+      <li><b>{t('כרטיס להופעה', 'Single show')}</b><span>{t('לבחור הופעה אחת או כמה', 'Pick one show or a few')}</span></li>
+      <li><b>{t('פס יומי', 'Day pass')}</b><span>{t('כל הופעות היום – חמישי, שישי או שבת', 'Every show that day – Thu, Fri or Sat')}</span></li>
+      <li><b>{t('פס לכל הפסטיבל', 'Full festival pass')}</b><span>{t('שלושה ימים, הכי משתלם', 'Three days, the best value')}</span></li>
+      <li><b>{t('פסים לפי נושא', 'Themed passes')}</b><span><bdi>Jazz · World · Vocal · Music</bdi></span></li>
+    </ul>
+  </div>
+</section>
+
 <section id="festival-2025" aria-labelledby="f25-h">
   {moments_head(t, 'h2')}
   <section class="river" data-render="moments" aria-label="{t('רגעים מפסטיבל 2025', 'Moments from the 2025 festival')}"></section>
