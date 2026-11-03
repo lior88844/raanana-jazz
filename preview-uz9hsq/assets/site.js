@@ -194,14 +194,13 @@ function renderFeatured(el) {
     </ul>`;
 }
 
-// Home: the five stages as photo cards, each with its show count, linking to the venue page.
+// Home: the five stages as photo cards, linking to the venue page.
 function renderStages(el) {
   const g = f => img(`${f}-480.webp`);
   el.innerHTML = VENUES.map(v => {
-    const n = SHOWS.filter(s => s.venue === v.name).length;
     return `<a class="stage${v.img ? '' : ' new'}" href="${page('venue.html')}#venues">
       <span class="stage-ph">${v.img ? `<img src="${g(v.img)}" srcset="${g(v.img)} 480w, ${img(v.img + '-1200.webp')} 1200w" sizes="(max-width: 700px) 70vw, 240px" alt="" loading="lazy" decoding="async">` : `<em>${L('חדש', 'New')}</em>`}</span>
-      <b>${tr(v, 'name')}</b><small>${n} ${L(n === 1 ? 'הופעה' : 'הופעות', n === 1 ? 'show' : 'shows')}</small>
+      <b>${tr(v, 'name')}</b>
       <span class="stage-d">${tr(v, 'desc')}</span></a>`;
   }).join('');
 }

@@ -1069,7 +1069,6 @@ html:has(.show-box[open]) { overflow: hidden; }
 .stage.new .stage-ph em { position: absolute; top: 12px; inset-inline-start: 12px; background: var(--accent); color: var(--on-accent); font-style: normal;
   font-family: var(--display); font-weight: 800; font-size: var(--fs-small); padding: 3px 10px; border-radius: 999px; }
 .stage b { margin-top: 14px; font-family: var(--display); font-weight: 800; font-size: var(--fs-2); line-height: 1.1; }
-.stage small { margin-top: 4px; font-weight: 700; font-size: var(--fs-small); color: var(--red-ink); }
 .stage-d { margin-top: 8px; font-size: var(--fs-meta); line-height: 1.45; }
 @media (hover: hover) { .stage:hover .stage-ph img { transform: scale(1.06); } .stage:hover b { text-decoration: underline 3px var(--line); text-underline-offset: 6px; } }
 @media (max-width: 1000px) {
