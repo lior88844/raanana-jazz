@@ -176,7 +176,6 @@ def page_index(t, P, A):
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
         <div class="ctas">
           <a href="{P('lineup.html')}" class="btn primary">{t('ללוח ההופעות 2026', 'See the 2026 line-up')}</a>
-          <a href="#programme-2026" class="btn ghost">{t('מה בתוכנייה', 'What’s on')} ↓</a>
         </div>
       </div>
     </div>
@@ -205,15 +204,6 @@ def page_index(t, P, A):
     <li><b>18</b><span>{t('הופעות בחמש במות – כולל האוהל, במת הלילה החדשה', 'shows on five stages – including the Tent, our new late-night stage')}</span></li>
     <li><b>14–25</b><span>{t('סדנאות לנגנים צעירים – ההרשמה תיפתח בקרוב.', 'Workshops for young musicians – sign-up opens soon.')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>
-</section>
-
-<section id="programme-2026" aria-labelledby="p26-h">
-  <div class="stitle">
-    <h2 id="p26-h">{t('על הבמות ב־2026', 'On stage in 2026')}</h2>
-    <p>{t('10–12 בדצמבר 2026 · לחצו על שם כדי לראות את פרטי ההופעה.', '10–12 December 2026 · tap a name for the show’s details.')}</p>
-  </div>
-  <section class="mq" data-render="marquee" aria-label="{t('כל ההופעות לפי ימים', 'All shows by day')}"></section>
-  <p class="mq-more"><a class="btn primary" href="{P('lineup.html')}">{t('ללו״ז המלא לפי במות', 'Full timetable by stage')} {A}</a></p>
 </section>
 
 <section id="festival-2025" aria-labelledby="f25-h">
