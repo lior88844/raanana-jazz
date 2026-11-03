@@ -1099,3 +1099,7 @@ html:has(.show-box[open]) { overflow: hidden; }
 .sb-card::-webkit-scrollbar-track { background: transparent; margin: 14px 0; }
 .sb-card::-webkit-scrollbar-thumb { background: var(--field); border-radius: 999px; border: 2px solid var(--surface); }
 .sb-card::-webkit-scrollbar-thumb:hover { background: var(--red-ink); }
+/* Hebrew: keep the dialog's scrollbar on the right (an rtl scroller puts it on the left) */
+html[dir="rtl"] .sb-card { direction: ltr; }
+html[dir="rtl"] .sb-card > * { direction: rtl; }
+html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so pin the close button to the left explicitly */
