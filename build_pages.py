@@ -159,6 +159,11 @@ def page_index(t, P, A):
         no_suffix=True,
         body=f'''
 <section class="hero grain">
+  <div class="hero-bg" aria-hidden="true">
+    <video class="hero-vid" muted loop playsinline preload="none" disablepictureinpicture
+      data-desktop="/video/hero-desktop.mp4" data-desktop-poster="/video/hero-desktop-poster.jpg"
+      data-mobile="/video/hero-mobile.mp4" data-mobile-poster="/video/hero-mobile-poster.jpg"></video>
+  </div>
   <div class="hero-inner">
     <div>
       <h1 class="hero-title">

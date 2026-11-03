@@ -242,6 +242,27 @@ function renderMarquee(el) {
   }).observe(el);
 }
 
+// Hero background video: portrait cut on phones, landscape on wider screens; poster only for reduced motion or data saver.
+function heroVideo() {
+  const v = document.querySelector('.hero-vid');
+  if (!v) return;
+  const portrait = matchMedia('(max-aspect-ratio: 4/5), (max-width: 640px)');
+  const saveData = navigator.connection && navigator.connection.saveData;
+  const pick = () => {
+    const k = portrait.matches ? 'mobile' : 'desktop';
+    if (v.dataset.on === k) return;
+    v.dataset.on = k;
+    v.poster = v.dataset[k + 'Poster'];
+    if (reduceMotion || saveData) return;
+    v.src = v.dataset[k];
+    v.play().then(() => v.classList.add('playing')).catch(() => {});
+  };
+  pick();
+  portrait.addEventListener('change', pick);
+  // pause while the hero is off screen
+  new IntersectionObserver(([e]) => { if (!v.src) return; e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }).observe(v);
+}
+
 // "Now on stage": during festival days, what is playing on each stage right now (or next).
 // Preview any moment with ?now=2025-12-19T20:15
 function nowOnStage(el) {
@@ -869,6 +890,7 @@ function chromeContrast() {
 
 addEventListener('DOMContentLoaded', () => {
   chromeContrast();
+  heroVideo();
   lazyBackgrounds();
   scrollReveal();
   countdown();
