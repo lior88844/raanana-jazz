@@ -359,8 +359,8 @@ def page_about(t, P, A):
 </section>
 <section class="narrow section prose">
   <h2>{t('מי אנחנו', 'Who we are')}</h2>
-  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פיס רעננה</b> ו<b>עיריית רעננה</b>, בתמיכת המשרד לשיתוף פעולה אזורי. הניהול האומנותי בידי הפסנתרן והמלחין <b>עמית פרידמן</b>.',
-        'The festival is produced by the <b>Raanana Pais Music Center</b> and the <b>Raanana Municipality</b>, with the support of the Ministry of Regional Cooperation. Artistic direction is by pianist and composer <b>Amit Friedman</b>.')}</p>
+  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פיס רעננה</b> ו<b>עיריית רעננה</b>. הניהול האומנותי בידי הפסנתרן והמלחין <b>עמית פרידמן</b>.',
+        'The festival is produced by the <b>Raanana Pais Music Center</b> and the <b>Raanana Municipality</b>. Artistic direction is by pianist and composer <b>Amit Friedman</b>.')}</p>
   <p>{t('לצד ההופעות, הפסטיבל הוא גם בית ספר: בכל שנה נגנים צעירים בגילאי 14–25 לומדים מאמנים בינלאומיים ומסיימים בהופעה על במת הפסטיבל.',
         'Alongside the concerts, the festival is also a school: every year young musicians aged 14–25 learn from international artists and finish with a performance on the festival stage.')}</p>
 </section>
