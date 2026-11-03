@@ -995,4 +995,4 @@ html:has(.show-box[open]) { overflow: hidden; }
 .vc-show { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; text-decoration: underline; text-decoration-color: var(--line); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .sb-shot { position: relative; height: 100%; }
 .sb-ph.two { display: grid; grid-template-columns: 2fr 1fr; gap: 4px; background: var(--surface); }
-.sb-ph.two .sb-shot:last-child img { object-position: 50% 25%; }
+.sb-ph.two .sb-shot:last-child img { object-position: 50% 25%; }   /* a show can set its own with pos2 */

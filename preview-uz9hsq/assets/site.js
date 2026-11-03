@@ -157,7 +157,7 @@ function renderSchedule(el) {
 function renderCards(el, list = SHOWS.filter(s => s.featured)) {
   el.innerHTML = list.map(s => `
     <article class="card">
-      <div class="ph" data-bg="${img(s.img)}"></div>
+      <div class="ph" data-bg="${img(s.img)}"${s.pos ? ` style="background-position:${s.pos}"` : ''}></div>
       <div class="day">${EN ? dayOf(s.day).name_en : dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
       <h3>${tr(s, 'title')}</h3>
       <div class="desc">${tr(s, 'sub')}</div>
@@ -175,7 +175,7 @@ function renderFeatured(el) {
   const link = (s, label, cls) => `<button type="button" class="${cls} stretch" data-show="${s.id}" aria-haspopup="dialog">${label}</button>`;
   el.innerHTML = `
     <article class="lead">
-      <div class="ph" data-bg="${img(lead.img)}" role="img" aria-label="${tr(lead, 'title')}"></div>
+      <div class="ph" data-bg="${img(lead.img)}"${lead.pos ? ` style="background-position:${lead.pos}"` : ''} role="img" aria-label="${tr(lead, 'title')}"></div>
       <div class="meta">${meta(lead)}</div>
       <h3>${tr(lead, 'title')}</h3>
       <p>${tr(lead, 'sub')}</p>
@@ -184,7 +184,7 @@ function renderFeatured(el) {
     <ul class="others">
       ${rest.map(s => `
         <li>
-          <div class="ph" data-bg="${img(s.img)}"></div>
+          <div class="ph" data-bg="${img(s.img)}"${s.pos ? ` style="background-position:${s.pos}"` : ''}></div>
           <div>
             <div class="meta">${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time}</div>
             <h3>${link(s, tr(s, 'title'), 'name')}</h3>
@@ -228,7 +228,7 @@ function nowOnStage(el) {
 function renderShowList(el, dayId) {
   el.innerHTML = SHOWS.filter(s => !dayId || s.day === dayId).map(s => `
     <article class="showrow">
-      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(s.img)}"` : ''}></div>
+      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(s.img)}"` : ''}${s.pos ? ` style="background-position:${s.pos}"` : ''}></div>
       <div>
         <div class="when">${dayName(dayOf(s.day))} ${dayOf(s.day).date} <time>${s.time}</time></div>
         <h3>${tr(s, 'title')}</h3>
@@ -516,9 +516,9 @@ function showHtml(s) {
   return `
     <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
     <figure class="sb-ph${s.img ? '' : ' noimg'}${s.img2 ? ' two' : ''} d-${s.day}">
-      ${s.img ? `<div class="sb-shot"><img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async">
+      ${s.img ? `<div class="sb-shot"><img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>
         ${s.credit ? `<figcaption>${L('צילום', 'Photo')}: ${esc(tr(s, 'credit'))}</figcaption>` : ''}</div>` : '<span class="sb-ph-logo" aria-hidden="true"></span>'}
-      ${s.img2 ? `<div class="sb-shot"><img src="${img(s.img2.replace(/\.jpe?g$/, '-800.webp'))}" alt="" decoding="async">
+      ${s.img2 ? `<div class="sb-shot"><img src="${img(s.img2.replace(/\.jpe?g$/, '-800.webp'))}" alt="" decoding="async"${s.pos2 ? ` style="object-position:${s.pos2}"` : ''}>
         ${s.credit2 ? `<figcaption>${esc(tr(s, 'credit2'))}</figcaption>` : ''}</div>` : ''}
     </figure>
     <div class="sb-body">
