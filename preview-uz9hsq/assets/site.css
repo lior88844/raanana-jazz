@@ -172,7 +172,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .hero h1 { margin: 0; }
 .hero .main-logo { width: 100%; max-width: 480px; margin: 0 auto; }
 /* "פסטיבל / FESTIVAL" over the logo's top-right corner, "רעננה / RAANANA" under its bottom-left – as on the original Wix hero */
-.hero .hero-title { position: relative; max-width: 480px; margin: 0 auto; }
+.hero .hero-title { position: relative; margin: 0 auto; }
 .hero-title .hw { position: relative; z-index: 1; width: 44%; }
 .hero-title .hw-fest { margin: 0 -9% -3% auto; }
 .hero-title .hw-raan { margin: 1% auto 0 -9%; }
@@ -183,7 +183,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .hero .dates .d-num { display: block; font-size: 1.92em; line-height: .92; letter-spacing: 0; }
 .hero .dates small { display: block; font-size: 1em; color: var(--on-field); margin-top: -10px; letter-spacing: .06em; margin-right: -.06em; }
 /* Hebrew: the date ribbon from the Save the Date design, tilted the same way */
-.hero .hero-date { display: block; width: clamp(220px, calc((100svh - 600px) * .85), 380px); height: auto; margin: 4px auto 0; rotate: 4deg; }
+.hero .hero-date { display: block; width: clamp(170px, calc((100svh - 600px) * .62), 280px); height: auto; margin: 4px auto 0; rotate: 4deg; }
 @media (prefers-reduced-motion: no-preference) { .hero .hero-date { animation: dateIn .6s var(--ease-out) .5s both; } }
 @keyframes dateIn { from { opacity: 0; transform: translateY(14px) scale(.94); } }
 .hero .dir { font-family: var(--display); font-weight: 700; font-size: var(--fs-body); margin-top: 12px; }
@@ -1053,14 +1053,15 @@ html:has(.show-box[open]) { overflow: hidden; }
 /* the hero (with the countdown strip) ends a little above the fold, so the next section peeks in and invites a scroll;
    the logo block shrinks with the screen height to make room */
 .hero { padding-top: 34px; }
-.hero .hero-title { width: clamp(170px, calc((100svh - 600px) * 1.02), 480px); max-width: 100%; }
+.hero .hero-title { width: clamp(238px, calc((100svh - 600px) * 1.43), 672px); max-width: 100%; }   /* the logo leads: 40% up on the earlier size */
 .hero .main-logo { max-width: 100%; }
 .hero .ctas { margin-top: 20px; }
-.cd-strip { margin-top: 40px; }
+.cd-strip { margin-top: 24px; }
+.hero .meta { margin-top: 8px; }
 @media (max-width: 640px) {
   .hero { padding-top: 66px; }   /* clears the fixed logo and menu button */
-  .hero .hero-title { width: clamp(170px, calc((100svh - 604px) * 1.02), 340px); }
-  .cd-strip { margin-top: 30px; }
+  .hero .hero-title { width: clamp(238px, calc((100svh - 604px) * 1.43), 476px); }
+  .cd-strip { margin-top: 18px; }
 }
 @media (max-height: 700px) { .hero .dir { display: none; } }   /* short screens: drop the director line so the next section still peeks in */
 
