@@ -132,7 +132,7 @@ def hero(eyebrow, title, chip='', lead='', ctas=''):
 
 def moments_head(t, level='h3'):
     return f'''<div class="moments-h">
-  <{level} class="subhead" style="margin:0;padding:0">{t('רגעים מהפסטיבל', 'Moments captured')}</{level}>
+  <{level} class="subhead" id="f25-h" style="margin:0;padding:0">{t('רגעים מפסטיבל 2025', 'Moments from the 2025 festival')}</{level}>
 </div>'''
 
 
@@ -207,11 +207,7 @@ def page_index(t, P, A):
 </section>
 
 <section id="festival-2025" aria-labelledby="f25-h">
-  <div class="stitle">
-    <h2 id="f25-h">{t('פסטיבל 2025', 'Festival 2025')}</h2>
-    <p>{t('18–20 בדצמבר 2025 · רגעים מהשנה שעברה.', '18–20 December 2025 · moments from last year.')} <a class="g-text" href="{P('festival-2025.html')}#gallery">{t('לגלריה המלאה – 665 תמונות', 'The full gallery – 665 photos')} {A}</a></p>
-  </div>
-  {moments_head(t)}
+  {moments_head(t, 'h2')}
   <section class="river" data-render="moments" aria-label="{t('רגעים מפסטיבל 2025', 'Moments from the 2025 festival')}"></section>
 </section>
 
