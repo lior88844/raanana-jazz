@@ -963,15 +963,31 @@ html:has(.show-box[open]) { overflow: hidden; }
   .sb-nav button:hover { background: var(--soft); }
   .sb-thumb:hover { filter: brightness(1.1); }
 }
+/* closing: a short fade on desktop */
+.show-box.closing { animation: sbOut 180ms ease-in forwards; }
+.show-box.closing::backdrop { animation: fade 180ms ease-in reverse forwards; }
+@keyframes sbOut { to { opacity: 0; transform: translateY(10px) scale(.985); } }
+.sb-grab { display: none; }
+
+/* phones: a sheet that slides up from the bottom; swipe it down or tap above it to close */
 @media (max-width: 700px) {
-  .show-box { width: 100vw; max-height: 100dvh; height: 100dvh; border-radius: 0; }
-  .sb-card { max-height: 100dvh; }
+  .show-box { width: 100%; max-width: 100%; max-height: 92dvh; margin: auto 0 0; border-radius: 20px 20px 0 0; touch-action: pan-y; }
+  .show-box[open] { animation: sbUp 460ms var(--ease-drawer); }
+  .show-box.closing { animation: sbDown 280ms cubic-bezier(.4, 0, 1, 1) forwards; }
+  .show-box.dragging { animation: none; transition: none; }
+  .show-box.settle { transition: transform 300ms var(--ease-drawer); }
+  .sb-card { max-height: 92dvh; padding-bottom: env(safe-area-inset-bottom); }
+  .sb-grab { display: block; position: absolute; top: 8px; left: 50%; z-index: 4; width: 44px; height: 5px; margin-left: -22px; border-radius: 3px;
+    background: rgba(255, 255, 255, .9); box-shadow: 0 1px 4px rgba(0, 0, 0, .35); pointer-events: none; }
+  .sb-close { width: 40px; height: 40px; margin-top: 12px; }
   .sb-body { padding: 22px 20px 30px; }
   .sb-nav { grid-template-columns: 1fr; }
   .sb-nav .next { text-align: start; }
   .sb-thumb { width: 96px; }
 }
-@media (prefers-reduced-motion: reduce) { .show-box[open], .show-box::backdrop { animation: none; } }
+@keyframes sbUp { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes sbDown { from { transform: translateY(var(--drag, 0px)); } to { transform: translateY(100%); } }
+@media (prefers-reduced-motion: reduce) { .show-box[open], .show-box::backdrop, .show-box.closing, .show-box.closing::backdrop { animation: none; } }
 .vc-show { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; text-decoration: underline; text-decoration-color: var(--line); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .sb-shot { position: relative; height: 100%; }
 .sb-ph.two { display: grid; grid-template-columns: 2fr 1fr; gap: 4px; background: var(--surface); }

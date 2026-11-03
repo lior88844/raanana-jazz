@@ -549,11 +549,13 @@ function openShow(id) {
     showBox = document.createElement('dialog');
     showBox.className = 'show-box';
     showBox.setAttribute('aria-labelledby', 'sb-title');
-    showBox.innerHTML = '<div class="sb-card"></div>';
+    showBox.innerHTML = '<span class="sb-grab" aria-hidden="true"></span><div class="sb-card"></div>';
     document.body.appendChild(showBox);
+    showBox.addEventListener('cancel', e => { e.preventDefault(); closeShow(); });   // Esc
+    swipeToClose(showBox);
     showBox.addEventListener('click', e => {
-      if (e.target === showBox) return showBox.close();           // a click on the dimmed backdrop
-      if (e.target.closest('.sb-close')) return showBox.close();
+      if (e.target === showBox) return closeShow();               // a click on the dimmed backdrop
+      if (e.target.closest('.sb-close')) return closeShow();
       const play = e.target.closest('.sb-play, .sb-thumb');
       if (play) {
         const box = showBox.querySelector('.sb-video');
@@ -589,9 +591,47 @@ function openShow(id) {
   card.innerHTML = showHtml(s);
   card.scrollTop = 0;
   if (location.hash !== '#' + s.id) history.replaceState(null, '', '#' + s.id);
-  if (!showBox.open) showBox.showModal();
+  if (!showBox.open) { showBox.classList.remove('settle', 'closing'); showBox.showModal(); }
   else if (!reduceMotion) card.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 240, easing: 'cubic-bezier(.23, 1, .32, 1)' });
   showBox.querySelector('.sb-close').focus({ preventScroll: true });
+}
+
+// close with a short animation (a slide down on phones), then really close
+function closeShow() {
+  if (!showBox || !showBox.open || showBox.classList.contains('closing')) return;
+  if (reduceMotion) return showBox.close();
+  showBox.classList.remove('settle');
+  showBox.classList.add('closing');
+  const done = () => { showBox.classList.remove('closing'); showBox.style.removeProperty('--drag'); showBox.style.transform = ''; showBox.close(); };
+  showBox.addEventListener('animationend', done, { once: true });
+  setTimeout(() => showBox.classList.contains('closing') && done(), 500);   // in case the animation never ends
+}
+
+// phones: drag the sheet down from its top to close it
+function swipeToClose(box) {
+  const card = box.querySelector('.sb-card');
+  let y0 = null, dy = 0, t0 = 0;
+  box.addEventListener('touchstart', e => {
+    if (!matchMedia('(max-width: 700px)').matches || card.scrollTop > 0) { y0 = null; return; }
+    y0 = e.touches[0].clientY; dy = 0; t0 = Date.now();
+  }, { passive: true });
+  box.addEventListener('touchmove', e => {
+    if (y0 === null) return;
+    dy = Math.max(0, e.touches[0].clientY - y0);
+    if (dy > 0 && card.scrollTop <= 0) {
+      if (e.cancelable) e.preventDefault();                       // hold the page still while the sheet follows the finger
+      box.classList.add('dragging');
+      box.style.transform = `translateY(${dy}px)`;
+    }
+  }, { passive: false });
+  box.addEventListener('touchend', () => {
+    if (y0 === null) return;
+    y0 = null;
+    box.classList.remove('dragging');
+    const fast = dy / Math.max(1, Date.now() - t0) > .5;           // a quick flick closes too
+    if (dy > 120 || (fast && dy > 30)) { box.style.setProperty('--drag', dy + 'px'); box.style.transform = ''; closeShow(); }
+    else if (dy) { box.classList.add('settle'); box.style.transform = ''; }
+  });
 }
 
 function showDialogs() {
