@@ -182,6 +182,10 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .hero .dates { font-family: var(--brush); font-size: 38px; line-height: 1; color: var(--accent); direction: ltr; display: inline-block; }
 .hero .dates .d-num { display: block; font-size: 1.92em; line-height: .92; letter-spacing: 0; }
 .hero .dates small { display: block; font-size: 1em; color: var(--on-field); margin-top: -10px; letter-spacing: .06em; margin-right: -.06em; }
+/* Hebrew: the date ribbon from the Save the Date design, tilted the same way */
+.hero .hero-date { display: block; width: clamp(220px, calc((100svh - 600px) * .85), 380px); height: auto; margin: 4px auto 0; rotate: 4deg; }
+@media (prefers-reduced-motion: no-preference) { .hero .hero-date { animation: dateIn .6s var(--ease-out) .5s both; } }
+@keyframes dateIn { from { opacity: 0; transform: translateY(14px) scale(.94); } }
 .hero .dir { font-family: var(--display); font-weight: 700; font-size: var(--fs-body); margin-top: 12px; }
 .hero .dir span { font-weight: 500; }
 .hero .ctas { display: flex; justify-content: center; gap: 16px; margin-top: 28px; flex-wrap: wrap; }
