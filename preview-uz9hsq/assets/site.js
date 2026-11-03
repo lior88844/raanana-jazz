@@ -523,7 +523,7 @@ function showHtml(s) {
     </figure>
     <div class="sb-body">
       <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${dayName(d)} ${d.date} · <time>${s.time}</time> · ${tr(s, 'venue')}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>
-      <h2 id="sb-title">${esc(tr(s, 'title'))}</h2>
+      <h2 id="sb-title"><bdi>${esc(tr(s, 'title'))}</bdi></h2>
       ${tr(s, 'sub') ? `<p class="sb-sub">${esc(tr(s, 'sub'))}</p>` : ''}
       <div class="sb-tags">${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
       <div class="sb-actions">
@@ -536,8 +536,8 @@ function showHtml(s) {
       ${list('cast').length ? `<section class="sb-sec"><h3>${s.film ? L('על הסרט', 'About the film') : L('על הבמה', 'On stage')}</h3><ul class="sb-cast">${list('cast').map(castRows).join('')}</ul></section>` : ''}
       ${videoBlock(s)}
       <nav class="sb-nav" aria-label="${L('הופעות נוספות', 'More shows')}">
-        ${prev ? `<button type="button" class="prev" data-show="${prev.id}"><small>${EN ? '←' : '→'} ${L('הקודם', 'Previous')}</small>${esc(tr(prev, 'title'))}</button>` : '<span></span>'}
-        ${next ? `<button type="button" class="next" data-show="${next.id}"><small>${L('הבא', 'Next')} ${EN ? '→' : '←'}</small>${esc(tr(next, 'title'))}</button>` : '<span></span>'}
+        ${prev ? `<button type="button" class="prev" data-show="${prev.id}"><small>${EN ? '←' : '→'} ${L('הקודם', 'Previous')}</small><bdi>${esc(tr(prev, 'title'))}</bdi></button>` : '<span></span>'}
+        ${next ? `<button type="button" class="next" data-show="${next.id}"><small>${L('הבא', 'Next')} ${EN ? '→' : '←'}</small><bdi>${esc(tr(next, 'title'))}</bdi></button>` : '<span></span>'}
       </nav>
     </div>`;
 }
