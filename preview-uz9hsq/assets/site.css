@@ -810,7 +810,10 @@ html:not(.js) .g-panel { border-radius: 22px; margin-top: 18px; }
 .g-ind.still { transition: none; }
 
 /* arrows nudge toward the reading direction */
-.arr { display: inline-block; font-style: normal; transition: transform var(--hover) var(--ease-out); }
+.arr { display: inline; position: relative; inset-inline-start: 0; font-style: normal; transition: inset-inline-start var(--hover) var(--ease-out); }
+/* the arrow stays inline (so text underlines run under it) and is nudged with a relative offset; underlined links keep
+   a little room at their end so the line still reaches past the nudged arrow */
+:is(.prose a, .g-text, .g-more a, .faq details a, .faq > p a, .card .buy, .duo .disc, .tcard .go, .cbtn span, .dl a, .facts a, .btn.ghost):has(> .arr) { padding-inline-end: 5px; }
 
 /* yellow underline grows from the start of the word (a faint line stays at rest) */
 :is(.prose a, .g-text, .g-more a, .faq details a, .faq > p a, .card .buy, .duo .disc, .tcard .go, .cbtn span, .dl a) {
@@ -844,8 +847,7 @@ html:not(.js) .g-panel { border-radius: 22px; margin-top: 18px; }
 @keyframes eq { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
 
 @media (hover: hover) and (pointer: fine) {
-  a:hover .arr, a:focus-visible .arr, .lead:hover .arr, .others li:hover .arr, .card:hover .arr, .showrow:hover .arr { transform: translateX(-4px); }
-  [dir="ltr"] a:hover .arr, [dir="ltr"] a:focus-visible .arr, [dir="ltr"] .lead:hover .arr, [dir="ltr"] .card:hover .arr { transform: translateX(4px); }
+  a:hover .arr, a:focus-visible .arr, .lead:hover .arr, .others li:hover .arr, .card:hover .arr, .showrow:hover .arr { inset-inline-start: 4px; }
   :is(.prose a, .g-text, .g-more a, .faq details a, .faq > p a, .dl a, .duo .disc):hover,
   .card:hover .buy, .tcard:hover .go, .cbtn:hover span { background-size: 100% 3px, 100% 3px; }
   .lead:hover .ph::before, .others li:hover .ph::before, .showrow:hover .ph::before, .card:hover .ph::before { transform: scale(1.04); }
