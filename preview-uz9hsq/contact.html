@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=982c5bee3c">
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=770980b144">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -27,37 +27,61 @@
 <section class="page-hero grain">
   <div class="eyebrow">נשמח לשמוע מכם</div>
   <h1>צור קשר</h1>
-  <p class="lead">בחרו את נושא הפנייה – ייפתח מייל עם הנושא הנכון.</p>
+  <p class="lead">בחרו את נושא הפנייה, כתבו לנו ונחזור אליכם בהקדם.</p>
   
 </section>
 
-<section class="wrap section">
-  <h2 class="sr-only">נושאי פנייה</h2>
-  <div class="contact-grid" id="contactGrid"></div>
-</section>
-<section class="narrow section prose" style="text-align:center">
-  <p>אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.</p>
+<section class="wrap section contact-wrap">
+  <form class="cform" id="contactForm" novalidate>
+    <h2 class="sec-h">טופס פנייה</h2>
+    <p class="cf-note">שדות המסומנים ב־* הם שדות חובה.</p>
+    <div class="cf-grid">
+      <div class="cf-field">
+        <label for="cf-name">שם מלא <span class="req" aria-hidden="true">*</span></label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-err">
+        <p class="cf-err" id="cf-name-err">נא לכתוב שם.</p>
+      </div>
+      <div class="cf-field">
+        <label for="cf-email">אימייל <span class="req" aria-hidden="true">*</span></label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" dir="ltr" required aria-describedby="cf-email-err">
+        <p class="cf-err" id="cf-email-err">נא לכתוב כתובת אימייל תקינה.</p>
+      </div>
+      <div class="cf-field">
+        <label for="cf-phone">טלפון <small>(לא חובה)</small></label>
+        <input id="cf-phone" name="phone" type="tel" autocomplete="tel" dir="ltr">
+      </div>
+      <div class="cf-field">
+        <label for="cf-topic">נושא הפנייה <span class="req" aria-hidden="true">*</span></label>
+        <div class="cf-select"><select id="cf-topic" name="topic" required aria-describedby="cf-topic-err">
+          <option value="" disabled selected>בחרו נושא</option><option value="artists">אמנים – רוצים להופיע בפסטיבל</option><option value="workshops">סדנאות לנגנים צעירים</option><option value="tickets">כרטיסים ופסים</option><option value="access">נגישות</option><option value="press">תקשורת ועיתונות</option><option value="partners">שותפים וחסויות</option><option value="general">פנייה כללית</option>
+        </select></div>
+        <p class="cf-err" id="cf-topic-err">נא לבחור נושא.</p>
+      </div>
+      <div class="cf-field cf-wide">
+        <label for="cf-msg">ההודעה <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="cf-msg" name="message" rows="6" required aria-describedby="cf-msg-err cf-hint"></textarea>
+        <p class="cf-hint" id="cf-hint" hidden></p>
+        <p class="cf-err" id="cf-msg-err">נא לכתוב הודעה.</p>
+      </div>
+      <input type="checkbox" name="botcheck" class="cf-bot" tabindex="-1" autocomplete="off" aria-hidden="true">
+    </div>
+    <p class="cf-privacy">הפרטים ישמשו רק כדי לחזור אליכם. <a href="/preview-uz9hsq/privacy.html">מדיניות הפרטיות</a></p>
+    <button type="submit" class="btn primary cf-send">שליחה</button>
+    <p class="cf-status" role="status" aria-live="polite"></p>
+  </form>
+  <aside class="cf-side">
+    <h2>דרכים נוספות</h2>
+    <p>אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.</p>
+    <p class="cf-links"><a class="g-text" href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener">Instagram <i class="arr" aria-hidden="true">←</i></a>
+      <a class="g-text" href="https://www.facebook.com/raananapaismusiccenter" target="_blank" rel="noopener">Facebook <i class="arr" aria-hidden="true">←</i></a></p>
+    <p>שאלות נפוצות על הגעה, כרטיסים ונגישות – <a href="/preview-uz9hsq/guide.html">במידע למבקרים</a>.</p>
+  </aside>
 </section>
 
 </main>
 
-<script src="/preview-uz9hsq/assets/data.js?v=982c5bee3c"></script>
-<script src="/preview-uz9hsq/assets/site.js?v=982c5bee3c"></script>
-<script>
-  const TOPICS = EN ? [
-    ['Artists', 'Want to play the festival? Tell us about your band and send links to recordings.', 'Artist inquiry'],
-    ['Workshops', 'Questions about the workshops, auditions and sign-up.', 'Workshop question'],
-    ['Partners + sponsors', 'Interested in supporting the festival or working with us?', 'Partnership / sponsorship'],
-    ['General', 'Anything else – tickets, getting here, accessibility.', 'General inquiry'],
-  ] : [
-    ['אמנים', 'רוצים להופיע בפסטיבל? ספרו לנו על ההרכב ושלחו קישורים להקלטות.', 'פנייה של אמן/ית'],
-    ['סדנאות', 'שאלות על הסדנאות, האודישן וההרשמה.', 'שאלה על הסדנאות'],
-    ['שותפים וחסויות', 'מעוניינים לתמוך בפסטיבל או לשתף פעולה?', 'שותפות / חסות'],
-    ['פנייה כללית', 'כל שאלה אחרת – כרטיסים, הגעה, נגישות.', 'פנייה כללית'],
-  ];
-  const suffix = L(' – פסטיבל הג׳אז רעננה', ' – Raanana Jazz Festival');
-  document.getElementById('contactGrid').innerHTML = TOPICS.map(([h, p, subj]) =>
-    `<a class="cbtn" href="mailto:${SITE.email}?subject=${encodeURIComponent(subj + suffix)}"><h3>${h}</h3><p>${p}</p><span>${L('לכתיבת מייל', 'Write an email')} ${ARROW}</span></a>`).join('');
-</script>
+<script src="/preview-uz9hsq/assets/data.js?v=770980b144"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=770980b144"></script>
+<script>contactForm(document.getElementById('contactForm'));</script>
 </body>
 </html>

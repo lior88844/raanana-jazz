@@ -307,6 +307,54 @@ function factsMotion() {
   io.observe(list);
 }
 
+// Contact page: validated form with a topic dropdown (contact.html?topic=workshops preselects one).
+// Sends through Web3Forms when SITE.contactFormKey is set; otherwise opens a ready-made email to SITE.email.
+function contactForm(form) {
+  if (!form) return;
+  const $ = s => form.querySelector(s), status = $('.cf-status'), topic = $('#cf-topic');
+  const hints = {
+    artists: L('ספרו לנו על ההרכב והוסיפו קישורים להקלטות או לסרטונים.', 'Tell us about your band and add links to recordings or videos.'),
+    workshops: L('כתבו את הכלי, הגיל והרמה – ונחזור עם פרטים על האודישן וההרשמה.', 'Tell us your instrument, age and level – we will reply with audition and sign-up details.'),
+    access: L('ספרו לנו מה צריך כדי שתוכלו ליהנות מההופעות, ונעשה כל מה שאפשר.', 'Tell us what you need to enjoy the shows and we will do all we can.'),
+  };
+  const want = new URLSearchParams(location.search).get('topic');
+  if (want && topic.querySelector(`option[value="${want}"]`)) topic.value = want;
+  const hint = () => { const h = hints[topic.value]; $('.cf-hint').hidden = !h; $('.cf-hint').textContent = h || ''; };
+  topic.addEventListener('change', hint); hint();
+  const fields = ['#cf-name', '#cf-email', '#cf-topic', '#cf-msg'].map($);
+  const ok = el => el.type === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value.trim()) : el.value.trim() !== '';
+  const mark = el => { const bad = !ok(el); el.setAttribute('aria-invalid', bad); el.closest('.cf-field').classList.toggle('bad', bad); return !bad; };
+  fields.forEach(el => el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'blur', () => { if (el.value) mark(el); }));
+  fields.forEach(el => el.addEventListener('input', () => { if (el.getAttribute('aria-invalid') === 'true') mark(el); }));
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const bad = fields.filter(el => !mark(el));
+    if (bad.length) { bad[0].focus(); status.textContent = L('יש כמה שדות שצריך למלא.', 'A few fields still need filling in.'); status.className = 'cf-status err'; return; }
+    if ($('.cf-bot').checked) return;
+    const d = Object.fromEntries(new FormData(form));
+    const label = topic.options[topic.selectedIndex].text;
+    const subject = `${label} – ${L('פנייה מאתר פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival website')}`;
+    if (!SITE.contactFormKey) {
+      const body = `${d.message}\n\n${L('שם', 'Name')}: ${d.name}\n${L('אימייל', 'Email')}: ${d.email}${d.phone ? `\n${L('טלפון', 'Phone')}: ${d.phone}` : ''}`;
+      location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      status.textContent = L('נפתח מייל מוכן לשליחה – רק ללחוץ ״שלח״.', 'A ready-made email has opened – just press send.'); status.className = 'cf-status ok';
+      return;
+    }
+    const btn = $('.cf-send'); btn.disabled = true; status.textContent = L('שולחים…', 'Sending…'); status.className = 'cf-status';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: SITE.contactFormKey, subject, from_name: d.name, replyto: d.email, name: d.name, email: d.email, phone: d.phone, topic: label, message: d.message }) });
+      const out = await res.json();
+      if (!out.success) throw new Error(out.message);
+      form.reset(); hint(); fields.forEach(el => el.removeAttribute('aria-invalid'));
+      status.textContent = L('תודה! ההודעה נשלחה ונחזור אליכם בהקדם.', 'Thank you! Your message was sent and we will reply soon.'); status.className = 'cf-status ok';
+    } catch {
+      status.innerHTML = L(`משהו השתבש בשליחה. אפשר לנסות שוב או לכתוב ישירות ל־<a href="mailto:${SITE.email}">${SITE.email}</a>.`, `Something went wrong. Try again or write to <a href="mailto:${SITE.email}">${SITE.email}</a>.`);
+      status.className = 'cf-status err';
+    } finally { btn.disabled = false; }
+  });
+}
+
 // Hero background video: portrait cut on phones, landscape on wider screens; poster only for reduced motion or data saver.
 function heroVideo() {
   const v = document.querySelector('.hero-vid');

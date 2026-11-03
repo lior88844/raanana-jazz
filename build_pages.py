@@ -498,35 +498,70 @@ def page_tickets(t, P, A):
 
 
 def page_contact(t, P, A):
+    topics = [
+        ('artists', t('אמנים – רוצים להופיע בפסטיבל', 'Artists – playing the festival')),
+        ('workshops', t('סדנאות לנגנים צעירים', 'Workshops for young musicians')),
+        ('tickets', t('כרטיסים ופסים', 'Tickets and passes')),
+        ('access', t('נגישות', 'Accessibility')),
+        ('press', t('תקשורת ועיתונות', 'Press and media')),
+        ('partners', t('שותפים וחסויות', 'Partners and sponsors')),
+        ('general', t('פנייה כללית', 'General question')),
+    ]
+    opts = ''.join(f'<option value="{k}">{label}</option>' for k, label in topics)
+    req = f'<span class="req" aria-hidden="true">*</span>'
     return dict(
         title=t('צור קשר', 'Contact'),
         desc=t('יצירת קשר עם פסטיבל הג׳אז רעננה.', 'Get in touch with the Raanana Jazz Festival.'),
         body=hero(t('נשמח לשמוע מכם', "We'd love to hear from you"), t('צור קשר', 'Contact'), '',
-                  t('בחרו את נושא הפנייה – ייפתח מייל עם הנושא הנכון.', 'Choose a topic and an email will open with the right subject.')) + f'''
-<section class="wrap section">
-  <h2 class="sr-only">{t('נושאי פנייה', 'Topics')}</h2>
-  <div class="contact-grid" id="contactGrid"></div>
-</section>
-<section class="narrow section prose" style="text-align:center">
-  <p>{t('אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.', 'You can also message us on the Raanana Music Center Instagram and Facebook.')}</p>
+                  t('בחרו את נושא הפנייה, כתבו לנו ונחזור אליכם בהקדם.', 'Pick a topic, write to us and we will get back to you soon.')) + f'''
+<section class="wrap section contact-wrap">
+  <form class="cform" id="contactForm" novalidate>
+    <h2 class="sec-h">{t('טופס פנייה', 'Contact form')}</h2>
+    <p class="cf-note">{t('שדות המסומנים ב־* הם שדות חובה.', 'Fields marked * are required.')}</p>
+    <div class="cf-grid">
+      <div class="cf-field">
+        <label for="cf-name">{t('שם מלא', 'Full name')} {req}</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-err">
+        <p class="cf-err" id="cf-name-err">{t('נא לכתוב שם.', 'Please enter your name.')}</p>
+      </div>
+      <div class="cf-field">
+        <label for="cf-email">{t('אימייל', 'Email')} {req}</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" dir="ltr" required aria-describedby="cf-email-err">
+        <p class="cf-err" id="cf-email-err">{t('נא לכתוב כתובת אימייל תקינה.', 'Please enter a valid email address.')}</p>
+      </div>
+      <div class="cf-field">
+        <label for="cf-phone">{t('טלפון', 'Phone')} <small>{t('(לא חובה)', '(optional)')}</small></label>
+        <input id="cf-phone" name="phone" type="tel" autocomplete="tel" dir="ltr">
+      </div>
+      <div class="cf-field">
+        <label for="cf-topic">{t('נושא הפנייה', 'Topic')} {req}</label>
+        <div class="cf-select"><select id="cf-topic" name="topic" required aria-describedby="cf-topic-err">
+          <option value="" disabled selected>{t('בחרו נושא', 'Choose a topic')}</option>{opts}
+        </select></div>
+        <p class="cf-err" id="cf-topic-err">{t('נא לבחור נושא.', 'Please choose a topic.')}</p>
+      </div>
+      <div class="cf-field cf-wide">
+        <label for="cf-msg">{t('ההודעה', 'Message')} {req}</label>
+        <textarea id="cf-msg" name="message" rows="6" required aria-describedby="cf-msg-err cf-hint"></textarea>
+        <p class="cf-hint" id="cf-hint" hidden></p>
+        <p class="cf-err" id="cf-msg-err">{t('נא לכתוב הודעה.', 'Please write a message.')}</p>
+      </div>
+      <input type="checkbox" name="botcheck" class="cf-bot" tabindex="-1" autocomplete="off" aria-hidden="true">
+    </div>
+    <p class="cf-privacy">{t(f'הפרטים ישמשו רק כדי לחזור אליכם. <a href="{P("privacy.html")}">מדיניות הפרטיות</a>', f'Your details are used only to reply to you. <a href="{P("privacy.html")}">Privacy policy</a>')}</p>
+    <button type="submit" class="btn primary cf-send">{t('שליחה', 'Send')}</button>
+    <p class="cf-status" role="status" aria-live="polite"></p>
+  </form>
+  <aside class="cf-side">
+    <h2>{t('דרכים נוספות', 'Other ways')}</h2>
+    <p>{t('אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.', 'You can also message us on the Raanana Music Center Instagram and Facebook.')}</p>
+    <p class="cf-links"><a class="g-text" href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener">Instagram {A}</a>
+      <a class="g-text" href="https://www.facebook.com/raananapaismusiccenter" target="_blank" rel="noopener">Facebook {A}</a></p>
+    <p>{t(f'שאלות נפוצות על הגעה, כרטיסים ונגישות – <a href="{P("guide.html")}">במידע למבקרים</a>.', f'Common questions about getting here, tickets and accessibility – <a href="{P("guide.html")}">in Visitor info</a>.')}</p>
+  </aside>
 </section>
 ''',
-        script='''<script>
-  const TOPICS = EN ? [
-    ['Artists', 'Want to play the festival? Tell us about your band and send links to recordings.', 'Artist inquiry'],
-    ['Workshops', 'Questions about the workshops, auditions and sign-up.', 'Workshop question'],
-    ['Partners + sponsors', 'Interested in supporting the festival or working with us?', 'Partnership / sponsorship'],
-    ['General', 'Anything else – tickets, getting here, accessibility.', 'General inquiry'],
-  ] : [
-    ['אמנים', 'רוצים להופיע בפסטיבל? ספרו לנו על ההרכב ושלחו קישורים להקלטות.', 'פנייה של אמן/ית'],
-    ['סדנאות', 'שאלות על הסדנאות, האודישן וההרשמה.', 'שאלה על הסדנאות'],
-    ['שותפים וחסויות', 'מעוניינים לתמוך בפסטיבל או לשתף פעולה?', 'שותפות / חסות'],
-    ['פנייה כללית', 'כל שאלה אחרת – כרטיסים, הגעה, נגישות.', 'פנייה כללית'],
-  ];
-  const suffix = L(' – פסטיבל הג׳אז רעננה', ' – Raanana Jazz Festival');
-  document.getElementById('contactGrid').innerHTML = TOPICS.map(([h, p, subj]) =>
-    `<a class="cbtn" href="mailto:${SITE.email}?subject=${encodeURIComponent(subj + suffix)}"><h3>${h}</h3><p>${p}</p><span>${L('לכתיבת מייל', 'Write an email')} ${ARROW}</span></a>`).join('');
-</script>''')
+        script='''<script>contactForm(document.getElementById('contactForm'));</script>''')
 
 
 def page_accessibility(t, P, A):

@@ -16,6 +16,9 @@ const SITE = {
   facebook: 'https://www.facebook.com/raananapaismusiccenter',
   // TODO: replace with the festival's real contact email
   email: 'info@raananajazzfestival.com',
+  // contact form delivery: a Web3Forms access key (web3forms.com – enter the festival email, the key arrives by mail).
+  // While empty, the form opens a ready-made email to SITE.email instead.
+  contactFormKey: '',
   // accessibility coordinator – none appointed yet; when empty the statement asks people to contact the festival
   a11yContact: { name: '', phone: '', email: '' },
   a11yUpdated: '14.10.2026',
