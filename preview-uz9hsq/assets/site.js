@@ -515,9 +515,11 @@ function showHtml(s) {
     : `<span class="sb-soon">${s.free ? L('כניסה חופשית', 'Free entry') : L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
   return `
     <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
-    <figure class="sb-ph${s.img ? '' : ' noimg'} d-${s.day}">
-      ${s.img ? `<img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async">` : '<span class="sb-ph-logo" aria-hidden="true"></span>'}
-      ${s.credit ? `<figcaption>${L('צילום', 'Photo')}: ${esc(tr(s, 'credit'))}</figcaption>` : ''}
+    <figure class="sb-ph${s.img ? '' : ' noimg'}${s.img2 ? ' two' : ''} d-${s.day}">
+      ${s.img ? `<div class="sb-shot"><img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async">
+        ${s.credit ? `<figcaption>${L('צילום', 'Photo')}: ${esc(tr(s, 'credit'))}</figcaption>` : ''}</div>` : '<span class="sb-ph-logo" aria-hidden="true"></span>'}
+      ${s.img2 ? `<div class="sb-shot"><img src="${img(s.img2.replace(/\.jpe?g$/, '-800.webp'))}" alt="" decoding="async">
+        ${s.credit2 ? `<figcaption>${esc(tr(s, 'credit2'))}</figcaption>` : ''}</div>` : ''}
     </figure>
     <div class="sb-body">
       <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${dayName(d)} ${d.date} · <time>${s.time}</time> · ${tr(s, 'venue')}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>

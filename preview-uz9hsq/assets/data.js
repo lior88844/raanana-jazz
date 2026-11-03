@@ -235,7 +235,7 @@ const SHOWS = [
     quotes_en: ["“Every note in this show flies straight to the soul” – Ben Shalev, Haaretz"],
     cast: ["אבטה בריהון – שירה וסקסופונים · רועי מור – פסנתר · דוד מיכאלי – בס · ניצן בירנבאום – תופים", "אורח מיוחד: אהוד בנאי"],
     cast_en: ["Abate Berihun – vocals and saxophones · Roy Mor – piano · David Michaeli – bass · Nitzan Birnbaum – drums", "Special guest: Ehud Banai"],
-    img: "2026-adis-ken.jpg", credit: "רונן גולדמן", credit_en: "Ronen Goldman", yt: ["HzQ4KXCbX6Y", "vtK2Qp57ic8"], playlist: "PLzPNghaotCrcxQaJxppSylBAiH8weiCa_" },
+    img: "2026-adis-ken.jpg", credit: "רונן גולדמן", credit_en: "Ronen Goldman", img2: "2026-ehud-banai.jpg", credit2: "אהוד בנאי: אורית פניני", credit2_en: "Ehud Banai: Orit Pinini", yt: ["HzQ4KXCbX6Y", "vtK2Qp57ic8"], playlist: "PLzPNghaotCrcxQaJxppSylBAiH8weiCa_" },
   { id: "jam-sat", day: "sat", time: "22:30", dur: 90, free: true, jam: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "ג'אם סשן ברחבת הפסטיבל", title_en: "Jam Session on the Festival Plaza",
