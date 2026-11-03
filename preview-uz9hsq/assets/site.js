@@ -250,8 +250,28 @@ function renderTeachers(el, asList = true) {
     : rows.map(([f, n, r]) => `<div class="person"><div class="ph" data-bg="${img(f)}"></div><b>${n}</b><span>${r}</span></div>`).join('');
 }
 
+// 2025 moments in two rows that drift sideways, in opposite directions, as the page scrolls (like indnegev.co.il)
 function renderMoments(el) {
-  el.innerHTML = MOMENTS.map(([f, cap, capEn, credit]) => `<a href="${page('festival-2025.html')}#gallery" data-bg="${img(f)}" aria-label="${EN ? capEn : cap} – ${L('לגלריה', 'to the gallery')}"><span>${EN ? capEn : cap}</span>${credit ? `<small class="credit">${L('צילום', 'Photo')}: ${credit}</small>` : ''}</a>`).join('');
+  const half = Math.ceil(MOMENTS.length / 2);
+  const tile = ([f, cap, capEn, credit]) => `<a href="${page('festival-2025.html')}#gallery" aria-label="${EN ? capEn : cap} – ${L('לגלריה', 'to the gallery')}">
+    <img src="${img(f.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"><span>${EN ? capEn : cap}</span>${credit ? `<small class="credit">${L('צילום', 'Photo')}: ${credit}</small>` : ''}</a>`;
+  el.innerHTML = [MOMENTS.slice(0, half), MOMENTS.slice(half)].map(row => `<div class="river-row">${row.map(tile).join('')}</div>`).join('');
+  const rows = [...el.children];
+  if (reduceMotion) { el.classList.add('still'); return; }
+  let queued = false;
+  const move = () => {
+    queued = false;
+    const r = el.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    const p = ((r.top + r.height / 2) - innerHeight / 2) / ((innerHeight + r.height) / 2);   // 1 entering below … -1 leaving above
+    rows.forEach((row, i) => {
+      const room = Math.max(0, (row.scrollWidth - el.clientWidth) / 2);
+      row.style.setProperty('--x', `${(i ? -1 : 1) * p * room * 0.9}px`);
+    });
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(move); } }, { passive: true });
+  addEventListener('resize', move);
+  move();
 }
 
 function renderPartners(el) {

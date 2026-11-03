@@ -996,3 +996,22 @@ html:has(.show-box[open]) { overflow: hidden; }
 .sb-shot { position: relative; height: 100%; }
 .sb-ph.two { display: grid; grid-template-columns: 2fr 1fr; gap: 4px; background: var(--surface); }
 .sb-ph.two .sb-shot:last-child img { object-position: 50% 25%; }   /* a show can set its own with pos2 */
+
+/* ---------- 2025 moments: two rows that drift sideways with the scroll ---------- */
+.river { direction: ltr; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; overflow: hidden; padding: 4px 0; }
+.river-row { direction: ltr; display: flex; gap: 10px; width: max-content; position: relative; left: 50%;
+  transform: translateX(calc(-50% + var(--x, 0px))); will-change: transform; }
+.river-row a { flex: none; position: relative; display: block; width: max(250px, 36vw); aspect-ratio: 3 / 2; border-radius: 10px; overflow: hidden; background: var(--dark); }
+.river-row img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out); }
+.river-row span { position: absolute; bottom: 12px; inset-inline-start: 14px; direction: rtl; font-family: var(--display); font-weight: 700; font-size: var(--fs-meta); color: var(--white);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .55); opacity: 0; transform: translateY(6px); transition: opacity var(--hover) ease, transform var(--hover) var(--ease-out); }
+[lang="en"] .river-row span { direction: ltr; }
+.river-row a:focus-visible span { opacity: 1; transform: none; }
+.river-row .credit { position: absolute; top: 10px; right: 12px; color: var(--white); background: rgba(58,26,20,.6); padding: 2px 8px; font-size: 12px; }
+.river.still .river-row { left: 0; transform: none; overflow-x: auto; width: auto; padding-inline: 16px; scrollbar-width: none; }
+@media (hover: hover) and (pointer: fine) {
+  .river-row a:hover img { transform: scale(1.04); }
+  .river-row a:hover span { opacity: 1; transform: none; }
+}
+@media (hover: none) { .river-row span { opacity: 1; transform: none; } }
+@media (max-width: 700px) { .river, .river-row { gap: 8px; } .river-row a { border-radius: 8px; } }

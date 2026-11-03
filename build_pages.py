@@ -220,7 +220,7 @@ def page_index(t, P, A):
     <p>{t('18–20 בדצמבר 2025 · רגעים מהשנה שעברה.', '18–20 December 2025 · moments from last year.')} <a class="g-text" href="{P('festival-2025.html')}#gallery">{t('לגלריה המלאה – 665 תמונות', 'The full gallery – 665 photos')} {A}</a></p>
   </div>
   {moments_head(t)}
-  <section class="grid" data-render="moments"></section>
+  <section class="river" data-render="moments" aria-label="{t('רגעים מפסטיבל 2025', 'Moments from the 2025 festival')}"></section>
 </section>
 
 <section class="partners" id="partners">
