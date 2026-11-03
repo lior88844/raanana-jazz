@@ -306,6 +306,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .logos { display: flex; flex-wrap: wrap; align-items: center; gap: 40px 70px; margin-top: 36px; }
 .logos img { max-height: 84px; width: auto; }
 .logos img.tall { max-height: 120px; }
+.partners .logos img { filter: brightness(0) invert(1); }   /* white logos on the dark strip */
 
 /* ---------- Footer ---------- */
 .footer { background: var(--deep); color: var(--on-field); text-align: center; padding: 80px 24px 40px; border-top: 6px solid var(--accent); position: relative; }
