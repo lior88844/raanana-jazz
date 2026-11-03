@@ -358,7 +358,7 @@ const VENUES = [
 ];
 
 const PARTNERS = [
-  ['69298d5eb049.png', 'Raanana Pais Music Center', 'Raanana Pais Music Center'],
-  ['a8830166eec8.png', 'עיריית רעננה', 'Raanana Municipality'],
-  ['998addde5757.png', 'המשרד לשיתוף פעולה אזורי', 'Ministry of Regional Cooperation'],
+  ['partner-music-center.png', 'Raanana Pais Music Center', 'Raanana Pais Music Center'],
+  ['partner-raanana.png', 'עיריית רעננה', 'Raanana Municipality'],
+  ['partner-ministry.png', 'המשרד לשיתוף פעולה אזורי', 'Ministry of Regional Cooperation'],
 ];

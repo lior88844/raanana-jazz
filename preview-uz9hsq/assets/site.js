@@ -323,7 +323,12 @@ function renderMoments(el) {
 }
 
 function renderPartners(el) {
-  el.innerHTML = PARTNERS.map(([f, alt, altEn]) => `<img class="tall" src="${img(f)}" alt="${EN ? altEn : alt}">`).join('');
+  // logos are trimmed to their edges; each gets the same visual area, so wide and tall marks look equally big
+  el.innerHTML = PARTNERS.map(([f, alt, altEn]) => `<img class="partner" src="${img(f)}" alt="${EN ? altEn : alt}">`).join('');
+  el.querySelectorAll('img').forEach(im => {
+    const fit = () => { im.style.height = `calc(var(--logo-area) / ${Math.sqrt(im.naturalWidth / im.naturalHeight).toFixed(3)})`; };
+    im.complete && im.naturalWidth ? fit() : im.addEventListener('load', fit, { once: true });
+  });
 }
 
 function renderThemePasses(el) {

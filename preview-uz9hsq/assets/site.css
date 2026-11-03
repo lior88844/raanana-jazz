@@ -306,6 +306,8 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .logos { display: flex; flex-wrap: wrap; align-items: center; gap: 40px 70px; margin-top: 36px; }
 .logos img { max-height: 84px; width: auto; }
 .logos img.tall { max-height: 120px; }
+.logos { --logo-area: 104px; }
+.logos img.partner { max-height: none; width: auto; }
 .partners .logos img { filter: brightness(0) invert(1); }   /* white logos on the dark strip */
 
 /* ---------- Footer ---------- */
@@ -588,6 +590,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
   .others h3 { font-size: var(--fs-meta); }
   .now-strip { padding: 18px 16px 22px; }
   .partners { padding: 80px 16px; }
+  .logos { --logo-area: 80px; gap: 32px 40px; }
   .passes { padding: 44px 22px; }
   .passes { margin: 90px 16px 0; padding: 50px 20px; }
   .duo { grid-template-columns: minmax(0,1fr); padding: 0 16px; }
