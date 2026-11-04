@@ -418,7 +418,7 @@ def page_workshops(t, P, A):
 <section class="wrap section">
   <div class="stats">
     <div class="stat"><b>3</b><span>{t('ימים · חמישי–שבת<br>10–12 בדצמבר (חופשת חנוכה)', 'days · Thursday–Saturday<br>10–12 December (Hanukkah break)')}</span></div>
-    <div class="stat"><b>9:30<em>–</em>17</b><span>{t('שעות הפעילות בכל יום', 'daily hours')}</span></div>
+    <div class="stat"><b>9:30<em>–</em>17:00</b><span>{t('שעות הפעילות בכל יום', 'daily hours')}</span></div>
     <div class="stat"><b>10</b><span>{t('מורים, כיתת אמן וסדנת שירה', 'teachers, a masterclass and a vocal workshop')}</span></div>
     <div class="stat"><b>₪1,200</b><span>{t('כולל כניסה לכל הופעות הפסטיבל<br>על בסיס מקום פנוי', 'includes every festival show<br>subject to availability')}</span></div>
   </div>
