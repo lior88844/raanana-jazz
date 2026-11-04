@@ -429,7 +429,7 @@ function renderTeachers(el, asList = true) {
   const rows = TEACHERS.map(([f, n, r, nEn, rEn]) => [f, EN ? nEn : n, EN ? rEn : r]);
   el.innerHTML = asList
     ? rows.map(([f, n, r]) => `<li><i data-bg="${img(f)}"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
-    : rows.map(([f, n, r]) => `<div class="person"><div class="ph" data-bg="${img(f)}"></div><b>${n}</b><span>${r}</span></div>`).join('');
+    : rows.map(([f, n, r]) => `<div class="person"><div class="ph${f ? '' : ' nophoto'}"${f ? ` data-bg="${img(f)}"` : ''}></div><b>${n}</b><span>${r}</span></div>`).join('');
 }
 
 // 2025 moments in two rows that drift sideways, in opposite directions, as the page scrolls (like indnegev.co.il)
@@ -864,6 +864,11 @@ document.querySelectorAll('[data-render]').forEach(el => {
 });
 document.querySelectorAll('[data-href]').forEach(a => {
   const v = a.dataset.href;
+  if (v === 'form' && !SITE.workshopForm) {            // sign-up link not out yet
+    a.removeAttribute('href'); a.removeAttribute('target'); a.setAttribute('aria-disabled', 'true'); a.classList.add('is-soon');
+    a.textContent = L('קישור להרשמה – בקרוב', 'Sign-up link – coming soon');
+    return;
+  }
   a.href = v === 'fullpass' ? T(SITE.fullPass) : v === 'form' ? SITE.workshopForm : v === 'program' ? SITE.program : '#';
 });
 

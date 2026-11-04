@@ -11,7 +11,9 @@ const SITE = {
   venueName: 'המרכז למוזיקה פיס רעננה',
   tickets: 'https://tickets.raanana.muni.il/',
   fullPass: 'season/1983',
-  workshopForm: 'https://forms.gle/R8FgQLkncVsUcWbs9',
+  // 2026 workshop sign-up link – not out yet; while empty the sign-up buttons say the link is coming soon
+  workshopForm: '',
+  workshopDeadline: '20.11',
   instagram: 'https://www.instagram.com/raananamusiccenter/',
   facebook: 'https://www.facebook.com/raananapaismusiccenter',
   // TODO: replace with the festival's real contact email
@@ -340,14 +342,18 @@ const THEME_PASSES = [
   ['Jazz', 'Jazz_Pass'], ['World', 'World_Pass'], ['Vocal', 'Vocal_Pass'], ['Music', 'Music_Pass'],
 ];
 
+// 2026 workshop faculty: [photo (or '' for none yet), name, role, name_en, role_en]
 const TEACHERS = [
-  ['58f1f2752a22.jpg', 'גלעד הקסלמן', 'גיטרה · ניו יורק', 'Gilad Hekselman', 'Guitar · New York'],
-  ['5e26945bd669.jpg', 'Doug Weiss', 'בס · ברלין–ניו יורק', 'Doug Weiss', 'Bass · Berlin–New York'],
-  ['d51c0279d5e3.jpg', 'Jerzy Małek', 'חצוצרה · פולין', 'Jerzy Małek', 'Trumpet · Poland'],
-  ['bc8143617deb.jpg', 'תמוז נסים', 'שירה · ניו יורק', 'Tamuz Nissim', 'Voice · New York'],
-  ['77f62589d50f.jpg', 'Andy Middleton', 'סקסופון · וינה', 'Andy Middleton', 'Saxophone · Vienna'],
-  ['fac37d05a7b3.jpg', 'Allan Jones', 'תופים · ארה״ב', 'Allan Jones', 'Drums · USA'],
-  ['3266fc1fd5df.jpg', 'Kalman Oláh', 'פסנתר · הונגריה', 'Kalman Oláh', 'Piano · Hungary'],
+  ['', 'וולטר בלנדינג', 'סקסופון · ניו יורק', 'Walter Blanding', 'Saxophone · New York'],
+  ['', 'יותם זילברשטיין', 'גיטרה · ישראל', 'Yotam Silberstein', 'Guitar · Israel'],
+  ['5e26945bd669.jpg', 'דאג וייז', 'בס · בריסל', 'Doug Weiss', 'Bass · Brussels'],
+  ['', 'זיו רביץ', 'תופים · ניו יורק', 'Ziv Ravitz', 'Drums · New York'],
+  ['', 'אלון יבנאי', 'פסנתר · ברלין', 'Alon Yavnai', 'Piano · Berlin'],
+  ['', 'סבסטיאן לוורדה', 'ויברפון · ארה״ב', 'Sebastian Laverde', 'Vibraphone · USA'],
+  ['', 'אוסקר סטגנרו', 'בס · ארה״ב', 'Oscar Stagnaro', 'Bass · USA'],
+  ['', 'מארק ווקר', 'תופים · ארה״ב', 'Mark Walker', 'Drums · USA'],
+  ['', 'פקיטו דה ריברה', 'כיתת אמן · קובה–ארה״ב', 'Paquito D’Rivera', 'Masterclass · Cuba–USA'],
+  ['', 'סיריל איימה', 'סדנה לזמרות ולזמרים · צרפת–ארה״ב', 'Cyrille Aimée', 'Vocal workshop · France–USA'],
 ];
 
 // moments from the 2025 festival (photos from the "World.Jazz.Music 2025" album; the full set is the gallery on festival-2025.html)

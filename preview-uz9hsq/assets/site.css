@@ -363,6 +363,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 /* people */
 .people { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 34px 26px; margin-top: 40px; }
 .person .ph { aspect-ratio: 4/5; background: var(--dark) center/cover no-repeat; }
+.person .ph.nophoto { background: var(--dark) url(../images/logo-nodots.png) center / 56% no-repeat; }   /* photo still to come */
 .person b { display: block; font-family: var(--display); font-weight: 900; font-size: var(--fs-body); margin-top: 12px; }
 .person span { font-size: var(--fs-meta); color: var(--red-ink); font-weight: 600; }
 
@@ -1234,3 +1235,7 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 .cf-side p { margin-top: 12px; line-height: 1.55; }
 .cf-links { display: flex; gap: 22px; flex-wrap: wrap; }
 @media (max-width: 860px) { .contact-wrap { grid-template-columns: minmax(0, 1fr); gap: 36px; } .cf-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* a sign-up button whose link isn't out yet */
+.is-soon { cursor: default; opacity: .75; pointer-events: none; }
+.btn.is-soon { background: var(--soft); color: var(--ink); }
