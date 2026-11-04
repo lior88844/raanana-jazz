@@ -352,8 +352,8 @@ const TEACHERS = [
   ['', 'סבסטיאן לוורדה', 'ויברפון · ארה״ב', 'Sebastian Laverde', 'Vibraphone · USA'],
   ['', 'אוסקר סטגנרו', 'בס · ארה״ב', 'Oscar Stagnaro', 'Bass · USA'],
   ['', 'מארק ווקר', 'תופים · ארה״ב', 'Mark Walker', 'Drums · USA'],
-  ['', 'פקיטו דה ריברה', 'כיתת אמן · קובה–ארה״ב', 'Paquito D’Rivera', 'Masterclass · Cuba–USA'],
-  ['', 'סיריל איימה', 'סדנה לזמרות ולזמרים · צרפת–ארה״ב', 'Cyrille Aimée', 'Vocal workshop · France–USA'],
+  ['2026-paquito.jpg', 'פקיטו דה ריברה', 'כיתת אמן · קובה–ארה״ב', 'Paquito D’Rivera', 'Masterclass · Cuba–USA'],
+  ['2026-cyrille.jpg', 'סיריל איימה', 'סדנה לזמרות ולזמרים · צרפת–ארה״ב', 'Cyrille Aimée', 'Vocal workshop · France–USA'],
 ];
 
 // moments from the 2025 festival (photos from the "World.Jazz.Music 2025" album; the full set is the gallery on festival-2025.html)
