@@ -722,10 +722,12 @@ function showHtml(s) {
     : `<span class="sb-soon">${s.free ? L('כניסה חופשית', 'Free entry') : L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
   return `
     <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
-    <figure class="sb-ph${s.img ? '' : ' noimg'}${s.img2 ? ' two' : ''} d-${s.day}">
+    <figure class="sb-ph${s.img ? '' : ' noimg'}${s.img2 ? (s.guest ? ' has-guest' : ' two') : ''} d-${s.day}">
       ${s.img ? `<div class="sb-shot"><img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>
         ${s.credit ? `<figcaption>${L('צילום', 'Photo')}: ${esc(tr(s, 'credit'))}</figcaption>` : ''}</div>` : '<span class="sb-ph-logo" aria-hidden="true"></span>'}
-      ${s.img2 ? `<div class="sb-shot"><img src="${img(s.img2.replace(/\.jpe?g$/, '-800.webp'))}" alt="" decoding="async"${s.pos2 ? ` style="object-position:${s.pos2}"` : ''}>
+      ${s.img2 && s.guest ? `<div class="sb-guest"><img src="${img(s.img2.replace(/\.jpe?g$/, '-800.webp'))}" alt="" decoding="async"${s.pos2 ? ` style="object-position:${s.pos2}"` : ''}>
+        <span>${esc(EN ? s.guest.en : s.guest.he)}</span></div>${s.credit2 ? `<figcaption class="sb-cred2">${esc(tr(s, 'credit2'))}</figcaption>` : ''}`
+      : s.img2 ? `<div class="sb-shot"><img src="${img(s.img2.replace(/\.jpe?g$/, '-800.webp'))}" alt="" decoding="async"${s.pos2 ? ` style="object-position:${s.pos2}"` : ''}>
         ${s.credit2 ? `<figcaption>${esc(tr(s, 'credit2'))}</figcaption>` : ''}</div>` : ''}
     </figure>
     <div class="sb-body">

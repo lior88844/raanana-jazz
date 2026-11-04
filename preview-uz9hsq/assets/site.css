@@ -1026,6 +1026,13 @@ html:has(.show-box[open]) { overflow: hidden; }
 .vc-show { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; text-decoration: underline; text-decoration-color: var(--line); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .sb-shot { position: relative; height: 100%; }
 .sb-ph.two { display: grid; grid-template-columns: 2fr 1fr; gap: 4px; background: var(--surface); }
+/* a guest artist (e.g. Ehud Banai with Addis Ken): a small framed inset in the corner of the main photo */
+.sb-ph.has-guest .sb-guest { position: absolute; z-index: 2; inset-inline-start: 16px; bottom: 16px; width: clamp(92px, 19%, 140px); background: var(--white);
+  padding: 5px 5px 7px; border-radius: 10px; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .55); rotate: -3deg; }
+.sb-guest img { display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: 6px; object-fit: cover; object-position: 50% 30%; }
+.sb-guest span { display: block; margin-top: 5px; font-family: var(--display); font-weight: 700; font-size: 12px; line-height: 1.2; color: var(--ink); text-align: center; }
+.sb-ph .sb-cred2 { bottom: 26px; }
+@media (max-width: 700px) { .sb-ph.has-guest .sb-guest { inset-inline-start: 10px; bottom: 10px; width: 84px; } .sb-guest span { font-size: 11px; } }
 .sb-ph.two .sb-shot:last-child img { object-position: 50% 25%; }   /* a show can set its own with pos2 */
 
 /* ---------- 2025 moments: two rows that drift sideways with the scroll ---------- */
