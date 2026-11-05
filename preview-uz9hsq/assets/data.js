@@ -345,6 +345,7 @@ const THEME_PASSES = [
   ['Jazz', 'Jazz_Pass'], ['World', 'World_Pass'], ['Vocal', 'Vocal_Pass'], ['Music', 'Music_Pass'],
 ];
 
+// photo credits: Yotam Silberstein – Dan Balilty
 // 2026 workshop faculty, in the order of the workshops text (Drive doc "טקסט סדנאות"):
 // [photo (or '' for none yet), name, role, name_en, role_en, bio, bio_en]
 const TEACHERS = [
@@ -357,7 +358,7 @@ const TEACHERS = [
   ['2026-walter-blanding.jpg', 'וולטר בלנדינג', 'סקסופון · ניו יורק', 'Walter Blanding', 'Saxophone · New York',
     'סקסופוניסט מהשורה הראשונה של הג׳אז האמריקאי, וחבר בתזמורת הג׳אז של לינקולן סנטר בניהולו של וינטון מרסליס, מהגופים היוקרתיים בעולם. וולטר גדל במשפחה מוזיקלית בניו יורק, למד אצל אגדת הביבופ בארי האריס, והופיע עם רוי הארגרוב, תזמורת קאונט בייסי וקאב קאלוויי. בשנות ה־90 אף חי כמה שנים בישראל.',
     'A first-rank saxophonist of American jazz and a member of the Jazz at Lincoln Center Orchestra led by Wynton Marsalis, one of the most prestigious ensembles in the world. Walter grew up in a musical family in New York, studied with bebop legend Barry Harris, and has performed with Roy Hargrove, the Count Basie Orchestra and Cab Calloway. In the 1990s he even lived in Israel for a few years.'],
-  ['', 'יותם זילברשטיין', 'גיטרה · ישראל', 'Yotam Silberstein', 'Guitar · Israel',
+  ['2026-yotam-silberstein.jpg', 'יותם זילברשטיין', 'גיטרה · ישראל', 'Yotam Silberstein', 'Guitar · Israel',
     'מהגיטריסטים הישראלים המצליחים ביותר בעולם. יותם פעל שנים רבות בניו יורק וניגן עם ג׳יימס מודי, רוי הארגרוב, פקיטו דה ריברה, ג׳ון פטיטוצ׳י ומונטי אלכסנדר. באלבומים שלו, ביניהם Brasil, Universos ו־Standards, הוא שוזר מסורת ביבופ עם אהבה עמוקה למוזיקה הברזילאית והדרום־אמריקאית.',
     'One of the most successful Israeli guitarists in the world. Yotam worked in New York for many years and played with James Moody, Roy Hargrove, Paquito D’Rivera, John Patitucci and Monty Alexander. On his albums, among them Brasil, Universos and Standards, he weaves the bebop tradition together with a deep love of Brazilian and South American music.'],
   ['5e26945bd669.jpg', 'דאג וייז', 'קונטרבס · בריסל', 'Doug Weiss', 'Double bass · Brussels',
