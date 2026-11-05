@@ -91,7 +91,11 @@ HEAD = '''<!doctype html>
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{site}/images/44f224268148.png">
+<meta property="og:image" content="{site}/images/og-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="{site}{self_path}">
 <link rel="alternate" hreflang="he" href="{site}{he_path}">
 <link rel="alternate" hreflang="en" href="{site}{en_path}">
