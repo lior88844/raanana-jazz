@@ -342,18 +342,39 @@ const THEME_PASSES = [
   ['Jazz', 'Jazz_Pass'], ['World', 'World_Pass'], ['Vocal', 'Vocal_Pass'], ['Music', 'Music_Pass'],
 ];
 
-// 2026 workshop faculty: [photo (or '' for none yet), name, role, name_en, role_en]
+// 2026 workshop faculty, in the order of the workshops text (Drive doc "טקסט סדנאות"):
+// [photo (or '' for none yet), name, role, name_en, role_en, bio, bio_en]
 const TEACHERS = [
-  ['', 'וולטר בלנדינג', 'סקסופון · ניו יורק', 'Walter Blanding', 'Saxophone · New York'],
-  ['', 'יותם זילברשטיין', 'גיטרה · ישראל', 'Yotam Silberstein', 'Guitar · Israel'],
-  ['5e26945bd669.jpg', 'דאג וייז', 'בס · בריסל', 'Doug Weiss', 'Bass · Brussels'],
-  ['', 'זיו רביץ', 'תופים · ניו יורק', 'Ziv Ravitz', 'Drums · New York'],
-  ['', 'אלון יבנאי', 'פסנתר · ברלין', 'Alon Yavnai', 'Piano · Berlin'],
-  ['', 'סבסטיאן לוורדה', 'ויברפון · ארה״ב', 'Sebastian Laverde', 'Vibraphone · USA'],
-  ['', 'אוסקר סטגנרו', 'בס · ארה״ב', 'Oscar Stagnaro', 'Bass · USA'],
-  ['', 'מארק ווקר', 'תופים · ארה״ב', 'Mark Walker', 'Drums · USA'],
-  ['2026-paquito.jpg', 'פקיטו דה ריברה', 'כיתת אמן · קובה–ארה״ב', 'Paquito D’Rivera', 'Masterclass · Cuba–USA'],
-  ['2026-cyrille.jpg', 'סיריל איימה', 'סדנה לזמרות ולזמרים · צרפת–ארה״ב', 'Cyrille Aimée', 'Vocal workshop · France–USA'],
+  ['2026-paquito.jpg', 'פקיטו דה ריברה', 'כיתת אמן · קובה–ארה״ב', 'Paquito D’Rivera', 'Masterclass · Cuba–USA',
+    'אחד מגדולי המוזיקאים החיים בעולם הג׳אז, ואגדה של הג׳אז הלטיני. פקיטו, יליד הוואנה, היה בשנות ה־70 ממייסדי הלהקה הקובנית Irakere, וב־1980 עזב את קובה ופתח בקריירה בינלאומית שבמהלכה ניגן והקליט עם דיזי גילספי. הוא זכה בחמישה פרסי גראמי ובעשרה פרסי גראמי לטיני, נבחר ל־NEA Jazz Master, ההוקרה הגבוהה ביותר בארה״ב לאמן ג׳אז, ועוטר במדליה הלאומית לאמנויות.',
+    'One of the greatest living musicians in jazz and a legend of Latin jazz. Born in Havana, Paquito co-founded the Cuban band Irakere in the 1970s, and in 1980 left Cuba for an international career in which he played and recorded with Dizzy Gillespie. He has won five Grammys and ten Latin Grammys, was named an NEA Jazz Master – the highest US honour for a jazz artist – and received the National Medal of Arts.'],
+  ['2026-cyrille.jpg', 'סיריל איימה', 'סדנה לזמרות ולזמרים · צרפת–ארה״ב', 'Cyrille Aimée', 'Vocal workshop · France–USA',
+    'מהזמרות המבוקשות והמרגשות בג׳אז העולמי כיום. סיריל גדלה בסמואה־סור־סן שבצרפת, עיירת פסטיבל ג׳נגו ריינהרדט, בבית מלא מוזיקה וצלילים אפרו־קריביים. בניו יורק הופיעה והקליטה עם רוי הארגרוב, כיכבה במחווה לסטיבן סונדהיים לצד וינטון מרסליס, והייתה מועמדת לפרס גראמי על הגרסה שלה ל־״Marry Me a Little״.',
+    'One of the most sought-after and moving singers in jazz today. Cyrille grew up in Samois-sur-Seine in France, home of the Django Reinhardt festival, in a house full of music and Afro-Caribbean sounds. In New York she performed and recorded with Roy Hargrove, starred in a Stephen Sondheim tribute alongside Wynton Marsalis, and was Grammy-nominated for her version of “Marry Me a Little”.'],
+  ['', 'וולטר בלנדינג', 'סקסופון · ניו יורק', 'Walter Blanding', 'Saxophone · New York',
+    'סקסופוניסט מהשורה הראשונה של הג׳אז האמריקאי, וחבר בתזמורת הג׳אז של לינקולן סנטר בניהולו של וינטון מרסליס, מהגופים היוקרתיים בעולם. וולטר גדל במשפחה מוזיקלית בניו יורק, למד אצל אגדת הביבופ בארי האריס, והופיע עם רוי הארגרוב, תזמורת קאונט בייסי וקאב קאלוויי. בשנות ה־90 אף חי כמה שנים בישראל.',
+    'A first-rank saxophonist of American jazz and a member of the Jazz at Lincoln Center Orchestra led by Wynton Marsalis, one of the most prestigious ensembles in the world. Walter grew up in a musical family in New York, studied with bebop legend Barry Harris, and has performed with Roy Hargrove, the Count Basie Orchestra and Cab Calloway. In the 1990s he even lived in Israel for a few years.'],
+  ['', 'יותם זילברשטיין', 'גיטרה · ישראל', 'Yotam Silberstein', 'Guitar · Israel',
+    'מהגיטריסטים הישראלים המצליחים ביותר בעולם. יותם פעל שנים רבות בניו יורק וניגן עם ג׳יימס מודי, רוי הארגרוב, פקיטו דה ריברה, ג׳ון פטיטוצ׳י ומונטי אלכסנדר. באלבומים שלו, ביניהם Brasil, Universos ו־Standards, הוא שוזר מסורת ביבופ עם אהבה עמוקה למוזיקה הברזילאית והדרום־אמריקאית.',
+    'One of the most successful Israeli guitarists in the world. Yotam worked in New York for many years and played with James Moody, Roy Hargrove, Paquito D’Rivera, John Patitucci and Monty Alexander. On his albums, among them Brasil, Universos and Standards, he weaves the bebop tradition together with a deep love of Brazilian and South American music.'],
+  ['5e26945bd669.jpg', 'דאג וייז', 'קונטרבס · בריסל', 'Doug Weiss', 'Double bass · Brussels',
+    'בסיסט שמבוקש על ידי גדולי הג׳אז העכשווי. דאג היה במשך יותר מעשרים שנה המנהל המוזיקלי של רביעיית המתופף האגדי אל פוסטר, ומנגן עם בריאן בלייד, קורט רוזנווינקל, כריס פוטר וקווין הייז. הוא לימד יותר מעשרים שנה ב־The New School בניו יורק, ומלמד היום בקונסרבטוריון של מאסטריכט.',
+    'A bassist in demand with the greats of contemporary jazz. For more than twenty years Doug was musical director of legendary drummer Al Foster’s quartet, and he plays with Brian Blade, Kurt Rosenwinkel, Chris Potter and Kevin Hays. He taught for over twenty years at The New School in New York and now teaches at the Maastricht Conservatory.'],
+  ['', 'זיו רביץ', 'תופים · ניו יורק', 'Ziv Ravitz', 'Drums · New York',
+    'אחד המתופפים המבוקשים בסצנת הג׳אז של ניו יורק. זיו התחיל לנגן באופן מקצועי כבר בגיל 13 במועדונים בבאר שבע ובתל אביב, ובהמשך סיים את ברקלי בהלחנת ג׳אז. הוא היה חבר ברביעייה של לי קוניץ ובשלישייה של שי מאסטרו, וניגן עם ג׳ו לובאנו, טומאש סטנקו ואספרנסה ספלדינג.',
+    'One of the most sought-after drummers on the New York jazz scene. Ziv started playing professionally at 13 in clubs in Beersheba and Tel Aviv, and went on to graduate from Berklee in jazz composition. He was a member of Lee Konitz’s quartet and Shai Maestro’s trio, and has played with Joe Lovano, Tomasz Stańko and Esperanza Spalding.'],
+  ['', 'אלון יבנאי', 'פסנתר · ברלין', 'Alon Yavnai', 'Piano · Berlin',
+    'פסנתרן ומלחין ישראלי זוכה פרס גראמי. אלון, בוגר תלמה ילין וברקלי, הופיע עם פרדי האברד, ג׳ו לובאנו, ננסי וילסון ורג׳ינה קרטר. כחבר בחמישייה של פקיטו דה ריברה זכה בגראמי ב־2008 על האלבום Funk Tango, ששיר הנושא שלו הוא הלחין.',
+    'A Grammy-winning Israeli pianist and composer. A graduate of Thelma Yellin and Berklee, Alon has performed with Freddie Hubbard, Joe Lovano, Nancy Wilson and Regina Carter. As a member of Paquito D’Rivera’s quintet he won a Grammy in 2008 for the album Funk Tango, whose title track he composed.'],
+  ['', 'סבסטיאן לוורדה', 'ויברפון · קולומביה–ספרד', 'Sebastian Laverde', 'Vibraphone · Colombia–Spain',
+    'ויברפוניסט מבריק מהסצנה הלטינית של אירופה. סבסטיאן, יליד קולומביה, פועל במדריד וחבר ב־Madrid–New York Connection Band של פקיטו דה ריברה. הוא מנגן באלבום La Fleur de Cayenne, שהיה מועמד לגראמי 2026.',
+    'A brilliant vibraphonist from Europe’s Latin scene. Born in Colombia, Sebastian is based in Madrid and is a member of Paquito D’Rivera’s Madrid–New York Connection Band. He plays on the album La Fleur de Cayenne, a 2026 Grammy nominee.'],
+  ['', 'אוסקר סטגנרו', 'בס · פרו–ארה״ב', 'Oscar Stagnaro', 'Bass · Peru–USA',
+    'מבכירי נגני הבס בג׳אז הלטיני ומהמורים המוערכים בתחום. אוסקר, יליד פרו, מנגן עם פקיטו דה ריברה מאז 1990. הוא פרופסור בברקלי, ופיתח שם ובקונסרבטוריון ניו אינגלנד תוכניות לימוד לבס בסגנון הלטיני. מגזין Bass Player שיבח את הווירטואוזיות שלו ואת השליטה שלו בפאנק וב־R&B.',
+    'One of the leading bassists in Latin jazz and a highly regarded teacher. Born in Peru, Oscar has played with Paquito D’Rivera since 1990. He is a professor at Berklee, where – and at the New England Conservatory – he developed Latin bass curricula. Bass Player magazine has praised his virtuosity and his command of funk and R&B.'],
+  ['', 'מארק ווקר', 'תופים · ארה״ב', 'Mark Walker', 'Drums · USA',
+    'מתופף, מלחין ומחנך בעל שם עולמי, שהשתתף בכמה אלבומים זוכי גראמי. מארק מנגן עם פקיטו דה ריברה מאז 1989, והקליט עם Oregon, מישל קמילו, לייל מייז, אליאן אליאס ו־New York Voices. הוא פרופסור לכלי הקשה בברקלי וכתב את ספר הלימוד World Jazz Drumming.',
+    'A world-renowned drummer, composer and educator who has played on several Grammy-winning albums. Mark has played with Paquito D’Rivera since 1989 and recorded with Oregon, Michel Camilo, Lyle Mays, Eliane Elias and New York Voices. He is a professor of percussion at Berklee and wrote the method book World Jazz Drumming.'],
 ];
 
 // moments from the 2025 festival (photos from the "World.Jazz.Music 2025" album; the full set is the gallery on festival-2025.html)
