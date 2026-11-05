@@ -347,12 +347,12 @@ def page_venue(t, P, A):
         title=t('המתחם', 'The Venue'),
         desc=t('חמש הבמות של פסטיבל הג׳אז רעננה במרכז למוזיקה פיס רעננה.', 'The five stages of the Raanana Jazz Festival at the Raanana Pais Music Center.'),
         body=hero(t('המרכז למוזיקה פיס רעננה', 'Raanana Pais Music Center'), t('המתחם', 'The Venue'), t('5 במות', '5 stages'),
-                  t('מהאולם המרכזי ועד הרחבה הפתוחה – כל הפסטיבל מתקיים במתחם אחד, כך שאפשר לעבור בין הופעות בכמה צעדים.',
-                    'From the main hall to the open plaza, the whole festival happens in one place – every show is just a few steps away.')) + f'''
+                  t('מהאולם המרכזי ועד רחבת הפסטיבל – כל הפסטיבל מתקיים במתחם אחד, כך שאפשר לעבור בין הופעות בכמה צעדים.',
+                    'From the main hall to the Festival Plaza, the whole festival happens in one place – every show is just a few steps away.')) + f'''
 <section class="section" id="map" aria-labelledby="map-h">
   <div class="wrap">
     <h2 class="sec-h" id="map-h">{t('מפת המתחם', 'Venue map')}</h2>
-    <p>{t('כל הבמות בבניין אחד ובחזית שלו. לחצו על במה כדי לראות באיזו קומה היא ומה מופיע בה.', 'All the stages are in one building and right in front of it. Tap a stage to see its floor and what’s on.')}</p>
+    <p>{t('כל הבמות בבניין אחד, והאוהל צמוד אליו. לחצו על במה כדי לראות באיזו קומה היא ומה מופיע בה.', 'All the stages are in one building, with the Tent right beside it. Tap a stage to see its floor and what’s on.')}</p>
   </div>
   <div class="vmap" data-render="venuemap"></div>
 </section>
