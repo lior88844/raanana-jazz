@@ -473,12 +473,12 @@ function renderShowList(el, dayId) {
 }
 
 function renderTeachers(el, asList = true, bios = false) {
-  const rows = TEACHERS.map(([f, n, r, nEn, rEn, b, bEn]) => [f, EN ? nEn : n, EN ? rEn : r, EN ? bEn : b]);
+  const rows = TEACHERS.map(([f, n, r, nEn, rEn, b, bEn, c, cEn]) => [f, EN ? nEn : n, EN ? rEn : r, EN ? bEn : b, EN ? cEn : c]);
   const ph = f => `<div class="ph${f ? '' : ' nophoto'}"${f ? ` data-bg="${img(f)}"` : ''}></div>`;
   el.innerHTML = asList
     ? rows.map(([f, n, r]) => `<li><i data-bg="${img(f)}"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
     : bios
-      ? rows.map(([f, n, r, b]) => `<article class="tbio">${ph(f)}<div><h3>${n}</h3><span>${r}</span>${b ? `<p>${b}</p>` : ''}</div></article>`).join('')
+      ? rows.map(([f, n, r, b, c]) => `<article class="tbio"><figure>${ph(f)}${c ? `<figcaption>${L('צילום', 'Photo')}: ${c}</figcaption>` : ''}</figure><div><h3>${n}</h3><span>${r}</span>${b ? `<p>${b}</p>` : ''}</div></article>`).join('')
       : rows.map(([f, n, r]) => `<div class="person">${ph(f)}<b>${n}</b><span>${r}</span></div>`).join('');
 }
 

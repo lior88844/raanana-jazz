@@ -1244,6 +1244,8 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 /* workshops: the faculty with their bios */
 .tbios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 36px; }
 .tbio { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 20px; align-items: start; background: var(--surface); border-radius: 16px; padding: 20px; }
+.tbio figure { margin: 0; }
+.tbio figcaption { margin-top: 6px; font-size: 12px; line-height: 1.3; opacity: .7; }
 .tbio .ph { aspect-ratio: 4 / 5; border-radius: 10px; background: var(--dark) center / cover no-repeat; }
 .tbio .ph.nophoto { background: var(--dark) url(../images/logo-nodots.png) center / 62% no-repeat; }
 .tbio h3 { font-family: var(--display); font-weight: 800; font-size: var(--fs-2); line-height: 1.15; }

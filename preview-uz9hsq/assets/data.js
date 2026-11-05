@@ -345,9 +345,8 @@ const THEME_PASSES = [
   ['Jazz', 'Jazz_Pass'], ['World', 'World_Pass'], ['Vocal', 'Vocal_Pass'], ['Music', 'Music_Pass'],
 ];
 
-// photo credits: Yotam Silberstein – Dan Balilty
 // 2026 workshop faculty, in the order of the workshops text (Drive doc "טקסט סדנאות"):
-// [photo (or '' for none yet), name, role, name_en, role_en, bio, bio_en]
+// [photo (or '' for none yet), name, role, name_en, role_en, bio, bio_en, photo credit, photo credit_en]
 const TEACHERS = [
   ['2026-paquito.jpg', 'פקיטו דה ריברה', 'כיתת אמן · קובה–ארה״ב', 'Paquito D’Rivera', 'Masterclass · Cuba–USA',
     'אחד מגדולי המוזיקאים החיים בעולם הג׳אז, ואגדה של הג׳אז הלטיני. פקיטו, יליד הוואנה, היה בשנות ה־70 ממייסדי הלהקה הקובנית Irakere, וב־1980 עזב את קובה ופתח בקריירה בינלאומית שבמהלכה ניגן והקליט עם דיזי גילספי. הוא זכה בחמישה פרסי גראמי ובעשרה פרסי גראמי לטיני, נבחר ל־NEA Jazz Master, ההוקרה הגבוהה ביותר בארה״ב לאמן ג׳אז, ועוטר במדליה הלאומית לאמנויות.',
@@ -360,7 +359,8 @@ const TEACHERS = [
     'A first-rank saxophonist of American jazz and a member of the Jazz at Lincoln Center Orchestra led by Wynton Marsalis, one of the most prestigious ensembles in the world. Walter grew up in a musical family in New York, studied with bebop legend Barry Harris, and has performed with Roy Hargrove, the Count Basie Orchestra and Cab Calloway. In the 1990s he even lived in Israel for a few years.'],
   ['2026-yotam-silberstein.jpg', 'יותם זילברשטיין', 'גיטרה · ישראל', 'Yotam Silberstein', 'Guitar · Israel',
     'מהגיטריסטים הישראלים המצליחים ביותר בעולם. יותם פעל שנים רבות בניו יורק וניגן עם ג׳יימס מודי, רוי הארגרוב, פקיטו דה ריברה, ג׳ון פטיטוצ׳י ומונטי אלכסנדר. באלבומים שלו, ביניהם Brasil, Universos ו־Standards, הוא שוזר מסורת ביבופ עם אהבה עמוקה למוזיקה הברזילאית והדרום־אמריקאית.',
-    'One of the most successful Israeli guitarists in the world. Yotam worked in New York for many years and played with James Moody, Roy Hargrove, Paquito D’Rivera, John Patitucci and Monty Alexander. On his albums, among them Brasil, Universos and Standards, he weaves the bebop tradition together with a deep love of Brazilian and South American music.'],
+    'One of the most successful Israeli guitarists in the world. Yotam worked in New York for many years and played with James Moody, Roy Hargrove, Paquito D’Rivera, John Patitucci and Monty Alexander. On his albums, among them Brasil, Universos and Standards, he weaves the bebop tradition together with a deep love of Brazilian and South American music.',
+    'דן בלילתי', 'Dan Balilty'],
   ['5e26945bd669.jpg', 'דאג וייז', 'קונטרבס · בריסל', 'Doug Weiss', 'Double bass · Brussels',
     'בסיסט שמבוקש על ידי גדולי הג׳אז העכשווי. דאג היה במשך יותר מעשרים שנה המנהל המוזיקלי של רביעיית המתופף האגדי אל פוסטר, ומנגן עם בריאן בלייד, קורט רוזנווינקל, כריס פוטר וקווין הייז. הוא לימד יותר מעשרים שנה ב־The New School בניו יורק, ומלמד היום בקונסרבטוריון של מאסטריכט.',
     'A bassist in demand with the greats of contemporary jazz. For more than twenty years Doug was musical director of legendary drummer Al Foster’s quartet, and he plays with Brian Blade, Kurt Rosenwinkel, Chris Potter and Kevin Hays. He taught for over twenty years at The New School in New York and now teaches at the Maastricht Conservatory.'],
