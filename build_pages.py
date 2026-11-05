@@ -91,7 +91,7 @@ HEAD = '''<!doctype html>
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{site}/images/og-share.jpg">
+<meta property="og:image" content="{site}/images/{og}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
@@ -911,7 +911,7 @@ for lang, cfg in LANGS.items():
     for name, fn in PAGES.items():
         p = fn(t, P, cfg['arrow'])
         title = p['title'] if p.get('no_suffix') else p['title'] + cfg['suffix']
-        html = HEAD.format(lang=lang, dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL + ROOT, extra_head=p.get('head', ''),
+        html = HEAD.format(lang=lang, og='og-share.jpg' if lang == 'he' else 'og-share-en.jpg', dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL + ROOT, extra_head=p.get('head', ''),
                            robots=ROBOTS, self_path=url_path(cfg['base'], name),
                            he_path=url_path('/', name), en_path=url_path('/en/', name)) \
             + '<main id="main">\n' + p['body'] + '\n</main>\n' + FOOT.format(script=p.get('script', ''), ver=VER)
@@ -920,7 +920,7 @@ for lang, cfg in LANGS.items():
     print(f'wrote {len(PAGES)} {lang} pages → {cfg["out"]}/')
     if lang == 'he' and not HIDDEN:
         p = page_404(t, P, cfg['arrow'])
-        html = HEAD.format(lang=lang, dir=cfg['dir'], title=p['title'] + cfg['suffix'], desc=p['desc'], ver=VER, site=SITE_URL,
+        html = HEAD.format(lang=lang, og='og-share.jpg', dir=cfg['dir'], title=p['title'] + cfg['suffix'], desc=p['desc'], ver=VER, site=SITE_URL,
                            robots='', extra_head='<meta name="robots" content="noindex">', self_path='/404.html', he_path='/', en_path='/en/') \
             + '<main id="main">\n' + p['body'] + '\n</main>\n' + FOOT.format(script='', ver=VER)
         open('404.html', 'w').write(html)
