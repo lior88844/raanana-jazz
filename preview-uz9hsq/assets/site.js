@@ -263,11 +263,58 @@ function renderDays(el) {
 function renderStages(el) {
   const g = f => img(`${f}-480.webp`);
   el.innerHTML = VENUES.map(v => {
-    return `<a class="stage${v.img ? '' : ' new'}" href="${page('venue.html')}#venues">
+    return `<a class="stage${v.img ? '' : ' new'}" href="${page('venue.html')}#map-${v.id}">
       <span class="stage-ph">${v.img ? `<img src="${g(v.img)}" srcset="${g(v.img)} 480w, ${img(v.img + '-1200.webp')} 1200w" sizes="(max-width: 700px) 70vw, 240px" alt="" loading="lazy" decoding="async">` : `<em>${L('חדש', 'New')}</em>`}</span>
       <b>${tr(v, 'name')}</b>
       <span class="stage-d">${tr(v, 'desc')}</span></a>`;
   }).join('');
+}
+
+// The building map: the music center drawn from the front (images/venue-map), with a
+// clickable label + arrow per stage (positions in VENUES[].map). Picking a stage shows
+// its floor, description and shows underneath. data-tone="field" = white labels for a
+// terracotta section; venue.html#map-<id> opens with that stage picked.
+function renderVenueMap(el) {
+  const dayIx = d => DAYS.findIndex(x => x.id === d);
+  const pins = VENUES.filter(v => v.map).map(v => `
+    <button type="button" class="vm-pin${v.map.down ? ' down' : ''}" data-v="${v.id}" aria-pressed="false" style="left:${v.map.x}%;top:${v.map.y}%">
+      <img class="vm-arrow" src="${img('venue-map/arrow-up.webp')}" alt="" aria-hidden="true">
+      <span class="vm-name">${tr(v, 'name')}</span><span class="vm-floor">${tr(v, 'floor')}</span>
+    </button>`).join('');
+  el.innerHTML = `
+    <div class="vm-scroll"><div class="vm-stage">
+      <img class="vm-building" src="${img('venue-map/building-1776.webp')}" srcset="${img('venue-map/building-900.webp')} 900w, ${img('venue-map/building-1776.webp')} 1776w"
+        sizes="(max-width: 800px) 800px, 1180px" width="1776" height="660" loading="lazy" decoding="async"
+        alt="${L('ציור של המרכז למוזיקה פיס רעננה מלפנים, עם חמש במות הפסטיבל', 'Drawing of the Raanana Pais Music Center from the front, with the five festival stages')}">
+      ${pins}
+    </div></div>
+    <p class="vm-hint">${L('לחצו על במה כדי לראות איפה היא ומה מופיע בה', 'Tap a stage to see where it is and what’s on')}<span class="vm-swipe"> · ${L('אפשר לגלול את המפה הצידה', 'swipe the map sideways')}</span></p>
+    <div class="vm-panel" aria-live="polite" hidden></div>`;
+  const panel = el.querySelector('.vm-panel');
+  const pick = (id, scroll) => {
+    const v = VENUES.find(x => x.id === id);
+    el.querySelectorAll('.vm-pin').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === id));
+    if (!v) { panel.hidden = true; return; }
+    const shows = SHOWS.filter(s => s.venue === v.name).sort((a, b) => dayIx(a.day) - dayIx(b.day) || a.time.localeCompare(b.time));
+    panel.innerHTML = `
+      <div class="vm-p-head"><h3>${tr(v, 'name')}</h3><span>${tr(v, 'floor')}</span></div>
+      <p>${tr(v, 'desc')}</p>
+      ${shows.length ? `<ul>${shows.map(s => `<li><time>${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul>`
+        : `<p class="vm-none">${L('ההופעות בבמה הזו יפורסמו בקרוב.', 'Shows on this stage will be announced soon.')}</p>`}`;
+    panel.hidden = false;
+    if (!reduceMotion) panel.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.23,1,.32,1)' });
+    if (scroll) {
+      const b = el.querySelector(`.vm-pin[data-v="${id}"]`), sc = el.querySelector('.vm-scroll');
+      if (b && sc.scrollWidth > sc.clientWidth) sc.scrollLeft += b.getBoundingClientRect().left - sc.getBoundingClientRect().left - sc.clientWidth / 2 + b.offsetWidth / 2;
+    }
+  };
+  el.addEventListener('click', e => {
+    const b = e.target.closest('.vm-pin');
+    if (b) pick(b.getAttribute('aria-pressed') === 'true' ? null : b.dataset.v);
+  });
+  const fromHash = () => { const m = location.hash.match(/^#map-(\w+)/); if (m) { pick(m[1], true); setTimeout(() => el.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' }), 350); } };
+  addEventListener('hashchange', fromHash);
+  fromHash();
 }
 
 // Home: everything with free entry, grouped by day, on a photo of the 2025 plaza.
@@ -734,7 +781,7 @@ function showHtml(s) {
         ${s.credit2 ? `<figcaption>${esc(tr(s, 'credit2'))}</figcaption>` : ''}</div>` : ''}
     </figure>
     <div class="sb-body">
-      <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${dayName(d)} ${d.date} · <time>${s.time}</time> · ${tr(s, 'venue')}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>
+      <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${dayName(d)} ${d.date} · <time>${s.time}</time> · ${venueLink(s)}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>
       <h2 id="sb-title"><bdi>${esc(tr(s, 'title'))}</bdi></h2>
       ${tr(s, 'sub') ? `<p class="sb-sub">${esc(tr(s, 'sub'))}</p>` : ''}
       <div class="sb-tags">${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
@@ -754,6 +801,12 @@ function showHtml(s) {
     </div>`;
 }
 
+// The stage name in a show's dialog links to that stage on the building map.
+function venueLink(s) {
+  const v = VENUES.find(x => x.name === s.venue);
+  return v && v.map ? `<a class="sb-venue" href="${page('venue.html')}#map-${v.id}">${tr(s, 'venue')}</a>` : tr(s, 'venue');
+}
+
 function openShow(id) {
   const s = showById(id);
   if (!s) return;
@@ -768,6 +821,7 @@ function openShow(id) {
     showBox.addEventListener('click', e => {
       if (e.target === showBox) return closeShow();               // a click on the dimmed backdrop
       if (e.target.closest('.sb-close')) return closeShow();
+      if (e.target.closest('.sb-venue')) closeShow();             // the link then goes to the stage on the map
       const play = e.target.closest('.sb-play, .sb-thumb');
       if (play) {
         const box = showBox.querySelector('.sb-video');
@@ -862,7 +916,7 @@ buildChrome();
 document.querySelectorAll('[data-render]').forEach(el => {
   const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, stages: renderStages, spotlight: renderSpotlight, days: renderDays, free: renderFree, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
     people: el => renderTeachers(el, false), 'people-bios': el => renderTeachers(el, false, true), moments: renderMoments, partners: renderPartners, themes: renderThemePasses,
-    cloud: renderCloud, timetable: renderTimetable }[el.dataset.render];
+    cloud: renderCloud, timetable: renderTimetable, venuemap: renderVenueMap }[el.dataset.render];
   fn && fn(el);
 });
 document.querySelectorAll('[data-href]').forEach(a => {

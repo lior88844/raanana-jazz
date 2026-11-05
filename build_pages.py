@@ -222,6 +222,7 @@ def page_index(t, P, A):
     <h2 id="stages-h">{t('חמש במות, מתחם אחד', 'Five stages, one venue')}</h2>
     <p>{t('כל הפסטיבל מתקיים במרכז למוזיקה פיס רעננה – מהאולם הגדול ועד האוהל, כל הופעה במרחק כמה צעדים.', 'The whole festival happens at the Raanana Pais Music Center – from the big hall to the Tent, every show is a few steps away.')}</p>
   </div>
+  <div class="vmap" data-render="venuemap"></div>
   <div class="stage-row" data-render="stages"></div>
 </section>
 
@@ -348,6 +349,13 @@ def page_venue(t, P, A):
         body=hero(t('המרכז למוזיקה פיס רעננה', 'Raanana Pais Music Center'), t('המתחם', 'The Venue'), t('5 במות', '5 stages'),
                   t('מהאולם המרכזי ועד הרחבה הפתוחה – כל הפסטיבל מתקיים במתחם אחד, כך שאפשר לעבור בין הופעות בכמה צעדים.',
                     'From the main hall to the open plaza, the whole festival happens in one place – every show is just a few steps away.')) + f'''
+<section class="section" id="map" aria-labelledby="map-h">
+  <div class="wrap">
+    <h2 class="sec-h" id="map-h">{t('מפת המתחם', 'Venue map')}</h2>
+    <p>{t('כל הבמות בבניין אחד ובחזית שלו. לחצו על במה כדי לראות באיזו קומה היא ומה מופיע בה.', 'All the stages are in one building and right in front of it. Tap a stage to see its floor and what’s on.')}</p>
+  </div>
+  <div class="vmap" data-render="venuemap"></div>
+</section>
 <section class="wrap section">
   <h2 class="sec-h">{t('הבמות', 'The stages')}</h2>
   <p>{t('לכל במה אופי משלה. כך נראה לוח ההופעות לפי במה:', 'Each stage has its own character. Here is the line-up by stage:')}</p>
@@ -641,7 +649,7 @@ def page_guide(t, P, A):
         <a class="btn primary" target="_blank" rel="noopener" href="https://waze.com/ul?q={maps_q}&navigate=yes">{t('ניווט ב־Waze', 'Navigate with Waze')}</a>
         <a class="g-text" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query={maps_q}">{t('לפתיחה ב־Google Maps', 'Open in Google Maps')} {A}</a>
       </div>
-      <p class="g-more"><a href="{P('venue.html')}">{t('למתחם ולבמות', 'The venue and its stages')} {A}</a></p>"""),
+      <p class="g-more"><a href="{P('venue.html')}#map">{t('למפת המתחם והבמות', 'Venue map and stages')} {A}</a></p>"""),
         ('tickets', t('כרטיסים', 'Tickets'), t('כרטיסים ופסים', 'Tickets and passes'), f"""
       <p>{t('הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה. אפשר לקנות כרטיס להופעה אחת, <b>פס יומי</b> לכל מופעי היום, <b>פס לכל הפסטיבל</b> או פס לפי נושא.',
             'Tickets are sold on the Raanana Municipality ticket site. You can buy a ticket for one show, a <b>day pass</b> for all of that day’s shows, a <b>full festival pass</b> or a themed pass.')}</p>

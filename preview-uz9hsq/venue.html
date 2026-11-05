@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=d065fa4ca1">
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=03e91e09e1">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -31,6 +31,13 @@
   
 </section>
 
+<section class="section" id="map" aria-labelledby="map-h">
+  <div class="wrap">
+    <h2 class="sec-h" id="map-h">מפת המתחם</h2>
+    <p>כל הבמות בבניין אחד ובחזית שלו. לחצו על במה כדי לראות באיזו קומה היא ומה מופיע בה.</p>
+  </div>
+  <div class="vmap" data-render="venuemap"></div>
+</section>
 <section class="wrap section">
   <h2 class="sec-h">הבמות</h2>
   <p>לכל במה אופי משלה. כך נראה לוח ההופעות לפי במה:</p>
@@ -47,8 +54,8 @@
 
 </main>
 
-<script src="/preview-uz9hsq/assets/data.js?v=d065fa4ca1"></script>
-<script src="/preview-uz9hsq/assets/site.js?v=d065fa4ca1"></script>
+<script src="/preview-uz9hsq/assets/data.js?v=03e91e09e1"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=03e91e09e1"></script>
 <script>
   document.getElementById('venues').innerHTML = VENUES.map(v => `
     <div class="venue-card">

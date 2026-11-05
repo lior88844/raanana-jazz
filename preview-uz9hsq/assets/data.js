@@ -43,6 +43,8 @@ const DAYS = [
   { id: 'sat', name: 'שבת', name_en: 'Saturday', date: '12.12', iso: '2026-12-12' },
 ];
 
+// VENUES[].map: where the venue's label sits on the building map (images/venue-map), in % of the map – x = centre of the label
+//   from the left, y = top of the label/arrow. down: true = the arrow points down (label above the building). floor shows under the name.
 // VENUES[].img: a 2025 gallery photo of that room (gallery-2025/NNN → NNN-480/-1200.webp); the Tent is new, so it has none.
 // One entry per show; each opens its own dialog (lineup.html#<id>).
 // day, time, dur (minutes), venue, title, sub (one-line tagline), about (paragraphs), quotes, cast (name – role · …),
@@ -391,11 +393,11 @@ const MOMENTS = [
 ];
 
 const VENUES = [
-  { name: 'אולם ערן', img: 'gallery-2025/114', name_en: 'Eran Hall', desc_en: "The festival's main hall – home to the headline shows, original productions and the closing celebration.", desc: 'האולם המרכזי של הפסטיבל – כאן מתקיימים מופעי השיא, הפקות המקור וחגיגת הסיום.' },
-  { name: 'מועדון הסלון', img: 'gallery-2025/066', name_en: 'The Salon Club', desc_en: 'An intimate jazz-club atmosphere, close to the stage and the players.', desc: 'אווירת מועדון ג׳אז אינטימית, קרוב לבמה ולנגנים.' },
-  { name: 'המועדון הקאמרי', img: 'gallery-2025/256', name_en: 'The Chamber Club', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
-  { name: 'רחבת הפסטיבל', img: 'gallery-2025/222', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival – shows for the whole family, free entry.', desc: 'הלב הפתוח של הפסטיבל – מופעים לכל המשפחה, והכניסה חופשית.' },
-  { name: 'האוהל', name_en: 'The Tent', desc_en: 'New in 2026: the late-night stage, where every evening ends.', desc: 'חדש ב־2026: במת הלילה, שבה נגמר כל ערב.' },
+  { id: 'eran', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 91.2, y: 74.2 }, name: 'אולם ערן', img: 'gallery-2025/114', name_en: 'Eran Hall', desc_en: "The festival's main hall – home to the headline shows, original productions and the closing celebration.", desc: 'האולם המרכזי של הפסטיבל – כאן מתקיימים מופעי השיא, הפקות המקור וחגיגת הסיום.' },
+  { id: 'salon', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 23.6, y: 74.2 }, name: 'מועדון הסלון', img: 'gallery-2025/066', name_en: 'The Salon Club', desc_en: 'An intimate jazz-club atmosphere, close to the stage and the players.', desc: 'אווירת מועדון ג׳אז אינטימית, קרוב לבמה ולנגנים.' },
+  { id: 'chamber', floor: 'קומה 2', floor_en: 'Floor 2', map: { x: 29.3, y: 3.4, down: true }, name: 'המועדון הקאמרי', img: 'gallery-2025/256', name_en: 'The Chamber Club', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
+  { id: 'plaza', floor: 'בחוץ · מול הכניסה', floor_en: 'Outside · by the entrance', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/222', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival – shows for the whole family, free entry.', desc: 'הלב הפתוח של הפסטיבל – מופעים לכל המשפחה, והכניסה חופשית.' },
+  { id: 'tent', floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'האוהל', name_en: 'The Tent', desc_en: 'New in 2026: the late-night stage, where every evening ends.', desc: 'חדש ב־2026: במת הלילה, שבה נגמר כל ערב.' },
 ];
 
 const PARTNERS = [

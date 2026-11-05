@@ -1251,3 +1251,59 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 .tbio p { margin-top: 10px; font-size: var(--fs-meta); line-height: 1.6; }
 @media (max-width: 900px) { .tbios { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 520px) { .tbio { grid-template-columns: 88px minmax(0, 1fr); gap: 14px; padding: 16px; } }
+
+/* ---------- building map (renderVenueMap): the music center from the front, a label + arrow per stage ---------- */
+.vmap { max-width: 1180px; margin: 0 auto; padding: 0 40px; scroll-margin-top: 90px; }
+.vm-scroll { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+.vm-scroll::-webkit-scrollbar { display: none; }
+.vm-stage { position: relative; container-type: inline-size; min-width: 780px; aspect-ratio: 1776 / 660; }
+.vm-building { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; }
+.vm-pin { position: absolute; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center;
+  background: none; border: 0; padding: 0 .6cqw .4cqw; margin: 0; color: var(--ink); font-family: var(--display); cursor: pointer;
+  border-radius: 10px; -webkit-tap-highlight-color: transparent; }
+.vm-arrow { height: 3.8cqw; width: auto; transition: transform 240ms var(--ease-out); }
+.vm-pin.down .vm-arrow { transform: rotate(180deg); margin-top: .5cqw; }
+.vm-name { font-size: 2.6cqw; font-weight: 500; line-height: 1.1; white-space: nowrap; margin-top: .1cqw;
+  text-decoration: underline 0 transparent; text-underline-offset: .45cqw; transition: text-decoration-color 200ms ease; }
+.vm-floor { font-size: 1.7cqw; font-weight: 300; line-height: 1.15; color: var(--red-ink); white-space: nowrap; }
+.vm-pin.down .vm-floor { order: -1; }
+.vm-pin.down .vm-name { order: -2; }
+.vmap[data-tone="field"] .vm-pin { color: var(--white); }
+.vmap[data-tone="field"] .vm-floor { color: var(--ink); }
+.vm-pin:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.vm-pin[aria-pressed="true"] .vm-name { text-decoration: underline .3cqw var(--line); }
+.vm-pin[aria-pressed="true"] .vm-arrow { animation: vm-bob 1.3s var(--ease-in-out) infinite; }
+.vm-pin.down[aria-pressed="true"] .vm-arrow { animation-name: vm-bob-down; }
+@keyframes vm-bob { 50% { transform: translateY(-.8cqw); } }
+@keyframes vm-bob-down { 0%, 100% { transform: rotate(180deg); } 50% { transform: rotate(180deg) translateY(-.8cqw); } }
+@media (hover: hover) {
+  .vm-pin:hover .vm-arrow { transform: translateY(-.5cqw); }
+  .vm-pin.down:hover .vm-arrow { transform: rotate(180deg) translateY(-.5cqw); }
+  .vm-pin:hover .vm-name { text-decoration-color: var(--line); text-decoration-thickness: .2cqw; }
+}
+.vm-pin:active .vm-name { transform: scale(.97); }
+.vm-hint { margin-top: 14px; font-size: var(--fs-meta); text-align: center; color: var(--ink); }
+.vm-swipe { display: none; }
+.vm-panel { max-width: 760px; margin: 22px auto 0; background: var(--surface); border-top: 6px solid var(--cool); padding: 24px 28px; }
+.vm-p-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.vm-p-head h3 { font-family: var(--brush); font-weight: 900; font-size: var(--fs-2); }
+.vm-p-head span { font-size: var(--fs-meta); color: var(--red-ink); }
+.vm-panel > p { font-size: var(--fs-body); line-height: 1.55; margin-top: 8px; }
+.vm-panel ul { list-style: none; margin-top: 14px; border-top: 1px dashed var(--rule); }
+.vm-panel li { display: flex; gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px dashed var(--rule); }
+.vm-panel li time { min-width: 150px; font-size: var(--fs-meta); color: var(--red-ink); }
+.vm-panel li button { background: none; border: 0; padding: 0; font: inherit; font-size: var(--fs-body); font-weight: 500; color: var(--ink); text-align: start; cursor: pointer;
+  text-decoration: underline 1px var(--line); text-underline-offset: 4px; }
+.vm-panel .vm-none { color: var(--red-ink); }
+.sb-venue { color: inherit; text-decoration: underline 1px currentColor; text-underline-offset: 3px; }
+@media (max-width: 860px) {
+  .vmap { padding: 0; }
+  .vm-stage { margin: 0 16px; }
+  .vm-swipe { display: inline; }
+  .vm-panel { margin: 18px 16px 0; padding: 20px; }
+  .vm-panel li { flex-direction: column; gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { .vm-pin[aria-pressed="true"] .vm-arrow { animation: none; } }
+
+[lang="en"] .vm-name { font-size: 2.3cqw; }
+.vmap + .stage-row { margin-top: 48px; }
