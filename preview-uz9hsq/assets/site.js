@@ -8,6 +8,8 @@
 
 const LANG = document.documentElement.lang === 'en' ? 'en' : 'he';
 const EN = LANG === 'en';
+// a show photo with words in it can have an English twin (img_en)
+if (EN && typeof SHOWS !== 'undefined') SHOWS.forEach(s => { if (s.img_en) s.img = s.img_en; });
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const L = (he, en) => (EN ? en : he);                   // pick a UI string
 const tr = (obj, key) => (EN && obj[key + '_en']) || obj[key];  // pick a data field
