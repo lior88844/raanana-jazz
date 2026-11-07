@@ -790,7 +790,7 @@ function showHtml(s) {
         <button type="button" class="sb-fav" data-key="${showKey(s)}" aria-pressed="${on}">${on ? '★' : '☆'} ${L('לליינאפ שלי', 'My line-up')}</button>
         <button type="button" class="sb-share">${L('שיתוף', 'Share')}</button>
       </div>
-      ${list('about').length ? `<div class="sb-about">${list('about').map(p => `<p>${esc(p)}</p>`).join('')}</div>` : `<p class="sb-about">${L('פרטים נוספים יפורסמו בקרוב.', 'More details coming soon.')}</p>`}
+      ${list('about').length ? `<div class="sb-about">${list('about').map(p => `<p>${esc(p)}</p>`).join('')}${s.link ? `<p class="sb-link"><a class="g-text" href="${esc(s.link)}" target="_blank" rel="noopener">${esc(tr(s, 'link_label'))} ${ARROW}</a></p>` : ''}</div>` : `<p class="sb-about">${L('פרטים נוספים יפורסמו בקרוב.', 'More details coming soon.')}</p>`}
       ${quotes}
       ${list('cast').length ? `<section class="sb-sec"><h3>${s.film ? L('על הסרט', 'About the film') : L('על הבמה', 'On stage')}</h3><ul class="sb-cast">${list('cast').map(castRows).join('')}</ul></section>` : ''}
       ${videoBlock(s)}
