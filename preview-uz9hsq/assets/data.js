@@ -69,7 +69,7 @@ const SHOWS = [
     about: ["הסרט מגולל את סיפור חייו והקריירה של פקיטו דה ריברה: מהילדות בהוואנה, דרך העזיבה המסוכנת של קובה בשנת 1980 ועד לבמות הגדולות בעולם. הסרט צולם בניו יורק, בבוסטון, במיאמי ובאורוגוואי, ומשתתפים בו גם צ'וצ'ו ולדס ויויו מא. הקרנה מיוחדת בערב ההופעה של פקיטו בפסטיבל."],
     about_en: ["The film tells the story of Paquito D'Rivera’s life and career: from his childhood in Havana, through his perilous departure from Cuba in 1980, to the world’s greatest stages. Filmed in New York, Boston, Miami and Uruguay, it also features Chucho Valdés and Yo-Yo Ma. A special screening on the evening of Paquito’s festival concert."],
     cast: ["בימוי: חואן מנדלבאום · ארה\"ב, 2024 · 60 דקות · אנגלית וספרדית עם כתוביות בעברית"],
-    cast_en: ["Directed by Juan Mandelbaum · USA, 2024 · 60 minutes · English and Spanish with Hebrew subtitles"] },
+    cast_en: ["Directed by Juan Mandelbaum · USA, 2024 · 60 minutes · English and Spanish with Hebrew subtitles"] , img: "2026-paquito-film.jpg", pos: "50% 30%" },
   { id: "ella", day: "thu", time: "17:00", dur: 50, free: true, featured: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "אלה שרה אלה – Ella Sings Ella", title_en: "Ella Sings Ella",
