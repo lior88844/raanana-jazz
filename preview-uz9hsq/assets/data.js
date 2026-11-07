@@ -244,7 +244,7 @@ const SHOWS = [
     about_en: ["Pianist Verena Zeiner and Israeli drummer Ziv Ravitz, one of the most in-demand players on today’s jazz scene, met in New York and have played together as a duo since 2021. In their acoustic duo, enriched with subtle electronic touches, each instrument can serve as melody, harmony, bass or rhythm, and the music moves freely between chamber intimacy, cinematic landscapes, bare minimalism and rhythmic experimentation.", "“A duet is the most intimate format of human connection,” says Ravitz. “There’s nowhere to hide.” Their third album together, Sheer, is due out in January 2027."],
     cast: ["ורנה צַיינר – פסנתר ואלקטרוניקה · זיו רביץ – תופים ואלקטרוניקה"],
     cast_en: ["Verena Zeiner – piano and electronics · Ziv Ravitz – drums and electronics"],
-    yt: ["_0FrmVyMT5Y"] },
+    yt: ["_0FrmVyMT5Y"] , img: "2026-zeiner-ravitz.jpg", pos: "60% 35%", credit: "Clément Puig", credit_en: "Clément Puig" },
   { id: "adis-ken", day: "sat", time: "21:15", dur: 75, featured: true,
     venue: "האוהל", venue_en: "The Tent",
     title: "אבטה בריהון ופרויקט אדיס קן מארחים את אהוד בנאי", title_en: "Abate Berihun & Addis Ken Project host Ehud Banai",
