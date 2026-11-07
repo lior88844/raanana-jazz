@@ -118,7 +118,7 @@ ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span
   <div class="socials">${socials()}</div>
   <div class="ctas"><a href="${page('tickets.html')}" class="btn primary">${L('לרכישת כרטיסים', 'Buy tickets')}</a></div>
   <div class="fcols">
-    <div><h2>${L('הפסטיבל', 'Festival')}</h2><a href="${page('lineup.html')}">${L('לוח הופעות', 'Line-up')}</a><a href="${page('festival-2025.html')}">${L('מהדורות קודמות', 'Past Editions')}</a><a href="${page('venue.html')}">${L('המתחם', 'The Venue')}</a><a href="${page('guide.html')}">${L('מידע למבקרים', 'Visitor info')}</a><a href="${SITE.program}" ${ext}>${L('תוכנייה', 'Programme')}</a></div>
+    <div><h2>${L('הפסטיבל', 'Festival')}</h2><a href="${page('lineup.html')}">${L('לוח הופעות', 'Line-up')}</a><a href="${page('festival-2025.html')}">${L('מהדורות קודמות', 'Past Editions')}</a><a href="${page('venue.html')}">${L('המתחם', 'The Venue')}</a><a href="${page('guide.html')}">${L('מידע למבקרים', 'Visitor info')}</a></div>
     <div><h2>${L('השתתפות', 'Get involved')}</h2><a href="${page('workshops.html')}">${L('סדנאות', 'Workshops')}</a><a href="${page('tickets.html')}">${L('כרטיסים ופסים', 'Tickets + Passes')}</a><a href="${page('media.html')}">${L('מדיה ועיתונות', 'Media + Press')}</a></div>
     <div><h2>${L('עלינו', 'About')}</h2><a href="${page('about.html')}">${L('אודות', 'About us')}</a><a href="${page('guide.html#faq')}">${L('שאלות נפוצות', 'FAQ')}</a><a href="${page('contact.html')}">${L('צור קשר', 'Contact')}</a><a href="${page('accessibility.html')}">${L('הצהרת נגישות', 'Accessibility statement')}</a><a href="${page('privacy.html')}">${L('מדיניות פרטיות', 'Privacy policy')}</a><a href="${page('terms.html')}">${L('תנאי שימוש', 'Terms of use')}</a>${langBtn('')}<p>${L(SITE.venueName, 'Raanana Pais Music Center')}</p></div>
   </div>
@@ -902,7 +902,7 @@ function showHtml(s) {
   }).join('');
   const tickets = s.slug
     ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${s.free ? L('לכרטיס חינם', 'Free ticket') : L('לכרטיסים', 'Tickets')} ${ARROW}</a>`
-    : `<span class="sb-soon">${s.free ? L('כניסה חופשית', 'Free entry') : L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
+    : s.free ? '' : `<span class="sb-soon">${L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
   return `
     <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
     <figure class="sb-ph${s.img ? '' : ' noimg'}${s.img2 ? (s.guest ? ' has-guest' : ' two') : ''} d-${s.day}">

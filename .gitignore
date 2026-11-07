@@ -1,0 +1,7 @@
+
+# local design tests, not for the live site
+cursor-test.html
+motion-test.html
+zoom-test.html
+motion-test/
+/assets/cursor-fx.*

@@ -100,7 +100,9 @@ HEAD = '''<!doctype html>
 <link rel="alternate" hreflang="he" href="{site}{he_path}">
 <link rel="alternate" hreflang="en" href="{site}{en_path}">
 <link rel="alternate" hreflang="x-default" href="{site}{he_path}">
-<link rel="icon" href="/images/44f224268148.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-512.png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -253,7 +255,6 @@ def page_index(t, P, A):
       <li><b>{t('כרטיס להופעה', 'Single show')}</b><span>{t('לבחור הופעה אחת או כמה', 'Pick one show or a few')}</span></li>
       <li><b>{t('פס יומי', 'Day pass')}</b><span>{t('כל הופעות היום – חמישי, שישי או שבת', 'Every show that day – Thu, Fri or Sat')}</span></li>
       <li><b>{t('פס לכל הפסטיבל', 'Full festival pass')}</b><span>{t('שלושה ימים, הכי משתלם', 'Three days, the best value')}</span></li>
-      <li><b>{t('פסים לפי נושא', 'Themed passes')}</b><span><bdi>Jazz · World · Vocal · Music</bdi></span></li>
     </ul>
   </div>
 </section>
@@ -336,7 +337,7 @@ def page_past(t, P, A):
 <section class="cta-band">
   <h2>{t('להורדת התוכנייה של 2025', 'Download the 2025 programme')}</h2>
   <p>{t('כל ההופעות, השעות והבמות בעמוד אחד.', 'Every show, time and stage on one page.')}</p>
-  <a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png" class="btn">{t('להורדה', 'Download')} ↓</a>
+  <a href="/images/program-2025.png" download="raanana-jazz-program-2025.png" class="btn">{t('להורדה', 'Download')} ↓</a>
 </section>
 ''',
         script='''<script>
@@ -409,7 +410,7 @@ def page_about(t, P, A):
 </section>
 <section class="narrow section prose">
   <h2>{t('מי אנחנו', 'Who we are')}</h2>
-  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פיס רעננה</b> ו<b>עיריית רעננה</b>. הניהול האומנותי בידי הפסנתרן והמלחין <b>עמית פרידמן</b>.',
+  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פיס רעננה</b> ו<b>עיריית רעננה</b>. הניהול האומנותי בידי הסקסופוניסט והמלחין <b>עמית פרידמן</b>.',
         'The festival is produced by the <b>Raanana Pais Music Center</b> and the <b>Raanana Municipality</b>. Artistic direction is by pianist and composer <b>Amit Friedman</b>.')}</p>
   <p>{t('לצד ההופעות, הפסטיבל הוא גם בית ספר: בכל שנה נגנים צעירים בגילאי 14–25 לומדים מאמנים בינלאומיים ומסיימים בהופעה על במת הפסטיבל.',
         'Alongside the concerts, the festival is also a school: every year young musicians aged 14–25 learn from international artists and finish with a performance on the festival stage.')}</p>
@@ -482,7 +483,7 @@ def page_media(t, P, A):
   <div class="dl-grid">
     <div class="dl"><div class="th" style="background-image:url(/images/44f224268148.png)"></div><h3>{t('לוגו הפסטיבל', 'Festival logo')}</h3><a href="/images/44f224268148.png" download="raanana-jazz-logo.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
     <div class="dl"><div class="th" style="background-image:url(/images/logo-dark.png);background-color:var(--ground)"></div><h3>{t('לוגו – כהה', 'Logo – dark')}</h3><a href="/images/logo-dark.png" download="raanana-jazz-logo-dark.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
-    <div class="dl"><div class="th" style="background-image:url(/images/413f2429c54a.png);background-color:var(--red)"></div><h3>{t('תוכנייה 2025', '2025 programme')}</h3><a href="/images/413f2429c54a.png" download="raanana-jazz-program-2025.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
+    <div class="dl"><div class="th" style="background-image:url(/images/program-2025.png);background-color:var(--red)"></div><h3>{t('תוכנייה 2025', '2025 programme')}</h3><a href="/images/program-2025.png" download="raanana-jazz-program-2025.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
   </div>
 </section>
 <section class="wrap section">
@@ -503,19 +504,19 @@ def page_tickets(t, P, A):
         title=t('כרטיסים', 'Tickets'),
         desc=t('כרטיסים לפסטיבל הג׳אז רעננה 2026.', 'Tickets for the 2026 Raanana Jazz Festival.'),
         body=hero(t('10–12 בדצמבר 2026', '10–12 December 2026'), t('כרטיסים', 'Tickets'), '',
-                  t('פרטי הכרטיסים והפסים לפסטיבל 2026 יפורסמו בקרוב. המופעים ברחבת הפסטיבל – בכניסה חופשית.',
-                    'Ticket and pass details for the 2026 festival will be published soon. Shows on the Festival Plaza are free.'),
+                  t('פרטי הכרטיסים והפסים לפסטיבל 2026 יפורסמו בקרוב. חלק מהמופעים בכניסה חופשית.',
+                    'Ticket and pass details for the 2026 festival will be published soon. Some shows are free.'),
                   f'<a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t("לעדכונים באינסטגרם", "Updates on Instagram")}</a>'
                   f'<a href="{P("lineup.html")}" class="btn ghost">{t("ללוח ההופעות", "See the line-up")} {A}</a>') + f'''
 <section class="wrap section">
   <h2 class="sec-h">{t('בכניסה חופשית', 'Free entry')}</h2>
-  <p>{t('ההופעות האלה ברחבת הפסטיבל פתוחות לכולם, בלי כרטיס.', 'These Festival Plaza shows are open to everyone, no ticket needed.')}</p>
+  <p>{t('ההופעות האלה פתוחות לכולם בכניסה חופשית.', 'These shows are open to everyone, free of charge.')}</p>
   <div class="showlist" id="freeShows"></div>
 </section>
 ''',
         script='''<script>
   renderShowList(document.getElementById('freeShows'));
-  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS[i].free && !SHOWS[i].kids) row.remove(); });
+  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS[i].free) row.remove(); });
 </script>''')
 
 
@@ -576,7 +577,7 @@ def page_contact(t, P, A):
   </form>
   <aside class="cf-side">
     <h2>{t('דרכים נוספות', 'Other ways')}</h2>
-    <p>{t('אפשר גם לכתוב לנו באינסטגרם ובפייסבוק של המרכז למוזיקה רעננה.', 'You can also message us on the Raanana Music Center Instagram and Facebook.')}</p>
+    <p>{t('אפשר גם לכתוב לנו באינסטגרם של הפסטיבל ובפייסבוק של המרכז למוזיקה רעננה.', 'You can also message us on the festival Instagram or the Raanana Music Center Facebook.')}</p>
     <p class="cf-links"><a class="g-text" href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener">Instagram {A}</a>
       <a class="g-text" href="https://www.facebook.com/raananapaismusiccenter" target="_blank" rel="noopener">Facebook {A}</a></p>
     <p>{t(f'שאלות נפוצות על הגעה, כרטיסים ונגישות – <a href="{P("guide.html")}">במידע למבקרים</a>.', f'Common questions about getting here, tickets and accessibility – <a href="{P("guide.html")}">in Visitor info</a>.')}</p>
@@ -625,7 +626,6 @@ def page_accessibility(t, P, A):
   <h2>{t('מגבלות ידועות', 'Known limitations')}</h2>
   <ul>
     <li>{t('רכישת הכרטיסים מתבצעת באתר הכרטיסים של עיריית רעננה, שאינו בשליטתנו.', 'Tickets are sold on the Raanana Municipality ticket site, which we do not control.')}</li>
-    <li>{t('התוכנייה המלאה מוצגת כתמונה; כל המידע שבה זמין גם כטקסט בעמוד לוח ההופעות.', 'The full programme is shown as an image; all of its information is also available as text on the Line-up page.')}</li>
   </ul>
   <h2>{t('נתקלתם בבעיה?', 'Found a problem?')}</h2>
   <p id="a11yAsk">{t('נשמח לשמוע ולתקן. פנו אלינו:', 'Tell us and we will fix it. Contact us:')}</p>
@@ -674,16 +674,16 @@ def page_guide(t, P, A):
       </div>
       <p class="g-more"><a href="{P('venue.html')}#map">{t('למפת המתחם והבמות', 'Venue map and stages')} {A}</a></p>"""),
         ('tickets', t('כרטיסים', 'Tickets'), t('כרטיסים ופסים', 'Tickets and passes'), f"""
-      <p>{t('הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה. אפשר לקנות כרטיס להופעה אחת, <b>פס יומי</b> לכל מופעי היום, <b>פס לכל הפסטיבל</b> או פס לפי נושא.',
-            'Tickets are sold on the Raanana Municipality ticket site. You can buy a ticket for one show, a <b>day pass</b> for all of that day’s shows, a <b>full festival pass</b> or a themed pass.')}</p>
-      <p>{t('המופעים ברחבת הפסטיבל – בכניסה חופשית.', 'Shows on the Festival Plaza are free.')}</p>
+      <p>{t('הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה. אפשר לקנות כרטיס להופעה אחת, <b>פס יומי</b> לכל מופעי היום, או <b>פס לכל הפסטיבל</b>.',
+            'Tickets are sold on the Raanana Municipality ticket site. You can buy a ticket for one show, a <b>day pass</b> for all of that day’s shows, or a <b>full festival pass</b>.')}</p>
+      <p>{t('חלק מהמופעים בכניסה חופשית – הם מסומנים בלוח ההופעות.', 'Some shows are free – they are marked in the line-up.')}</p>
       <p class="g-note">{t('התוכנייה של 2026 כבר באתר; פרטי הכרטיסים לפסטיבל 2026 יפורסמו בקרוב.', 'The 2026 programme is out; ticket details for 2026 will be published soon.')}</p>
       <p class="g-more"><a href="{P('tickets.html')}">{t('לעמוד הכרטיסים', 'Tickets page')} {A}</a></p>"""),
         ('families', t('משפחות', 'Families'), t('משפחות וילדים', 'Families and children'), f"""
-      <p>{t('רחבת הפסטיבל היא הלב הפתוח של הפסטיבל: מופעים לכל המשפחה, בכניסה חופשית.',
-            'The Festival Plaza is the open heart of the festival: shows for the whole family, free of charge.')}</p>
-      <p>{t('בכל בוקר ב־11:00 – הופעה לילדים: ״תנינים על הראש״ עם מארש דונדורמה (חמישי), ״תנו לי תו״ עם רני גולן (שישי) ו״ילדוג׳אז״ (שבת). וב־17:00 כל יום – הופעה בכניסה חופשית ברחבה.',
-            'Every morning at 11:00 there is a children’s show: “Crocodiles on the Head” with Marsh Dondurma (Thursday), “Give Me a Note” with Rani Golan (Friday) and “Yaldojazz” (Saturday). And every day at 17:00 there is a free show on the Plaza.')}</p>
+      <p>{t('רחבת הפסטיבל היא הלב הפתוח של הפסטיבל: מופעים לכל המשפחה.',
+            'The Festival Plaza is the open heart of the festival: shows for the whole family.')}</p>
+      <p>{t('בכל בוקר ב־11:00 – הופעה לילדים: ״תנינים על הראש״ עם מארש דונדורמה (חמישי), ״שירים חדשים של פעם״ עם רני גולן (שישי) ו״ילדוג׳אז״ (שבת). וב־17:00 כל יום – הופעה בכניסה חופשית ברחבה.',
+            'Every morning at 11:00 there is a children’s show: “Crocodiles on the Head” with Marsh Dondurma (Thursday), “New Old Songs” with Rani Golan (Friday) and “Yaldojazz” (Saturday). And every day at 17:00 there is a free show on the Plaza.')}</p>
       <p class="g-more"><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></p>"""),
         ('access', t('נגישות', 'Accessibility'), t('נגישות', 'Accessibility'), f"""
       <p>{t('אנחנו רוצים שכולם יוכלו ליהנות מהפסטיבל. פרטים על הסדרי הנגישות ועל דרכי הפנייה בנושא נמצאים בהצהרת הנגישות.',
@@ -703,12 +703,12 @@ def page_guide(t, P, A):
             (t('יש פס יומי?', 'Is there a day pass?'),
              t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם.', "Yes. A day pass covers all of that day's shows at a better price.")),
             (t('יש פס לכל הפסטיבל?', 'Is there a full festival pass?'),
-             t('כן, וגם פסים לפי נושאים.', 'Yes, and themed passes too.')),
+             t('כן.', 'Yes.')),
             (t('אפשר לבטל כרטיס?', 'Can I cancel a ticket?'),
              t(f'כן. ביטול עד 24 שעות לפני תחילת המופע מזכה בהחזר מלא. לביטול – <a href="{P("contact.html")}">פנו אלינו</a>.',
                f'Yes. Cancel up to 24 hours before the show starts for a full refund. To cancel, <a href="{P("contact.html")}">contact us</a>.')),
             (t('כל המופעים בתשלום?', 'Are all shows ticketed?'),
-             t('לא. המופעים ברחבת הפסטיבל בכניסה חופשית.', 'No. Shows on the Festival Plaza are free.')),
+             t('לא. חלק מהמופעים בכניסה חופשית – הם מסומנים בלוח ההופעות.', 'No. Some shows are free – they are marked in the line-up.')),
         ]),
         (t('מידע כללי', 'General'), [
             (t('מתי הפסטיבל?', 'When is the festival?'),
