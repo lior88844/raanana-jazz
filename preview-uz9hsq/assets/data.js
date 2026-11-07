@@ -121,7 +121,7 @@ const SHOWS = [
     title: "ג'אם סשן ברחבת הפסטיבל", title_en: "Jam Session on the Festival Plaza",
     sub: "כל ערב, עד השעות הקטנות", sub_en: "Every night, into the small hours",
     about: ["כשההופעות מסתיימות, המוזיקה ממשיכה: אמני הפסטיבל, משתתפי הסדנאות ונגנים מהקהל נפגשים על הבמה לג'אם סשן פתוח וספונטני, שבו כל ערב נולדים מפגשים מוזיקליים חדשים. נגנים מוזמנים להביא את הכלי ולהצטרף, בניהולם של יובל דרבקין וגבריאל בר כהן."],
-    about_en: ["When the concerts end, the music carries on: festival artists, workshop participants and musicians from the audience meet on stage for an open, spontaneous jam session, where new musical encounters are born every night. Musicians are welcome to bring their instruments and join in, hosted by Yuval Drabkin and Gabriel Bar Cohen."] , img: "2026-jam2-thu.jpg", pos: "50% 35%", slug: "event/32056" },
+    about_en: ["When the concerts end, the music carries on: festival artists, workshop participants and musicians from the audience meet on stage for an open, spontaneous jam session, where new musical encounters are born every night. Musicians are welcome to bring their instruments and join in, hosted by Yuval Drabkin and Gabriel Bar Cohen."] , img: "2026-jam3-thu.jpg", pos: "50% 35%"},
 
   { id: "give-me-a-note", day: "fri", time: "11:00", dur: 60, kids: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
@@ -192,7 +192,7 @@ const SHOWS = [
     title: "ג'אם סשן ברחבת הפסטיבל", title_en: "Jam Session on the Festival Plaza",
     sub: "כל ערב, עד השעות הקטנות", sub_en: "Every night, into the small hours",
     about: ["כשההופעות מסתיימות, המוזיקה ממשיכה: אמני הפסטיבל, משתתפי הסדנאות ונגנים מהקהל נפגשים על הבמה לג'אם סשן פתוח וספונטני, שבו כל ערב נולדים מפגשים מוזיקליים חדשים. נגנים מוזמנים להביא את הכלי ולהצטרף, בניהולם של יובל דרבקין וגבריאל בר כהן."],
-    about_en: ["When the concerts end, the music carries on: festival artists, workshop participants and musicians from the audience meet on stage for an open, spontaneous jam session, where new musical encounters are born every night. Musicians are welcome to bring their instruments and join in, hosted by Yuval Drabkin and Gabriel Bar Cohen."] , img: "2026-jam2-fri.jpg", pos: "40% 40%", slug: "event/32064" },
+    about_en: ["When the concerts end, the music carries on: festival artists, workshop participants and musicians from the audience meet on stage for an open, spontaneous jam session, where new musical encounters are born every night. Musicians are welcome to bring their instruments and join in, hosted by Yuval Drabkin and Gabriel Bar Cohen."] , img: "2026-jam3-fri.jpg", pos: "40% 40%"},
 
   { id: "tin-pan-alley", day: "sat", time: "10:00", dur: 60, featured: true,
     venue: "אולם ערן", venue_en: "Eran Hall",
@@ -262,7 +262,7 @@ const SHOWS = [
     title: "ג'אם סשן ברחבת הפסטיבל", title_en: "Jam Session on the Festival Plaza",
     sub: "כל ערב, עד השעות הקטנות", sub_en: "Every night, into the small hours",
     about: ["כשההופעות מסתיימות, המוזיקה ממשיכה: אמני הפסטיבל, משתתפי הסדנאות ונגנים מהקהל נפגשים על הבמה לג'אם סשן פתוח וספונטני, שבו כל ערב נולדים מפגשים מוזיקליים חדשים. נגנים מוזמנים להביא את הכלי ולהצטרף, בניהולם של יובל דרבקין וגבריאל בר כהן."],
-    about_en: ["When the concerts end, the music carries on: festival artists, workshop participants and musicians from the audience meet on stage for an open, spontaneous jam session, where new musical encounters are born every night. Musicians are welcome to bring their instruments and join in, hosted by Yuval Drabkin and Gabriel Bar Cohen."] , img: "2026-jam2-sat.jpg", pos: "40% 40%", slug: "event/32072" },
+    about_en: ["When the concerts end, the music carries on: festival artists, workshop participants and musicians from the audience meet on stage for an open, spontaneous jam session, where new musical encounters are born every night. Musicians are welcome to bring their instruments and join in, hosted by Yuval Drabkin and Gabriel Bar Cohen."] , img: "2026-jam3-sat.jpg", pos: "40% 40%"},
 ];
 
 // ---------- Festival 2025 (18–20.12.2025) – the past-editions page and the photo archive ----------
