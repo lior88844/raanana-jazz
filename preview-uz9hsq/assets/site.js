@@ -197,7 +197,7 @@ function renderFeatured(el) {
 // Home: one 2026 show at a time in a big spotlight, in random order so nobody is always first.
 // Changes every 4 s with a crossfade and a slow zoom; pauses on hover; arrows and dots to move.
 function renderSpotlight(el) {
-  const order = SHOWS.filter(s => !s.jam);
+  const order = [...SHOWS];
   for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
   const big = s => img(s.img.replace(/\.jpe?g$/, '-1600.webp'));
   const DOTS = 7;                                               // only a short window of dots, sliding with the current show
@@ -779,7 +779,7 @@ function showHtml(s) {
     return m ? `<blockquote><p>${esc(m[1])}</p><cite>${esc(m[2])}</cite></blockquote>` : `<blockquote><p>${esc(q)}</p></blockquote>`;
   }).join('');
   const tickets = s.slug
-    ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>`
+    ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${s.free ? L('לכרטיס חינם', 'Free ticket') : L('לכרטיסים', 'Tickets')} ${ARROW}</a>`
     : `<span class="sb-soon">${s.free ? L('כניסה חופשית', 'Free entry') : L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
   return `
     <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
