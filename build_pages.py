@@ -473,29 +473,28 @@ def page_workshops(t, P, A):
 def page_media(t, P, A):
     return dict(
         title=t('מדיה ועיתונות', 'Media + Press'),
-        desc=t('חומרים לעיתונות – לוגו, תוכנייה ותמונות מפסטיבל הג׳אז רעננה.', 'Press materials – logo, programme and photos from the Raanana Jazz Festival.'),
+        desc=t('חומרים לעיתונות – לוגו ותמונות האמנים של פסטיבל הג׳אז רעננה 2026.', 'Press materials – logo and artist photos for the 2026 Raanana Jazz Festival.'),
         body=hero(t('לעיתונאים ולמדיה', 'For journalists and media'), t('מדיה ועיתונות', 'Media + Press'), 'Press',
-                  t('כאן תמצאו את הלוגו, התוכנייה ותמונות להורדה. לבקשות אקרדיטציה, ראיונות וחומרים נוספים – צרו קשר.',
-                    'Download the logo, programme and photos here. For accreditation, interviews and more materials, get in touch.'),
+                  t('כאן תמצאו את הלוגו ותמונות האמנים של פסטיבל 2026 להורדה. לבקשות אקרדיטציה, ראיונות וחומרים נוספים – צרו קשר.',
+                    'Download the logo and photos of the 2026 artists here. For accreditation, interviews and more materials, get in touch.'),
                   f'<a id="pressMail" class="btn primary">{t("בקשת אקרדיטציה", "Request accreditation")}</a>') + f'''
 <section class="wrap section">
   <h2 class="sec-h">{t('חומרים להורדה', 'Downloads')}</h2>
   <div class="dl-grid">
     <div class="dl"><div class="th" style="background-image:url(/images/44f224268148.png)"></div><h3>{t('לוגו הפסטיבל', 'Festival logo')}</h3><a href="/images/44f224268148.png" download="raanana-jazz-logo.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
     <div class="dl"><div class="th" style="background-image:url(/images/logo-dark.png);background-color:var(--ground)"></div><h3>{t('לוגו – כהה', 'Logo – dark')}</h3><a href="/images/logo-dark.png" download="raanana-jazz-logo-dark.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
-    <div class="dl"><div class="th" style="background-image:url(/images/program-2025.png);background-color:var(--red)"></div><h3>{t('תוכנייה 2025', '2025 programme')}</h3><a href="/images/program-2025.png" download="raanana-jazz-program-2025.png">{t('להורדה', 'Download')} (PNG) ↓</a></div>
   </div>
 </section>
 <section class="wrap section">
-  <h2 class="sec-h">{t('תמונות אמנים', 'Artist photos')}</h2>
-  <p>{t('לחצו על תמונה להורדה ברזולוציה מלאה.', 'Click a photo to download it in full resolution.')}</p>
+  <h2 class="sec-h">{t('תמונות אמני 2026', '2026 artist photos')}</h2>
+  <p>{t('לחצו על תמונה להורדה ברזולוציה מלאה. בפרסום יש לציין את קרדיט הצלם כשהוא מופיע.', 'Click a photo to download it in full resolution. Please include the photo credit where one is given.')}</p>
   <div class="dl-grid" id="pressPhotos"></div>
 </section>
 ''',
         script='''<script>
   document.getElementById('pressMail').href = `mailto:${SITE.email}?subject=${encodeURIComponent(L('בקשת אקרדיטציה – פסטיבל הג׳אז רעננה', 'Press accreditation – Raanana Jazz Festival'))}`;
-  document.getElementById('pressPhotos').innerHTML = SHOWS.concat(SHOWS_2025).filter(s => s.img).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `
-    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${tr(s, 'title')}</h3><a href="${img(s.img)}" download>${L('להורדה', 'Download')} ↓</a></div>`).join('');
+  document.getElementById('pressPhotos').innerHTML = SHOWS.filter(s => s.img && !/^jam-/.test(s.id)).filter((s, i, a) => a.findIndex(x => x.img === s.img) === i).map(s => `
+    <div class="dl"><div class="th photo" data-bg="${img(s.img)}"></div><h3>${tr(s, 'title')}</h3>${s.credit ? `<small class="credit">${L('צילום', 'Photo')}: ${tr(s, 'credit')}</small>` : ''}<a href="${img(s.img)}" download>${L('להורדה', 'Download')} ↓</a></div>`).join('');
 </script>''')
 
 
