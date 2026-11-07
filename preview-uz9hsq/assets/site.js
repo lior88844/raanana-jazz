@@ -586,7 +586,6 @@ function renderShowList(el, dayId) {
         <h3>${tr(s, 'title')}</h3>
         <p>${tr(s, 'sub')}</p>
         <div class="venue">${tr(s, 'venue')}</div>
-        ${s.credit ? `<small class="credit">${L('צילום', 'Photo')}: ${tr(s, 'credit')}</small>` : ''}
       </div>
       <div class="act">
         ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}${s.kids ? `<div class="free kids">${L('לכל המשפחה', 'For families')}</div><br>` : ''}
