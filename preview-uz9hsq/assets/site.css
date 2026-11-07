@@ -1333,7 +1333,7 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 .ill-sax { top: 64px; inset-inline-end: 40px; width: clamp(150px, 20vw, 290px); height: auto; transform-origin: 50% 90%; }
 .free-band .ill-bass { z-index: 2; bottom: -12px; inset-inline-end: 7%; height: 92%; width: auto; transform-origin: 50% 100%; }
 .tix-box { overflow: visible; }
-.tix-box .ill-drum { top: -78px; inset-inline-end: 34px; width: 168px; transform-origin: 50% 100%; }
+.tix-box .ill-drum { bottom: -118px; inset-inline-end: 40px; width: 168px; transform-origin: 50% 100%; }   /* bottom corner, away from the bass above */
 .ill-drum img { display: block; width: 100%; height: auto; }
 /* the blue ends are the stick tips: they rest on the drum head (~60% across, near the top) and the sticks rise up and back from there */
 .ill-drum .sticks { position: absolute; width: 90%; left: -26%; top: 2%; transform-origin: 96% 50%; rotate: 32deg; animation: sticks 1.8s ease-in-out infinite; }
@@ -1341,6 +1341,7 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 @media (max-width: 900px) {
   .ill-sax { top: 30px; width: 130px; inset-inline-end: 16px; }
   .free-band .ill-bass { height: 210px; top: 40px; bottom: auto; inset-inline-end: 12px; }
-  .tix-box .ill-drum { top: -56px; width: 116px; inset-inline-end: 20px; }
+  .tix-box .ill-drum { bottom: -96px; width: 116px; inset-inline-end: 20px; }
+  .tix-box { margin-bottom: 60px; }
 }
 @media (prefers-reduced-motion: reduce) { .ill, .ill-drum .sticks { animation: none; transform: none; } }
