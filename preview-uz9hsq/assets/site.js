@@ -10,7 +10,20 @@ const LANG = document.documentElement.lang === 'en' ? 'en' : 'he';
 const EN = LANG === 'en';
 // a show photo with words in it can have an English twin (img_en)
 if (EN && typeof SHOWS !== 'undefined') SHOWS.forEach(s => { if (s.img_en) s.img = s.img_en; });
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// accessibility menu settings (saved per visitor); applied before anything renders
+const A11Y_KEY = 'rjf-a11y';
+const a11y = (() => { try { return JSON.parse(localStorage.getItem(A11Y_KEY)) || {}; } catch { return {}; } })();
+const a11yApply = () => {
+  const c = document.documentElement.classList;
+  c.toggle('a11y-still', !!a11y.still);
+  c.toggle('a11y-text-1', a11y.text === 1); c.toggle('a11y-text-2', a11y.text === 2);
+  c.toggle('a11y-light', a11y.contrast === 'light'); c.toggle('a11y-dark', a11y.contrast === 'dark');
+  c.toggle('a11y-mono', !!a11y.mono); c.toggle('a11y-links', !!a11y.links); c.toggle('a11y-focus', !!a11y.focus);
+};
+a11yApply();
+// "stop all motion" from the menu counts exactly like the system's reduce-motion setting
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches || !!a11y.still;
+const stilled = () => document.documentElement.classList.contains('a11y-still');   // switched on from the menu after load
 const L = (he, en) => (EN ? en : he);                   // pick a UI string
 const tr = (obj, key) => (EN && obj[key + '_en']) || obj[key];  // pick a data field
 const ROOT = new URL(document.currentScript.src).pathname.replace(/\/assets\/site\.js$/, '');
@@ -222,7 +235,7 @@ function renderSpotlight(el) {
       d.classList.toggle('edge', (j === 0 && k > 0) || (j === dots.length - 1 && k < total - 1));   // smaller end dots hint there are more
     });
   };
-  const tick = () => { clearTimeout(timer); timer = setTimeout(() => { if (!hold && visible) go(i + 1); tick(); }, 4000); };
+  const tick = () => { clearTimeout(timer); timer = setTimeout(() => { if (!hold && visible && !stilled()) go(i + 1); tick(); }, 4000); };
   el.querySelectorAll('.sp-arr').forEach(b => b.addEventListener('click', () => { go(i + +b.dataset.step); tick(); }));
   stage.addEventListener('mouseenter', () => { hold = true; });
   stage.addEventListener('mouseleave', () => { hold = false; });
@@ -423,6 +436,72 @@ function illustrationsSway() {
   move();
 }
 
+// Accessibility menu: a tab on the side of every page that opens a panel of display settings
+function a11yMenu() {
+  const save = () => { try { localStorage.setItem(A11Y_KEY, JSON.stringify(a11y)); } catch {} a11yApply(); sync(); };
+  const items = [
+    ['still', L('עצירת כל התנועה והווידאו', 'Stop all motion and video')],
+    ['text', L('הגדלת טקסט', 'Larger text')],
+    ['light', L('ניגודיות גבוהה – רקע בהיר', 'High contrast – light')],
+    ['dark', L('ניגודיות גבוהה – רקע כהה', 'High contrast – dark')],
+    ['mono', L('שחור־לבן (מונוכרום)', 'Black and white (monochrome)')],
+    ['links', L('קו תחתון לכל הקישורים', 'Underline all links')],
+    ['focus', L('הדגשת מיקוד המקלדת', 'Strong keyboard focus')],
+  ];
+  const wrap = document.createElement('div');
+  wrap.className = 'a11y';
+  wrap.innerHTML = `
+    <button type="button" class="a11y-tab" aria-expanded="false" aria-controls="a11y-panel">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.2" r="2.2"/><path d="M4 8.2c2.7.8 5.3 1.2 8 1.2s5.3-.4 8-1.2l.5 1.9c-2.1.7-4.2 1.1-6.3 1.3V14l2.3 7.2-1.9.6L12.4 15h-.8l-2.2 6.8-1.9-.6L9.8 14v-2.6c-2.1-.2-4.2-.6-6.3-1.3z"/></svg>
+      <span class="sr-only">${L('תפריט נגישות', 'Accessibility menu')}</span>
+    </button>
+    <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="${L('תפריט נגישות', 'Accessibility menu')}" hidden>
+      <div class="a11y-head"><h2>${L('נגישות', 'Accessibility')}</h2>
+        <button type="button" class="a11y-x" aria-label="${L('סגירת תפריט הנגישות', 'Close accessibility menu')}">✕</button></div>
+      <ul>${items.map(([k, t]) => `<li><button type="button" class="a11y-opt" data-k="${k}" aria-pressed="false"><span class="a11y-check" aria-hidden="true"></span><span class="a11y-label">${t}</span>${k === 'text' ? '<b class="a11y-step" aria-hidden="true"></b>' : ''}</button></li>`).join('')}</ul>
+      <div class="a11y-foot">
+        <button type="button" class="a11y-reset">${L('איפוס הכל', 'Reset all')}</button>
+        <a href="${page('accessibility.html')}">${L('הצהרת נגישות', 'Accessibility statement')}</a>
+      </div>
+    </div>`;
+  document.body.appendChild(wrap);
+  const tab = wrap.querySelector('.a11y-tab'), panel = wrap.querySelector('.a11y-panel');
+  const on = k => k === 'text' ? !!a11y.text : k === 'light' || k === 'dark' ? a11y.contrast === k : !!a11y[k];
+  function sync() {
+    wrap.querySelectorAll('.a11y-opt').forEach(b => {
+      const k = b.dataset.k; b.setAttribute('aria-pressed', on(k));
+      if (k === 'text') b.querySelector('.a11y-step').textContent = a11y.text ? (a11y.text === 2 ? 'A++' : 'A+') : 'A';
+    });
+  }
+  const open = yes => {
+    panel.hidden = !yes; tab.setAttribute('aria-expanded', yes);
+    if (yes) panel.querySelector('.a11y-opt').focus();
+  };
+  tab.addEventListener('click', () => open(panel.hidden));
+  wrap.querySelector('.a11y-x').addEventListener('click', () => { open(false); tab.focus(); });
+  wrap.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { open(false); tab.focus(); } });
+  document.addEventListener('click', e => { if (!panel.hidden && !wrap.contains(e.target)) open(false); });
+  wrap.querySelectorAll('.a11y-opt').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.k;
+    if (k === 'text') a11y.text = ((a11y.text || 0) + 1) % 3;        // A → A+ → A++ → A
+    else if (k === 'light' || k === 'dark') a11y.contrast = a11y.contrast === k ? '' : k;
+    else a11y[k] = !a11y[k];
+    save();
+    if (k === 'still') {                                            // stop (or restart) every moving part
+      document.querySelectorAll('video').forEach(v => a11y.still ? v.pause() : v.play().catch(() => {}));
+      if (!a11y.still) { try { sessionStorage.setItem('rjf-a11y-open', '1'); } catch {} location.reload(); }
+    }
+  }));
+  wrap.querySelector('.a11y-reset').addEventListener('click', () => {
+    const wasStill = a11y.still;
+    Object.keys(a11y).forEach(k => delete a11y[k]); save();
+    if (wasStill) { try { sessionStorage.setItem('rjf-a11y-open', '1'); } catch {} location.reload(); }
+  });
+  sync();
+  try { if (sessionStorage.getItem('rjf-a11y-open')) { sessionStorage.removeItem('rjf-a11y-open'); open(true); } } catch {}
+  if (a11y.still) document.querySelectorAll('video').forEach(v => { v.pause(); v.removeAttribute('autoplay'); });
+}
+
 // Hero background video: portrait cut on phones, landscape on wider screens; poster only for reduced motion or data saver.
 function heroVideo() {
   const v = document.querySelector('.hero-vid');
@@ -433,7 +512,7 @@ function heroVideo() {
   const wide = matchMedia('(min-width: 1024px) and (min-aspect-ratio: 5/4)');
   const portrait = matchMedia('(max-aspect-ratio: 4/5), (max-width: 640px)');
   const saveData = navigator.connection && navigator.connection.saveData;
-  const play = el => el.play().then(() => el.classList.add('playing')).catch(() => {});
+  const play = el => { if (stilled()) return; el.play().then(() => el.classList.add('playing')).catch(() => {}); };
   const pick = () => {
     const k = wide.matches ? 'sides' : portrait.matches ? 'mobile' : 'desktop';
     if (v.dataset.on === k) return;
@@ -460,7 +539,7 @@ function heroVideo() {
   // pause while the hero is off screen
   new IntersectionObserver(([e]) => {
     const on = v.dataset.on === 'sides' ? sides : [v];
-    on.forEach(el => { if (!el.src) return; e.isIntersecting ? el.play().catch(() => {}) : el.pause(); });
+    on.forEach(el => { if (!el.src) return; e.isIntersecting && !stilled() ? el.play().catch(() => {}) : el.pause(); });
   }).observe(document.querySelector('.hero'));
 }
 
@@ -1120,6 +1199,7 @@ function chromeContrast() {
 
 addEventListener('DOMContentLoaded', () => {
   chromeContrast();
+  a11yMenu();
   heroVideo();
   illustrationsSway();
   factsMotion();

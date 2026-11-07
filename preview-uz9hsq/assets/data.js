@@ -23,7 +23,7 @@ const SITE = {
   contactFormKey: '',
   // accessibility coordinator – none appointed yet; when empty the statement asks people to contact the festival
   a11yContact: { name: '', phone: '', email: '' },
-  a11yUpdated: '14.10.2026',
+  a11yUpdated: '07.11.2026',
   logo: '/images/logo-hero.png',
   logoDark: '/images/logo-dark.png',  // charcoal version for light backgrounds (menu)
   program: '/images/413f2429c54a.png',

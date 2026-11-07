@@ -606,6 +606,19 @@ def page_accessibility(t, P, A):
     <li>{t('כיבוד הגדרת "הפחתת תנועה" במכשיר – האנימציות מצטמצמות.', 'The device setting "reduce motion" is respected – animations are reduced.')}</li>
     <li>{t('האתר זמין בעברית ובאנגלית ומותאם לטלפונים.', 'The site is available in Hebrew and English and works on phones.')}</li>
   </ul>
+  <h2>{t('תפריט הנגישות', 'The accessibility menu')}</h2>
+  <p>{t('בכל עמוד באתר יש לשונית נגישות בצד המסך (סמל האדם). לחיצה עליה פותחת תפריט עם האפשרויות הבאות:',
+        'Every page has an accessibility tab on the side of the screen (the person icon). It opens a menu with these options:')}</p>
+  <ul>
+    <li>{t('<b>עצירת כל התנועה והווידאו</b> – עוצרת את סרטוני הרקע, את רצועות התמונות הנעות, את הזרקור המתחלף ואת כל האנימציות.', '<b>Stop all motion and video</b> – stops the background videos, the moving photo strips, the rotating spotlight and every animation.')}</li>
+    <li>{t('<b>הגדלת טקסט</b> – בשתי דרגות (A+ ו־A++), בכל האתר.', '<b>Larger text</b> – in two steps (A+ and A++), across the whole site.')}</li>
+    <li>{t('<b>ניגודיות גבוהה</b> – רקע בהיר (טקסט שחור על לבן) או רקע כהה.', '<b>High contrast</b> – light (black text on white) or dark.')}</li>
+    <li>{t('<b>שחור־לבן (מונוכרום)</b> – לאנשים עם עיוורון צבעים.', '<b>Black and white (monochrome)</b> – for people with colour blindness.')}</li>
+    <li>{t('<b>קו תחתון לכל הקישורים</b>.', '<b>Underline all links</b>.')}</li>
+    <li>{t('<b>הדגשת מיקוד המקלדת</b> – מסגרת עבה סביב הרכיב שנבחר בניווט במקלדת.', '<b>Strong keyboard focus</b> – a thick frame around the element selected with the keyboard.')}</li>
+  </ul>
+  <p>{t('ההגדרות נשמרות בדפדפן וממשיכות לפעול במעבר בין עמודים ובביקורים הבאים. הכפתור "איפוס הכל" מחזיר את התצוגה הרגילה. התפריט עצמו נגיש במקלדת ובקוראי מסך, ונבנה בתוך האתר ללא תוסף חיצוני.',
+        'Your settings are saved in the browser and stay on as you move between pages and on later visits. "Reset all" returns the normal view. The menu itself works with the keyboard and screen readers, and is built into the site without an outside plugin.')}</p>
   <h2>{t('הסדרי נגישות בפסטיבל', 'Accessibility at the festival')}</h2>
   <p>{t('לפרטים על הסדרי הנגישות במרכז למוזיקה פיס רעננה (חניה, גישה לאולמות ומקומות ישיבה נגישים) – פנו אלינו בפרטים שלמטה.',
         'For accessibility arrangements at the Raanana Pais Music Center (parking, hall access and accessible seating), contact us using the details below.')}</p>
