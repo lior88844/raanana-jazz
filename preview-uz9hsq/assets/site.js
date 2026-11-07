@@ -1137,7 +1137,13 @@ addEventListener('DOMContentLoaded', () => {
 // GALLERY_2025 (assets/gallery-2025.js) lists [width, height] per photo; files are images/gallery-2025/NNN-480.webp and NNN-1200.webp
 function renderGallery(el, list, dir) {
   if (!el || !list) return;
-  const BATCH = 48, file = (i, w) => `${ROOT}/images/${dir}/${String(i + 1).padStart(3, '0')}-${w}.webp`;
+  // mix the album: photos are stored in shooting order, so neighbours are near-duplicates of the same show.
+  // Step through it with a stride near n/φ (coprime to n) – a fixed order that spreads every show across the whole gallery.
+  const n = list.length, gcd = (a, b) => b ? gcd(b, a % b) : a;
+  let step = Math.round(n * 0.618); while (gcd(step, n) !== 1) step++;
+  const order = Array.from({ length: n }, (_, k) => (k * step) % n);
+  list = order.map(o => list[o]);
+  const BATCH = 48, file = (i, w) => `${ROOT}/images/${dir}/${String(order[i] + 1).padStart(3, '0')}-${w}.webp`;
   let shown = 0;
   el.innerHTML = `<div class="gal-grid"></div><button type="button" class="btn primary gal-more"></button>`;
   const grid = el.querySelector('.gal-grid'), more = el.querySelector('.gal-more');
