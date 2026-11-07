@@ -1167,8 +1167,8 @@ function renderGallery(el, list, dir) {
   box.setAttribute('aria-label', L('גלריית תמונות', 'Photo gallery'));
   box.innerHTML = `<img alt=""><p class="gal-count" aria-live="polite"></p>
     <button type="button" class="gal-close" aria-label="${L('סגירה', 'Close')}">✕</button>
-    <button type="button" class="gal-prev" aria-label="${L('התמונה הקודמת', 'Previous photo')}">${EN ? '‹' : '›'}</button>
-    <button type="button" class="gal-next" aria-label="${L('התמונה הבאה', 'Next photo')}">${EN ? '›' : '‹'}</button>`;
+    <button type="button" class="gal-prev" aria-label="${L('התמונה הקודמת', 'Previous photo')}"><span dir="ltr">${EN ? '‹' : '›'}</span></button>
+    <button type="button" class="gal-next" aria-label="${L('התמונה הבאה', 'Next photo')}"><span dir="ltr">${EN ? '›' : '‹'}</span></button>`;
   document.body.appendChild(box);
   const big = box.querySelector('img'), count = box.querySelector('.gal-count');
   let cur = 0;
