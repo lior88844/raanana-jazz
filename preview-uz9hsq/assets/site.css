@@ -1335,8 +1335,9 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 .tix-box { overflow: visible; }
 .tix-box .ill-drum { top: -78px; inset-inline-end: 34px; width: 168px; transform-origin: 50% 100%; }
 .ill-drum img { display: block; width: 100%; height: auto; }
-.ill-drum .sticks { position: absolute; width: 112%; top: -14%; inset-inline-start: -8%; rotate: -14deg; transform-origin: 80% 50%; animation: sticks 1.8s ease-in-out infinite; }
-@keyframes sticks { 0%, 70%, 100% { transform: rotate(0); } 78% { transform: rotate(-9deg); } 86% { transform: rotate(3deg); } }
+/* the blue ends are the stick tips: they rest on the drum head (~60% across, near the top) and the sticks rise up and back from there */
+.ill-drum .sticks { position: absolute; width: 90%; left: -26%; top: 2%; transform-origin: 96% 50%; rotate: 32deg; animation: sticks 1.8s ease-in-out infinite; }
+@keyframes sticks { 0%, 62%, 100% { transform: translateY(0); } 74% { transform: translate(-6%, -22%); } 84% { transform: translateY(2%); } }
 @media (max-width: 900px) {
   .ill-sax { top: 30px; width: 130px; inset-inline-end: 16px; }
   .free-band .ill-bass { height: 210px; top: 40px; bottom: auto; inset-inline-end: 12px; }
