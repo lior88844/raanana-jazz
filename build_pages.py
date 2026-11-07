@@ -204,6 +204,7 @@ def page_index(t, P, A):
 <section class="now-strip" data-render="now" hidden aria-live="polite"></section>
 
 <section class="next" aria-labelledby="next-h">
+  <img class="ill ill-sax" src="/images/ill/dekel-sax.webp" width="800" height="547" alt="" aria-hidden="true" loading="lazy">
   <h2 id="next-h">{t('פסטיבל 2026', 'Festival 2026')}</h2>
   <p>{t('שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
         'Three days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
@@ -237,6 +238,7 @@ def page_index(t, P, A):
 <section class="free-band" aria-labelledby="free-h" data-render="free"></section>
 
 <section class="tix-box grain" aria-labelledby="tix-h">
+  <span class="ill ill-drum" aria-hidden="true"><img src="/images/ill/dekel-drum.webp" width="600" height="593" alt="" loading="lazy"><img class="sticks" src="/images/ill/dekel-sticks.webp" width="600" height="132" alt="" loading="lazy"></span>
   <div class="tix-in">
     <div class="tix-copy">
       <p class="love">{t('כרטיסים ופסים', 'Tickets and passes')}</p>

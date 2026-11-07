@@ -1326,3 +1326,20 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 .hero.has-sides .hero-inner { max-width: 44%; }
 .hero.has-sides .hero-title { width: clamp(238px, calc((100svh - 600px) * 1.43), min(560px, 38vw)); }
 .hero.has-sides .cd-strip { z-index: 3; }
+
+/* ---------- Dekel's 2025 festival illustrations as accents ---------- */
+.ill { position: absolute; pointer-events: none; user-select: none; z-index: 1; transform: translateY(var(--lift, 0)) rotate(var(--sway, 0deg)); transition: transform .4s ease-out; }
+.next { position: relative; }
+.ill-sax { top: 64px; inset-inline-end: 40px; width: clamp(150px, 20vw, 290px); height: auto; transform-origin: 50% 90%; }
+.free-band .ill-bass { z-index: 2; bottom: -12px; inset-inline-end: 7%; height: 92%; width: auto; transform-origin: 50% 100%; }
+.tix-box { overflow: visible; }
+.tix-box .ill-drum { top: -78px; inset-inline-end: 34px; width: 168px; transform-origin: 50% 100%; }
+.ill-drum img { display: block; width: 100%; height: auto; }
+.ill-drum .sticks { position: absolute; width: 112%; top: -14%; inset-inline-start: -8%; rotate: -14deg; transform-origin: 80% 50%; animation: sticks 1.8s ease-in-out infinite; }
+@keyframes sticks { 0%, 70%, 100% { transform: rotate(0); } 78% { transform: rotate(-9deg); } 86% { transform: rotate(3deg); } }
+@media (max-width: 900px) {
+  .ill-sax { top: 30px; width: 130px; inset-inline-end: 16px; }
+  .free-band .ill-bass { height: 210px; top: 40px; bottom: auto; inset-inline-end: 12px; }
+  .tix-box .ill-drum { top: -56px; width: 116px; inset-inline-end: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .ill, .ill-drum .sticks { animation: none; transform: none; } }

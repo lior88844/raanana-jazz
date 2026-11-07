@@ -322,7 +322,7 @@ function renderVenueMap(el) {
 // Home: everything with free entry, grouped by day, on a photo of the 2025 plaza.
 function renderFree(el) {
   const free = SHOWS.filter(s => s.free);
-  el.innerHTML = `<div class="free-ph" aria-hidden="true"><img src="${img('gallery-2025/300-1200.webp')}" alt="" loading="lazy" decoding="async"></div>
+  el.innerHTML = `<img class="ill ill-bass" src="${img('ill/dekel-bass.webp')}" width="388" height="900" alt="" aria-hidden="true" loading="lazy"><div class="free-ph" aria-hidden="true"><img src="${img('gallery-2025/300-1200.webp')}" alt="" loading="lazy" decoding="async"></div>
     <div class="free-in">
       <p class="love">${L('בלי כרטיס', 'No ticket needed')}</p>
       <h2 id="free-h">${L('בכניסה חופשית', 'Free entry')}</h2>
@@ -402,6 +402,25 @@ function contactForm(form) {
       status.className = 'cf-status err';
     } finally { btn.disabled = false; }
   });
+}
+
+// Dekel's festival illustrations sway a little as the page scrolls (each with its own phase)
+function illustrationsSway() {
+  const ills = [...document.querySelectorAll('.ill')];
+  if (!ills.length || reduceMotion) return;
+  let queued = false;
+  const move = () => {
+    queued = false;
+    ills.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const p = (r.top + r.height / 2) / innerHeight;          // 0 top of screen … 1 bottom
+      el.style.setProperty('--sway', `${Math.sin(p * 6 + i) * 4}deg`);
+      el.style.setProperty('--lift', `${(p - .5) * -24}px`);
+    });
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(move); } }, { passive: true });
+  move();
 }
 
 // Hero background video: portrait cut on phones, landscape on wider screens; poster only for reduced motion or data saver.
@@ -1102,6 +1121,7 @@ function chromeContrast() {
 addEventListener('DOMContentLoaded', () => {
   chromeContrast();
   heroVideo();
+  illustrationsSway();
   factsMotion();
   lazyBackgrounds();
   scrollReveal();
