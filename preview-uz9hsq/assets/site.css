@@ -1375,8 +1375,10 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 html.a11y-still .river-row { transform: translateX(-50%) !important; }
 html.a11y-still .ill { transform: none !important; }
-html.a11y-text-1 body { zoom: 1.15; }
-html.a11y-text-2 body { zoom: 1.3; }
+/* larger text: grow the text sizes only, so layouts and dialogs keep fitting the screen */
+html.a11y-text-1 { --fs-body: 22px; --fs-meta: 19px; --fs-small: 17px; }
+html.a11y-text-2 { --fs-body: 25px; --fs-meta: 22px; --fs-small: 19px; }
+html:is(.a11y-text-1, .a11y-text-2) body { overflow-wrap: break-word; }
 html { --f-mono: ; --f-dark: ; filter: var(--f-mono) var(--f-dark); }
 html.a11y-mono { --f-mono: grayscale(1); }
 /* dark: invert the page, then turn photos and video back to normal */
