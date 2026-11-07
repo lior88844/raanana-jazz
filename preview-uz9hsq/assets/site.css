@@ -952,10 +952,10 @@ html:has(.show-box[open]) { overflow: hidden; }
 
 .sb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 22px; padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
 .sb-soon { font-family: var(--display); font-weight: 700; font-size: var(--fs-meta); background: var(--soft); padding: 10px 16px; }
-.sb-fav, .sb-share { min-height: 44px; padding: 8px 16px; border: 2px solid var(--ink); border-radius: 999px; background: var(--surface); color: var(--ink);
+.sb-fav, .sb-share, .sb-cal { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px; border: 2px solid var(--ink); border-radius: 999px; background: var(--surface); color: var(--ink);
   font-family: var(--display); font-weight: 700; font-size: var(--fs-meta); transition: background var(--hover) ease; }
 .sb-fav[aria-pressed="true"] { background: var(--ink); color: var(--accent); }
-.sb-fav:active, .sb-share:active { transform: scale(.97); }
+.sb-fav:active, .sb-share:active, .sb-cal:active { transform: scale(.97); }
 
 .sb-about { margin-top: 24px; font-size: var(--fs-body); line-height: 1.65; }
 .sb-about p + p { margin-top: 14px; }
@@ -996,7 +996,7 @@ html:has(.show-box[open]) { overflow: hidden; }
 
 @media (hover: hover) and (pointer: fine) {
   .sb-play:hover i { transform: scale(1.08); }
-  .sb-fav:not([aria-pressed="true"]):hover, .sb-share:hover { background: var(--soft); }
+  .sb-fav:not([aria-pressed="true"]):hover, .sb-share:hover, .sb-cal:hover { background: var(--soft); }
   .sb-nav button:hover { background: var(--soft); }
   .sb-thumb:hover { filter: brightness(1.1); }
 }

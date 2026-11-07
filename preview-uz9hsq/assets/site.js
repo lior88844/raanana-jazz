@@ -735,6 +735,17 @@ function scrollRing() {
 const showById = id => SHOWS.find(s => s.id === id);
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const showUrl = s => location.origin + page('lineup.html') + '#' + s.id;
+// "Add to Google Calendar" link for a show: Israel local time, length from dur (90 min if unknown)
+const calUrl = s => {
+  const d = dayOf(s.day), [h, m] = s.time.split(':').map(Number), mins = s.dur || 90;
+  const end = new Date(Date.UTC(2000, 0, 1, h, m + mins));
+  const ymd = d.iso.replace(/-/g, ''), pad = n => String(n).padStart(2, '0');
+  const endDay = end.getUTCDate() > 1 ? new Date(Date.parse(d.iso) + 864e5).toISOString().slice(0, 10).replace(/-/g, '') : ymd;
+  const dates = `${ymd}T${pad(h)}${pad(m)}00/${endDay}T${pad(end.getUTCHours())}${pad(end.getUTCMinutes())}00`;
+  const q = new URLSearchParams({ action: 'TEMPLATE', text: `${tr(s, 'title')} – ${L('פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival')}`, dates, ctz: 'Asia/Jerusalem',
+    details: `${tr(s, 'sub') ? tr(s, 'sub') + '\n\n' : ''}${showUrl(s)}`, location: `${tr(s, 'venue')}, ${L('המרכז למוזיקה פיס רעננה', 'Raanana Pais Music Center')}` });
+  return 'https://calendar.google.com/calendar/render?' + q;
+};
 const ytThumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 let showBox = null;
 
@@ -789,6 +800,7 @@ function showHtml(s) {
         ${tickets}
         <button type="button" class="sb-fav" data-key="${showKey(s)}" aria-pressed="${on}">${on ? '★' : '☆'} ${L('לליינאפ שלי', 'My line-up')}</button>
         <button type="button" class="sb-share">${L('שיתוף', 'Share')}</button>
+        <a class="sb-cal" href="${esc(calUrl(s))}" target="_blank" rel="noopener">${L('הוספה ליומן', 'Add to calendar')}</a>
       </div>
       ${list('about').length ? `<div class="sb-about">${list('about').map(p => `<p>${esc(p)}</p>`).join('')}${s.link ? `<p class="sb-link"><a class="g-text" href="${esc(s.link)}" target="_blank" rel="noopener">${esc(tr(s, 'link_label'))} ${ARROW}</a></p>` : ''}</div>` : `<p class="sb-about">${L('פרטים נוספים יפורסמו בקרוב.', 'More details coming soon.')}</p>`}
       ${quotes}
