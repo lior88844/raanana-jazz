@@ -183,7 +183,7 @@ const SHOWS = [
     about_en: ["Cyrille Aimée grew up in Samois-sur-Seine, home of the Django Reinhardt festival, and as a teenager would sneak out of her bedroom window at night to meet the musicians. In New York she became one of the leading voices in vocal jazz: she has performed and recorded with Roy Hargrove, conquered the Apollo Theater in Harlem and starred in a Stephen Sondheim tribute alongside Wynton Marsalis. Her version of “Marry Me a Little” was nominated for a Grammy.", "Her concerts are a celebration of improvisation and freedom: standards in surprising arrangements, original songs, French chanson and Afro-Caribbean sounds from her Dominican roots. Her live album 4.24, recorded at Birdland in New York, captures exactly that energy."],
     cast: ["סיריל איימה – שירה · יונתן ריקליס – פסנתר · אלון ניר – קונטרבס · יונתן רוזן – תופים"],
     cast_en: ["Cyrille Aimée – vocals · Yonatan Riklis – piano · Alon Nir – double bass · Yonatan Rosen – drums"],
-    yt: ["Q-q_KdiwHiA"] },
+    yt: ["Q-q_KdiwHiA"] , img: "2026-cyrille-show.jpg", pos: "62% 35%" },
   { id: "jam-fri", day: "fri", time: "22:30", dur: 90, free: true, jam: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "ג'אם סשן ברחבת הפסטיבל", title_en: "Jam Session on the Festival Plaza",
