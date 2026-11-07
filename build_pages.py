@@ -163,6 +163,10 @@ def page_index(t, P, A):
         no_suffix=True,
         body=f'''
 <section class="hero grain">
+  <div class="hero-sides" aria-hidden="true">
+    <video class="hero-side side-a" muted loop playsinline preload="none" disablepictureinpicture data-src="/video/hero-side-a.mp4" poster="/video/hero-side-a-poster.jpg"></video>
+    <video class="hero-side side-b" muted loop playsinline preload="none" disablepictureinpicture data-src="/video/hero-side-b.mp4" poster="/video/hero-side-b-poster.jpg" data-offset="1.25"></video>
+  </div>
   <div class="hero-bg" aria-hidden="true">
     <video class="hero-vid" muted loop playsinline preload="none" disablepictureinpicture
       data-desktop="/video/hero-desktop.mp4" data-desktop-poster="/video/hero-desktop-poster.jpg"

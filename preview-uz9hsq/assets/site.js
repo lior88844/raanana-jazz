@@ -406,21 +406,41 @@ function contactForm(form) {
 function heroVideo() {
   const v = document.querySelector('.hero-vid');
   if (!v) return;
+  const sides = [...document.querySelectorAll('.hero-side')];
+  // wide screens: two side panels, each a loop of artists (left: players, right: voices and more), and a plain terracotta centre;
+  // narrower screens: one background video (portrait cut on phones)
+  const wide = matchMedia('(min-width: 1024px) and (min-aspect-ratio: 5/4)');
   const portrait = matchMedia('(max-aspect-ratio: 4/5), (max-width: 640px)');
   const saveData = navigator.connection && navigator.connection.saveData;
+  const play = el => el.play().then(() => el.classList.add('playing')).catch(() => {});
   const pick = () => {
-    const k = portrait.matches ? 'mobile' : 'desktop';
+    const k = wide.matches ? 'sides' : portrait.matches ? 'mobile' : 'desktop';
     if (v.dataset.on === k) return;
     v.dataset.on = k;
+    document.querySelector('.hero').classList.toggle('has-sides', k === 'sides');
+    if (k === 'sides') {
+      v.pause();
+      if (reduceMotion || saveData) return;
+      sides.forEach(el => {
+        if (!el.src) el.src = el.dataset.src + (el.dataset.offset ? '#t=' + el.dataset.offset : '');   // the right loop starts a beat later, so the two sides never cut together
+        play(el);
+      });
+      return;
+    }
+    sides.forEach(el => el.pause());
     v.poster = v.dataset[k + 'Poster'];
     if (reduceMotion || saveData) return;
-    v.src = v.dataset[k];
-    v.play().then(() => v.classList.add('playing')).catch(() => {});
+    if (!v.src.endsWith(v.dataset[k])) v.src = v.dataset[k];
+    play(v);
   };
   pick();
+  wide.addEventListener('change', pick);
   portrait.addEventListener('change', pick);
   // pause while the hero is off screen
-  new IntersectionObserver(([e]) => { if (!v.src) return; e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }).observe(v);
+  new IntersectionObserver(([e]) => {
+    const on = v.dataset.on === 'sides' ? sides : [v];
+    on.forEach(el => { if (!el.src) return; e.isIntersecting ? el.play().catch(() => {}) : el.pause(); });
+  }).observe(document.querySelector('.hero'));
 }
 
 // "Now on stage": during festival days, what is playing on each stage right now (or next).

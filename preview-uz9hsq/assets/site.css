@@ -1309,3 +1309,20 @@ html[dir="rtl"] .sb-close { float: left; }   /* the card itself is ltr now, so p
 
 [lang="en"] .vm-name { font-size: 2.3cqw; }
 .vmap + .stage-row { margin-top: 48px; }
+
+/* hero on wide screens: artist video loops in two side panels, the logo on terracotta in the middle */
+.hero-sides { display: none; }
+.hero.has-sides .hero-bg { background: var(--field); }
+.hero.has-sides .hero-vid { display: none; }
+.hero.has-sides .hero-bg::after { display: none; }
+.hero.has-sides .hero-sides { display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.hero.has-sides .hero-side { position: absolute; top: 0; bottom: 0; width: 27%; height: 100%; object-fit: cover; background: var(--dark); }
+.hero.has-sides .side-a { left: 0; }
+.hero.has-sides .side-b { right: 0; }
+.hero.has-sides .hero-sides::before, .hero.has-sides .hero-sides::after { content: ""; position: absolute; top: 0; bottom: 0; width: 27%; z-index: 1;
+  box-shadow: inset 0 0 0 9999px rgba(58, 26, 20, .12); }
+.hero.has-sides .hero-sides::before { left: 0; }
+.hero.has-sides .hero-sides::after { right: 0; }
+.hero.has-sides .hero-inner { max-width: 44%; }
+.hero.has-sides .hero-title { width: clamp(238px, calc((100svh - 600px) * 1.43), min(560px, 38vw)); }
+.hero.has-sides .cd-strip { z-index: 3; }
