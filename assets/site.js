@@ -304,7 +304,7 @@ function renderVenueMap(el) {
     <div class="vm-scroll"><div class="vm-stage">
       <img class="vm-building" src="${img('venue-map/building-1776.webp')}" srcset="${img('venue-map/building-900.webp')} 900w, ${img('venue-map/building-1776.webp')} 1776w"
         sizes="(max-width: 800px) 800px, 1180px" width="1776" height="660" loading="lazy" decoding="async"
-        alt="${L('ציור של המרכז למוזיקה פיס רעננה מלפנים, עם חמש במות הפסטיבל', 'Drawing of the Raanana Pais Music Center from the front, with the five festival stages')}">
+        alt="${L('ציור של מרכז פיס למוזיקה רעננה מלפנים, עם חמש במות הפסטיבל', 'Drawing of the Raanana Pais Music Center from the front, with the five festival stages')}">
       ${pins}
     </div></div>
     <p class="vm-hint">${L('לחצו על במה כדי לראות איפה היא ומה מופיע בה', 'Tap a stage to see where it is and what’s on')}<span class="vm-swipe"> · ${L('אפשר לגלול את המפה הצידה', 'swipe the map sideways')}</span></p>
@@ -866,7 +866,7 @@ const calUrl = s => {
   const endDay = end.getUTCDate() > 1 ? new Date(Date.parse(d.iso) + 864e5).toISOString().slice(0, 10).replace(/-/g, '') : ymd;
   const dates = `${ymd}T${pad(h)}${pad(m)}00/${endDay}T${pad(end.getUTCHours())}${pad(end.getUTCMinutes())}00`;
   const q = new URLSearchParams({ action: 'TEMPLATE', text: `${tr(s, 'title')} – ${L('פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival')}`, dates, ctz: 'Asia/Jerusalem',
-    details: `${tr(s, 'sub') ? tr(s, 'sub') + '\n\n' : ''}${showUrl(s)}`, location: `${tr(s, 'venue')}, ${L('המרכז למוזיקה פיס רעננה', 'Raanana Pais Music Center')}` });
+    details: `${tr(s, 'sub') ? tr(s, 'sub') + '\n\n' : ''}${showUrl(s)}`, location: `${tr(s, 'venue')}, ${L('מרכז פיס למוזיקה רעננה', 'Raanana Pais Music Center')}` });
   return 'https://calendar.google.com/calendar/render?' + q;
 };
 const ytThumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;

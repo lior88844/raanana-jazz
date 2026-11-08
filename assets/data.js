@@ -8,7 +8,7 @@ const SITE = {
   dates: '10–12.12.2026',
   datesLatin: '10–12 <small>DEC 2026</small>',
   director: 'עמית פרידמן',
-  venueName: 'המרכז למוזיקה פיס רעננה',
+  venueName: 'מרכז פיס למוזיקה רעננה',
   tickets: 'https://tickets.raanana.muni.il/',
   fullPass: 'season/1983',
   // 2026 workshop sign-up link – not out yet; while empty the sign-up buttons say the link is coming soon

@@ -160,8 +160,8 @@ def passes_box(t, P, A):
 def page_index(t, P, A):
     return dict(
         title=t('פסטיבל הג׳אז רעננה | Raanana Jazz Festival', 'Raanana Jazz Festival | World Jazz Music'),
-        desc=t('פסטיבל הג׳אז רעננה – World Jazz Music. 10–12 בדצמבר 2026, שלושה ימים של מוזיקה חיה במרכז למוזיקה רעננה.',
-               'Raanana Jazz Festival – World Jazz Music. 10–12 December 2026: three days of live music at the Raanana Music Center.'),
+        desc=t('פסטיבל הג׳אז רעננה – World Jazz Music. 10–12 בדצמבר 2026, שלושה ימים של מוזיקה חיה במרכז פיס למוזיקה רעננה.',
+               'Raanana Jazz Festival – World Jazz Music. 10–12 December 2026: three days of live music at the Raanana Pais Music Center.'),
         no_suffix=True,
         body=f'''
 <section class="hero grain">
@@ -208,8 +208,8 @@ def page_index(t, P, A):
 <section class="next" aria-labelledby="next-h">
   <img class="ill ill-sax" src="/images/ill/dekel-sax.webp" width="800" height="547" alt="" aria-hidden="true" loading="lazy">
   <h2 id="next-h">{t('פסטיבל 2026', 'Festival 2026')}</h2>
-  <p>{t('שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
-        'Three days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
+  <p>{t('שלושה ימים של ג׳אז ומוזיקת עולם במרכז פיס למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
+        'Three days of jazz and world music at the Raanana Pais Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
   <ul class="facts">
     <li class="f-days"><b data-count>10–12.12</b><span>{t('שלושה ימים, חמישי עד שבת', 'Three days, Thursday to Saturday')}</span></li>
     <li class="f-shows"><b data-count>20</b><span>{t('הופעות בחמש במות – כולל <bdi>Jazz Corner</bdi>, במת הלילה החדשה', 'shows on five stages – including Jazz Corner, our new late-night stage')}</span><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></li>
@@ -231,7 +231,7 @@ def page_index(t, P, A):
 <section class="stages" aria-labelledby="stages-h">
   <div class="stitle">
     <h2 id="stages-h">{t('חמש במות, מתחם אחד', 'Five stages, one venue')}</h2>
-    <p>{t('כל הפסטיבל מתקיים במרכז למוזיקה פיס רעננה – מהאולם הגדול ועד <bdi>Jazz Corner</bdi>, כל הופעה במרחק כמה צעדים.', 'The whole festival happens at the Raanana Pais Music Center – from the big hall to Jazz Corner, every show is a few steps away.')}</p>
+    <p>{t('כל הפסטיבל מתקיים במרכז פיס למוזיקה רעננה – מהאולם הגדול ועד <bdi>Jazz Corner</bdi>, כל הופעה במרחק כמה צעדים.', 'The whole festival happens at the Raanana Pais Music Center – from the big hall to Jazz Corner, every show is a few steps away.')}</p>
   </div>
   <div class="vmap" data-render="venuemap"></div>
   <div class="stage-row" data-render="stages"></div>
@@ -323,8 +323,8 @@ def page_past(t, P, A):
         desc=t('פסטיבל הג׳אז רעננה 2025 בתמונות: רגעים מההופעות, מהקהל ומהלובי, ולוח ההופעות של אותה שנה.',
                'The 2025 Raanana Jazz Festival in photos: moments from the shows, the audience and the lobby, and that year’s line-up.'),
         body=hero(t('מהדורות קודמות', 'Past editions'), t('פסטיבל 2025', 'Festival 2025'), '',
-                  t('18–20 בדצמבר 2025: שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – כך זה נראה מהקהל, מהבמה ומהלובי.',
-                    '18–20 December 2025: three days of jazz and world music at the Raanana Music Center – as seen from the audience, the stage and the lobby.')) + f'''
+                  t('18–20 בדצמבר 2025: שלושה ימים של ג׳אז ומוזיקת עולם במרכז פיס למוזיקה רעננה – כך זה נראה מהקהל, מהבמה ומהלובי.',
+                    '18–20 December 2025: three days of jazz and world music at the Raanana Pais Music Center – as seen from the audience, the stage and the lobby.')) + f'''
 <section class="wrap section" id="gallery" aria-labelledby="gal-h">
   <h2 class="sec-h" id="gal-h">{t('גלריה מהפסטיבל', 'Festival gallery')}</h2>
   <p>{t('לחצו על תמונה כדי לראות אותה בגדול.', 'Tap a photo to see it larger.')}</p>
@@ -356,8 +356,8 @@ def page_venue(t, P, A):
     maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
     return dict(
         title=t('המתחם', 'The Venue'),
-        desc=t('חמש הבמות של פסטיבל הג׳אז רעננה במרכז למוזיקה פיס רעננה.', 'The five stages of the Raanana Jazz Festival at the Raanana Pais Music Center.'),
-        body=hero(t('המרכז למוזיקה פיס רעננה', 'Raanana Pais Music Center'), t('המתחם', 'The Venue'), t('5 במות', '5 stages'),
+        desc=t('חמש הבמות של פסטיבל הג׳אז רעננה במרכז פיס למוזיקה רעננה.', 'The five stages of the Raanana Jazz Festival at the Raanana Pais Music Center.'),
+        body=hero(t('מרכז פיס למוזיקה רעננה', 'Raanana Pais Music Center'), t('המתחם', 'The Venue'), t('5 במות', '5 stages'),
                   t('מהאולם המרכזי ועד רחבת הפסטיבל – כל הפסטיבל מתקיים במתחם אחד, כך שאפשר לעבור בין הופעות בכמה צעדים.',
                     'From the main hall to the Festival Plaza, the whole festival happens in one place – every show is just a few steps away.')) + f'''
 <section class="section" id="map" aria-labelledby="map-h">
@@ -374,8 +374,8 @@ def page_venue(t, P, A):
 </section>
 <section class="wrap section">
   <h2 class="sec-h">{t('איך מגיעים', 'Getting here')}</h2>
-  <p>{t('הפסטיבל מתקיים ב<b>מרכז למוזיקה פיס רעננה</b>.', 'The festival takes place at the <b>Raanana Pais Music Center</b>.')}</p>
-  <iframe class="map" loading="lazy" title="{t('מפה – המרכז למוזיקה רעננה', 'Map – Raanana Music Center')}"
+  <p>{t('הפסטיבל מתקיים ב<b>מרכז פיס למוזיקה רעננה</b>.', 'The festival takes place at the <b>Raanana Pais Music Center</b>.')}</p>
+  <iframe class="map" loading="lazy" title="{t('מפה – מרכז פיס למוזיקה רעננה', 'Map – Raanana Pais Music Center')}"
     src="https://www.google.com/maps?q={maps_q}&output=embed"></iframe>
   <p style="margin-top:14px"><a class="g-text" target="_blank" rel="noopener"
     href="https://www.google.com/maps/search/?api=1&query={maps_q}">{t('לפתיחה ב־Google Maps', 'Open in Google Maps')} {A}</a></p>
@@ -410,7 +410,7 @@ def page_about(t, P, A):
 </section>
 <section class="narrow section prose">
   <h2>{t('מי אנחנו', 'Who we are')}</h2>
-  <p>{t('הפסטיבל מופק על ידי <b>המרכז למוזיקה פיס רעננה</b> ו<b>עיריית רעננה</b>. הניהול האומנותי בידי הסקסופוניסט והמלחין <b>עמית פרידמן</b>.',
+  <p>{t('הפסטיבל מופק על ידי <b>מרכז פיס למוזיקה רעננה</b> ו<b>עיריית רעננה</b>. הניהול האומנותי בידי הסקסופוניסט והמלחין <b>עמית פרידמן</b>.',
         'The festival is produced by the <b>Raanana Pais Music Center</b> and the <b>Raanana Municipality</b>. Artistic direction is by pianist and composer <b>Amit Friedman</b>.')}</p>
   <p>{t('לצד ההופעות, הפסטיבל הוא גם בית ספר: בכל שנה נגנים צעירים בגילאי 14–25 לומדים מאמנים בינלאומיים ומסיימים בהופעה על במת הפסטיבל.',
         'Alongside the concerts, the festival is also a school: every year young musicians aged 14–25 learn from international artists and finish with a performance on the festival stage.')}</p>
@@ -576,7 +576,7 @@ def page_contact(t, P, A):
   </form>
   <aside class="cf-side">
     <h2>{t('דרכים נוספות', 'Other ways')}</h2>
-    <p>{t('אפשר גם לכתוב לנו באינסטגרם של הפסטיבל ובפייסבוק של המרכז למוזיקה רעננה.', 'You can also message us on the festival Instagram or the Raanana Music Center Facebook.')}</p>
+    <p>{t('אפשר גם לכתוב לנו באינסטגרם של הפסטיבל ובפייסבוק של מרכז פיס למוזיקה רעננה.', 'You can also message us on the festival Instagram or the Raanana Pais Music Center Facebook.')}</p>
     <p class="cf-links"><a class="g-text" href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener">Instagram {A}</a>
       <a class="g-text" href="https://www.facebook.com/raananapaismusiccenter" target="_blank" rel="noopener">Facebook {A}</a></p>
     <p>{t(f'שאלות נפוצות על הגעה, כרטיסים ונגישות – <a href="{P("guide.html")}">במידע למבקרים</a>.', f'Common questions about getting here, tickets and accessibility – <a href="{P("guide.html")}">in Visitor info</a>.')}</p>
@@ -620,7 +620,7 @@ def page_accessibility(t, P, A):
   <p>{t('ההגדרות נשמרות בדפדפן וממשיכות לפעול במעבר בין עמודים ובביקורים הבאים. הכפתור "איפוס הכל" מחזיר את התצוגה הרגילה. התפריט עצמו נגיש במקלדת ובקוראי מסך, ונבנה בתוך האתר ללא תוסף חיצוני.',
         'Your settings are saved in the browser and stay on as you move between pages and on later visits. "Reset all" returns the normal view. The menu itself works with the keyboard and screen readers, and is built into the site without an outside plugin.')}</p>
   <h2>{t('הסדרי נגישות בפסטיבל', 'Accessibility at the festival')}</h2>
-  <p>{t('לפרטים על הסדרי הנגישות במרכז למוזיקה פיס רעננה (חניה, גישה לאולמות ומקומות ישיבה נגישים) – פנו אלינו בפרטים שלמטה.',
+  <p>{t('לפרטים על הסדרי הנגישות במרכז פיס למוזיקה רעננה (חניה, גישה לאולמות ומקומות ישיבה נגישים) – פנו אלינו בפרטים שלמטה.',
         'For accessibility arrangements at the Raanana Pais Music Center (parking, hall access and accessible seating), contact us using the details below.')}</p>
   <h2>{t('מגבלות ידועות', 'Known limitations')}</h2>
   <ul>
@@ -663,7 +663,7 @@ def page_guide(t, P, A):
     maps_q = '%D7%94%D7%9E%D7%A8%D7%9B%D7%96+%D7%9C%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94+%D7%A4%D7%99%D7%A1+%D7%A8%D7%A2%D7%A0%D7%A0%D7%94'
     tabs = [
         ('arrive', t('הגעה', 'Getting here'), t('הגעה למתחם', 'Getting here'), f"""
-      <p>{t('כל הפסטיבל מתקיים במתחם אחד – <b>המרכז למוזיקה פיס רעננה</b>. חמש הבמות קרובות זו לזו, כך שאפשר לעבור בין הופעות בכמה צעדים.',
+      <p>{t('כל הפסטיבל מתקיים במתחם אחד – <b>מרכז פיס למוזיקה רעננה</b>. חמש הבמות קרובות זו לזו, כך שאפשר לעבור בין הופעות בכמה צעדים.',
             'The whole festival takes place in one venue – <b>the Raanana Pais Music Center</b>. The five stages are close together, so every show is a few steps away.')}</p>
       <p>{t('<b>חניה:</b> החניה בכל אזור המרכז חופשית (מדרכה אפורה), ואפשר לחנות בכל מקום. אם הסביבה עמוסה, אפשר לחנות בחניון אשכול הפיס בפינת הרחובות החייל והנשיאים – גם שם החניה חופשית.',
             '<b>Parking:</b> parking all around the center is free (grey kerb), so you can park anywhere. If the area is busy, use the Eshkol HaPais car park at the corner of HaChayal and HaNesi’im streets – also free.')}</p>
@@ -713,7 +713,7 @@ def page_guide(t, P, A):
             (t('מתי הפסטיבל?', 'When is the festival?'),
              t('10–12 בדצמבר 2026, חמישי עד שבת.', '10–12 December 2026, Thursday to Saturday.')),
             (t('איפה הפסטיבל מתקיים?', 'Where does it take place?'),
-             t(f'במרכז למוזיקה פיס רעננה, בחמש במות. <a href="{P("venue.html")}">על המתחם</a>.',
+             t(f'במרכז פיס למוזיקה רעננה, בחמש במות. <a href="{P("venue.html")}">על המתחם</a>.',
                f'At the Raanana Pais Music Center, on five stages. <a href="{P("venue.html")}">About the venue</a>.')),
             (t('איפה התוכנייה של 2026?', 'Where is the 2026 programme?'),
              t(f'כבר באתר – <a href="{P("lineup.html")}">בלוח ההופעות</a>. עדכונים נוספים <a href="{ig}" target="_blank" rel="noopener">באינסטגרם של World Jazz Music</a>.',
@@ -787,7 +787,7 @@ def page_privacy(t, P, A):
     tickets = '<a href="https://tickets.raanana.muni.il/" target="_blank" rel="noopener">tickets.raanana.muni.il</a>'
     S = [
         ('כללי', 'General', [
-            ('מדיניות פרטיות זו חלה על אתר פסטיבל הג׳אז רעננה – World Jazz Music, בכתובת raananajazzfestival.com (״האתר״). הפסטיבל מתקיים במרכז למוזיקה פיס רעננה (״הפסטיבל״, ״אנחנו״).',
+            ('מדיניות פרטיות זו חלה על אתר פסטיבל הג׳אז רעננה – World Jazz Music, בכתובת raananajazzfestival.com (״האתר״). הפסטיבל מתקיים במרכז פיס למוזיקה רעננה (״הפסטיבל״, ״אנחנו״).',
              'This privacy policy applies to the Raanana Jazz Festival – World Jazz Music website at raananajazzfestival.com (“the site”). The festival takes place at the Raanana Pais Music Center (“the festival”, “we”).'),
             ('אנו מכבדים את פרטיותכם. המדיניות מסבירה איזה מידע נאסף בזמן השימוש באתר, למה הוא משמש ואילו אפשרויות עומדות לרשותכם. השימוש באתר מהווה הסכמה למדיניות זו.',
              'We respect your privacy. This policy explains what information is collected when you use the site, what it is used for and what choices you have. Using the site means you accept this policy.'),
@@ -850,7 +850,7 @@ def page_terms(t, P, A):
     tickets = '<a href="https://tickets.raanana.muni.il/" target="_blank" rel="noopener">tickets.raanana.muni.il</a>'
     S = [
         ('כללי', 'General', [
-            ('התנאים שלהלן חלים על השימוש באתר פסטיבל הג׳אז רעננה – World Jazz Music, בכתובת raananajazzfestival.com (״האתר״). הפסטיבל מתקיים במרכז למוזיקה פיס רעננה (״הפסטיבל״, ״אנחנו״).',
+            ('התנאים שלהלן חלים על השימוש באתר פסטיבל הג׳אז רעננה – World Jazz Music, בכתובת raananajazzfestival.com (״האתר״). הפסטיבל מתקיים במרכז פיס למוזיקה רעננה (״הפסטיבל״, ״אנחנו״).',
              'These terms apply to the use of the Raanana Jazz Festival – World Jazz Music website at raananajazzfestival.com (“the site”). The festival takes place at the Raanana Pais Music Center (“the festival”, “we”).'),
             (f'התנאים, יחד עם <a href="{P("privacy.html")}">מדיניות הפרטיות</a>, מסדירים את השימוש באתר. השימוש באתר מהווה הסכמה לתנאים. אם אינכם מסכימים להם, אנא הימנעו משימוש באתר.',
              f'These terms, together with the <a href="{P("privacy.html")}">privacy policy</a>, govern the use of the site. Using the site means you accept them. If you do not agree, please do not use the site.'),
@@ -1044,7 +1044,7 @@ h1 { position: relative; z-index: 1; width: calc(var(--u) * 1); margin: 0; font-
 </head>
 <body>
 <main class="stage">
-  <div class="corner c-pais"><img class="blob" src="/soon/blob-tl.webp" width="611" height="351" alt=""><img class="logo" src="/soon/logo-pais.webp" width="476" height="211" alt="מרכז פיס למוסיקה רעננה"></div>
+  <div class="corner c-pais"><img class="blob" src="/soon/blob-tl.webp" width="611" height="351" alt=""><img class="logo" src="/soon/logo-pais.webp" width="476" height="211" alt="מרכז פיס למוזיקה רעננה"></div>
   <div class="corner c-raan"><img class="blob" src="/soon/blob-tr.webp" width="557" height="399" alt=""><img class="logo" src="/soon/logo-raanana.webp" width="356" height="520" alt="עיריית רעננה"></div>
   <h1>
     <img class="hw hw-fest" src="/soon/word-festival.png" width="411" height="125" alt="">
