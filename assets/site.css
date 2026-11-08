@@ -1460,3 +1460,5 @@ html.a11y-still .t-strip { overflow-x: auto; }
   .t-strip figcaption { font-size: 14px; } .t-strip figcaption small { font-size: 12px; }
   .t-track { animation-duration: 42s; }
 }
+/* workshops: the teacher belt sits above the title */
+.t-strip.t-top { margin: -40px -24px 34px; }

@@ -433,7 +433,7 @@ def page_workshops(t, P, A):
                   t('שלושה ימים של נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים מהשורה הראשונה בעולם, והופעה בפסטיבל. ההרשמה פתוחה&nbsp;עד&nbsp;20.11!',
                     'Three days of ensemble playing, instrument workshops and masterclasses with world-class artists, and a performance at the festival. Sign-up is open until&nbsp;20.11!'),
                   f'<a data-href="form" target="_blank" rel="noopener" class="btn primary">{t("להרשמה", "Sign up")}</a>',
-                  under='<div class="t-strip" data-render="teacher-strip"></div>') + f'''
+                  top='<div class="t-strip t-top" data-render="teacher-strip"></div>') + f'''
 <section class="wrap section">
   <div class="stats stats-3">
     <div class="stat"><b>3</b><span>{t('ימים · חמישי–שבת<br><bdi dir="ltr">10–12</bdi> בדצמבר (חופשת חנוכה)', 'days · Thursday–Saturday<br>10–12 December (Hanukkah break)')}</span></div>
