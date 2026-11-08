@@ -83,7 +83,7 @@ ${ICONS}
 ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span><b>${L(SITE.notice.he, SITE.notice.en)}</b>
   <a href="${/^https?:/.test(SITE.notice.href) ? SITE.notice.href : page(SITE.notice.href)}" ${/^https?:/.test(SITE.notice.href) ? ext : ''}>${L(SITE.notice.link, SITE.notice.link_en)} ${ARROW}</a></div>` : ''}
 <header class="topbar">
-  <div class="tag">World <em>Jazz</em> Music · <i>${L('רעננה', 'Raanana')}</i> · ${SITE.dates}</div>
+  <div class="tag">World <em>Jazz</em> Music · <i>${L('רעננה', 'Raanana')}</i> · <bdi dir="ltr">${SITE.dates}</bdi></div>
   <nav>
     <a href="${page('lineup.html')}">${L('לוח <span>הופעות</span>', 'Line-<span>up</span>')}</a>
     <a href="${page('workshops.html')}">${L('סדנאות', 'Workshops')}</a>
