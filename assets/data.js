@@ -180,7 +180,7 @@ const SHOWS = [
     about_en: ["Pianist Yonatan Avishai is one of the most original voices in contemporary jazz. A long-standing partner in the projects of trumpeter Avishai Cohen and bassist Omer Avital, he has released several albums on the prestigious ECM label. In his new and colourful ensemble, surrounded by musicians from diverse musical backgrounds, he builds a poetic, vivid world centred on the language of jazz and blues – universal and, at the same time, very much local. Poetic texts are woven between the instrumental pieces: an honest dialogue with life, with joy and sorrow alike.", "The concert comes just before the release of the ensemble’s new album, Walk with Me, on ECM."],
     cast: ["יונתן אבישי – פסנתר · מאיו שבירו – צ'לו · הדר נויברג – חליל · יונתן אלבלק – גיטרה · רוני עברין – כלי הקשה · שחר חזיזה – תופים"],
     cast_en: ["Yonatan Avishai – piano · Mayu Shviro – cello · Hadar Noiberg – flute · Yonatan Albalak – guitar · Roni Ivrin – percussion · Shahar Haziza – drums"],
-    img: "2026-avishai.jpg", credit: "יוסי צבקר", credit_en: "Yossi Zwecker", yt: ["GHyIgCWd2SM", "lc9aN0fH4zA"] , slug: "event/32062" },
+    img: "2026-avishai.jpg", pos: "50% 8%", credit: "יוסי צבקר", credit_en: "Yossi Zwecker", yt: ["GHyIgCWd2SM", "lc9aN0fH4zA"] , slug: "event/32062" },
   { id: "cyrille", day: "fri", time: "21:00", dur: 75,
     venue: "Jazz Corner", venue_en: "Jazz Corner",
     title: "Cyrille Aimée (צרפת)", title_en: "Cyrille Aimée (France)",
