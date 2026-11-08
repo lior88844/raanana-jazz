@@ -620,10 +620,19 @@ function renderShowList(el, dayId) {
 
 // Workshops hero: a row of every teacher's photo, the first thing on the page
 function renderTeacherStrip(el) {
-  const fig = ([f, n, r, nEn, rEn]) => `<figure><img src="${img(f.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="eager" decoding="async"><figcaption>${EN ? nEn : n}<small>${(EN ? rEn : r).split(' · ')[0]}</small></figcaption></figure>`;
+  // each artist links to their bio further down the page
+  const fig = ([f, n, r, nEn, rEn], i) => `<figure><a href="#t-${i}" class="t-go"><img src="${img(f.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="eager" decoding="async"><figcaption>${EN ? nEn : n}<small>${(EN ? rEn : r).split(' · ')[0]}</small></figcaption></a></figure>`;
   const set = TEACHERS.map(fig).join('');
   // two identical sets side by side; the track slides by exactly one set, so the loop has no end and no jump
-  el.innerHTML = `<div class="t-track">${set}${set.replace(/<figure>/g, '<figure aria-hidden="true">')}</div>`;
+  el.innerHTML = `<div class="t-track">${set}${set.replace(/<figure>/g, '<figure aria-hidden="true">').replace(/class="t-go"/g, 'class="t-go" tabindex="-1"')}</div>`;
+  el.addEventListener('click', e => {
+    const a = e.target.closest('.t-go'); if (!a) return;
+    const bio = document.querySelector(a.getAttribute('href')); if (!bio) return;
+    e.preventDefault();
+    bio.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    bio.classList.remove('flash'); void bio.offsetWidth; bio.classList.add('flash');
+    history.replaceState(null, '', a.getAttribute('href'));
+  });
 }
 
 function renderTeachers(el, asList = true, bios = false) {
@@ -635,7 +644,7 @@ function renderTeachers(el, asList = true, bios = false) {
   el.innerHTML = asList
     ? rows.map(([f, n, r]) => `<li><i data-bg="${img(f)}"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
     : bios
-      ? rows.map(([f, n, r, b, c]) => `<article class="tbio"><figure>${ph(f)}${c ? `<figcaption>${L('צילום', 'Photo')}: ${c}</figcaption>` : ''}</figure><div><h3>${n}${split(r)[1] ? ` (${split(r)[1]})` : ''}</h3><span>${split(r)[0]}</span>${b ? `<p>${b}</p>` : ''}</div></article>`).join('')
+      ? rows.map(([f, n, r, b, c], i) => `<article class="tbio" id="t-${i}"><figure>${ph(f)}${c ? `<figcaption>${L('צילום', 'Photo')}: ${c}</figcaption>` : ''}</figure><div><h3>${n}${split(r)[1] ? ` (${split(r)[1]})` : ''}</h3><span>${split(r)[0]}</span>${b ? `<p>${b}</p>` : ''}</div></article>`).join('')
       : rows.map(([f, n, r]) => `<div class="person">${ph(f)}<b>${n}</b><span>${r}</span></div>`).join('');
 }
 

@@ -1482,3 +1482,9 @@ html.a11y-still .t-strip { overflow-x: auto; }
 .facts li { container-type: inline-size; }
 .facts b { font-size: min(68px, calc(100cqi / 5.6)); white-space: nowrap; }
 
+
+/* workshops: artists in the moving strip jump to their bio */
+.t-go { display: block; color: inherit; text-decoration: none; cursor: pointer; }
+.tbio { scroll-margin-top: 110px; }
+.tbio.flash { animation: tFlash 1.6s ease-out; }
+@keyframes tFlash { 0%, 30% { box-shadow: 0 0 0 4px var(--accent); } 100% { box-shadow: 0 0 0 4px transparent; } }
