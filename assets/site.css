@@ -1425,3 +1425,5 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
 /* spotlight slide with a guest circle bottom-left: keep the shade and the title off that corner */
 .sp-slide.guest::after { -webkit-mask-image: linear-gradient(to left, #000 55%, transparent 75%); mask-image: linear-gradient(to left, #000 55%, transparent 75%); }
 .sp-slide.guest .sp-cap { left: 34%; }   /* physical: the circle is always on the left of the photo */
+/* in the spotlight the bottom holds the title, so "low" stickers go to the top far corner instead */
+.sp-slide .stk-wrap.low { inset-block-start: 22px; inset-block-end: auto; inset-inline-start: auto; inset-inline-end: 26px; align-items: flex-end; }
