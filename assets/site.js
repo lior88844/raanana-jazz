@@ -352,8 +352,7 @@ function renderFree(el) {
   const free = SHOWS.filter(s => s.free);
   el.innerHTML = `<div class="free-ph" aria-hidden="true"><img src="${img('gallery-2025/300-1200.webp')}" alt="" loading="lazy" decoding="async"></div>
     <div class="free-in"><img class="ill ill-bass" src="${img('ill/dekel-bass.webp')}" width="388" height="900" alt="" aria-hidden="true" loading="lazy">
-      <p class="love">${L('בלי כרטיס', 'No ticket needed')}</p>
-      <h2 id="free-h">${L('בכניסה חופשית', 'Free entry')}</h2>
+      <h2 id="free-h">${L('כניסה חופשית', 'Free entry')}</h2>
       <p>${L('ברחבת הפסטיבל יש מוזיקה כל היום, פתוחה לכולם – וכל ערב נגמר בג׳אם סשן.', 'The Festival Plaza has music all day, open to everyone – and every night ends with a jam session.')}</p>
       <div class="free-days">${DAYS.map(d => `<div><h3>${dayName(d)} <span>${d.date}</span></h3><ul>${free.filter(s => s.day === d.id).map(s =>
         `<li><time>${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul></div>`).join('')}</div>

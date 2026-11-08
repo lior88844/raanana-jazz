@@ -90,7 +90,7 @@ const SHOWS = [
     cast_en: ["Walter Blanding – saxophone · Yotam Silberstein – guitar · Doug Weiss – double bass · Ziv Ravitz – drums"],
     img: "2026-ny-junction-5.jpg", timg: "2026-ny-junction-5t.jpg", pos: "50% 30%", tpos: "50% 50%", credit: "יותם: דן בלילתי · זיו: פרנק זימרס", credit_en: "Yotam: Dan Balilty · Ziv: Frank Siemers" , slug: "event/32052" },
   { id: "double-standard", day: "thu", time: "19:30", dur: 60, featured: true,
-    venue: "מועדון הסלון", venue_en: "The Salon Club",
+    venue: "המועדון הקאמרי", venue_en: "The Chamber Club",
     title: "דאבל סטנדרט – אלי מגן ועדי רנרט", title_en: "Double Standard – Eli Magen & Adi Renert",
     sub: "כשסשה ארגוב פוגש את דיוק אלינגטון", sub_en: "When Sasha Argov meets Duke Ellington",
     about: ["אלי מגן ועדי רנרט מפגישים בין שני עולמות של שירים: קלאסיקות ישראליות מצאן הברזל של הזמר העברי, וסטנדרטים אמריקאיים, השירים שעליהם נבנה האלתור בג'אז. בבסיס המופע עומדת הנחה פשוטה: אין גבולות במוזיקה, וסשה ארגוב, נעמי שמר ושלום חנוך יכולים לנהל שיחה עם דיוק אלינגטון, ארווינג ברלין וג'ורג' גרשווין.", "מתוך החיבורים האלה נעים השניים בין נגינה חופשית וספונטנית לבין ביצועים אינטימיים בקולו העמוק של מגן."],
@@ -99,7 +99,7 @@ const SHOWS = [
     cast_en: ["Eli Magen – double bass and vocals · Adi Renert – piano, flugelhorn and arrangements"],
     img: "2026-magen-renert.jpg", credit: "יעל אופנבך", credit_en: "Yael Offenbach", drive: "1wzAsvGCdmFhxB8F-T09cEW5nZ6bvMSPf", yt: ["YpDJLuyMs00"] , slug: "event/32053" },
   { id: "chichportiche", day: "thu", time: "19:30", dur: 60, featured: true,
-    venue: "המועדון הקאמרי", venue_en: "The Chamber Club",
+    venue: "מועדון הסלון", venue_en: "The Salon Club",
     title: "אדם שישפורטיש טריו", title_en: "Adam Chichportiche Trio",
     sub: "לבטה, מפוחית וצ'לו במסע בין המקאם לג'אז", sub_en: "Lavta, harmonica and cello on a journey between maqam and jazz",
     about: ["הלבטה היא כלי מיתר עות'מאני עדין, בעל צוואר ארוך וצליל צלול, שהיה אהוב במיוחד באיסטנבול של המאה ה־19, כמעט נשכח במאה ה־20, ובעשורים האחרונים חוזר לבמות. אדם שישפורטיש יוצר מוזיקה עכשווית בהשראת מסורות המקאם, ההרמוניה המערבית והג'אז המודרני. יחד עם אריאל ברט במפוחית והילה קרני בצ'לו, הטריו מחבר בין מנגינות רכות, טקסטורות אקוסטיות עשירות ואלתור סוער. המפגש בין שלושת הכלים מרחיב את הגבולות המסורתיים של כל אחד מהם, ויוצר שפה מוזיקלית בין־תרבותית ייחודית, אישית ועל־זמנית בעת ובעונה אחת.", "אדם שישפורטיש הוא מלחין ונגן לבטה, בוגר בית הספר \"מקאמאת\" למוזיקה מהמזרח, וחי ופועל בברלין. הוא הופיע בבמות ובפסטיבלים בארץ ובעולם – בישראל, בגרמניה, באזרבייג'ן, בסין ובפולין – ואלבום הבכורה שלו, Embracing Solitude, יצא בשנת 2025.", "ברט, מהקולות הייחודיים של המפוחית בג'אז העכשווי, היא בוגרת The New School בניו יורק והוציאה שני אלבומים בלייבל Ropeadope.", "קרני היא צ'לנית פעילה ומבוקשת, שמופיעה ומקליטה בארץ ובעולם בין המוזיקה הקלאסית לעכשווית.", "מנגינות רכות, טקסטורות אקוסטיות עשירות ורגעי אלתור סוערים נשזרים לשפה מוזיקלית ייחודית, מפגש בין־תרבותי שמרגיש אישי ועל־זמני בעת ובעונה אחת."],
@@ -401,10 +401,10 @@ const MOMENTS = [
 ];
 
 const VENUES = [
-  { id: 'eran', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 91.2, y: 74.2 }, name: 'אולם ערן', img: 'gallery-2025/114', name_en: 'Eran Hall', desc_en: "The festival's main hall – home to the headline shows, original productions and the closing celebration.", desc: 'האולם המרכזי של הפסטיבל – כאן מתקיימים מופעי השיא, הפקות המקור וחגיגת הסיום.' },
+  { id: 'eran', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 91.2, y: 74.2 }, name: 'אולם ערן', img: 'gallery-2025/132', name_en: 'Eran Hall', desc_en: "The festival's main hall – home to the headline shows, original productions and the closing celebration.", desc: 'האולם המרכזי של הפסטיבל – כאן מתקיימים מופעי השיא, הפקות המקור וחגיגת הסיום.' },
   { id: 'salon', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 23.6, y: 74.2 }, name: 'מועדון הסלון', img: 'gallery-2025/066', name_en: 'The Salon Club', desc_en: 'An intimate jazz-club atmosphere, close to the stage and the players.', desc: 'אווירת מועדון ג׳אז אינטימית, קרוב לבמה ולנגנים.' },
-  { id: 'chamber', floor: 'קומה 2', floor_en: 'Floor 2', map: { x: 29.3, y: 3.4, down: true }, name: 'המועדון הקאמרי', img: 'gallery-2025/256', name_en: 'The Chamber Club', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
-  { id: 'plaza', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/222', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival – shows for the whole family, most of them free.', desc: 'הלב הפתוח של הפסטיבל – מופעים לכל המשפחה, ורובם בכניסה חופשית.' },
+  { id: 'chamber', floor: 'קומה 2', floor_en: 'Floor 2', map: { x: 29.3, y: 3.4, down: true }, name: 'המועדון הקאמרי', img: 'gallery-2025/486', name_en: 'The Chamber Club', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
+  { id: 'plaza', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/220', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival – shows for the whole family, most of them free.', desc: 'הלב הפתוח של הפסטיבל – מופעים לכל המשפחה, ורובם בכניסה חופשית.' },
   { id: 'tent', floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'Jazz Corner', name_en: 'Jazz Corner', desc_en: 'New in 2026: the late-night stage, where every evening ends.', desc: 'חדש ב־2026: במת הלילה, שבה נגמר כל ערב.' },
 ];
 
