@@ -368,7 +368,7 @@ def page_venue(t, P, A):
 </section>
 <section class="wrap section">
   <h2 class="sec-h">{t('הבמות', 'The stages')}</h2>
-  <p>{t('לכל במה אופי משלה. כך נראה לוח ההופעות לפי במה:', 'Each stage has its own character. Here is the line-up by stage:')}</p>
+  <p>{t('לכל במה אופי משלה. כך נראה לוח ההופעות לפי במות:', 'Each stage has its own character. Here is the line-up by stage:')}</p>
   <div class="venues" id="venues"></div>
 </section>
 <section class="wrap section">
