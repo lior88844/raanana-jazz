@@ -62,7 +62,7 @@ const SHOWS = [
     quotes_en: ["“Like Peter and the Wolf, only with groove!” – Ynet"],
     cast: ["יואב יפת – קריינות · ירדן בר כוכבא – בימוי · אלי פרמינגר, עידן רווה, אבירן בן נאים – חצוצרה · ירון אוזנה, לואיזה סלומון, עודד מאיר – טרומבון · יעקב גורנשטיין, אביתר לוי, אילון טושינר, דני ליבוביץ', אלעד גלרט – סקסופונים · דותן יוגב, נעה סגל, עודד אלוני, יובל קאופמן – תופים וכלי הקשה · אודי רז – סוזפון"],
     cast_en: ["Yoav Yefet – narration · Yarden Bar-Kochba – director · Eli Preminger, Idan Raveh, Aviran Ben Naim – trumpet · Yaron Ouzana, Luiza Salomon, Oded Meir – trombone · Yaakov Gorenstein, Evyatar Levi, Eilon Tushiner, Danny Leibovitch, Elad Gellert – saxophones · Dotan Yogev, Noa Segal, Oded Aloni, Yuval Kaufman – drums and percussion · Udi Raz – sousaphone"],
-    img: "2026-marsh.jpg", pos: "50% 35%", credit: "לואיזה סלומון", credit_en: "Luiza Salomon", slug: "event/32049" },
+    img: "2026-marsh.jpg", pos: "50% 35%", credit: "לואיזה סלומון", credit_en: "Luiza Salomon", yt: ["bWPxj6cVjAs"], slug: "event/32049" },
   { id: "paquito-film", day: "thu", time: "16:00", dur: 60, film: true,
     venue: "אולם ערן", venue_en: "Eran Hall",
     title: "הקרנה: Paquito D'Rivera – From Carne y Frijol to Carnegie Hall", title_en: "Screening: Paquito D'Rivera – From Carne y Frijol to Carnegie Hall",
