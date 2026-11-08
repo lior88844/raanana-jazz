@@ -168,7 +168,7 @@ function renderSchedule(el) {
       ${SHOWS.filter(s => s.day === d.id).map(s => `
         <div class="slot"><time>${s.time}</time><div>
           <button type="button" class="t" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button>
-          <div class="v">${tr(s, 'venue')}${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
+          <div class="v">${tr(s, 'sub') || tr(s, 'venue')}${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
           ${s.slug ? `<a class="tix" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>` : ''}
         </div></div>`).join('')}
       ${d.pass ? `<a class="pass" href="${T(d.pass)}" ${ext}>${L('לרכישת פס יומי', 'Buy a day pass')} ${ARROW}</a>` : ''}
@@ -274,7 +274,7 @@ function renderDays(el) {
     panel.className = `dy-panel d-${d.id}`;
     panel.setAttribute('aria-labelledby', `dy-t-${d.id}`);
     panel.innerHTML = `<ul class="dy-list${dir ? ' in-' + dir : ''}">${SHOWS.filter(s => s.day === d.id).sort((a, b) => a.time.localeCompare(b.time)).map(s =>
-      `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'venue')}${s.free ? ' · ' + L('כניסה חופשית', 'free entry') : ''}</small></button></li>`).join('')}</ul>`;
+      `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'sub') || tr(s, 'venue')}</small></button></li>`).join('')}</ul>`;
     tabs.forEach((t, j) => { t.setAttribute('aria-selected', j === i); t.tabIndex = j === i ? 0 : -1; });
   };
   const pick = i => { if (i === cur) return; const dir = (i > cur) !== EN ? 'l' : 'r'; cur = i; show(i, reduceMotion ? '' : dir); };
