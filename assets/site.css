@@ -1438,7 +1438,7 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
 :root[dir="ltr"] .t-track, [dir="ltr"] .t-track { animation-name: tBeltL; }
 @keyframes tBeltL { to { transform: translateX(-50%); } }
 .t-strip:hover .t-track { animation-play-state: paused; }
-.t-strip figure { position: relative; margin: 0; flex: none; width: 170px; height: 300px; overflow: hidden; border-radius: 10px; background: var(--brown);
+.t-strip figure { position: relative; margin: 0; flex: none; width: 170px; height: 220px; overflow: hidden; border-radius: 10px; background: var(--brown);
   transform: skewX(-8deg); box-shadow: 0 12px 24px -14px rgba(58, 26, 20, .75); transition: transform .35s var(--ease-out), box-shadow .35s var(--ease-out); }
 .t-strip img { position: absolute; top: 0; left: -25%; width: 150%; max-width: none; height: 100%; object-fit: cover; object-position: 50% 22%;
   transform: skewX(8deg); transition: transform .5s var(--ease-out), filter .35s; }
@@ -1456,7 +1456,7 @@ html.a11y-still .t-track, .reduce-motion .t-track { animation: none; }
 html.a11y-still .t-strip { overflow-x: auto; }
 @media (prefers-reduced-motion: reduce) { .t-track { animation: none; } .t-strip { overflow-x: auto; } }
 @media (max-width: 700px) {
-  .t-strip figure { width: 130px; height: 230px; }
+  .t-strip figure { width: 130px; height: 170px; }
   .t-strip figcaption { font-size: 14px; } .t-strip figcaption small { font-size: 12px; }
   .t-track { animation-duration: 42s; }
 }
