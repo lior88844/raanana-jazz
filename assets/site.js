@@ -254,7 +254,7 @@ function renderSpotlight(el) {
 
 // Home: Thursday / Friday / Saturday tabs; the day's shows as a timeline that slides in when the day changes.
 function renderDays(el) {
-  const thumb = s => s.img ? `<img src="${img(s.img.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>` : '';
+  const thumb = s => s.img ? `<img src="${img((s.dimg || s.img).replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"${s.dpos || s.pos ? ` style="object-position:${s.dpos || s.pos}"` : ''}>` : '';
   el.innerHTML = `<div class="dy-tabs" role="tablist" aria-label="${L('ימי הפסטיבל', 'Festival days')}">${DAYS.map((d, i) =>
       `<button type="button" role="tab" id="dy-t-${d.id}" aria-controls="dy-panel" class="d-${d.id}" aria-selected="${!i}" tabindex="${i ? -1 : 0}">${dayName(d)}<b>${d.date}</b></button>`).join('')}</div>
     <div class="dy-panel d-${DAYS[0].id}" id="dy-panel" role="tabpanel"></div>`;

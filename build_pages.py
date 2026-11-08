@@ -223,7 +223,6 @@ def page_index(t, P, A):
     <p>{t('10–12 בדצמבר 2026 · לפרטים לחצו על התמונה.', '10–12 December 2026 · click the photo for the details.')}</p>
   </div>
   <div class="spot" data-render="spotlight"></div>
-  <h3 class="subhead dy-h">{t('לפי ימים', 'Day by day')}</h3>
   <div class="dy" data-render="days"></div>
   <p class="dy-more"><a class="btn primary" href="{P('lineup.html')}">{t('ללו״ז המלא לפי במות', 'Full timetable by stage')} {A}</a></p>
 </section>
