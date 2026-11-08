@@ -212,7 +212,7 @@ def page_index(t, P, A):
         'Three days of jazz and world music at the Raanana Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
   <ul class="facts">
     <li class="f-days"><b data-count>10–12.12</b><span>{t('שלושה ימים, חמישי עד שבת', 'Three days, Thursday to Saturday')}</span></li>
-    <li class="f-shows"><b data-count>20</b><span>{t('הופעות בחמש במות – כולל האוהל, במת הלילה החדשה', 'shows on five stages – including the Tent, our new late-night stage')}</span><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></li>
+    <li class="f-shows"><b data-count>20</b><span>{t('הופעות בחמש במות – כולל <bdi>Jazz Corner</bdi>, במת הלילה החדשה', 'shows on five stages – including Jazz Corner, our new late-night stage')}</span><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></li>
     <li class="f-work"><b data-count>14–25</b><span>{t('סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;20.11!', 'Workshops for young musicians – sign-up open until 20.11!')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>
 </section>
@@ -231,7 +231,7 @@ def page_index(t, P, A):
 <section class="stages" aria-labelledby="stages-h">
   <div class="stitle">
     <h2 id="stages-h">{t('חמש במות, מתחם אחד', 'Five stages, one venue')}</h2>
-    <p>{t('כל הפסטיבל מתקיים במרכז למוזיקה פיס רעננה – מהאולם הגדול ועד האוהל, כל הופעה במרחק כמה צעדים.', 'The whole festival happens at the Raanana Pais Music Center – from the big hall to the Tent, every show is a few steps away.')}</p>
+    <p>{t('כל הפסטיבל מתקיים במרכז למוזיקה פיס רעננה – מהאולם הגדול ועד <bdi>Jazz Corner</bdi>, כל הופעה במרחק כמה צעדים.', 'The whole festival happens at the Raanana Pais Music Center – from the big hall to Jazz Corner, every show is a few steps away.')}</p>
   </div>
   <div class="vmap" data-render="venuemap"></div>
   <div class="stage-row" data-render="stages"></div>
@@ -278,8 +278,8 @@ def page_lineup(t, P, A):
         title=t('לוח הופעות', 'Line-up'),
         desc=t('לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 10–12 בדצמבר.', 'The Raanana Jazz Festival line-up. Festival 2026: 10–12 December.'),
         body=hero(t('10–12 בדצמבר 2026', '10–12 December 2026'), t('לוח הופעות 2026', 'Line-up 2026'), '',
-                  t('שלושה ימים, חמש במות, 20 הופעות, הקרנת סרט וג׳אם סשן בכל לילה – מבוקר לילדים ועד הופעות הלילה באוהל. לחצו על הופעה לכל הפרטים. פרטי הכרטיסים יפורסמו בקרוב.',
-                    'Three days, five stages, 20 shows, a film screening and a jam session every night – from children’s mornings to late nights in the Tent. Tap a show for the full details. Ticket details coming soon.'),
+                  t('שלושה ימים, חמש במות, 20 הופעות, הקרנת סרט וג׳אם סשן בכל לילה – מבוקר לילדים ועד הופעות הלילה ב־<bdi>Jazz Corner</bdi>. לחצו על הופעה לכל הפרטים. פרטי הכרטיסים יפורסמו בקרוב.',
+                    'Three days, five stages, 20 shows, a film screening and a jam session every night – from children’s mornings to late nights at Jazz Corner. Tap a show for the full details. Ticket details coming soon.'),
                   f'<a href="{P("guide.html")}" class="btn primary">{t("מידע למבקרים", "Visitor info")}</a>'
                   f'<a href="{P("tickets.html")}" class="btn ghost">{t("כרטיסים", "Tickets")} {A}</a>') + f'''
 <section class="wrap section lu">
@@ -363,7 +363,7 @@ def page_venue(t, P, A):
 <section class="section" id="map" aria-labelledby="map-h">
   <div class="wrap">
     <h2 class="sec-h" id="map-h">{t('מפת המתחם', 'Venue map')}</h2>
-    <p>{t('כל הבמות בבניין אחד, והאוהל צמוד אליו. לחצו על במה כדי לראות באיזו קומה היא ומה מופיע בה.', 'All the stages are in one building, with the Tent right beside it. Tap a stage to see its floor and what’s on.')}</p>
+    <p>{t('כל הבמות בבניין אחד, ו־<bdi>Jazz Corner</bdi> צמוד אליו. לחצו על במה כדי לראות באיזו קומה היא ומה מופיע בה.', 'All the stages are in one building, with Jazz Corner right beside it. Tap a stage to see its floor and what’s on.')}</p>
   </div>
   <div class="vmap" data-render="venuemap"></div>
 </section>

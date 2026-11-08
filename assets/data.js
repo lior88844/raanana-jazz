@@ -45,7 +45,7 @@ const DAYS = [
 
 // VENUES[].map: where the venue's label sits on the building map (images/venue-map), in % of the map – x = centre of the label
 //   from the left, y = top of the label/arrow. down: true = the arrow points down (label above the building). floor shows under the name.
-// VENUES[].img: a 2025 gallery photo of that room (gallery-2025/NNN → NNN-480/-1200.webp); the Tent is new, so it has none.
+// VENUES[].img: a 2025 gallery photo of that room (gallery-2025/NNN → NNN-480/-1200.webp); Jazz Corner is new, so it has none.
 // slug = the show's page on tickets.raanana.muni.il (from the 'לינק למכירה' column of the schedule sheet)
 // One entry per show; each opens its own dialog (lineup.html#<id>).
 // day, time, dur (minutes), venue, title, sub (one-line tagline), about (paragraphs), quotes, cast (name – role · …),
@@ -108,7 +108,7 @@ const SHOWS = [
     cast_en: ["Adam Chichportiche – lavta · Ariel Bart – harmonica · Hila Karni – cello"],
     img: "2026-chichportiche.jpg", pos: "50% 14%", credit: "טל חגי", credit_en: "Tal Hagi", drive: "1PC_4mmwoTvVuTBhB7B8o4yWJvWE_wMre", yt: ["bQ7iXFsgx-I"] , slug: "event/32054" },
   { id: "paquito", day: "thu", time: "21:00", dur: 75,
-    venue: "האוהל", venue_en: "The Tent",
+    venue: "Jazz Corner", venue_en: "Jazz Corner",
     title: "Paquito D'Rivera Quintet (ארה\"ב)", title_en: "Paquito D'Rivera Quintet (USA)",
     sub: "אגדת הג'אז הלטיני, זוכה 15 פרסי גראמי", sub_en: "The Latin jazz legend, winner of 15 Grammy Awards",
     about: ["פקיטו דה ריברה, יליד הוואנה, הוא מגדולי נגני הסקסופון האלט והקלרינט בעולם ומהדמויות המרכזיות בתולדות הג'אז הלטיני. בשנות ה־70 היה ממייסדי הלהקה הקובנית האגדית Irakere, וב־1980 עזב את קובה ופתח בקריירה בינלאומית מפוארת בארצות הברית, שבמהלכה ניגן והקליט גם עם דיזי גילספי.", "דה ריברה זכה בחמישה פרסי גראמי ובעשרה פרסי גראמי לטיני, נבחר ל־NEA Jazz Master ועוטר במדליה הלאומית לאמנויות של ארצות הברית. נגינתו נעה בחופשיות בין ג'אז, מוזיקה קובנית ומוזיקה קלאסית, מלאה וירטואוזיות, הומור ושמחת חיים. אלבומו האחרון, La Fleur de Cayenne, היה מועמד לגראמי 2026."],
@@ -180,7 +180,7 @@ const SHOWS = [
     cast_en: ["Yonatan Avishai – piano · Mayu Shviro – cello · Hadar Noiberg – flute · Yonatan Albalak – guitar · Roni Ivrin – percussion · Shahar Haziza – drums"],
     img: "2026-avishai.jpg", credit: "יוסי צבקר", credit_en: "Yossi Zwecker", yt: ["GHyIgCWd2SM", "lc9aN0fH4zA"] , slug: "event/32062" },
   { id: "cyrille", day: "fri", time: "21:00", dur: 75,
-    venue: "האוהל", venue_en: "The Tent",
+    venue: "Jazz Corner", venue_en: "Jazz Corner",
     title: "Cyrille Aimée (צרפת)", title_en: "Cyrille Aimée (France)",
     sub: "מלכת הג'אז הווקאלי של דורנו", sub_en: "The queen of vocal jazz of our time",
     about: ["סיריל איימה גדלה בסמואה־סור־סן, עיירת פסטיבל ג'נגו ריינהרדט, וכנערה הייתה מתגנבת בלילות מחלון חדרה כדי לפגוש את הנגנים. בניו יורק הפכה לאחד הקולות הבולטים בג'אז הווקאלי: הופיעה והקליטה עם רוי הארגרוב, כבשה את תיאטרון אפולו בהארלם וכיכבה במחווה לסטיבן סונדהיים לצד וינטון מרסליס. הגרסה שלה ל־\"Marry Me a Little\" הייתה מועמדת לפרס גראמי.", "ההופעות שלה הן חגיגה של אלתור וחופש: סטנדרטים בעיבודים מפתיעים, שירים מקוריים, שנסון צרפתי וצלילים אפרו־קריביים מהשורשים הדומיניקניים שלה. אלבומה החי 4.24, שהוקלט במועדון בירדלנד בניו יורק, לוכד בדיוק את האנרגיה הזאת."],
@@ -249,7 +249,7 @@ const SHOWS = [
     cast_en: ["Verena Zeiner – piano and electronics · Ziv Ravitz – drums and electronics"],
     yt: ["_0FrmVyMT5Y"] , img: "2026-zeiner-ravitz.jpg", pos: "60% 35%", credit: "Clément Puig", credit_en: "Clément Puig" , slug: "event/32070" },
   { id: "adis-ken", day: "sat", time: "21:15", dur: 75, featured: true,
-    venue: "האוהל", venue_en: "The Tent",
+    venue: "Jazz Corner", venue_en: "Jazz Corner",
     title: "אבטה בריהון ופרויקט אדיס קן מארחים את אהוד בנאי", title_en: "Abate Berihun & Addis Ken Project host Ehud Banai",
     sub: "אפרו ג'אז אתיופי במפגש חד פעמי עם בלוז כנעני", sub_en: "Ethiopian Afro-jazz in a one-off meeting with Canaanite blues",
     about: ["\"אדיס קן\" (\"יום חדש\" באמהרית) הוא הפרויקט מלא הגרוב והנשמה של הסקסופוניסט והזמר אבטה בריהון והפסנתרן רועי מור. בריהון, מבכירי המוזיקאים ממוצא אתיופי בישראל, הופיע לצד ענקים כמו מולאטו אסטטקה ומחמוד אחמד והוביל את ההרכבים \"תזטה\", \"ראס דשן\" ו\"כולומה\". יחד עם להקתו הוא שוזר בשפת הג'אז המודרני מוזיקת נשמה יהודית־אתיופית, תפילות שעברו מדור לדור וטקסטים קדומים ומסתוריים. התוצאה היא מפגש סוחף של גרוב, בלוז וחיפוש רוחני.", "השנה יצא אלבום הבכורה של ההרכב בלייבל האמריקאי Origin Records. בשיתוף פעולה מיוחד לפסטיבל יצטרף אליהם היוצר האיקוני אהוד בנאי, שכבר חלק עם בריהון במה לא פעם, למפגש בין שני עולמות של נשמה."],
@@ -405,7 +405,7 @@ const VENUES = [
   { id: 'salon', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 23.6, y: 74.2 }, name: 'מועדון הסלון', img: 'gallery-2025/066', name_en: 'The Salon Club', desc_en: 'An intimate jazz-club atmosphere, close to the stage and the players.', desc: 'אווירת מועדון ג׳אז אינטימית, קרוב לבמה ולנגנים.' },
   { id: 'chamber', floor: 'קומה 2', floor_en: 'Floor 2', map: { x: 29.3, y: 3.4, down: true }, name: 'המועדון הקאמרי', img: 'gallery-2025/256', name_en: 'The Chamber Club', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
   { id: 'plaza', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/222', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival – shows for the whole family, most of them free.', desc: 'הלב הפתוח של הפסטיבל – מופעים לכל המשפחה, ורובם בכניסה חופשית.' },
-  { id: 'tent', floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'האוהל', name_en: 'The Tent', desc_en: 'New in 2026: the late-night stage, where every evening ends.', desc: 'חדש ב־2026: במת הלילה, שבה נגמר כל ערב.' },
+  { id: 'tent', floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'Jazz Corner', name_en: 'Jazz Corner', desc_en: 'New in 2026: the late-night stage, where every evening ends.', desc: 'חדש ב־2026: במת הלילה, שבה נגמר כל ערב.' },
 ];
 
 const PARTNERS = [
