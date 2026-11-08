@@ -1085,8 +1085,8 @@ html:has(.show-box[open]) { overflow: hidden; }
 .sp-card { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); border-radius: 18px; overflow: hidden;
   background: var(--day); color: var(--on-day); opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility 0s .7s; }
 .sp-card.on { opacity: 1; visibility: visible; transition: opacity .7s ease; }
-.sp-ph { position: relative; aspect-ratio: 16 / 10; background: var(--dark); overflow: hidden; cursor: pointer; }
-.sp-ph img, .sp-logo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }   /* the whole photo, never cropped */
+.sp-ph { position: relative; aspect-ratio: 16 / 9; overflow: hidden; cursor: pointer; }
+.sp-ph img, .sp-logo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }   /* same framing as the show preview */
 .sp-logo { display: block; background: var(--day) url(../images/logo-nodots.png) center / 34% no-repeat; }
 .sp-in { padding: 36px 36px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; }
 .sp-tags { display: flex; flex-wrap: wrap; gap: 8px; }

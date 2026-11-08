@@ -229,12 +229,12 @@ function renderFeatured(el) {
 function renderSpotlight(el) {
   const order = SHOWS.filter(ONCE);
   for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
-  // split card: the whole photo on one side, the show's details on a panel in its day colour (nothing covers the photo)
+  // split card: the photo in the same 16:9 frame as the show preview (same focus point) on one side, the show's details on a panel in its day colour (nothing covers the photo)
   const big = s => img(s.img.replace(/\.jpe?g$/, '-1600.webp'));
   const tags = s => (s.free ? ['free'] : []).concat(s.tags || []).map(k => `<span class="stk stk-${k}">${L(...STICKERS[k])}</span>`).join('');
   const DOTS = 7;                                               // only a short window of dots, sliding with the current show
   el.innerHTML = `<div class="sp-stage">${order.map((s, i) => `<article class="sp-card d-${s.day}${i ? '' : ' on'}" aria-hidden="${!!i}">
-      <div class="sp-ph">${s.img ? `<img src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">` : `<span class="sp-logo d-${s.day}"></span>`}</div>
+      <div class="sp-ph">${s.img ? `<img src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>` : `<span class="sp-logo d-${s.day}"></span>`}</div>
       <div class="sp-in">
         ${tags(s) ? `<div class="sp-tags">${tags(s)}</div>` : ''}
         <p class="sp-meta">${when(s)} · <bdi>${s.time}</bdi> · ${tr(s, 'venue')}</p>
