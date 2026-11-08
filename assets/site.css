@@ -1081,20 +1081,20 @@ html:has(.show-box[open]) { overflow: hidden; }
 
 /* ---------- home: 2026 shows – spotlight + day switcher ---------- */
 .spot { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
-.sp-stage { display: grid; }
+.sp-stage { display: grid; container-type: inline-size; }
 .sp-card { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); border-radius: 18px; overflow: hidden;
   background: var(--day); color: var(--on-day); opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility 0s .7s; }
 .sp-card.on { opacity: 1; visibility: visible; transition: opacity .7s ease; }
-.sp-ph { position: relative; aspect-ratio: 16 / 9; overflow: hidden; cursor: pointer; }
+.sp-ph { position: relative; aspect-ratio: 16 / 9; align-self: stretch; overflow: hidden; cursor: pointer; }   /* stretches to the card if the text runs taller */
 .sp-ph img, .sp-logo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }   /* same framing as the show preview */
 .sp-logo { display: block; background: var(--day) url(../images/logo-nodots.png) center / 34% no-repeat; }
-.sp-in { padding: 36px 36px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; }
+.sp-in { padding: clamp(18px, 2.4cqi, 30px) clamp(20px, 2.8cqi, 34px); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: clamp(6px, .9cqi, 11px); }
 .sp-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .sp-tags .stk { font-size: 15px; padding: 7px 12px 6px; }
 .sp-meta { font-family: Rubik, var(--display); font-weight: 700; font-size: var(--fs-meta); }
-.sp-in h3 { font-family: var(--display); font-weight: 900; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; }
-.sp-sub { font-weight: 600; font-size: var(--fs-body); line-height: 1.45; }
-.sp-in .btn { margin-top: 8px; }
+.sp-in h3 { font-family: var(--display); font-weight: 900; font-size: clamp(22px, 2.9cqi, 34px); line-height: 1.1; }
+.sp-sub { font-weight: 600; font-size: clamp(15px, 1.6cqi, 19px); line-height: 1.4; }
+.sp-in .btn { margin-top: 4px; }
 .sp-card.on .sp-in > * { animation: spUp .7s var(--ease-out) both; }
 .sp-card.on .sp-in > :nth-child(2) { animation-delay: .06s; } .sp-card.on .sp-in > :nth-child(3) { animation-delay: .12s; }
 .sp-card.on .sp-in > :nth-child(4) { animation-delay: .18s; } .sp-card.on .sp-in > :nth-child(5) { animation-delay: .24s; }
