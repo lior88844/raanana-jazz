@@ -59,7 +59,7 @@ const SHOWS = [
   { id: "crocodiles", day: "thu", time: "11:00", dur: 55, kids: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "מארש דונדורמה", title_en: "Marsh Dondurma",
-    sub: "סיפורים מוזיקליים לכל המשפחה, עם יואב יפת", sub_en: "Musical stories for the whole family, with Yoav Yefet",
+    sub: "תזמורת כלי הנשיפה הירושלמית, במופע לכל המשפחה", sub_en: "Jerusalem’s brass band, in a show for the whole family",
     about: ["מארש דונדורמה היא תזמורת כלי נשיפה ותיקה ויוצאת דופן בנוף המוזיקה הישראלית.", "לאורך שני עשורים של יצירה משותפת הספיקו חברי התזמורת לפרסם שבעה אלבומים, כולל ספר־אלבום לילדים שזכה לביקורות אוהדות; להופיע ברחבי העולם, לארח בארץ אמנים מחו״ל ולשתף פעולה באולפן ועל הבמה עם ברי סחרוף, שלמה גרוניך, שלומי שבן, ריף כהן, שי צברי, ליאורה יצחק ועוד.", "כל זאת, תוך שמירת קשר קרוב עם הקהל הנפלא שמלווה אותם לאורך הדרך, עוד מתחילת דרכם כתזמורת רחוב פרועה ברחובות ירושלים."],
     about_en: ["Marsh Dondurma is a long-standing and truly unique brass band on the Israeli music scene.", "Over two decades of making music together, the band has released seven albums – including a children's book-album that won warm reviews – toured the world, hosted artists from abroad in Israel, and collaborated in the studio and on stage with Berry Sakharof, Shlomo Gronich, Shlomi Shaban, Riff Cohen, Shai Tsabari, Liora Itzhak and others.", "All the while they have stayed close to the wonderful audience that has followed them ever since their beginnings as a wild street band in the streets of Jerusalem."],
     quotes: ["\"כמו פטר והזאב, רק עם גרוב!\" – Ynet"],
