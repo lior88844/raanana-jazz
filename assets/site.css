@@ -1427,3 +1427,17 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
 .sp-slide.guest .sp-cap { left: 34%; }   /* physical: the circle is always on the left of the photo */
 /* in the spotlight the bottom holds the title, so "low" stickers go to the top far corner instead */
 .sp-slide .stk-wrap.low { inset-block-start: 22px; inset-block-end: auto; inset-inline-start: auto; inset-inline-end: 26px; align-items: flex-end; }
+
+/* workshops: three stats in a row */
+.stats.stats-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+@media (max-width: 700px) { .stats.stats-3 { grid-template-columns: minmax(0,1fr); } }
+/* workshops hero: row of teacher photos */
+.t-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 14px; max-width: 1180px; margin: 0 auto 46px; }
+.t-strip figure { width: 96px; margin: 0; }
+.t-strip i { display: block; width: 96px; height: 96px; border-radius: 50%; background: var(--dark) center 25% / cover no-repeat; box-shadow: 0 0 0 4px var(--on-field); }
+.t-strip figcaption { margin-top: 10px; font-family: var(--display); font-weight: 700; font-size: var(--fs-small); line-height: 1.25; color: var(--on-field); }
+@media (max-width: 700px) {
+  .t-strip { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding: 6px 4px 8px; margin-inline: -24px; padding-inline: 24px; scrollbar-width: none; }
+  .t-strip::-webkit-scrollbar { display: none; }
+  .t-strip figure { flex: none; width: 76px; } .t-strip i { width: 76px; height: 76px; }
+}

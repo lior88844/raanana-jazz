@@ -605,13 +605,21 @@ function renderShowList(el, dayId) {
     </article>`).join('');
 }
 
+// Workshops hero: a row of every teacher's photo, the first thing on the page
+function renderTeacherStrip(el) {
+  el.innerHTML = TEACHERS.map(([f, n, , nEn]) => `<figure><i data-bg="${img(f)}"></i><figcaption>${EN ? nEn : n}</figcaption></figure>`).join('');
+}
+
 function renderTeachers(el, asList = true, bios = false) {
   const rows = TEACHERS.map(([f, n, r, nEn, rEn, b, bEn, c, cEn]) => [f, EN ? nEn : n, EN ? rEn : r, EN ? bEn : b, EN ? cEn : c]);
+  // role is "instrument · place": the bios show the country in brackets after the name, and the instrument underneath
+  const COUNTRY = { 'ניו יורק': 'ארה״ב', 'ברלין': 'גרמניה', 'בריסל': 'בלגיה', 'New York': 'USA', 'Berlin': 'Germany', 'Brussels': 'Belgium' };
+  const split = r => { const [inst, place = ''] = r.split(' · '); return [inst, COUNTRY[place] || place]; };
   const ph = f => `<div class="ph${f ? '' : ' nophoto'}"${f ? ` data-bg="${img(f)}"` : ''}></div>`;
   el.innerHTML = asList
     ? rows.map(([f, n, r]) => `<li><i data-bg="${img(f)}"></i><div><b>${n}</b><small>${r}</small></div></li>`).join('')
     : bios
-      ? rows.map(([f, n, r, b, c]) => `<article class="tbio"><figure>${ph(f)}${c ? `<figcaption>${L('צילום', 'Photo')}: ${c}</figcaption>` : ''}</figure><div><h3>${n}</h3><span>${r}</span>${b ? `<p>${b}</p>` : ''}</div></article>`).join('')
+      ? rows.map(([f, n, r, b, c]) => `<article class="tbio"><figure>${ph(f)}${c ? `<figcaption>${L('צילום', 'Photo')}: ${c}</figcaption>` : ''}</figure><div><h3>${n}${split(r)[1] ? ` (${split(r)[1]})` : ''}</h3><span>${split(r)[0]}</span>${b ? `<p>${b}</p>` : ''}</div></article>`).join('')
       : rows.map(([f, n, r]) => `<div class="person">${ph(f)}<b>${n}</b><span>${r}</span></div>`).join('');
 }
 
@@ -1064,7 +1072,7 @@ function showDialogs() {
 buildChrome();
 document.querySelectorAll('[data-render]').forEach(el => {
   const fn = { schedule: renderSchedule, cards: renderCards, featured: renderFeatured, stages: renderStages, spotlight: renderSpotlight, days: renderDays, free: renderFree, now: nowOnStage, showlist: renderShowList, teachers: renderTeachers,
-    people: el => renderTeachers(el, false), 'people-bios': el => renderTeachers(el, false, true), moments: renderMoments, partners: renderPartners, themes: renderThemePasses,
+    people: el => renderTeachers(el, false), 'people-bios': el => renderTeachers(el, false, true), 'teacher-strip': renderTeacherStrip, moments: renderMoments, partners: renderPartners, themes: renderThemePasses,
     cloud: renderCloud, timetable: renderTimetable, venuemap: renderVenueMap }[el.dataset.render];
   fn && fn(el);
 });
