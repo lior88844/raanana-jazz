@@ -38,7 +38,9 @@ const dayName = d => (EN ? d.name_en : 'יום ' + d.name);
 const img = f => ROOT + '/images/' + f;
 // data.js names a few files from the domain root – point them into ROOT
 ['logo', 'logoDark', 'program'].forEach(k => { if (SITE[k] && SITE[k][0] === '/') SITE[k] = ROOT + SITE[k]; });
-const page = f => BASE + f;
+// pretty addresses: 'lineup.html#x' -> 'lineup#x', 'index.html' -> '' (the host serves lineup.html at /lineup)
+const clean = f => f.replace(/(^|\/)index\.html/, '$1').replace(/\.html(?=$|[#?])/, '');
+const page = f => BASE + clean(f);
 
 const NAV_MAIN = [
   ['lineup.html', 'לוח הופעות', 'Line-up'],
@@ -67,14 +69,14 @@ const socials = () => `
 
 // same page in the other language (keeps the #section)
 function otherLangHref() {
-  const file = location.pathname.split('/').pop() || 'index.html';
-  return OTHER_BASE + (file === 'index.html' ? '' : file) + location.hash;
+  const file = clean(location.pathname.split('/').pop() || '');
+  return OTHER_BASE + file + location.hash;
 }
 
 function buildChrome() {
-  const here = location.pathname.split('/').pop() || 'index.html';
+  const here = clean(location.pathname.split('/').pop() || '');
   let li = 0;
-  const link = ([href, he, en]) => `<a href="${page(href)}" style="--i:${li++}"${href === here ? ' class="active" aria-current="page"' : ''}>${L(he, en)}</a>`;
+  const link = ([href, he, en]) => `<a href="${page(href)}" style="--i:${li++}"${clean(href) === here ? ' class="active" aria-current="page"' : ''}>${L(he, en)}</a>`;
   const langBtn = cls => `<a class="${cls}" href="${otherLangHref()}" hreflang="${L('en', 'he')}" lang="${L('en', 'he')}">${L('English', 'עברית')}</a>`;
 
   document.body.insertAdjacentHTML('afterbegin', `
@@ -1191,7 +1193,7 @@ function countdown() {
 }
 
 function stickyCta() {
-  if (/tickets\.html$/.test(location.pathname)) return;
+  if (/tickets(\.html)?$/.test(location.pathname)) return;
   const btn = document.createElement('a');
   btn.href = page('tickets.html');
   btn.className = 'btn primary sticky-cta';

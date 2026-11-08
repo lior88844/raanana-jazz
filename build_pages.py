@@ -945,7 +945,7 @@ def ld_json(lang, name):
         for s in shows:
             e = {'@type': 'MusicEvent', 'name': pick(s, 'title'), 'startDate': f"{days[s['day']]}T{s['time']}:00+02:00",
                  'eventStatus': 'https://schema.org/EventScheduled', 'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
-                 'location': dict(PLACE, name=PLACE['name'] + ' – ' + pick(s, 'venue')), 'url': f"{site}lineup.html#{s['id']}", 'organizer': org}
+                 'location': dict(PLACE, name=PLACE['name'] + ' – ' + pick(s, 'venue')), 'url': f"{site}lineup#{s['id']}", 'organizer': org}
             if pick(s, 'sub'): e['description'] = pick(s, 'sub')
             if s.get('img'): e['image'] = imgurl(s['img'])
             if s.get('slug'): e['offers'] = {'@type': 'Offer', 'url': DATA['SITE']['tickets'] + s['slug'], 'availability': 'https://schema.org/InStock'}
@@ -961,13 +961,22 @@ PAGES = {
 }
 
 
+def clean(f):
+    # pretty addresses: 'lineup.html#x' -> 'lineup#x', 'index.html' -> '' (GitHub Pages serves lineup.html at /lineup)
+    path, sep, rest = f.partition('#')
+    path, qs, query = path.partition('?')
+    if path.endswith('index.html'): path = path[:-len('index.html')]
+    elif path.endswith('.html'): path = path[:-5]
+    return path + qs + query + sep + rest
+
+
 def url_path(base, name):
-    return base + ('' if name == 'index.html' else name)
+    return base + clean(name)
 
 
 for lang, cfg in LANGS.items():
     t = (lambda he, en: he) if lang == 'he' else (lambda he, en: en)
-    P = lambda f, base=cfg['base']: base + f
+    P = lambda f, base=cfg['base']: base + clean(f)
     os.makedirs(cfg['out'], exist_ok=True)
     for name, fn in PAGES.items():
         p = fn(t, P, cfg['arrow'])
