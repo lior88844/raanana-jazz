@@ -16,7 +16,7 @@ const SITE = {
   workshopForm: 'https://forms.gle/m3LZXEvu3Leq4W1t5',
   workshopDeadline: '6.12',
   instagram: 'https://www.instagram.com/world.jazz.music/',
-  facebook: 'https://www.facebook.com/raananapaismusiccenter',
+  facebook: 'https://www.facebook.com/raananamusiccenter',
   // contact email (Ricardo Wertheimer, Raanana municipality); every message also goes to emailCc (Amit Friedman)
   email: 'ricardo@raanana.muni.il',
   emailCc: 'amitamitf@gmail.com',

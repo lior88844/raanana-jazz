@@ -572,7 +572,7 @@ def page_contact(t, P, A):
     <h2>{t('דרכים נוספות', 'Other ways')}</h2>
     <p>{t('אפשר גם לכתוב לנו באינסטגרם של הפסטיבל ובפייסבוק של מרכז פיס למוזיקה רעננה.', 'You can also message us on the festival Instagram or the Raanana Pais Music Center Facebook.')}</p>
     <p class="cf-links"><a class="g-text" href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener">Instagram {A}</a>
-      <a class="g-text" href="https://www.facebook.com/raananapaismusiccenter" target="_blank" rel="noopener">Facebook {A}</a></p>
+      <a class="g-text" href="https://www.facebook.com/raananamusiccenter" target="_blank" rel="noopener">Facebook {A}</a></p>
     <p>{t(f'שאלות נפוצות על הגעה, כרטיסים ונגישות – <a href="{P("guide.html")}">במידע למבקרים</a>.', f'Common questions about getting here, tickets and accessibility – <a href="{P("guide.html")}">in Visitor info</a>.')}</p>
   </aside>
 </section>
