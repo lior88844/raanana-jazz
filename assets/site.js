@@ -170,12 +170,13 @@ function renderSchedule(el) {
 }
 
 // thumbnails crop the photo; tpos keeps a baked-in guest card inside the crop
+const thumbImg = s => s.timg || s.img;
 const thumbPos = s => (s.tpos || s.pos) ? ` style="background-position:${s.tpos || s.pos}"` : '';
 
 function renderCards(el, list = SHOWS.filter(s => s.featured)) {
   el.innerHTML = list.map(s => `
     <article class="card">
-      <div class="ph" data-bg="${img(s.img)}"${thumbPos(s)}></div>
+      <div class="ph" data-bg="${img(thumbImg(s))}"${thumbPos(s)}></div>
       <div class="day">${EN ? dayOf(s.day).name_en : dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
       <h3>${tr(s, 'title')}</h3>
       <div class="desc">${tr(s, 'sub')}</div>
@@ -193,7 +194,7 @@ function renderFeatured(el) {
   const link = (s, label, cls) => `<button type="button" class="${cls} stretch" data-show="${s.id}" aria-haspopup="dialog">${label}</button>`;
   el.innerHTML = `
     <article class="lead">
-      <div class="ph" data-bg="${img(lead.img)}"${thumbPos(lead)} role="img" aria-label="${tr(lead, 'title')}"></div>
+      <div class="ph" data-bg="${img(thumbImg(lead))}"${thumbPos(lead)} role="img" aria-label="${tr(lead, 'title')}"></div>
       <div class="meta">${meta(lead)}</div>
       <h3>${tr(lead, 'title')}</h3>
       <p>${tr(lead, 'sub')}</p>
@@ -202,7 +203,7 @@ function renderFeatured(el) {
     <ul class="others">
       ${rest.map(s => `
         <li>
-          <div class="ph" data-bg="${img(s.img)}"${thumbPos(s)}></div>
+          <div class="ph" data-bg="${img(thumbImg(s))}"${thumbPos(s)}></div>
           <div>
             <div class="meta">${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time}</div>
             <h3>${link(s, tr(s, 'title'), 'name')}</h3>
@@ -580,7 +581,7 @@ function nowOnStage(el) {
 function renderShowList(el, dayId) {
   el.innerHTML = SHOWS.filter(s => !dayId || s.day === dayId).map(s => `
     <article class="showrow">
-      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(s.img)}"` : ''}${thumbPos(s)}></div>
+      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(thumbImg(s))}"` : ''}${thumbPos(s)}></div>
       <div>
         <div class="when">${dayName(dayOf(s.day))} ${dayOf(s.day).date} <time>${s.time}</time></div>
         <h3>${tr(s, 'title')}</h3>
