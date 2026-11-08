@@ -1421,3 +1421,7 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
 /* a show can move its stickers to the bottom so they don't cover faces */
 .stk-wrap.low { inset-block-start: auto; inset-block-end: 10px; }
 .sb-shot .stk-wrap.low { inset-block-end: 16px; }
+
+/* spotlight slide with a guest circle bottom-left: keep the shade and the title off that corner */
+.sp-slide.guest::after { -webkit-mask-image: linear-gradient(to left, #000 55%, transparent 75%); mask-image: linear-gradient(to left, #000 55%, transparent 75%); }
+.sp-slide.guest .sp-cap { left: 34%; }   /* physical: the circle is always on the left of the photo */

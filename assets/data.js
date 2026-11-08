@@ -258,7 +258,7 @@ const SHOWS = [
     quotes_en: ["“Every note in this show flies straight to the soul” – Ben Shalev, Haaretz"],
     cast: ["אבטה בריהון – שירה וסקסופונים · רועי מור – פסנתר · דוד מיכאלי – בס · ניצן בירנבאום – תופים", "אורח מיוחד: אהוד בנאי"],
     cast_en: ["Abate Berihun – vocals and saxophones · Roy Mor – piano · David Michaeli – bass · Nitzan Birnbaum – drums", "Special guest: Ehud Banai"],
-    tpos: "0% 50%", img: "2026-adis-ken-host3.jpg", pos: "50% 55%", credit: "רונן גולדמן · אהוד בנאי: גבריאל בהרליה ואורית פניני", credit_en: "Ronen Goldman · Ehud Banai: Gabriel Baharlia and Orit Pinini", yt: ["HzQ4KXCbX6Y", "vtK2Qp57ic8"], link: "https://open.spotify.com/album/0E2NqhZMm7COh5I39cBibB", link_label: "להאזנה לאלבום בספוטיפיי", link_label_en: "Listen to the album on Spotify", playlist: "PLzPNghaotCrcxQaJxppSylBAiH8weiCa_" , slug: "event/32071" },
+    tpos: "0% 50%", img: "2026-adis-ken-host4.jpg", simg: "2026-adis-ken-host4s.jpg", pos: "50% 55%", credit: "רונן גולדמן · אהוד בנאי: גבריאל בהרליה ואורית פניני", credit_en: "Ronen Goldman · Ehud Banai: Gabriel Baharlia and Orit Pinini", yt: ["HzQ4KXCbX6Y", "vtK2Qp57ic8"], link: "https://open.spotify.com/album/0E2NqhZMm7COh5I39cBibB", link_label: "להאזנה לאלבום בספוטיפיי", link_label_en: "Listen to the album on Spotify", playlist: "PLzPNghaotCrcxQaJxppSylBAiH8weiCa_" , slug: "event/32071" },
   { id: "jam-sat", repeat: true, day: "sat", time: "22:30", dur: 90, free: true, jam: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "ג'אם סשן", title_en: "Jam session",
