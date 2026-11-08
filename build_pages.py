@@ -211,7 +211,7 @@ def page_index(t, P, A):
   <p>{t('שלושה ימים של ג׳אז ומוזיקת עולם במרכז פיס למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
         'Three days of jazz and world music at the Raanana Pais Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
   <ul class="facts">
-    <li class="f-days"><b data-count>10–12.12</b><span>{t('חמישי – שישי – שבת', 'Thursday – Friday – Saturday')}</span></li>
+    <li class="f-days"><b data-count>10–12.12</b><span>{t('חמישי – שישי – שבת', 'Thursday – Friday – Saturday')}</span><a class="f-cover" href="{P('lineup.html')}" aria-label="{t('לוח ההופעות', 'Line-up')}"></a></li>
     <li class="f-shows"><b data-count>20</b><span>{t('הופעות בחמש במות – כולל <bdi>Jazz Corner</bdi>, במת הלילה החדשה', 'shows on five stages – including Jazz Corner, our new late-night stage')}</span><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></li>
     <li class="f-work"><b data-count>14–25</b><span>{t('סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;20.11!', 'Workshops for young musicians – sign-up open until 20.11!')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>

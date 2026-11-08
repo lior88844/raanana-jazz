@@ -1467,3 +1467,9 @@ html.a11y-still .t-strip { overflow-x: auto; }
 .stk-wrap.low.left { inset-inline: auto; left: 10px; align-items: flex-start; }
 .sb-shot .stk-wrap.low.left { left: 16px; }
 .sp-slide .stk-wrap.low.left { inset-block-start: auto; inset-inline: auto; bottom: 22px; left: 26px; align-items: flex-start; }
+
+/* home fact tiles: the whole tile is the link (the link's cover is clipped to the tile by its overflow:hidden) */
+.facts li:has(> a) { cursor: pointer; }
+.facts a::before { content: ""; position: absolute; inset: -600px; }
+.facts a.f-cover { position: static; padding: 0; margin: 0; }
+.facts a.f-cover::before { inset: 0; z-index: 2; }
