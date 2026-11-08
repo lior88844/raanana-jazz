@@ -1480,3 +1480,6 @@ html.a11y-still .t-strip { overflow-x: auto; }
 .stat-cover { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
 @media (hover: hover) { .stat:has(.stat-cover):hover { background: var(--accent); transform: translateY(-4px); cursor: pointer; } }
 .stat-cover:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+/* fact tiles: the big number is sized from the tile's own width so "10–12.12" never spills out */
+.facts li { container-type: inline-size; }
+.facts b { font-size: min(68px, calc(100cqi / 5.6)); white-space: nowrap; }
