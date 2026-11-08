@@ -3,96 +3,146 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Save the Date · פסטיבל הג׳אז רעננה, 10–12.12.2026</title>
-<meta name="description" content="Save the Date: World Jazz Music – פסטיבל הג׳אז רעננה, 10–12.12.2026, המרכז למוזיקה פיס רעננה.">
-<meta property="og:title" content="Save the Date · פסטיבל הג׳אז רעננה 2026">
-<meta property="og:description" content="World Jazz Music · 10–12.12.2026 · המרכז למוזיקה פיס רעננה">
-<meta property="og:image" content="https://raananajazzfestival.com/soon/og.jpg">
+<title>פסטיבל הג׳אז רעננה | Raanana Jazz Festival</title>
+
+<meta name="description" content="פסטיבל הג׳אז רעננה – World Jazz Music. 10–12 בדצמבר 2026, שלושה ימים של מוזיקה חיה במרכז למוזיקה רעננה.">
+<meta property="og:title" content="פסטיבל הג׳אז רעננה | Raanana Jazz Festival">
+<meta property="og:description" content="פסטיבל הג׳אז רעננה – World Jazz Music. 10–12 בדצמבר 2026, שלושה ימים של מוזיקה חיה במרכז למוזיקה רעננה.">
+<meta property="og:image" content="https://raananajazzfestival.com/images/og-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/soon/logo.png">
+<link rel="canonical" href="https://raananajazzfestival.com/">
+<link rel="alternate" hreflang="he" href="https://raananajazzfestival.com/">
+<link rel="alternate" hreflang="en" href="https://raananajazzfestival.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://raananajazzfestival.com/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-512.png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&family=Rubik:wght@500;700&display=swap" rel="stylesheet">
-<style>
-:root { --field: #DB5230; --accent: #F7CE46; --ink: #3A1A14; --white: #FFFFFF; --ease-out: cubic-bezier(.23, 1, .32, 1);
-  /* one size drives the whole layout, so it always fits one screen */
-  --u: min(32vw, 60svh); }
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; overflow-x: hidden; color: var(--ink); background-color: var(--field); font-family: "Rubik", system-ui, sans-serif;
-  background-image: url(/soon/paper.png), url(/soon/paper.png); background-size: 512px, 700px;
-  background-position: 0 0, 230px 140px; background-blend-mode: multiply; }
-.stage { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; display: flex; flex-direction: column; align-items: center;
-  padding: max(4svh, 22px) 16px calc(var(--u) * .5); }
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-/* partner logos on white paint shapes in the top corners */
-.corner { position: absolute; top: 0; z-index: 2; line-height: 0; }
-.corner .blob { display: block; width: 100%; height: auto; }
-.corner .logo { position: absolute; height: auto; }
-.c-pais { left: 0; width: calc(var(--u) * .56); }
-.c-pais .logo { left: 13%; top: 17%; width: 65%; }
-.c-raan { right: 0; width: calc(var(--u) * .36); }
-.c-raan .logo { right: 30%; top: 7%; width: 33%; }
-
-/* the lettering: פסטיבל / WORLD. JAZZ. MUSIC. / רעננה */
-h1 { position: relative; z-index: 1; width: calc(var(--u) * 1); margin: 0; font-size: inherit; }
-.hw { display: block; position: relative; z-index: 1; width: 44%; height: auto; }
-.hw-fest { margin: 0 -9% -3% auto; }
-.hw-raan { margin: 1% auto 0 -9%; }
-.mark { position: relative; display: block; line-height: 0; }
-.mark .main { width: 100%; height: auto; }
-.mark .ld { position: absolute; width: 5.7%; height: 7.56%; }
-.ld1 { left: 78.9%; top: 22.04%; } .ld2 { left: 87.17%; top: 56.42%; } .ld3 { left: 92.59%; top: 88.79%; }
-
-/* SAVE THE DATE on a yellow brush stroke (real text over the paint) */
-.std { position: relative; z-index: 1; display: grid; place-items: center; width: calc(var(--u) * 1.22); aspect-ratio: 1569 / 288;
-  margin: calc(var(--u) * .03) 0 0; background: url(/soon/brush.webp) center / 100% 100% no-repeat; }
-.std span { font-family: "Quicksand", "Rubik", sans-serif; font-weight: 700; font-size: calc(var(--u) * .1); letter-spacing: .01em; color: var(--ink); line-height: 1; padding-top: .06em; }
-.date { position: relative; z-index: 1; display: block; width: calc(var(--u) * .7); height: auto; margin-top: calc(var(--u) * .05); rotate: 4deg; }
-
-/* the piano ribbon along the bottom */
-.piano { position: absolute; z-index: 0; left: -6vw; bottom: calc(var(--u) * -.1); width: 112vw; max-width: none; height: auto; pointer-events: none; }
-
-@media (max-aspect-ratio: 4/5) {          /* phones and tall windows */
-  :root { --u: min(78vw, 37svh); }
-  .stage { padding-top: calc(var(--u) * .36); padding-bottom: calc(var(--u) * .78); justify-content: center; }
-  .c-pais { width: calc(var(--u) * .52); } .c-raan { width: calc(var(--u) * .36); }
-  .hw-fest { margin-right: 0; } .hw-raan { margin-left: 0; }
-  .std { width: calc(var(--u) * 1.12); } .std span { font-size: calc(var(--u) * .095); }
-  .piano { width: 442vw; left: -44vw; bottom: calc(var(--u) * -.3); }
-  .date { width: calc(var(--u) * .95); }   /* a close-up of the ribbon's left end, big keys */
-}
-
-@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@keyframes pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
-@keyframes beatIn { 0% { transform: scale(.3); opacity: 0; } 60% { transform: scale(1.35); opacity: 1; } 100% { transform: none; opacity: 1; } }
-@keyframes sweep { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
-@keyframes glide { from { opacity: 0; transform: translateX(-6vw); } to { opacity: 1; transform: none; } }
-.mark .main { animation: pop 450ms var(--ease-out) both; }
-.hw { animation: rise 380ms var(--ease-out) 120ms both; }
-.ld { animation: beatIn 420ms cubic-bezier(.34, 1.56, .64, 1) both; }
-.ld1 { animation-delay: 560ms; } .ld2 { animation-delay: 860ms; } .ld3 { animation-delay: 1160ms; }
-.std { animation: sweep 700ms var(--ease-out) 300ms both; }
-.date { animation: rise 420ms var(--ease-out) 650ms both; }
-.piano { animation: glide 1100ms var(--ease-out) 200ms both; }
-.corner { animation: rise 420ms var(--ease-out) both; }
-@media (prefers-reduced-motion: reduce) { .mark .main, .hw, .ld, .std, .date, .piano, .corner { animation: none; } }
-</style>
+<link rel="stylesheet" href="/assets/site.css?v=c6c9e3ab6c">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<main class="stage">
-  <div class="corner c-pais"><img class="blob" src="/soon/blob-tl.webp" width="611" height="351" alt=""><img class="logo" src="/soon/logo-pais.webp" width="476" height="211" alt="מרכז פיס למוסיקה רעננה"></div>
-  <div class="corner c-raan"><img class="blob" src="/soon/blob-tr.webp" width="557" height="399" alt=""><img class="logo" src="/soon/logo-raanana.webp" width="356" height="520" alt="עיריית רעננה"></div>
-  <h1>
-    <img class="hw hw-fest" src="/soon/word-festival.png" width="411" height="125" alt="">
-    <span class="mark"><img class="main" src="/soon/logo.png" width="1052" height="794" alt="פסטיבל World Jazz Music רעננה"><img class="ld ld1" src="/soon/dot1.png" alt=""><img class="ld ld2" src="/soon/dot2.png" alt=""><img class="ld ld3" src="/soon/dot3.png" alt=""></span>
-    <img class="hw hw-raan" src="/soon/word-raanana.png" width="416" height="109" alt="">
-  </h1>
-  <p class="std" lang="en" dir="ltr"><span>SAVE THE DATE</span></p>
-  <img class="date" src="/soon/date.webp" width="900" height="267" alt="10–12.12.2026 · המרכז למוזיקה פיס רעננה">
-  <img class="piano" src="/soon/piano.webp" width="2000" height="667" alt="" fetchpriority="low">
+<main id="main">
+
+<section class="hero grain">
+  <div class="hero-sides" aria-hidden="true">
+    <video class="hero-side side-a" muted loop playsinline preload="none" disablepictureinpicture data-src="/video/hero-side-a.mp4" poster="/video/hero-side-a-poster.jpg"></video>
+    <video class="hero-side side-b" muted loop playsinline preload="none" disablepictureinpicture data-src="/video/hero-side-b.mp4" poster="/video/hero-side-b-poster.jpg" data-offset="1.25"></video>
+  </div>
+  <div class="hero-bg" aria-hidden="true">
+    <video class="hero-vid" muted loop playsinline preload="none" disablepictureinpicture
+      data-desktop="/video/hero-desktop.mp4" data-desktop-poster="/video/hero-desktop-poster.jpg"
+      data-mobile="/video/hero-mobile.mp4" data-mobile-poster="/video/hero-mobile-poster.jpg"></video>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">
+        <img class="hw hw-fest" src="/images/word-festival-he.png" width="411" height="125" alt="">
+        <span class="logo-dots"><img class="main-logo" src="/images/logo-nodots.png" width="1052" height="794" alt="World Jazz Music – פסטיבל הג׳אז רעננה 2026"><img class="ld ld1" src="/images/logo-dot1.png" alt=""><img class="ld ld2" src="/images/logo-dot2.png" alt=""><img class="ld ld3" src="/images/logo-dot3.png" alt=""></span>
+        <img class="hw hw-raan" src="/images/word-raanana-he.png" width="416" height="109" alt="">
+      </h1>
+      <div class="meta">
+        <img class="hero-date" src="/images/date-he.webp" width="900" height="267" alt="10–12 בדצמבר 2026">
+        <div class="dir"><span>ניהול אומנותי:</span> עמית פרידמן</div>
+        <div class="ctas">
+          <a href="/lineup.html" class="btn primary">ללוח ההופעות 2026</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cd-strip">
+    <div class="cd-in">
+      <p class="cd-label" id="cdLabel">הפסטיבל נפתח בעוד:</p>
+      <div class="countdown" id="countdown" role="timer" aria-labelledby="cdLabel" hidden>
+        <div class="u"><b data-k="d">00</b><small>ימים</small></div>
+        <div class="u"><b data-k="h">00</b><small>שעות</small></div>
+        <div class="u"><b data-k="m">00</b><small>דקות</small></div>
+        <div class="u sec"><b data-k="s">00</b><small>שניות</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="now-strip" data-render="now" hidden aria-live="polite"></section>
+
+<section class="next" aria-labelledby="next-h">
+  <img class="ill ill-sax" src="/images/ill/dekel-sax.webp" width="800" height="547" alt="" aria-hidden="true" loading="lazy">
+  <h2 id="next-h">פסטיבל 2026</h2>
+  <p>שלושה ימים של ג׳אז ומוזיקת עולם במרכז למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.</p>
+  <ul class="facts">
+    <li class="f-days"><b data-count>10–12.12</b><span>שלושה ימים, חמישי עד שבת</span></li>
+    <li class="f-shows"><b data-count>20</b><span>הופעות בחמש במות – כולל האוהל, במת הלילה החדשה</span><a href="/lineup.html">ללוח ההופעות <i class="arr" aria-hidden="true">←</i></a></li>
+    <li class="f-work"><b data-count>14–25</b><span>סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;20.11!</span><a href="/workshops.html">על הסדנאות <i class="arr" aria-hidden="true">←</i></a></li>
+  </ul>
+</section>
+
+<section class="onstage" aria-labelledby="onstage-h">
+  <div class="stitle">
+    <h2 id="onstage-h">ההופעות של 2026</h2>
+    <p>10–12 בדצמבר 2026 · לחצו על הופעה לכל הפרטים.</p>
+  </div>
+  <div class="spot" data-render="spotlight"></div>
+  <h3 class="subhead dy-h">לפי ימים</h3>
+  <div class="dy" data-render="days"></div>
+  <p class="dy-more"><a class="btn primary" href="/lineup.html">ללו״ז המלא לפי במות <i class="arr" aria-hidden="true">←</i></a></p>
+</section>
+
+<section class="stages" aria-labelledby="stages-h">
+  <div class="stitle">
+    <h2 id="stages-h">חמש במות, מתחם אחד</h2>
+    <p>כל הפסטיבל מתקיים במרכז למוזיקה פיס רעננה – מהאולם הגדול ועד האוהל, כל הופעה במרחק כמה צעדים.</p>
+  </div>
+  <div class="vmap" data-render="venuemap"></div>
+  <div class="stage-row" data-render="stages"></div>
+</section>
+
+<section class="free-band" aria-labelledby="free-h" data-render="free"></section>
+
+<section class="tix-box grain" aria-labelledby="tix-h">
+  <span class="ill ill-drum" aria-hidden="true"><img src="/images/ill/dekel-drum.webp" width="600" height="593" alt="" loading="lazy"><img class="sticks" src="/images/ill/dekel-sticks.webp" width="600" height="132" alt="" loading="lazy"></span>
+  <div class="tix-in">
+    <div class="tix-copy">
+      <p class="love">כרטיסים ופסים</p>
+      <h2 id="tix-h" class="big">בקרוב</h2>
+      <p>המכירה לפסטיבל 2026 תיפתח בקרוב באתר הכרטיסים של עיריית רעננה. עקבו אחרינו כדי לשמוע ראשונים.</p>
+      <div class="ctas">
+        <a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">לעדכונים באינסטגרם</a>
+        <a href="/tickets.html" class="btn ghost">על הכרטיסים <i class="arr" aria-hidden="true">←</i></a>
+      </div>
+    </div>
+    <ul class="tix-opts">
+      <li><b>כרטיס להופעה</b><span>לבחור הופעה אחת או כמה</span></li>
+      <li><b>פס יומי</b><span>כל הופעות היום – חמישי, שישי או שבת</span></li>
+      <li><b>פס לכל הפסטיבל</b><span>שלושה ימים, הכי משתלם</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="festival-2025" aria-labelledby="f25-h">
+  <div class="moments-h">
+  <h2 class="subhead" id="f25-h" style="margin:0;padding:0">רגעים מפסטיבל 2025</h2>
+</div>
+  <section class="river" data-render="moments" aria-label="רגעים מפסטיבל 2025"></section>
+</section>
+
+<section class="partners" id="partners">
+  <h2>תודה לשותפים ולתומכים</h2>
+  <p class="sub">הפסטיבל לא היה מתקיים בלעדיכם.</p>
+  <div class="cat">מפיקים ותומכים</div>
+  <div class="logos" data-render="partners"></div>
+</section>
+
 </main>
+
+<script src="/assets/data.js?v=c6c9e3ab6c"></script>
+<script src="/assets/site.js?v=c6c9e3ab6c"></script>
+
 </body>
 </html>
