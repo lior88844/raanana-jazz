@@ -681,8 +681,8 @@ def page_guide(t, P, A):
         ('families', t('משפחות', 'Families'), t('משפחות וילדים', 'Families and children'), f"""
       <p>{t('רחבת הפסטיבל היא הלב הפתוח של הפסטיבל: מופעים לכל המשפחה.',
             'The Festival Plaza is the open heart of the festival: shows for the whole family.')}</p>
-      <p>{t('בכל בוקר ב־11:00 – הופעה לילדים: ״תנינים על הראש״ עם מארש דונדורמה (חמישי), ״שירים חדשים של פעם״ עם רני גולן (שישי) ו״ילדוג׳אז״ (שבת). וב־17:00 כל יום – הופעה בכניסה חופשית ברחבה.',
-            'Every morning at 11:00 there is a children’s show: “Crocodiles on the Head” with Marsh Dondurma (Thursday), “New Old Songs” with Rani Golan (Friday) and “Yaldojazz” (Saturday). And every day at 17:00 there is a free show on the Plaza.')}</p>
+      <p>{t('בכל בוקר ב־11:00 – הופעה לילדים: מארש דונדורמה (חמישי), ״שירים חדשים של פעם״ עם רני גולן (שישי) ו״ילדוג׳אז״ (שבת). וב־17:00 כל יום – הופעה בכניסה חופשית ברחבה.',
+            'Every morning at 11:00 there is a children’s show: Marsh Dondurma (Thursday), “New Old Songs” with Rani Golan (Friday) and “Yaldojazz” (Saturday). And every day at 17:00 there is a free show on the Plaza.')}</p>
       <p class="g-more"><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></p>"""),
         ('access', t('נגישות', 'Accessibility'), t('נגישות', 'Accessibility'), f"""
       <p>{t('אנחנו רוצים שכולם יוכלו ליהנות מהפסטיבל. פרטים על הסדרי הנגישות ועל דרכי הפנייה בנושא נמצאים בהצהרת הנגישות.',
