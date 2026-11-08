@@ -436,9 +436,9 @@ def page_workshops(t, P, A):
                   top='<div class="t-strip t-top" data-render="teacher-strip"></div>') + f'''
 <section class="wrap section">
   <div class="stats stats-3">
-    <div class="stat"><b>3</b><span>{t('ימים · חמישי–שבת<br><bdi dir="ltr">10–12</bdi> בדצמבר (חופשת חנוכה)', 'days · Thursday–Saturday<br>10–12 December (Hanukkah break)')}</span></div>
-    <div class="stat"><b>9:30<em>–</em>17:00</b><span>{t('שעות הפעילות בכל יום', 'daily hours')}</span></div>
-    <div class="stat"><b>₪1,200</b><span>{t('כולל כניסה לכל הופעות הפסטיבל<br>על בסיס מקום פנוי', 'includes every festival show<br>subject to availability')}</span></div>
+    <div class="stat"><b>3</b><span>{t('ימים · חמישי–שבת<br><bdi dir="ltr">10–12</bdi> בדצמבר (חופשת חנוכה)', 'days · Thursday–Saturday<br>10–12 December (Hanukkah break)')}</span><a class="stat-cover" data-href="form" target="_blank" rel="noopener" aria-label="{t('להרשמה לסדנאות', 'Sign up for the workshops')}"></a></div>
+    <div class="stat"><b>9:30<em>–</em>17:00</b><span>{t('שעות הפעילות בכל יום', 'daily hours')}</span><a class="stat-cover" data-href="form" target="_blank" rel="noopener" aria-label="{t('להרשמה לסדנאות', 'Sign up for the workshops')}"></a></div>
+    <div class="stat"><b>₪1,200</b><span>{t('כולל כניסה לכל הופעות הפסטיבל<br>על בסיס מקום פנוי', 'includes every festival show<br>subject to availability')}</span><a class="stat-cover" data-href="form" target="_blank" rel="noopener" aria-label="{t('להרשמה לסדנאות', 'Sign up for the workshops')}"></a></div>
   </div>
 </section>
 <section class="narrow section prose">

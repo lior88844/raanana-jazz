@@ -1473,3 +1473,9 @@ html.a11y-still .t-strip { overflow-x: auto; }
 .facts a::before { content: ""; position: absolute; inset: -600px; }
 .facts a.f-cover { position: static; padding: 0; margin: 0; }
 .facts a.f-cover::before { inset: 0; z-index: 2; }
+
+/* workshop stat tiles: the whole tile opens the sign-up form */
+.stat { position: relative; border-radius: 16px; padding: 18px 10px 20px; transition: background-color .25s, transform .25s var(--ease-out); }
+.stat-cover { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+@media (hover: hover) { .stat:has(.stat-cover):hover { background: var(--accent); transform: translateY(-4px); cursor: pointer; } }
+.stat-cover:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
