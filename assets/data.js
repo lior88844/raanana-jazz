@@ -12,7 +12,7 @@ const SITE = {
   tickets: 'https://tickets.raanana.muni.il/',
   fullPass: 'season/1983',
   // 2026 workshop sign-up link – not out yet; while empty the sign-up buttons say the link is coming soon
-  workshopForm: '',
+  workshopForm: 'https://forms.gle/m3LZXEvu3Leq4W1t5',
   workshopDeadline: '20.11',
   instagram: 'https://www.instagram.com/world.jazz.music/',
   facebook: 'https://www.facebook.com/raananapaismusiccenter',
