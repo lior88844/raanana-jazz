@@ -156,7 +156,7 @@ const STICKERS = { free: ['הכניסה חופשית', 'Free entry'], kids20: ['
   original: ['הפקת מקור', 'Original production'], premiere: ['הופעת בכורה', 'Premiere'], screening: ['הקרנת בכורה', 'Premiere screening'] };
 const stickers = s => {
   const keys = (s.free ? ['free'] : []).concat(s.tags || []);
-  return keys.length ? `<span class="stk-wrap">${keys.map(k => `<span class="stk stk-${k}">${L(...STICKERS[k])}</span>`).join('')}</span>` : '';
+  return keys.length ? `<span class="stk-wrap${s.stkLow ? ' low' : ''}">${keys.map(k => `<span class="stk stk-${k}">${L(...STICKERS[k])}</span>`).join('')}</span>` : '';
 };
 const freeTag = `<span class="free">${L('כניסה חופשית', 'Free entry')}</span>`;
 const kidsTag = `<span class="free kids">${L('לכל המשפחה', 'For families')}</span>`;

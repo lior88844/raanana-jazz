@@ -143,7 +143,7 @@ const SHOWS = [
     cast_en: ["Dancers from Swing It – the swing dance school – instructors"] ,
     img: "2026-swing-lesson.jpg", pos: "50% 40%", credit: "מרינה אחקסובה, באדיבות סווינג איט", credit_en: "Marina Achkasova, courtesy of Swing It",
     link: "https://swingit.co.il/", link_label: "לאתר סווינג איט", link_label_en: "Swing It website" , slug: "event/32058" },
-  { id: "preminger", day: "fri", time: "17:00", dur: 60, free: true,
+  { id: "preminger", stkLow: true, day: "fri", time: "17:00", dur: 60, free: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "Eli Preminger and the Chocolate Factory", title_en: "Eli Preminger and the Chocolate Factory",
     sub: "מסיבת ריקודי סווינג לצלילי הג'אז של ניו אורלינס", sub_en: "A swing dance party to the sound of New Orleans jazz",
