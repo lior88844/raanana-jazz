@@ -185,7 +185,7 @@ def page_index(t, P, A):
         {t('<img class="hero-date" src="/images/date-he.webp" width="900" height="267" alt="10–12 בדצמבר 2026">', '<div class="dates" aria-label="10–12 DEC 2026"><span class="d-num">10–12</span><small>DEC 2026</small></div>')}
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
         <div class="ctas">
-          <a href="{P('lineup.html')}" class="btn primary">{t('ללוח ההופעות 2026', 'See the 2026 line-up')}</a>
+          <a href="{P('lineup.html')}" class="btn primary">{t('לוח ההופעות 2026', '2026 line-up')}</a>
         </div>
       </div>
     </div>
