@@ -151,6 +151,13 @@ ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span
 }
 
 // ---------- render helpers ----------
+// stickers on show photos: free entry comes from s.free, the rest from s.tags
+const STICKERS = { free: ['הכניסה חופשית', 'Free entry'], kids20: ['הופעת ילדים · 20 ₪ בלבד', 'Kids’ show · only ₪20'],
+  original: ['הפקת מקור', 'Original production'], premiere: ['הופעת בכורה', 'Premiere'], screening: ['הקרנת בכורה', 'Premiere screening'] };
+const stickers = s => {
+  const keys = (s.free ? ['free'] : []).concat(s.tags || []);
+  return keys.length ? `<span class="stk-wrap">${keys.map(k => `<span class="stk stk-${k}">${L(...STICKERS[k])}</span>`).join('')}</span>` : '';
+};
 const freeTag = `<span class="free">${L('כניסה חופשית', 'Free entry')}</span>`;
 const kidsTag = `<span class="free kids">${L('לכל המשפחה', 'For families')}</span>`;
 
@@ -178,7 +185,7 @@ const thumbPos = s => (s.tpos || s.pos) ? ` style="background-position:${s.tpos 
 function renderCards(el, list = SHOWS.filter(s => s.featured)) {
   el.innerHTML = list.map(s => `
     <article class="card">
-      <div class="ph" data-bg="${img(thumbImg(s))}"${thumbPos(s)}></div>
+      <div class="ph" data-bg="${img(thumbImg(s))}"${thumbPos(s)}>${stickers(s)}</div>
       <div class="day">${EN ? dayOf(s.day).name_en : dayOf(s.day).name} ${dayOf(s.day).date} <b>· ${s.time}</b></div>
       <h3>${tr(s, 'title')}</h3>
       <div class="desc">${tr(s, 'sub')}</div>
@@ -196,7 +203,7 @@ function renderFeatured(el) {
   const link = (s, label, cls) => `<button type="button" class="${cls} stretch" data-show="${s.id}" aria-haspopup="dialog">${label}</button>`;
   el.innerHTML = `
     <article class="lead">
-      <div class="ph" data-bg="${img(thumbImg(lead))}"${thumbPos(lead)} role="img" aria-label="${tr(lead, 'title')}"></div>
+      <div class="ph" data-bg="${img(thumbImg(lead))}"${thumbPos(lead)} role="img" aria-label="${tr(lead, 'title')}">${stickers(lead)}</div>
       <div class="meta">${meta(lead)}</div>
       <h3>${tr(lead, 'title')}</h3>
       <p>${tr(lead, 'sub')}</p>
@@ -205,7 +212,7 @@ function renderFeatured(el) {
     <ul class="others">
       ${rest.map(s => `
         <li>
-          <div class="ph" data-bg="${img(thumbImg(s))}"${thumbPos(s)}></div>
+          <div class="ph" data-bg="${img(thumbImg(s))}"${thumbPos(s)}>${stickers(s)}</div>
           <div>
             <div class="meta">${when(s)} · ${s.time}</div>
             <h3>${link(s, tr(s, 'title'), 'name')}</h3>
@@ -224,7 +231,7 @@ function renderSpotlight(el) {
   const DOTS = 7;                                               // only a short window of dots, sliding with the current show
   el.innerHTML = `<div class="sp-stage">${order.map((s, i) => `<div class="sp-slide${i ? '' : ' on'}" aria-hidden="${!!i}">
       ${s.img ? `<img src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>` : `<span class="sp-logo d-${s.day}"></span>`}
-      <div class="sp-cap"><small>${when(s)} · ${s.time} · ${tr(s, 'venue')}</small>
+      ${stickers(s)}<div class="sp-cap"><small>${when(s)} · ${s.time} · ${tr(s, 'venue')}</small>
         <button type="button" data-show="${s.id}" aria-haspopup="dialog"${i ? ' tabindex="-1"' : ''}><bdi>${tr(s, 'title')}</bdi></button></div></div>`).join('')}</div>
     <div class="sp-ctl"><button type="button" class="sp-arr" data-step="-1" aria-label="${L('ההופעה הקודמת', 'Previous show')}">${EN ? '←' : '→'}</button>
       <div class="sp-dots" aria-hidden="true">${'<i></i>'.repeat(Math.min(DOTS, order.length))}</div>
@@ -583,7 +590,7 @@ function nowOnStage(el) {
 function renderShowList(el, dayId) {
   el.innerHTML = SHOWS.filter(s => dayId ? s.day === dayId : ONCE(s)).map(s => `
     <article class="showrow">
-      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(thumbImg(s))}"` : ''}${thumbPos(s)}></div>
+      <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(thumbImg(s))}"` : ''}${thumbPos(s)}>${stickers(s)}</div>
       <div>
         <div class="when">${dayId ? `${dayName(dayOf(s.day))} ${dayOf(s.day).date}` : when(s)} <time>${s.time}</time></div>
         <h3>${tr(s, 'title')}</h3>
@@ -591,7 +598,7 @@ function renderShowList(el, dayId) {
         <div class="venue">${tr(s, 'venue')}</div>
       </div>
       <div class="act">
-        ${s.free ? `<div class="free">${L('כניסה חופשית', 'Free entry')}</div><br>` : ''}${s.kids ? `<div class="free kids">${L('לכל המשפחה', 'For families')}</div><br>` : ''}
+        ${s.kids && !(s.tags || []).includes('kids20') ? `<div class="free kids">${L('לכל המשפחה', 'For families')}</div><br>` : ''}
         <button type="button" class="btn primary stretch" data-show="${s.id}" aria-haspopup="dialog">${L('לכל הפרטים', 'Full details')}</button>
       </div>
     </article>`).join('');
@@ -909,7 +916,7 @@ function showHtml(s) {
   return `
     <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
     <figure class="sb-ph${s.img ? '' : ' noimg'}${s.img2 ? (s.guest ? ' has-guest' : ' two') : ''} d-${s.day}">
-      ${s.img ? `<div class="sb-shot"><img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>
+      ${s.img ? `<div class="sb-shot"><img src="${img(s.img.replace(/\.jpe?g$/, '-1600.webp'))}" alt="" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>${stickers(s)}
         ${s.credit ? `<figcaption>${L('צילום', 'Photo')}: ${esc(tr(s, 'credit'))}</figcaption>` : ''}</div>` : '<span class="sb-ph-logo" aria-hidden="true"></span>'}
       ${s.img2 && s.guest ? `<div class="sb-guest"><img src="${img(s.img2.replace(/\.jpe?g$/, '-800.webp'))}" alt="" decoding="async"${s.pos2 ? ` style="object-position:${s.pos2}"` : ''}>
         <span>${esc(EN ? s.guest.en : s.guest.he)}</span></div>${s.credit2 ? `<figcaption class="sb-cred2">${esc(tr(s, 'credit2'))}</figcaption>` : ''}`
@@ -920,7 +927,7 @@ function showHtml(s) {
       <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${s.every || s.repeat ? L('בכל לילה', 'Every night') : `${dayName(d)} ${d.date}`} · <time>${s.time}</time> · ${venueLink(s)}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>
       <h2 id="sb-title"><bdi>${esc(tr(s, 'title'))}</bdi></h2>
       ${tr(s, 'sub') ? `<p class="sb-sub">${esc(tr(s, 'sub'))}</p>` : ''}
-      <div class="sb-tags">${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
+      <div class="sb-tags">${s.kids && !(s.tags || []).includes('kids20') ? kidsTag : ''}</div>
       <div class="sb-actions">
         ${tickets}
         <button type="button" class="sb-fav" data-key="${showKey(s)}" aria-pressed="${on}">${on ? '★' : '☆'} ${L('לליינאפ שלי', 'My line-up')}</button>

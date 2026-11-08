@@ -1406,3 +1406,15 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
 
 /* show photos open the show, like the title */
 :is(.showrow, .card, .lead, .others li, .dy-list li) :is(.ph, .dy-th), .sp-slide { cursor: pointer; }
+
+/* stickers on show photos (free entry, kids price, original production, premiere) */
+.stk-wrap { position: absolute; z-index: 3; inset-block-start: 10px; inset-inline-start: 10px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; pointer-events: none; }
+.stk { display: inline-block; font-family: var(--display); font-weight: 900; font-size: 13px; line-height: 1.1; padding: 6px 10px 5px; border-radius: 6px;
+  background: var(--accent); color: var(--brown, #3A1A14); rotate: -3deg; box-shadow: 0 3px 0 rgba(58, 26, 20, .35); white-space: nowrap; }
+.stk + .stk { rotate: 2deg; }
+.stk-free { background: var(--cool); }
+.stk-kids20 { background: var(--soft); }
+.sp-slide .stk-wrap { inset-block-start: 22px; inset-inline-start: 26px; gap: 8px; }
+.sp-slide .stk, .sb-shot .stk { font-size: 16px; padding: 8px 13px 7px; }
+.sb-shot .stk-wrap { inset-block-start: 16px; inset-inline-start: 16px; }
+@media (max-width: 600px) { .stk { font-size: 11px; padding: 5px 8px 4px; } .sp-slide .stk, .sb-shot .stk { font-size: 13px; } }
