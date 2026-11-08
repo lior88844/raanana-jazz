@@ -1431,18 +1431,32 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
 /* workshops: three stats in a row */
 .stats.stats-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
 @media (max-width: 700px) { .stats.stats-3 { grid-template-columns: minmax(0,1fr); } }
-/* workshops hero: poster of slanted portrait strips, each photo filling its shape */
-.t-strip { display: flex; justify-content: center; gap: 10px; max-width: 1240px; margin: 0 auto 50px; padding: 0 12px; transform: skewX(-8deg); }
-.t-strip figure { position: relative; margin: 0; flex: 0 1 120px; aspect-ratio: 1 / 2.5; overflow: hidden; border-radius: 8px; background: var(--brown);
-  box-shadow: 0 10px 22px -12px rgba(58, 26, 20, .7); transition: flex-basis .45s var(--ease-out); }
-.t-strip img { position: absolute; top: 0; left: -30%; width: 160%; max-width: none; height: 100%; object-fit: cover; object-position: 50% 22%; transform: skewX(8deg); }
-.t-strip figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 62%, rgba(58, 26, 20, .85)); }
-.t-strip figcaption { position: absolute; z-index: 1; bottom: 12px; inset-inline: 6px; transform: skewX(8deg); color: #fff; font-family: var(--display); font-weight: 900;
-  font-size: 14px; line-height: 1.15; text-align: center; }
-.t-strip figcaption small { display: block; font-weight: 700; font-size: 12px; color: var(--accent); margin-top: 3px; }
-@media (hover: hover) { .t-strip figure:hover { flex-basis: 220px; } }
+/* workshops hero: endless belt of slanted portrait strips, each photo filling its strip */
+.t-strip { margin: 0 -24px 54px; overflow: hidden; padding: 18px 0 22px; }
+.t-track { display: flex; gap: 14px; padding-inline-end: 14px; width: max-content; animation: tBelt 55s linear infinite; }   /* end padding = one gap, so half the track is exactly one set */
+@keyframes tBelt { to { transform: translateX(50%); } }
+:root[dir="ltr"] .t-track, [dir="ltr"] .t-track { animation-name: tBeltL; }
+@keyframes tBeltL { to { transform: translateX(-50%); } }
+.t-strip:hover .t-track { animation-play-state: paused; }
+.t-strip figure { position: relative; margin: 0; flex: none; width: 190px; height: 440px; overflow: hidden; border-radius: 10px; background: var(--brown);
+  transform: skewX(-8deg); box-shadow: 0 12px 24px -14px rgba(58, 26, 20, .75); transition: transform .35s var(--ease-out), box-shadow .35s var(--ease-out); }
+.t-strip img { position: absolute; top: 0; left: -25%; width: 150%; max-width: none; height: 100%; object-fit: cover; object-position: 50% 22%;
+  transform: skewX(8deg); transition: transform .5s var(--ease-out), filter .35s; }
+.t-strip figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 60%, rgba(58, 26, 20, .88)); transition: opacity .35s; }
+.t-strip figcaption { position: absolute; z-index: 1; bottom: 16px; inset-inline: 10px; transform: skewX(8deg); color: #fff; font-family: var(--display); font-weight: 900;
+  font-size: 17px; line-height: 1.15; text-align: center; transition: transform .35s var(--ease-out); }
+.t-strip figcaption small { display: block; font-weight: 700; font-size: 13px; color: var(--accent); margin-top: 4px; }
+@media (hover: hover) {
+  .t-strip figure:hover { transform: skewX(-8deg) translateY(-10px) scale(1.04); box-shadow: 0 22px 34px -14px rgba(58, 26, 20, .85); z-index: 2; }
+  .t-strip figure:hover img { transform: skewX(8deg) scale(1.08); filter: brightness(1.08) saturate(1.1); }
+  .t-strip figure:hover::after { opacity: .75; }
+  .t-strip figure:hover figcaption { transform: skewX(8deg) translateY(-4px); }
+}
+html.a11y-still .t-track, .reduce-motion .t-track { animation: none; }
+html.a11y-still .t-strip { overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) { .t-track { animation: none; } .t-strip { overflow-x: auto; } }
 @media (max-width: 700px) {
-  .t-strip { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; margin-inline: -24px; padding: 6px 30px 10px; }
-  .t-strip::-webkit-scrollbar { display: none; }
-  .t-strip figure { flex: none; width: 96px; }
+  .t-strip figure { width: 140px; height: 330px; }
+  .t-strip figcaption { font-size: 14px; } .t-strip figcaption small { font-size: 12px; }
+  .t-track { animation-duration: 42s; }
 }
