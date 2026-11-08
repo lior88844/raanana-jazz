@@ -225,22 +225,27 @@ function renderFeatured(el) {
 }
 
 // Home: one 2026 show at a time in a big spotlight, in random order so nobody is always first.
-// Changes every 4 s with a crossfade and a slow zoom; pauses on hover; arrows and dots to move.
+// Split cards that crossfade every few seconds; pauses on hover; arrows and dots to move.
 function renderSpotlight(el) {
   const order = SHOWS.filter(ONCE);
   for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
-  // the whole photo is always shown (contain); a blurred copy of it fills any leftover band
-  const wide = matchMedia('(min-width: 701px)').matches;
+  // split card: the whole photo on one side, the show's details on a panel in its day colour (nothing covers the photo)
   const big = s => img(s.img.replace(/\.jpe?g$/, '-1600.webp'));
+  const tags = s => (s.free ? ['free'] : []).concat(s.tags || []).map(k => `<span class="stk stk-${k}">${L(...STICKERS[k])}</span>`).join('');
   const DOTS = 7;                                               // only a short window of dots, sliding with the current show
-  el.innerHTML = `<div class="sp-stage">${order.map((s, i) => `<div class="sp-slide${i ? '' : ' on'}${wide && s.simg ? ' guest' : ''}" aria-hidden="${!!i}">
-      ${s.img ? `<img class="sp-bg" src="${big(s)}" alt="" aria-hidden="true" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"><img class="sp-img" src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">` : `<span class="sp-logo d-${s.day}"></span>`}
-      ${stickers(s)}<div class="sp-cap"><small>${when(s)} · ${s.time} · ${tr(s, 'venue')}</small>
-        <button type="button" data-show="${s.id}" aria-haspopup="dialog"${i ? ' tabindex="-1"' : ''}><bdi>${tr(s, 'title')}</bdi></button></div></div>`).join('')}</div>
+  el.innerHTML = `<div class="sp-stage">${order.map((s, i) => `<article class="sp-card d-${s.day}${i ? '' : ' on'}" aria-hidden="${!!i}">
+      <div class="sp-ph">${s.img ? `<img src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">` : `<span class="sp-logo d-${s.day}"></span>`}</div>
+      <div class="sp-in">
+        ${tags(s) ? `<div class="sp-tags">${tags(s)}</div>` : ''}
+        <p class="sp-meta">${when(s)} · <bdi>${s.time}</bdi> · ${tr(s, 'venue')}</p>
+        <h3><bdi>${tr(s, 'title')}</bdi></h3>
+        ${tr(s, 'sub') ? `<p class="sp-sub">${tr(s, 'sub')}</p>` : ''}
+        <button type="button" class="btn primary" data-show="${s.id}" aria-haspopup="dialog"${i ? ' tabindex="-1"' : ''}>${L('לכל הפרטים', 'Full details')} ${ARROW}</button>
+      </div></article>`).join('')}</div>
     <div class="sp-ctl"><button type="button" class="sp-arr" data-step="-1" aria-label="${L('ההופעה הקודמת', 'Previous show')}">${EN ? '←' : '→'}</button>
       <div class="sp-dots" aria-hidden="true">${'<i></i>'.repeat(Math.min(DOTS, order.length))}</div>
       <button type="button" class="sp-arr" data-step="1" aria-label="${L('ההופעה הבאה', 'Next show')}">${EN ? '→' : '←'}</button></div>`;
-  const slides = [...el.querySelectorAll('.sp-slide')], dots = [...el.querySelectorAll('.sp-dots i')], stage = el.querySelector('.sp-stage');
+  const slides = [...el.querySelectorAll('.sp-card')], dots = [...el.querySelectorAll('.sp-dots i')], stage = el.querySelector('.sp-stage');
   let i = 0, timer, hold = false, visible = false;
   const go = n => {
     i = (n + slides.length) % slides.length;
@@ -252,7 +257,7 @@ function renderSpotlight(el) {
       d.classList.toggle('edge', (j === 0 && k > 0) || (j === dots.length - 1 && k < total - 1));   // smaller end dots hint there are more
     });
   };
-  const tick = () => { clearTimeout(timer); timer = setTimeout(() => { if (!hold && visible && !stilled()) go(i + 1); tick(); }, 4000); };
+  const tick = () => { clearTimeout(timer); timer = setTimeout(() => { if (!hold && visible && !stilled()) go(i + 1); tick(); }, 5500); };
   el.querySelectorAll('.sp-arr').forEach(b => b.addEventListener('click', () => { go(i + +b.dataset.step); tick(); }));
   stage.addEventListener('mouseenter', () => { hold = true; });
   stage.addEventListener('mouseleave', () => { hold = false; });
@@ -1064,8 +1069,8 @@ function swipeToClose(box) {
   });
 }
 
-const SHOW_PHOTO = '.ph, .sp-slide, .dy-th';
-const SHOW_ITEM = '.showrow, .card, .lead, .others li, .sp-slide, .dy-list li';
+const SHOW_PHOTO = '.ph, .sp-ph, .dy-th';
+const SHOW_ITEM = '.showrow, .card, .lead, .others li, .sp-card, .dy-list li';
 function showDialogs() {
   document.addEventListener('click', e => {
     let t = e.target.closest('[data-show]');
