@@ -170,6 +170,9 @@ function renderSchedule(el) {
 }
 
 // thumbnails crop the photo; tpos keeps a baked-in guest card inside the crop
+// the nightly jam is one SHOWS entry per night; lists of all shows show it once ("every night")
+const ONCE = s => !s.repeat;
+const when = s => s.every ? L('בכל לילה', 'Every night') : `${dayName(dayOf(s.day))} ${dayOf(s.day).date}`;
 const thumbImg = s => s.timg || s.img;
 const thumbPos = s => (s.tpos || s.pos) ? ` style="background-position:${s.tpos || s.pos}"` : '';
 
@@ -190,7 +193,7 @@ function renderFeatured(el) {
   const featured = SHOWS.filter(s => s.featured);
   const lead = featured.find(s => s.lead) || featured[0];   // the headline production leads
   const rest = featured.filter(s => s !== lead);
-  const meta = s => `${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time} · ${tr(s, 'venue')}`;
+  const meta = s => `${when(s)} · ${s.time} · ${tr(s, 'venue')}`;
   const link = (s, label, cls) => `<button type="button" class="${cls} stretch" data-show="${s.id}" aria-haspopup="dialog">${label}</button>`;
   el.innerHTML = `
     <article class="lead">
@@ -205,7 +208,7 @@ function renderFeatured(el) {
         <li>
           <div class="ph" data-bg="${img(thumbImg(s))}"${thumbPos(s)}></div>
           <div>
-            <div class="meta">${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time}</div>
+            <div class="meta">${when(s)} · ${s.time}</div>
             <h3>${link(s, tr(s, 'title'), 'name')}</h3>
             <div class="venue">${tr(s, 'venue')}</div>
           </div>
@@ -216,13 +219,13 @@ function renderFeatured(el) {
 // Home: one 2026 show at a time in a big spotlight, in random order so nobody is always first.
 // Changes every 4 s with a crossfade and a slow zoom; pauses on hover; arrows and dots to move.
 function renderSpotlight(el) {
-  const order = [...SHOWS];
+  const order = SHOWS.filter(ONCE);
   for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
   const big = s => img(s.img.replace(/\.jpe?g$/, '-1600.webp'));
   const DOTS = 7;                                               // only a short window of dots, sliding with the current show
   el.innerHTML = `<div class="sp-stage">${order.map((s, i) => `<div class="sp-slide${i ? '' : ' on'}" aria-hidden="${!!i}">
       ${s.img ? `<img src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"${s.pos ? ` style="object-position:${s.pos}"` : ''}>` : `<span class="sp-logo d-${s.day}"></span>`}
-      <div class="sp-cap"><small>${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time} · ${tr(s, 'venue')}</small>
+      <div class="sp-cap"><small>${when(s)} · ${s.time} · ${tr(s, 'venue')}</small>
         <button type="button" data-show="${s.id}" aria-haspopup="dialog"${i ? ' tabindex="-1"' : ''}><bdi>${tr(s, 'title')}</bdi></button></div></div>`).join('')}</div>
     <div class="sp-ctl"><button type="button" class="sp-arr" data-step="-1" aria-label="${L('ההופעה הקודמת', 'Previous show')}">${EN ? '←' : '→'}</button>
       <div class="sp-dots" aria-hidden="true">${'<i></i>'.repeat(Math.min(DOTS, order.length))}</div>
@@ -314,11 +317,11 @@ function renderVenueMap(el) {
     const v = VENUES.find(x => x.id === id);
     el.querySelectorAll('.vm-pin').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === id));
     if (!v) { panel.hidden = true; return; }
-    const shows = SHOWS.filter(s => s.venue === v.name).sort((a, b) => dayIx(a.day) - dayIx(b.day) || a.time.localeCompare(b.time));
+    const shows = SHOWS.filter(s => s.venue === v.name && ONCE(s)).sort((a, b) => dayIx(a.day) - dayIx(b.day) || a.time.localeCompare(b.time));
     panel.innerHTML = `
       <div class="vm-p-head"><h3>${tr(v, 'name')}</h3><span>${tr(v, 'floor')}</span></div>
       <p>${tr(v, 'desc')}</p>
-      ${shows.length ? `<ul>${shows.map(s => `<li><time>${dayName(dayOf(s.day))} ${dayOf(s.day).date} · ${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul>`
+      ${shows.length ? `<ul>${shows.map(s => `<li><time>${when(s)} · ${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul>`
         : `<p class="vm-none">${L('ההופעות בבמה הזו יפורסמו בקרוב.', 'Shows on this stage will be announced soon.')}</p>`}`;
     panel.hidden = false;
     if (!reduceMotion) panel.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.23,1,.32,1)' });
@@ -579,11 +582,11 @@ function nowOnStage(el) {
 }
 
 function renderShowList(el, dayId) {
-  el.innerHTML = SHOWS.filter(s => !dayId || s.day === dayId).map(s => `
+  el.innerHTML = SHOWS.filter(s => dayId ? s.day === dayId : ONCE(s)).map(s => `
     <article class="showrow">
       <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(thumbImg(s))}"` : ''}${thumbPos(s)}></div>
       <div>
-        <div class="when">${dayName(dayOf(s.day))} ${dayOf(s.day).date} <time>${s.time}</time></div>
+        <div class="when">${dayId ? `${dayName(dayOf(s.day))} ${dayOf(s.day).date}` : when(s)} <time>${s.time}</time></div>
         <h3>${tr(s, 'title')}</h3>
         <p>${tr(s, 'sub')}</p>
         <div class="venue">${tr(s, 'venue')}</div>
@@ -644,17 +647,17 @@ function renderThemePasses(el) {
 
 // ---------- line-up as a cloud of names, coloured by day ----------
 function renderCloud(el) {
-  const count = id => SHOWS.filter(s => !id || s.day === id).length;
+  const count = id => SHOWS.filter(s => id ? s.day === id : ONCE(s)).length;
   const chip = (id, label) => `<button type="button" class="${id ? 'd-' + id : 'all'}${id ? '' : ' on'}" data-day="${id}" aria-pressed="${!id}">
     ${id ? '<i aria-hidden="true"></i>' : ''}<span>${label}</span><b>${count(id)}</b></button>`;
   el.innerHTML = `
     <div class="cloud-filter" role="group" aria-label="${L('סינון לפי יום', 'Filter by day')}">
       ${chip('', L('כל הימים', 'All days'))}${DAYS.map(d => chip(d.id, `${dayName(d)} ${d.date}`)).join('')}
     </div>
-    <ul class="cloud">${SHOWS.map(s => `
-      <li data-day="${s.day}" style="--i:${SHOWS.indexOf(s)}"><button type="button" class="pill d-${s.day}" data-show="${s.id}" aria-haspopup="dialog">
+    <ul class="cloud">${SHOWS.filter(ONCE).map(s => `
+      <li data-day="${s.every ? DAYS.map(d => d.id).join(' ') : s.day}" style="--i:${SHOWS.indexOf(s)}"><button type="button" class="pill d-${s.day}" data-show="${s.id}" aria-haspopup="dialog">
         <span class="n">${tr(s, 'title')}</span>
-        <span class="sr-only">${dayName(dayOf(s.day))} · ${s.time} · ${tr(s, 'venue')}</span>
+        <span class="sr-only">${when(s)} · ${s.time} · ${tr(s, 'venue')}</span>
       </button></li>`).join('')}</ul>`;
   const cloud = el.querySelector('.cloud');
   // names pop in the first time the cloud scrolls into view
@@ -668,7 +671,7 @@ function renderCloud(el) {
     el.querySelectorAll('.cloud-filter button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
     cloud.classList.remove('pre', 'pop');
     const items = [...cloud.children], before = new Map(items.map(li => [li, li.hidden ? null : li.getBoundingClientRect()]));
-    items.forEach(li => { li.hidden = !!b.dataset.day && li.dataset.day !== b.dataset.day; });
+    items.forEach(li => { li.hidden = !!b.dataset.day && !li.dataset.day.split(' ').includes(b.dataset.day); });
     if (reduceMotion) return;
     // the names that stay glide to their new places; names that return grow back in
     items.filter(li => !li.hidden).forEach(li => {
@@ -894,7 +897,7 @@ function videoBlock(s) {
 }
 
 function showHtml(s) {
-  const d = dayOf(s.day), i = SHOWS.indexOf(s), prev = SHOWS[i - 1], next = SHOWS[i + 1];
+  const LIST = SHOWS.filter(x => ONCE(x) || x === s), d = dayOf(s.day), i = LIST.indexOf(s), prev = LIST[i - 1], next = LIST[i + 1];
   const on = readFavs().has(showKey(s));
   const list = k => (EN && s[k + '_en']) || s[k] || [];
   const quotes = list('quotes').map(q => {
@@ -915,7 +918,7 @@ function showHtml(s) {
         ${s.credit2 ? `<figcaption>${esc(tr(s, 'credit2'))}</figcaption>` : ''}</div>` : ''}
     </figure>
     <div class="sb-body">
-      <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${dayName(d)} ${d.date} · <time>${s.time}</time> · ${venueLink(s)}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>
+      <p class="sb-meta d-${s.day}"><i aria-hidden="true"></i>${s.every || s.repeat ? L('בכל לילה', 'Every night') : `${dayName(d)} ${d.date}`} · <time>${s.time}</time> · ${venueLink(s)}${s.dur ? ` · ${s.dur} ${L('דק׳', 'min')}` : ''}</p>
       <h2 id="sb-title"><bdi>${esc(tr(s, 'title'))}</bdi></h2>
       ${tr(s, 'sub') ? `<p class="sb-sub">${esc(tr(s, 'sub'))}</p>` : ''}
       <div class="sb-tags">${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>

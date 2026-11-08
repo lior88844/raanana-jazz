@@ -386,8 +386,8 @@ def page_venue(t, P, A):
     <div class="venue-card">
       <h3>${tr(v, 'name')}</h3>
       <p>${tr(v, 'desc')}</p>
-      <ul>${SHOWS.filter(s => s.venue === v.name).map(s =>
-        `<li><time>${dayOf(s.day).date} · ${s.time}</time><button type="button" class="vc-show" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button></li>`).join('')}</ul>
+      <ul>${SHOWS.filter(s => s.venue === v.name && !s.repeat).map(s =>
+        `<li><time>${s.every ? L('בכל לילה', 'Every night') : dayOf(s.day).date} · ${s.time}</time><button type="button" class="vc-show" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button></li>`).join('')}</ul>
     </div>`).join('');
 </script>''')
 
@@ -515,7 +515,7 @@ def page_tickets(t, P, A):
 ''',
         script='''<script>
   renderShowList(document.getElementById('freeShows'));
-  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS[i].free) row.remove(); });
+  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS.filter(s => !s.repeat)[i].free) row.remove(); });
 </script>''')
 
 
