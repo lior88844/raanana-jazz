@@ -1075,7 +1075,7 @@ document.querySelectorAll('[data-href]').forEach(a => {
     a.textContent = L('קישור להרשמה – בקרוב', 'Sign-up link – coming soon');
     return;
   }
-  a.href = v === 'fullpass' ? T(SITE.fullPass) : v === 'form' ? SITE.workshopForm : v === 'program' ? SITE.program : '#';
+  a.href = v === 'tickets' ? SITE.tickets : v === 'daypass' ? (SITE.dayPass ? T(SITE.dayPass) : SITE.tickets) : v === 'fullpass' ? (SITE.fullPass ? T(SITE.fullPass) : SITE.tickets) : v === 'form' ? SITE.workshopForm : v === 'program' ? SITE.program : '#';
 });
 
 // =====================================================================
