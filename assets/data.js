@@ -14,7 +14,7 @@ const SITE = {
   dayPass: '',                  // 2026 day pass slug, when published
   // 2026 workshop sign-up link – not out yet; while empty the sign-up buttons say the link is coming soon
   workshopForm: 'https://forms.gle/m3LZXEvu3Leq4W1t5',
-  workshopDeadline: '20.11',
+  workshopDeadline: '6.12',
   instagram: 'https://www.instagram.com/world.jazz.music/',
   facebook: 'https://www.facebook.com/raananapaismusiccenter',
   // contact email (Ricardo Wertheimer, Raanana municipality); every message also goes to emailCc (Amit Friedman)

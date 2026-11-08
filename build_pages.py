@@ -213,7 +213,7 @@ def page_index(t, P, A):
   <ul class="facts">
     <li class="f-days"><b data-count>10–12.12</b><span>{t('חמישי – שישי – שבת', 'Thursday – Friday – Saturday')}</span><a class="f-cover" href="{P('lineup.html')}" aria-label="{t('לוח ההופעות', 'Line-up')}"></a></li>
     <li class="f-shows"><b data-count>20</b><span>{t('הופעות בחמש במות – כולל <bdi>Jazz Corner</bdi>, במת הלילה החדשה', 'shows on five stages – including Jazz Corner, our new late-night stage')}</span><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></li>
-    <li class="f-work"><b data-count>14–25</b><span>{t('סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;20.11!', 'Workshops for young musicians – sign-up open until 20.11!')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
+    <li class="f-work"><b data-count>14–25</b><span>{t('סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;6.12!', 'Workshops for young musicians – sign-up open until 6.12!')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>
 </section>
 
@@ -429,9 +429,9 @@ def page_workshops(t, P, A):
     return dict(
         title=t('סדנאות', 'Workshops'),
         desc=t('סדנאות ג׳אז למוזיקאים בגילאי 14–25 עם אמנים בינלאומיים, 10–12 בדצמבר 2026 ברעננה.', 'Jazz workshops for musicians aged 14–25 with international artists, 10–12 December 2026 in Raanana.'),
-        body=hero(t('למוזיקאים בגילאי 14–25', 'For musicians aged 14–25'), t('סדנאות', 'Workshops'), t('עד 20.11', 'Until 20.11'),
-                  t('שלושה ימים של נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים מהשורה הראשונה בעולם, והופעה בפסטיבל. ההרשמה פתוחה&nbsp;עד&nbsp;20.11!',
-                    'Three days of ensemble playing, instrument workshops and masterclasses with world-class artists, and a performance at the festival. Sign-up is open until&nbsp;20.11!'),
+        body=hero(t('למוזיקאים בגילאי 14–25', 'For musicians aged 14–25'), t('סדנאות', 'Workshops'), t('עד 6.12', 'Until 6.12'),
+                  t('שלושה ימים של נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים מהשורה הראשונה בעולם, והופעה בפסטיבל. ההרשמה פתוחה&nbsp;עד&nbsp;6.12!',
+                    'Three days of ensemble playing, instrument workshops and masterclasses with world-class artists, and a performance at the festival. Sign-up is open until&nbsp;6.12!'),
                   f'<a data-href="form" target="_blank" rel="noopener" class="btn primary">{t("להרשמה", "Sign up")}</a>',
                   top='<div class="t-strip t-top" data-render="teacher-strip"></div>') + f'''
 <section class="wrap section">
@@ -455,7 +455,7 @@ def page_workshops(t, P, A):
         'The workshops take place in Raanana, 10–12 December 2026 (Hanukkah break), Thursday to Saturday, 9:30–17:00.')}</p>
   <p>{t('<b>עלות:</b> 1,200 ש״ח – כולל כניסה לכל הופעות הפסטיבל, על בסיס מקום פנוי.',
         '<b>Cost:</b> ₪1,200 – including entry to every festival show, subject to availability.')}</p>
-  <p>{t('<b>ההרשמה פתוחה עד 20.11!</b>', '<b>Sign-up is open until 20.11!</b>')}</p>
+  <p>{t('<b>ההרשמה פתוחה עד 6.12!</b>', '<b>Sign-up is open until 6.12!</b>')}</p>
 </section>
 <section class="wrap section">
   <h2 class="sec-h">{t('סגל המורים', 'The faculty')}</h2>
