@@ -387,7 +387,7 @@ function factsMotion() {
 
 // Contact page: validated form with a topic dropdown (contact.html?topic=workshops preselects one).
 // Sends through FormSubmit (free, to SITE.email with SITE.emailCc copied; the address must be activated once from the first message),
-// or Web3Forms when SITE.contactFormKey is set. If sending fails it falls back to a ready-made email.
+// or Web3Forms when SITE.contactFormKey is set. If sending fails it shows an error with the address to write to.
 function contactForm(form) {
   if (!form) return;
   const $ = s => form.querySelector(s), status = $('.cf-status'), topic = $('#cf-topic');
@@ -432,7 +432,9 @@ function contactForm(form) {
       form.reset(); hint(); fields.forEach(el => el.removeAttribute('aria-invalid'));
       status.textContent = L('תודה! ההודעה נשלחה ונחזור אליכם בהקדם.', 'Thank you! Your message was sent and we will reply soon.'); status.className = 'cf-status ok';
     } catch {
-      mailto();   // the service is down or not activated yet: hand the message to the visitor's email app instead
+      const mail = `<a href="mailto:${SITE.email}${SITE.emailCc ? `?cc=${SITE.emailCc}` : ''}">${SITE.email}</a>`;
+      status.innerHTML = L(`ההודעה לא נשלחה. אפשר לנסות שוב בעוד כמה דקות, או לכתוב לנו ישירות ל־${mail}.`, `Your message wasn’t sent. Please try again in a few minutes, or write to us at ${mail}.`);
+      status.className = 'cf-status err';
     } finally { btn.disabled = false; }
   });
 }
