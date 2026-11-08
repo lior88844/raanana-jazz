@@ -1,0 +1,65 @@
+/* Temporary: three spotlight designs (spot-options.html) */
+.opt { max-width: 1180px; margin: 0 auto 120px; padding: 0 40px; }
+.opt > h2 { font-family: var(--display); font-weight: 900; font-size: var(--fs-2); margin-bottom: 6px; }
+.opt > p { margin-bottom: 26px; }
+.o-count { direction: ltr; unicode-bidi: isolate; font-family: Rubik, var(--display); font-weight: 700; font-size: var(--fs-small); min-width: 56px; text-align: center; }
+
+/* 1 · split card */
+.o1 { display: grid; }
+.o1-card { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); border-radius: 18px; overflow: hidden; background: var(--day); color: var(--on-day);
+  opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility 0s .7s; }
+.o1-card.on { opacity: 1; visibility: visible; transition: opacity .7s ease; }
+.o1-ph { position: relative; aspect-ratio: 16 / 10; align-self: center; background: var(--dark); overflow: hidden; }
+.o1-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.o1-card { background: var(--day); }
+.o1-card > .o1-ph { align-self: stretch; height: 100%; }
+.o1-in { padding: 36px 36px 32px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.o1-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.o1-tags .stk { font-size: 14px; }
+.o1-meta { font-family: Rubik, var(--display); font-weight: 700; font-size: var(--fs-meta); }
+.o1-in h3 { font-family: var(--display); font-weight: 900; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; }
+.o1-sub { font-weight: 600; font-size: var(--fs-body); line-height: 1.45; }
+.o1-in .btn { align-self: flex-start; margin-top: 8px; }
+.o1-card.on .o1-in > * { animation: spUp .7s var(--ease-out) both; }
+.o1-card.on .o1-in > :nth-child(2) { animation-delay: .06s; } .o1-card.on .o1-in > :nth-child(3) { animation-delay: .12s; }
+.o1-card.on .o1-in > :nth-child(4) { animation-delay: .18s; } .o1-card.on .o1-in > :nth-child(5) { animation-delay: .24s; }
+
+/* 2 · photo strip */
+.o2 { overflow-x: auto; scrollbar-width: none; margin-inline: -40px; padding: 4px 40px 10px; cursor: grab; }
+.o2::-webkit-scrollbar { display: none; }
+.o2-track { display: flex; gap: 22px; width: max-content; }
+.o2-it { --h: 330px; display: block; width: calc(var(--h) * var(--r)); border: 0; padding: 0; background: none; color: inherit; text-align: start; cursor: pointer; font: inherit; }
+.o2-ph { position: relative; display: block; height: var(--h); border-radius: 14px; overflow: hidden; background: var(--dark); box-shadow: 0 0 0 4px var(--day); }
+.o2-ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease-out); }   /* box has the photo's own shape, so nothing is cut */
+.o2-it small { display: block; margin-top: 14px; font-family: Rubik, var(--display); font-weight: 700; font-size: var(--fs-small); color: var(--red-ink); }
+.o2-it b { display: block; font-family: var(--display); font-weight: 800; font-size: var(--fs-body); line-height: 1.25; margin-top: 3px; }
+@media (hover: hover) { .o2-it:hover .o2-ph img { transform: scale(1.03); } .o2-it:hover b { text-decoration: underline 2px; text-underline-offset: 4px; } }
+
+/* 3 · polaroid deck */
+.o3 { position: relative; height: 640px; }
+.o3-card { --w: min(620px, 90%); position: absolute; top: 20px; left: 50%; width: var(--w); margin: 0; padding: 16px 16px 20px; background: #fff; border-radius: 4px;
+  box-shadow: 0 18px 40px -18px rgba(58, 26, 20, .55); transform: translateX(-50%) rotate(var(--t)); transition: transform .7s var(--ease-out), opacity .5s; }
+.o3-card[data-k="0"] { transform: translateX(-50%) rotate(-1.5deg); }
+.o3-card[data-k="1"] { transform: translateX(-46%) translateY(10px) rotate(4deg); }
+.o3-card[data-k="2"] { transform: translateX(-54%) translateY(16px) rotate(-6deg); }
+.o3-card[data-k="3"] { transform: translateX(-50%) translateY(22px) rotate(7deg); opacity: .9; }
+.o3-card[data-k="x"] { opacity: 0; }
+.o3-ph { position: relative; aspect-ratio: var(--r); min-height: 0; background: var(--dark); overflow: hidden; max-height: 470px; margin-inline: auto; }
+.o3-ph img { width: 100%; height: 100%; object-fit: contain; }
+.o3-card figcaption { padding: 14px 6px 0; color: var(--brown); }
+.o3-card figcaption small { display: block; font-family: Rubik, var(--display); font-weight: 700; font-size: var(--fs-small); color: var(--red-ink); }
+.o3-card figcaption button { display: block; border: 0; background: none; padding: 0; margin-top: 4px; color: inherit; font-family: var(--display); font-weight: 900;
+  font-size: clamp(20px, 2.2vw, 28px); line-height: 1.15; text-align: start; cursor: pointer; }
+.o3-card:not([data-k="0"]) { pointer-events: none; }
+.o3-card:not([data-k="0"]) figcaption { visibility: hidden; }
+
+@media (max-width: 700px) {
+  .opt { padding: 0 16px; margin-bottom: 90px; }
+  .o1-card { grid-template-columns: minmax(0, 1fr); align-content: start; }
+  .o1-in { padding: 22px 20px 24px; }
+  .o2 { margin-inline: -16px; padding-inline: 16px; }
+  .o2-it { --h: 210px; }
+  .o3 { height: 400px; }
+  .o3-card { padding: 10px 10px 14px; }
+  .o3-ph { max-height: 300px; }
+}
