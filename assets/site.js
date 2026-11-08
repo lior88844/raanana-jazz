@@ -384,7 +384,8 @@ function factsMotion() {
 }
 
 // Contact page: validated form with a topic dropdown (contact.html?topic=workshops preselects one).
-// Sends through Web3Forms when SITE.contactFormKey is set; otherwise opens a ready-made email to SITE.email.
+// Sends through FormSubmit (free, to SITE.email with SITE.emailCc copied; the address must be activated once from the first message),
+// or Web3Forms when SITE.contactFormKey is set. If sending fails it falls back to a ready-made email.
 function contactForm(form) {
   if (!form) return;
   const $ = s => form.querySelector(s), status = $('.cf-status'), topic = $('#cf-topic');
@@ -410,23 +411,26 @@ function contactForm(form) {
     const d = Object.fromEntries(new FormData(form));
     const label = topic.options[topic.selectedIndex].text;
     const subject = `${label} – ${L('פנייה מאתר פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival website')}`;
-    if (!SITE.contactFormKey) {
-      const body = `${d.message}\n\n${L('שם', 'Name')}: ${d.name}\n${L('אימייל', 'Email')}: ${d.email}${d.phone ? `\n${L('טלפון', 'Phone')}: ${d.phone}` : ''}`;
+    const body = `${d.message}\n\n${L('שם', 'Name')}: ${d.name}\n${L('אימייל', 'Email')}: ${d.email}${d.phone ? `\n${L('טלפון', 'Phone')}: ${d.phone}` : ''}`;
+    const mailto = () => {
       location.href = `mailto:${SITE.email}?${SITE.emailCc ? `cc=${SITE.emailCc}&` : ''}subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       status.textContent = L('נפתח מייל מוכן לשליחה – רק ללחוץ ״שלח״.', 'A ready-made email has opened – just press send.'); status.className = 'cf-status ok';
-      return;
-    }
+    };
+    if (!SITE.contactFormKey && !SITE.formSubmit) return mailto();
     const btn = $('.cf-send'); btn.disabled = true; status.textContent = L('שולחים…', 'Sending…'); status.className = 'cf-status';
     try {
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ access_key: SITE.contactFormKey, subject, from_name: d.name, replyto: d.email, name: d.name, email: d.email, phone: d.phone, topic: label, message: d.message }) });
+      const res = SITE.contactFormKey
+        ? await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ access_key: SITE.contactFormKey, subject, from_name: d.name, replyto: d.email, name: d.name, email: d.email, phone: d.phone, topic: label, message: d.message }) })
+        : await fetch(`https://formsubmit.co/ajax/${SITE.formSubmit === true ? SITE.email : SITE.formSubmit}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ [L('שם', 'Name')]: d.name, [L('אימייל', 'Email')]: d.email, [L('טלפון', 'Phone')]: d.phone || '', [L('נושא', 'Topic')]: label, [L('הודעה', 'Message')]: d.message,
+              _subject: subject, _replyto: d.email, _cc: SITE.emailCc || '', _template: 'table', _captcha: 'false' }) });
       const out = await res.json();
-      if (!out.success) throw new Error(out.message);
+      if (!(out.success === true || out.success === 'true')) throw new Error(out.message);
       form.reset(); hint(); fields.forEach(el => el.removeAttribute('aria-invalid'));
       status.textContent = L('תודה! ההודעה נשלחה ונחזור אליכם בהקדם.', 'Thank you! Your message was sent and we will reply soon.'); status.className = 'cf-status ok';
     } catch {
-      status.innerHTML = L(`משהו השתבש בשליחה. אפשר לנסות שוב או לכתוב ישירות ל־<a href="mailto:${SITE.email}${SITE.emailCc ? `?cc=${SITE.emailCc}` : ''}">${SITE.email}</a>.`, `Something went wrong. Try again or write to <a href="mailto:${SITE.email}${SITE.emailCc ? `?cc=${SITE.emailCc}` : ''}">${SITE.email}</a>.`);
-      status.className = 'cf-status err';
+      mailto();   // the service is down or not activated yet: hand the message to the visitor's email app instead
     } finally { btn.disabled = false; }
   });
 }

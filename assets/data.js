@@ -20,6 +20,8 @@ const SITE = {
   // contact email (Ricardo Wertheimer, Raanana municipality); every message also goes to emailCc (Amit Friedman)
   email: 'ricardo@raanana.muni.il',
   emailCc: 'amitamitf@gmail.com',
+  // contact form via FormSubmit (formsubmit.co, free): true = send to SITE.email; after activation it can be the random alias FormSubmit gives
+  formSubmit: true,
   // contact form delivery: a Web3Forms access key (web3forms.com – enter the festival email, the key arrives by mail).
   // While empty, the form opens a ready-made email to SITE.email instead.
   contactFormKey: '',
