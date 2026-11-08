@@ -229,12 +229,12 @@ function renderFeatured(el) {
 function renderSpotlight(el) {
   const order = SHOWS.filter(ONCE);
   for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
-  // wide desktop spotlight can use its own crop (simg) so a guest circle at the bottom isn't cut
+  // the whole photo is always shown (contain); a blurred copy of it fills any leftover band
   const wide = matchMedia('(min-width: 701px)').matches;
-  const big = s => img(((wide && s.simg) || s.img).replace(/\.jpe?g$/, '-1600.webp'));
+  const big = s => img(s.img.replace(/\.jpe?g$/, '-1600.webp'));
   const DOTS = 7;                                               // only a short window of dots, sliding with the current show
   el.innerHTML = `<div class="sp-stage">${order.map((s, i) => `<div class="sp-slide${i ? '' : ' on'}${wide && s.simg ? ' guest' : ''}" aria-hidden="${!!i}">
-      ${s.img ? `<img src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"${s.pos && !(wide && s.simg) ? ` style="object-position:${s.pos}"` : ''}>` : `<span class="sp-logo d-${s.day}"></span>`}
+      ${s.img ? `<img class="sp-bg" src="${big(s)}" alt="" aria-hidden="true" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"><img class="sp-img" src="${big(s)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">` : `<span class="sp-logo d-${s.day}"></span>`}
       ${stickers(s)}<div class="sp-cap"><small>${when(s)} · ${s.time} · ${tr(s, 'venue')}</small>
         <button type="button" data-show="${s.id}" aria-haspopup="dialog"${i ? ' tabindex="-1"' : ''}><bdi>${tr(s, 'title')}</bdi></button></div></div>`).join('')}</div>
     <div class="sp-ctl"><button type="button" class="sp-arr" data-step="-1" aria-label="${L('ההופעה הקודמת', 'Previous show')}">${EN ? '←' : '→'}</button>
