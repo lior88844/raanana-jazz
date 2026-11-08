@@ -611,7 +611,7 @@ function renderShowList(el, dayId) {
 
 // Workshops hero: a row of every teacher's photo, the first thing on the page
 function renderTeacherStrip(el) {
-  el.innerHTML = TEACHERS.map(([f, n, , nEn]) => `<figure><i data-bg="${img(f)}"></i><figcaption>${EN ? nEn : n}</figcaption></figure>`).join('');
+  el.innerHTML = TEACHERS.map(([f, n, r, nEn, rEn]) => `<figure><img src="${img(f.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="eager" decoding="async"><figcaption>${EN ? nEn : n}<small>${(EN ? rEn : r).split(' · ')[0]}</small></figcaption></figure>`).join('');
 }
 
 function renderTeachers(el, asList = true, bios = false) {

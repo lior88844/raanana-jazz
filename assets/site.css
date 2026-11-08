@@ -1431,13 +1431,18 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
 /* workshops: three stats in a row */
 .stats.stats-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
 @media (max-width: 700px) { .stats.stats-3 { grid-template-columns: minmax(0,1fr); } }
-/* workshops hero: row of teacher photos */
-.t-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 14px; max-width: 1180px; margin: 0 auto 46px; }
-.t-strip figure { width: 96px; margin: 0; }
-.t-strip i { display: block; width: 96px; height: 96px; border-radius: 50%; background: var(--dark) center 25% / cover no-repeat; box-shadow: 0 0 0 4px var(--on-field); }
-.t-strip figcaption { margin-top: 10px; font-family: var(--display); font-weight: 700; font-size: var(--fs-small); line-height: 1.25; color: var(--on-field); }
+/* workshops hero: poster of slanted portrait strips, each photo filling its shape */
+.t-strip { display: flex; justify-content: center; gap: 10px; max-width: 1240px; margin: 0 auto 50px; padding: 0 12px; transform: skewX(-8deg); }
+.t-strip figure { position: relative; margin: 0; flex: 0 1 120px; aspect-ratio: 1 / 2.5; overflow: hidden; border-radius: 8px; background: var(--brown);
+  box-shadow: 0 10px 22px -12px rgba(58, 26, 20, .7); transition: flex-basis .45s var(--ease-out); }
+.t-strip img { position: absolute; top: 0; left: -30%; width: 160%; max-width: none; height: 100%; object-fit: cover; object-position: 50% 22%; transform: skewX(8deg); }
+.t-strip figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 62%, rgba(58, 26, 20, .85)); }
+.t-strip figcaption { position: absolute; z-index: 1; bottom: 12px; inset-inline: 6px; transform: skewX(8deg); color: #fff; font-family: var(--display); font-weight: 900;
+  font-size: 14px; line-height: 1.15; text-align: center; }
+.t-strip figcaption small { display: block; font-weight: 700; font-size: 12px; color: var(--accent); margin-top: 3px; }
+@media (hover: hover) { .t-strip figure:hover { flex-basis: 220px; } }
 @media (max-width: 700px) {
-  .t-strip { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding: 6px 4px 8px; margin-inline: -24px; padding-inline: 24px; scrollbar-width: none; }
+  .t-strip { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; margin-inline: -24px; padding: 6px 30px 10px; }
   .t-strip::-webkit-scrollbar { display: none; }
-  .t-strip figure { flex: none; width: 76px; } .t-strip i { width: 76px; height: 76px; }
+  .t-strip figure { flex: none; width: 96px; }
 }
