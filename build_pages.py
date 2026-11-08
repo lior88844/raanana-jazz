@@ -635,7 +635,7 @@ def page_accessibility(t, P, A):
   const c = SITE.a11yContact || {};
   const lines = [c.name, c.phone, c.email || SITE.email].filter(Boolean);
   if (c.name) document.getElementById('a11yAsk').textContent = L('נשמח לשמוע ולתקן. פנו לרכז/ת הנגישות:', 'Tell us and we will fix it. Contact the accessibility coordinator:');
-  document.getElementById('a11yContact').innerHTML = lines.map(l => /@/.test(l) ? `<a href="mailto:${l}">${l}</a>` : l).join('<br>');
+  document.getElementById('a11yContact').innerHTML = lines.map(l => /@/.test(l) ? `<a href="mailto:${l}${l === SITE.email && SITE.emailCc ? `?cc=${SITE.emailCc}` : ''}">${l}</a>` : l).join('<br>');
   document.getElementById('a11yDate').textContent = SITE.a11yUpdated;
 </script>''')
 

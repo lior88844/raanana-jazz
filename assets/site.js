@@ -412,7 +412,7 @@ function contactForm(form) {
     const subject = `${label} – ${L('פנייה מאתר פסטיבל הג׳אז רעננה', 'Raanana Jazz Festival website')}`;
     if (!SITE.contactFormKey) {
       const body = `${d.message}\n\n${L('שם', 'Name')}: ${d.name}\n${L('אימייל', 'Email')}: ${d.email}${d.phone ? `\n${L('טלפון', 'Phone')}: ${d.phone}` : ''}`;
-      location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      location.href = `mailto:${SITE.email}?${SITE.emailCc ? `cc=${SITE.emailCc}&` : ''}subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       status.textContent = L('נפתח מייל מוכן לשליחה – רק ללחוץ ״שלח״.', 'A ready-made email has opened – just press send.'); status.className = 'cf-status ok';
       return;
     }
@@ -425,7 +425,7 @@ function contactForm(form) {
       form.reset(); hint(); fields.forEach(el => el.removeAttribute('aria-invalid'));
       status.textContent = L('תודה! ההודעה נשלחה ונחזור אליכם בהקדם.', 'Thank you! Your message was sent and we will reply soon.'); status.className = 'cf-status ok';
     } catch {
-      status.innerHTML = L(`משהו השתבש בשליחה. אפשר לנסות שוב או לכתוב ישירות ל־<a href="mailto:${SITE.email}">${SITE.email}</a>.`, `Something went wrong. Try again or write to <a href="mailto:${SITE.email}">${SITE.email}</a>.`);
+      status.innerHTML = L(`משהו השתבש בשליחה. אפשר לנסות שוב או לכתוב ישירות ל־<a href="mailto:${SITE.email}${SITE.emailCc ? `?cc=${SITE.emailCc}` : ''}">${SITE.email}</a>.`, `Something went wrong. Try again or write to <a href="mailto:${SITE.email}${SITE.emailCc ? `?cc=${SITE.emailCc}` : ''}">${SITE.email}</a>.`);
       status.className = 'cf-status err';
     } finally { btn.disabled = false; }
   });
