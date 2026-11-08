@@ -1462,3 +1462,8 @@ html.a11y-still .t-strip { overflow-x: auto; }
 }
 /* workshops: the teacher belt sits above the title */
 .t-strip.t-top { margin: -40px -24px 34px; }
+
+/* stickers at the bottom-left corner (physical left, so it is the same in Hebrew and English) */
+.stk-wrap.low.left { inset-inline: auto; left: 10px; align-items: flex-start; }
+.sb-shot .stk-wrap.low.left { left: 16px; }
+.sp-slide .stk-wrap.low.left { inset-block-start: auto; inset-inline: auto; bottom: 22px; left: 26px; align-items: flex-start; }
