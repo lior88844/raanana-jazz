@@ -1037,9 +1037,13 @@ function swipeToClose(box) {
   });
 }
 
+const SHOW_PHOTO = '.ph, .sp-slide, .dy-th';
+const SHOW_ITEM = '.showrow, .card, .lead, .others li, .sp-slide, .dy-list li';
 function showDialogs() {
   document.addEventListener('click', e => {
-    const t = e.target.closest('[data-show]');
+    let t = e.target.closest('[data-show]');
+    // a click on a show's photo opens it too: use the show button that sits in the same card/row/slide
+    if (!t && e.target.closest(SHOW_PHOTO) && !e.target.closest('a, button')) t = e.target.closest(SHOW_ITEM)?.querySelector('[data-show]');
     if (!t || (showBox && showBox.contains(t) && !t.closest('.sb-nav'))) return;
     e.preventDefault();
     openShow(t.dataset.show);

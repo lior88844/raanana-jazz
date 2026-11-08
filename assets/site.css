@@ -1403,3 +1403,6 @@ html.a11y-light .tix-box { outline: 3px solid #000; color: #fff; }
 html.a11y-links a { text-decoration: underline !important; text-underline-offset: 3px; }
 html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 3px !important; box-shadow: 0 0 0 8px #000 !important; }
 @media (max-width: 700px) { .a11y-tab { width: 40px; height: 46px; } .a11y-tab svg { width: 24px; height: 24px; } .a11y-panel { inset-inline-start: 48px; } }
+
+/* show photos open the show, like the title */
+:is(.showrow, .card, .lead, .others li, .dy-list li) :is(.ph, .dy-th), .sp-slide { cursor: pointer; }

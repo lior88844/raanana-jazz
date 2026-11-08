@@ -220,7 +220,7 @@ def page_index(t, P, A):
 <section class="onstage" aria-labelledby="onstage-h">
   <div class="stitle">
     <h2 id="onstage-h">{t('ההופעות של 2026', 'The 2026 shows')}</h2>
-    <p>{t('10–12 בדצמבר 2026 · לחצו על הופעה לכל הפרטים.', '10–12 December 2026 · click a show for the details.')}</p>
+    <p>{t('10–12 בדצמבר 2026 · לפרטים לחצו על התמונה.', '10–12 December 2026 · click the photo for the details.')}</p>
   </div>
   <div class="spot" data-render="spotlight"></div>
   <h3 class="subhead dy-h">{t('לפי ימים', 'Day by day')}</h3>
