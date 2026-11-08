@@ -880,8 +880,6 @@ def page_terms(t, P, A):
         ('קניין רוחני', 'Intellectual property', [
             ('כל התכנים באתר – טקסטים, עיצוב, לוגו, צילומים וסרטונים – שייכים לפסטיבל או לבעלי הזכויות בהם (בהם צלמים ואמנים), ומוגנים בדיני זכויות יוצרים. אין להעתיק, לפרסם או להשתמש בהם בלי אישור מראש ובכתב.',
              'All content on the site – text, design, logo, photos and videos – belongs to the festival or to its rights holders (including photographers and artists) and is protected by copyright. Do not copy, publish or use it without prior written permission.'),
-            (f'חומרי העיתונות ב<a href="{P("media.html")}">עמוד המדיה</a> מותרים לשימוש לצורך סיקור הפסטיבל, עם קרדיט לצלם כשמופיע.',
-             f'Press materials on <a href="{P("media.html")}">the media page</a> may be used to cover the festival, crediting the photographer where given.'),
         ]),
         ('קישורים לאתרים אחרים', 'Links to other sites', [
             ('באתר יש קישורים לאתרים ולשירותים של גורמים אחרים, כמו אתר הכרטיסים, רשתות חברתיות ושירותי ניווט. איננו אחראים לתוכן של אתרים אלה או לשימוש בהם.',
@@ -913,7 +911,7 @@ def page_terms(t, P, A):
 PAGES = {
     'index.html': page_index, 'lineup.html': page_lineup, 'festival-2025.html': page_past,
     'venue.html': page_venue, 'about.html': page_about, 'workshops.html': page_workshops,
-    'media.html': page_media, 'tickets.html': page_tickets, 'contact.html': page_contact,
+    'tickets.html': page_tickets, 'contact.html': page_contact,
     'accessibility.html': page_accessibility, 'guide.html': page_guide, 'privacy.html': page_privacy, 'terms.html': page_terms,
 }
 

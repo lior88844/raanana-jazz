@@ -22,7 +22,6 @@ Hebrew pages live at the site root, English pages under `en/`. Both are generate
 | Venue – the stages + map | `venue.html` |
 | About | `about.html` |
 | Workshops | `workshops.html` |
-| Media / press downloads | `media.html` |
 | Tickets & passes | `tickets.html` |
 | Contact | `contact.html` |
 | Visitor info + FAQ | `guide.html` |
