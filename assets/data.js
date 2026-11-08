@@ -154,7 +154,7 @@ const SHOWS = [
     cast: ["אלי פרמינגר – חצוצרה ושירה · ג'ס קורן – סקסופון · אמנון בן ארצי – טרומבון · דן כהן – בנג'ו · טל קוהן – בס · רני בירנבאום – תופים", "ובהשתתפות רקדני סווינג מביה\"ס סווינג איט"],
     cast_en: ["Eli Preminger – trumpet and vocals · Jess Koren – saxophone · Amnon Ben Artzi – trombone · Dan Cohen – banjo · Tal Kohn – bass · Rani Birnbaum – drums", "Featuring swing dancers from the Swing It school"],
     img: "2026-preminger.jpg", credit: "Chen Wagshall", credit_en: "Chen Wagshall", yt: ["99d6OXq2dtI"] , slug: "event/32059" },
-  { id: "friedman-joca", tags: ["original"], day: "fri", time: "18:00", dur: 75,
+  { id: "friedman-joca", tags: ["original"], stkLow: true, day: "fri", time: "18:00", dur: 75,
     venue: "אולם ערן", venue_en: "Eran Hall",
     title: "עמית פרידמן ומיתרים – אורח מיוחד: ז'וקה פרפיניאן", title_en: "Amit Friedman & Strings – special guest: Joca Perpignan",
     sub: "ג'אז ישראלי שנוגע בנשמה", sub_en: "Israeli jazz that touches the soul",
