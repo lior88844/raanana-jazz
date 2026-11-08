@@ -401,11 +401,11 @@ const MOMENTS = [
 ];
 
 const VENUES = [
-  { id: 'eran', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 91.2, y: 74.2 }, name: 'אולם ערן', img: 'gallery-2025/132', name_en: 'Eran Hall', desc_en: "The festival's main hall – home to the headline shows, original productions and the closing celebration.", desc: 'האולם המרכזי של הפסטיבל – כאן מתקיימים מופעי השיא, הפקות המקור וחגיגת הסיום.' },
+  { id: 'eran', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 91.2, y: 74.2 }, name: 'אולם ערן', img: 'gallery-2025/132', name_en: 'Eran Hall', desc_en: 'The festival’s concert hall.', desc: 'אולם הקונצרטים של הפסטיבל.' },
   { id: 'salon', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 23.6, y: 74.2 }, name: 'מועדון הסלון', img: 'gallery-2025/066', name_en: 'The Salon Club', desc_en: 'An intimate jazz-club atmosphere, close to the stage and the players.', desc: 'אווירת מועדון ג׳אז אינטימית, קרוב לבמה ולנגנים.' },
   { id: 'chamber', floor: 'קומה 2', floor_en: 'Floor 2', map: { x: 29.3, y: 3.4, down: true }, name: 'המועדון הקאמרי', img: 'gallery-2025/486', name_en: 'The Chamber Club', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
-  { id: 'plaza', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/220', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival – shows for the whole family, most of them free.', desc: 'הלב הפתוח של הפסטיבל – מופעים לכל המשפחה, ורובם בכניסה חופשית.' },
-  { id: 'tent', floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'Jazz Corner', name_en: 'Jazz Corner', desc_en: 'New in 2026: the late-night stage, where every evening ends.', desc: 'חדש ב־2026: במת הלילה, שבה נגמר כל ערב.' },
+  { id: 'plaza', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/220', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival. Shows for the whole family, free or for a token price.', desc: 'הלב הפתוח של הפסטיבל. מופעים לכל המשפחה בחינם או בתשלום סמלי.' },
+  { id: 'tent', floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'Jazz Corner', name_en: 'Jazz Corner', desc_en: 'The new late-night stage.', desc: 'במת הלילה החדשה.' },
 ];
 
 const PARTNERS = [
