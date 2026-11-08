@@ -211,7 +211,7 @@ def page_index(t, P, A):
   <p>{t('שלושה ימים של ג׳אז ומוזיקת עולם במרכז פיס למוזיקה רעננה – אמנים מישראל ומרחבי העולם, הפקות מקור, סדנאות לנגנים צעירים ומופעים לכל המשפחה.',
         'Three days of jazz and world music at the Raanana Pais Music Center – artists from Israel and around the world, original productions, workshops for young musicians and shows for the whole family.')}</p>
   <ul class="facts">
-    <li class="f-days"><b data-count>10–12.12</b><span>{t('שלושה ימים, חמישי עד שבת', 'Three days, Thursday to Saturday')}</span></li>
+    <li class="f-days"><b data-count>10–12.12</b><span>{t('חמישי – שישי – שבת', 'Thursday – Friday – Saturday')}</span></li>
     <li class="f-shows"><b data-count>20</b><span>{t('הופעות בחמש במות – כולל <bdi>Jazz Corner</bdi>, במת הלילה החדשה', 'shows on five stages – including Jazz Corner, our new late-night stage')}</span><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></li>
     <li class="f-work"><b data-count>14–25</b><span>{t('סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;20.11!', 'Workshops for young musicians – sign-up open until 20.11!')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>
@@ -230,7 +230,7 @@ def page_index(t, P, A):
 <section class="stages" aria-labelledby="stages-h">
   <div class="stitle">
     <h2 id="stages-h">{t('חמש במות, מתחם אחד', 'Five stages, one venue')}</h2>
-    <p>{t('כל הפסטיבל מתקיים במרכז פיס למוזיקה רעננה – מהאולם הגדול ועד <bdi>Jazz Corner</bdi>, כל הופעה במרחק כמה צעדים.', 'The whole festival happens at the Raanana Pais Music Center – from the big hall to Jazz Corner, every show is a few steps away.')}</p>
+    <p>{t('הפסטיבל מתקיים במרכז פיס למוזיקה רעננה, רחוב עציון 48.', 'The festival takes place at the Raanana Pais Music Center, 48 Etzion St.')}</p>
   </div>
   <div class="vmap" data-render="venuemap"></div>
   <div class="stage-row" data-render="stages"></div>

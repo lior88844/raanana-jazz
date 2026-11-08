@@ -318,7 +318,7 @@ function renderVenueMap(el) {
         alt="${L('ציור של מרכז פיס למוזיקה רעננה מלפנים, עם חמש במות הפסטיבל', 'Drawing of the Raanana Pais Music Center from the front, with the five festival stages')}">
       ${pins}
     </div></div>
-    <p class="vm-hint">${L('לחצו על במה כדי לראות איפה היא ומה מופיע בה', 'Tap a stage to see where it is and what’s on')}<span class="vm-swipe"> · ${L('אפשר לגלול את המפה הצידה', 'swipe the map sideways')}</span></p>
+    <p class="vm-hint">${L('לחצו על הבמה לפירוט ההופעות', 'Tap a stage to see its shows')}<span class="vm-swipe"> · ${L('אפשר לגלול את המפה הצידה', 'swipe the map sideways')}</span></p>
     <div class="vm-panel" aria-live="polite" hidden></div>`;
   const panel = el.querySelector('.vm-panel');
   const pick = (id, scroll) => {
