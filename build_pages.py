@@ -69,7 +69,7 @@ LANGS = {
     'en': dict(dir='ltr', base='/en/', out=os.path.join(OUT, 'en'), suffix=' | Raanana Jazz Festival', arrow='<i class="arr" aria-hidden="true">→</i>'),
 }
 # hidden pages stay out of search engines
-ROBOTS = '<meta name="robots" content="noindex, nofollow">' if HIDDEN else ''
+ROBOTS = '<meta name="robots" content="noindex, nofollow">' if HIDDEN else '<meta name="robots" content="max-image-preview:large">'
 
 
 def rooted(html):
@@ -905,6 +905,54 @@ def page_terms(t, P, A):
 
 
 
+def load_data():
+    """Read SHOWS / DAYS / SITE out of assets/data.js with node (the file is plain JS)."""
+    import subprocess, json as _json
+    js = ("global.window={};const fs=require('fs');eval(fs.readFileSync(process.argv[1],'utf8').replace(/^const /gm,'var '));"
+          "console.log(JSON.stringify({SHOWS,DAYS,SITE}))")
+    try:
+        out = subprocess.run(['node', '-e', js, os.path.join(OUT, 'assets', 'data.js')], capture_output=True, text=True, check=True).stdout
+        return _json.loads(out)
+    except Exception as e:
+        print('structured data skipped:', e); return None
+
+DATA = load_data()
+PLACE = {'@type': 'Place', 'name': 'מרכז פיס למוזיקה רעננה',
+         'address': {'@type': 'PostalAddress', 'streetAddress': 'רחוב עציון 48', 'addressLocality': 'רעננה', 'addressCountry': 'IL'}}
+
+def ld_json(lang, name):
+    """JSON-LD for the home page (the festival) and the line-up (every show)."""
+    import json as _json
+    if not DATA or name not in ('index.html', 'lineup.html'):
+        return ''
+    en = lang == 'en'
+    site = SITE_URL + ('/en/' if en else '/')
+    pick = lambda s, f: (s.get(f + '_en') if en and s.get(f + '_en') else s.get(f, ''))
+    imgurl = lambda f: f'{SITE_URL}/images/' + f.rsplit('.', 1)[0] + '-1600.webp'
+    days = {d['id']: d['iso'] for d in DATA['DAYS']}
+    shows = [s for s in DATA['SHOWS'] if not s.get('repeat')]
+    org = {'@type': 'Organization', 'name': 'World Jazz Music – Raanana Jazz Festival', 'url': SITE_URL + '/', 'logo': f'{SITE_URL}/images/favicon-512.png',
+           'sameAs': ['https://www.instagram.com/world.jazz.music/']}
+    if name == 'index.html':
+        data = {'@context': 'https://schema.org', '@type': 'Festival',
+                'name': 'Raanana Jazz Festival – World Jazz Music 2026' if en else 'פסטיבל ג׳אז ומוזיקת עולם רעננה 2026',
+                'startDate': '2026-12-10', 'endDate': '2026-12-12', 'eventStatus': 'https://schema.org/EventScheduled',
+                'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode', 'location': PLACE, 'url': site,
+                'image': [f'{SITE_URL}/images/og-share.jpg'] + [imgurl(s['img']) for s in shows if s.get('img')][:8],
+                'organizer': org, 'description': 'Three days of jazz and world music in Raanana, 10–12 December 2026.' if en else 'שלושה ימים של ג׳אז ומוזיקת עולם ברעננה, 10–12 בדצמבר 2026.'}
+    else:
+        evs = []
+        for s in shows:
+            e = {'@type': 'MusicEvent', 'name': pick(s, 'title'), 'startDate': f"{days[s['day']]}T{s['time']}:00+02:00",
+                 'eventStatus': 'https://schema.org/EventScheduled', 'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
+                 'location': dict(PLACE, name=PLACE['name'] + ' – ' + pick(s, 'venue')), 'url': f"{site}lineup.html#{s['id']}", 'organizer': org}
+            if pick(s, 'sub'): e['description'] = pick(s, 'sub')
+            if s.get('img'): e['image'] = imgurl(s['img'])
+            if s.get('slug'): e['offers'] = {'@type': 'Offer', 'url': DATA['SITE']['tickets'] + s['slug'], 'availability': 'https://schema.org/InStock'}
+            evs.append(e)
+        data = {'@context': 'https://schema.org', '@graph': evs}
+    return '<script type="application/ld+json">' + _json.dumps(data, ensure_ascii=False) + '</script>'
+
 PAGES = {
     'index.html': page_index, 'lineup.html': page_lineup, 'festival-2025.html': page_past,
     'venue.html': page_venue, 'about.html': page_about, 'workshops.html': page_workshops,
@@ -924,13 +972,22 @@ for lang, cfg in LANGS.items():
     for name, fn in PAGES.items():
         p = fn(t, P, cfg['arrow'])
         title = p['title'] if p.get('no_suffix') else p['title'] + cfg['suffix']
-        html = HEAD.format(lang=lang, og='og-share.jpg' if lang == 'he' else 'og-share-en.jpg', dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL + ROOT, extra_head=p.get('head', ''),
+        html = HEAD.format(lang=lang, og='og-share.jpg' if lang == 'he' else 'og-share-en.jpg', dir=cfg['dir'], title=title, desc=p['desc'], ver=VER, site=SITE_URL + ROOT, extra_head=p.get('head', '') + ld_json(lang, name),
                            robots=ROBOTS, self_path=url_path(cfg['base'], name),
                            he_path=url_path('/', name), en_path=url_path('/en/', name)) \
             + '<main id="main">\n' + p['body'] + '\n</main>\n' + FOOT.format(script=p.get('script', ''), ver=VER)
         with open(os.path.join(cfg['out'], name), 'w') as f:
             f.write(rooted(html))
     print(f'wrote {len(PAGES)} {lang} pages → {cfg["out"]}/')
+
+if not HIDDEN:
+    urls = [SITE_URL + url_path(base, n) for base in ('/', '/en/') for n in PAGES]
+    with open('sitemap.xml', 'w') as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                + ''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')
+    with open('robots.txt', 'w') as f:
+        f.write(f'User-agent: *\nAllow: /\nDisallow: /preview-uz9hsq/\n\nSitemap: {SITE_URL}/sitemap.xml\n')
+    print('wrote sitemap.xml, robots.txt')
     if lang == 'he' and not HIDDEN:
         p = page_404(t, P, cfg['arrow'])
         html = HEAD.format(lang=lang, og='og-share.jpg', dir=cfg['dir'], title=p['title'] + cfg['suffix'], desc=p['desc'], ver=VER, site=SITE_URL,
