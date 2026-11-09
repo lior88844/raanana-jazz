@@ -17,9 +17,9 @@ const SITE = {
   workshopDeadline: '20.11',
   instagram: 'https://www.instagram.com/world.jazz.music/',
   facebook: 'https://www.facebook.com/raananamusiccenter',
-  // contact email (Ricardo Wertheimer, Raanana municipality); every message also goes to emailCc (Amit Friedman)
+  // contact email (Ricardo Wertheimer, Raanana municipality); every message also goes to emailCc (Ricardo's Gmail + Amit Friedman), comma-separated
   email: 'rmc@raanana.muni.il',
-  emailCc: 'amitamitf@gmail.com',
+  emailCc: 'ric.rec.rmc@gmail.com,amitamitf@gmail.com',
   // contact form via FormSubmit (formsubmit.co, free): true = send to SITE.email; after activation it can be the random alias FormSubmit gives
   formSubmit: true,
   // contact form delivery: a Web3Forms access key (web3forms.com – enter the festival email, the key arrives by mail).
