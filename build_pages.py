@@ -493,6 +493,38 @@ def page_media(t, P, A):
 </script>''')
 
 
+def tickets_html(t):
+    """Day passes drawn as festival tickets: day name in the brush lettering, date, the day's main shows, a Dekel illustration, and a tear-off stub with the buy link."""
+    import re as _re
+    ills = {'thu': 'dekel-sax.webp', 'fri': 'dekel-bass.webp', 'sat': 'dekel-drum.webp'}
+    def short(x):
+        x = _re.sub(r'\s*\([^)]*\)', '', x)
+        return x.split(' – ')[0].strip()
+    out = []
+    for d in DATA['DAYS']:
+        if not d.get('pass'):
+            continue
+        main = [s for s in DATA['SHOWS'] if s['day'] == d['id'] and not s.get('free') and not s.get('repeat') and s['time'] >= '17:00']
+        main.sort(key=lambda s: s['time'])
+        inc_he = ' · '.join(f'<bdi>{short(s["title"])}</bdi>' for s in main)
+        inc_en = ' · '.join(f'<bdi>{short(s.get("title_en") or s["title"])}</bdi>' for s in main)
+        y = d['iso'][:4]
+        out.append(f'''<li class="tk d-{d['id']}">
+      <div class="tk-main">
+        <span class="tk-kicker">{t('פס יומי', 'Day pass')} · World Jazz Music</span>
+        <h3 class="tk-day">{t(d['name'], d['name_en'])}</h3>
+        <p class="tk-date"><bdi dir="ltr">{d['date']}.{y}</bdi></p>
+        <p class="tk-inc"><b>{t('כולל:', 'Includes:')}</b> {t(inc_he, inc_en)}</p>
+        <img class="tk-ill" src="/images/ill/{ills.get(d['id'], 'dekel-sax.webp')}" alt="" aria-hidden="true" loading="lazy">
+      </div>
+      <div class="tk-stub">
+        <span class="tk-admit">{t('כניסה לכל מופעי היום', "Entry to all of the day's shows")}</span>
+        <a class="tk-buy" href="{DATA['SITE']['tickets']}{d['pass']}" target="_blank" rel="noopener">{t('לרכישה', 'Buy')} <i aria-hidden="true">{t('←', '→')}</i></a>
+      </div>
+    </li>''')
+    return '<ul class="tk-list">' + ''.join(out) + '</ul>'
+
+
 def page_tickets(t, P, A):
     return dict(
         title=t('כרטיסים', 'Tickets'),
@@ -505,7 +537,7 @@ def page_tickets(t, P, A):
 <section class="wrap section daypasses" aria-labelledby="dp-h">
   <h2 class="sec-h" id="dp-h">{t('פסים יומיים', 'Day passes')}</h2>
   <p>{t('פס יומי מכסה את כל מופעי היום. מספר הפסים מוגבל.', "A day pass covers all of that day's shows. Passes are limited.")}</p>
-  <ul class="dp-list">{''.join(f'<li class="d-{d["id"]}"><span class="dp-day">{t("יום " + d["name"], d["name_en"])}</span><span class="dp-date">{d["date"]}</span><a class="btn primary" href="{DATA['SITE']['tickets']}{d['pass']}" target="_blank" rel="noopener">{t('לרכישת פס יומי', 'Buy a day pass')}</a></li>' for d in DATA['DAYS'] if d.get('pass'))}</ul>
+  {tickets_html(t)}
 </section>
 
 <section class="wrap section">
