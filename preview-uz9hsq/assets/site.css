@@ -1490,9 +1490,11 @@ html.a11y-still .t-strip { overflow-x: auto; }
 .tbio.flash { animation: tFlash 1.6s ease-out; }
 @keyframes tFlash { 0%, 30% { box-shadow: 0 0 0 4px var(--accent); } 100% { box-shadow: 0 0 0 4px transparent; } }
 
-/* Tickets page – "please note" box */
-.tix-notes ul{list-style:none;margin:14px 0 26px;padding:0;display:grid;gap:10px}
-.tix-notes li{position:relative;padding-inline-start:26px;font-size:1.12rem;line-height:1.55}
-.tix-notes li::before{content:"";position:absolute;inset-inline-start:4px;top:.55em;width:10px;height:10px;border-radius:50%;background:var(--terracotta,#DB5230)}
-.tix-notes h3{font-family:var(--display);font-weight:800;font-size:1.4rem;margin:0 0 8px}
-.tix-notes p{font-size:1.12rem;line-height:1.6;max-width:62ch;margin:0}
+/* Tickets page: "please note" panel + free shows by day */
+.tix-panel { border-radius: 22px; }
+.tix-list { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; }
+.tix-list li { position: relative; padding-inline-start: 24px; font-size: var(--fs-body); line-height: 1.6; }
+.tix-list li::before { content: ""; position: absolute; inset-inline-start: 2px; top: .62em; width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); }
+.tix-panel h4 { font-family: var(--display); font-weight: 800; font-size: var(--fs-body); margin-bottom: 6px; }
+.tix-free .faq-group h3 .fd-date { font-family: var(--latin); font-weight: 700; color: var(--red-ink); }
+.tix-free .dy-list { margin-top: 4px; }

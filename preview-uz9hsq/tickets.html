@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="preload" href="/preview-uz9hsq/assets/fonts/xenon-ruckus.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=2652e4569f">
+<link rel="stylesheet" href="/preview-uz9hsq/assets/site.css?v=28463c1af2">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -37,29 +37,39 @@
   <div class="ctas"><a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">לעדכונים באינסטגרם</a><a href="/preview-uz9hsq/lineup" class="btn ghost">ללוח ההופעות <i class="arr" aria-hidden="true">←</i></a></div>
 </section>
 
-<section class="wrap section tix-notes" aria-labelledby="tixnotes-h">
-  <h2 class="sec-h" id="tixnotes-h">לתשומת ליבכם</h2>
-  <ul>
-    <li>במקרה שבו מופעים מתקיימים באותו זמן, יש לבחור רק באחד מהם.</li>
-    <li>מספר הפסים היומיים מוגבל.</li>
-  </ul>
-  <h3>מדיניות ביטול כרטיסים</h3>
-  <p>ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה.</p>
+<section class="wrap section">
+  <div class="g-panel tix-panel" aria-labelledby="tixnotes-h">
+    <h3 id="tixnotes-h">לתשומת ליבכם</h3>
+    <ul class="tix-list">
+      <li>במקרה שבו מופעים מתקיימים באותו זמן, יש לבחור רק באחד מהם.</li>
+      <li>מספר הפסים היומיים מוגבל.</li>
+    </ul>
+    <h4>מדיניות ביטול כרטיסים</h4>
+    <p>ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה.</p>
+  </div>
 </section>
 
-<section class="wrap section">
-  <h2 class="sec-h">בכניסה חופשית</h2>
-  <p>ההופעות האלה פתוחות לכולם בכניסה חופשית.</p>
-  <div class="showlist" id="freeShows"></div>
+<section class="wrap section faq tix-free" aria-labelledby="free-list-h">
+  <h2 class="sec-h" id="free-list-h">בכניסה חופשית</h2>
+  <p>ההופעות האלה פתוחות לכולם בכניסה חופשית. לפרטים לחצו על ההופעה.</p>
+  <div id="freeShows"></div>
 </section>
 
 </main>
 
-<script src="/preview-uz9hsq/assets/data.js?v=2652e4569f"></script>
-<script src="/preview-uz9hsq/assets/site.js?v=2652e4569f"></script>
+<script src="/preview-uz9hsq/assets/data.js?v=28463c1af2"></script>
+<script src="/preview-uz9hsq/assets/site.js?v=28463c1af2"></script>
 <script>
-  renderShowList(document.getElementById('freeShows'));
-  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS.filter(s => !s.repeat)[i].free) row.remove(); });
+  (function () {
+    const el = document.getElementById('freeShows');
+    const thumb = s => s.img ? `<img src="${img((s.dimg || s.img).replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"${s.dpos || s.pos ? ` style="object-position:${s.dpos || s.pos}"` : ''}>` : '';
+    el.innerHTML = DAYS.map((d, i) => {
+      const list = SHOWS.filter(s => s.free && s.day === d.id).sort((a, b) => a.time.localeCompare(b.time));
+      if (!list.length) return '';
+      return `<div class="faq-group"><h3><em>0${i + 1}</em>${dayName(d)} <span class="fd-date">${d.date}</span></h3><ul class="dy-list">${list.map(s =>
+        `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'venue')}</small></button></li>`).join('')}</ul></div>`;
+    }).join('');
+  })();
 </script>
 </body>
 </html>

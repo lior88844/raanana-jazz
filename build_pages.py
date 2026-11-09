@@ -502,25 +502,35 @@ def page_tickets(t, P, A):
                     'Ticket and pass details for the 2026 festival will be published soon. Some shows are free.'),
                   f'<a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t("לעדכונים באינסטגרם", "Updates on Instagram")}</a>'
                   f'<a href="{P("lineup.html")}" class="btn ghost">{t("ללוח ההופעות", "See the line-up")} {A}</a>') + f'''
-<section class="wrap section tix-notes" aria-labelledby="tixnotes-h">
-  <h2 class="sec-h" id="tixnotes-h">{t('לתשומת ליבכם', 'Please note')}</h2>
-  <ul>
-    <li>{t('במקרה שבו מופעים מתקיימים באותו זמן, יש לבחור רק באחד מהם.', 'When shows take place at the same time, you can choose only one of them.')}</li>
-    <li>{t('מספר הפסים היומיים מוגבל.', 'The number of day passes is limited.')}</li>
-  </ul>
-  <h3>{t('מדיניות ביטול כרטיסים', 'Ticket cancellation policy')}</h3>
-  <p>{t('ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה.', 'Tickets can be cancelled up to one week before the show. A cancellation fee of 5% of the purchase amount applies.')}</p>
+<section class="wrap section">
+  <div class="g-panel tix-panel" aria-labelledby="tixnotes-h">
+    <h3 id="tixnotes-h">{t('לתשומת ליבכם', 'Please note')}</h3>
+    <ul class="tix-list">
+      <li>{t('במקרה שבו מופעים מתקיימים באותו זמן, יש לבחור רק באחד מהם.', 'When shows take place at the same time, you can choose only one of them.')}</li>
+      <li>{t('מספר הפסים היומיים מוגבל.', 'The number of day passes is limited.')}</li>
+    </ul>
+    <h4>{t('מדיניות ביטול כרטיסים', 'Ticket cancellation policy')}</h4>
+    <p>{t('ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה.', 'Tickets can be cancelled up to one week before the show. A cancellation fee of 5% of the purchase amount applies.')}</p>
+  </div>
 </section>
 
-<section class="wrap section">
-  <h2 class="sec-h">{t('בכניסה חופשית', 'Free entry')}</h2>
-  <p>{t('ההופעות האלה פתוחות לכולם בכניסה חופשית.', 'These shows are open to everyone, free of charge.')}</p>
-  <div class="showlist" id="freeShows"></div>
+<section class="wrap section faq tix-free" aria-labelledby="free-list-h">
+  <h2 class="sec-h" id="free-list-h">{t('בכניסה חופשית', 'Free entry')}</h2>
+  <p>{t('ההופעות האלה פתוחות לכולם בכניסה חופשית. לפרטים לחצו על ההופעה.', 'These shows are open to everyone, free of charge. Click a show for details.')}</p>
+  <div id="freeShows"></div>
 </section>
 ''',
         script='''<script>
-  renderShowList(document.getElementById('freeShows'));
-  document.querySelectorAll('#freeShows .showrow').forEach((row, i) => { if (!SHOWS.filter(s => !s.repeat)[i].free) row.remove(); });
+  (function () {
+    const el = document.getElementById('freeShows');
+    const thumb = s => s.img ? `<img src="${img((s.dimg || s.img).replace(/\\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"${s.dpos || s.pos ? ` style="object-position:${s.dpos || s.pos}"` : ''}>` : '';
+    el.innerHTML = DAYS.map((d, i) => {
+      const list = SHOWS.filter(s => s.free && s.day === d.id).sort((a, b) => a.time.localeCompare(b.time));
+      if (!list.length) return '';
+      return `<div class="faq-group"><h3><em>0${i + 1}</em>${dayName(d)} <span class="fd-date">${d.date}</span></h3><ul class="dy-list">${list.map(s =>
+        `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'venue')}</small></button></li>`).join('')}</ul></div>`;
+    }).join('');
+  })();
 </script>''')
 
 
