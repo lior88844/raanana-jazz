@@ -407,6 +407,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .venue-card:nth-child(4) { border-color: var(--cool); }
 .venue-card h3 { font-family: var(--brush); font-weight: 900; font-size: var(--fs-2); }
 .venue-card p { font-size: var(--fs-body); line-height: 1.6; margin-top: 10px; }
+.venue-card .vc-seats { font-size: var(--fs-meta); font-weight: 700; color: var(--red-ink); margin-top: 6px; }
 .venue-card ul { list-style: none; margin-top: 14px; border-top: 1px dashed var(--rule); }
 .venue-card li { padding: 8px 0; border-bottom: 1px dashed var(--rule); font-size: var(--fs-meta); display: flex; gap: 10px; }
 .venue-card li time { font-family: var(--latin); font-size: var(--fs-body); min-width: 92px; direction: ltr; text-align: start; color: var(--red-ink); }

@@ -334,7 +334,7 @@ function renderVenueMap(el) {
     if (!v) { panel.hidden = true; return; }
     const shows = SHOWS.filter(s => s.venue === v.name && ONCE(s)).sort((a, b) => dayIx(a.day) - dayIx(b.day) || a.time.localeCompare(b.time));
     panel.innerHTML = `
-      <div class="vm-p-head"><h3>${tr(v, 'name')}</h3><span>${tr(v, 'floor')}</span></div>
+      <div class="vm-p-head"><h3>${tr(v, 'name')}</h3><span>${tr(v, 'floor')}${v.seats ? ` · ${v.seats} ${L('מקומות ישיבה', 'seats')}` : ''}</span></div>
       <p>${tr(v, 'desc')}</p>
       ${shows.length ? `<ul>${shows.map(s => `<li><time>${when(s)} · ${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul>`
         : `<p class="vm-none">${L('ההופעות בבמה הזו יפורסמו בקרוב.', 'Shows on this stage will be announced soon.')}</p>`}`;

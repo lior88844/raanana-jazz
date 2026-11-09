@@ -49,6 +49,7 @@ const DAYS = [
 
 // VENUES[].map: where the venue's label sits on the building map (images/venue-map), in % of the map – x = centre of the label
 //   from the left, y = top of the label/arrow. down: true = the arrow points down (label above the building). floor shows under the name.
+// VENUES[].seats: number of seats (from the festival team, 2026-11-09), shown on the venue page cards and the map panel.
 // VENUES[].img: a 2025 gallery photo of that room (gallery-2025/NNN → NNN-480/-1200.webp); Jazz Corner is new, so it has none.
 // slug = the show's page on tickets.raanana.muni.il (from the 'לינק למכירה' column of the schedule sheet)
 // One entry per show; each opens its own dialog (lineup.html#<id>).
@@ -403,11 +404,11 @@ const MOMENTS = [
 ];
 
 const VENUES = [
-  { id: 'eran', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 91.2, y: 74.2 }, name: 'אודיטוריום ערן', img: 'gallery-2025/132', name_en: 'Eran Auditorium', desc_en: 'The festival’s concert hall.', desc: 'אולם הקונצרטים של הפסטיבל.' },
-  { id: 'salon', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 23.6, y: 74.2 }, name: 'מועדון הסלון', img: 'gallery-2025/066', name_en: 'The Salon Club', desc_en: 'An intimate jazz-club atmosphere, close to the stage and the players.', desc: 'אווירת מועדון ג׳אז אינטימית, קרוב לבמה ולנגנים.' },
-  { id: 'chamber', floor: 'קומה 2', floor_en: 'Floor 2', map: { x: 29.3, y: 3.4, down: true }, name: 'הסלון הקאמרי', img: 'gallery-2025/486', name_en: 'The Chamber Salon', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
-  { id: 'plaza', floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/220', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival. Shows for the whole family, free or for a token price.', desc: 'הלב הפתוח של הפסטיבל. מופעים לכל המשפחה בחינם או בתשלום סמלי.' },
-  { id: 'tent', floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'Jazz Corner', name_en: 'Jazz Corner', desc_en: 'The new late-night stage.', desc: 'במת הלילה החדשה.' },
+  { id: 'eran', seats: 180, floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 91.2, y: 74.2 }, name: 'אודיטוריום ערן', img: 'gallery-2025/132', name_en: 'Eran Auditorium', desc_en: 'The festival’s concert hall.', desc: 'אולם הקונצרטים של הפסטיבל.' },
+  { id: 'salon', seats: 100, floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 23.6, y: 74.2 }, name: 'מועדון הסלון', img: 'gallery-2025/066', name_en: 'The Salon Club', desc_en: 'An intimate jazz-club atmosphere, close to the stage and the players.', desc: 'אווירת מועדון ג׳אז אינטימית, קרוב לבמה ולנגנים.' },
+  { id: 'chamber', seats: 100, floor: 'קומה 2', floor_en: 'Floor 2', map: { x: 29.3, y: 3.4, down: true }, name: 'הסלון הקאמרי', img: 'gallery-2025/486', name_en: 'The Chamber Salon', desc_en: 'A small stage for special encounters between styles and worlds.', desc: 'במה קטנה למפגשים מוזיקליים מיוחדים בין סגנונות ועולמות.' },
+  { id: 'plaza', seats: 300, floor: 'קומה 1', floor_en: 'Floor 1', map: { x: 49.7, y: 74.2 }, name: 'רחבת הפסטיבל', img: 'gallery-2025/220', name_en: 'Festival Plaza', desc_en: 'The open heart of the festival. Shows for the whole family, free or for a token price.', desc: 'הלב הפתוח של הפסטיבל. מופעים לכל המשפחה בחינם או בתשלום סמלי.' },
+  { id: 'tent', seats: 450, floor: 'בחוץ', floor_en: 'Outside', map: { x: 6.8, y: 74.2 }, name: 'Jazz Corner', name_en: 'Jazz Corner', desc_en: 'The new late-night stage.', desc: 'במת הלילה החדשה.' },
 ];
 
 const PARTNERS = [

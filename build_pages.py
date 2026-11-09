@@ -384,6 +384,7 @@ def page_venue(t, P, A):
   document.getElementById('venues').innerHTML = VENUES.map(v => `
     <div class="venue-card">
       <h3>${tr(v, 'name')}</h3>
+      ${v.seats ? `<p class="vc-seats">${tr(v, 'floor')} · ${v.seats} ${L('מקומות ישיבה', 'seats')}</p>` : ''}
       <p>${tr(v, 'desc')}</p>
       <ul>${SHOWS.filter(s => s.venue === v.name && !s.repeat).map(s =>
         `<li><time>${s.every ? L('בכל לילה', 'Every night') : dayOf(s.day).date} · ${s.time}</time><button type="button" class="vc-show" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button></li>`).join('')}</ul>
