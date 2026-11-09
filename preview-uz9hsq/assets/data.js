@@ -18,7 +18,7 @@ const SITE = {
   instagram: 'https://www.instagram.com/world.jazz.music/',
   facebook: 'https://www.facebook.com/raananamusiccenter',
   // contact email (Ricardo Wertheimer, Raanana municipality); every message also goes to emailCc (Amit Friedman)
-  email: 'ricardo@raanana.muni.il',
+  email: 'rmc@raanana.muni.il',
   emailCc: 'amitamitf@gmail.com',
   // contact form via FormSubmit (formsubmit.co, free): true = send to SITE.email; after activation it can be the random alias FormSubmit gives
   formSubmit: true,
