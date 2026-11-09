@@ -1567,3 +1567,18 @@ html.a11y-still .t-strip { overflow-x: auto; }
 }
 .btn-pass { font-size: 1.15em; padding-inline: 1.6em; box-shadow: 0 5px 0 var(--brown); }
 .btn-pass:hover { transform: translateY(-2px); }
+/* Day passes side by side: three upright tickets, the stub at the bottom */
+.tk-list { --stub: 96px; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; align-items: stretch; }
+.tk-list .tk { grid-template-columns: 1fr; grid-template-rows: 1fr var(--stub); min-height: 0;
+  -webkit-mask: radial-gradient(circle var(--notch) at 0 calc(100% - var(--stub)), #0000 97%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% calc(100% - var(--stub)), #0000 97%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle var(--notch) at 0 calc(100% - var(--stub)), #0000 97%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% calc(100% - var(--stub)), #0000 97%, #000) right / 51% 100% no-repeat; }
+.tk-list .tk-main { padding: 24px 24px 26px; }
+.tk-list .tk-day { font-size: clamp(44px, 5vw, 64px); }
+.tk-list .tk-inc { max-width: none; }
+.tk-list .tk-faces img { width: 52px; height: 52px; margin-inline-start: -14px; }
+.tk-list .tk-stub { flex-direction: row; justify-content: space-between; gap: 10px; border-inline-start: 0; border-top: 3px dashed rgba(58, 26, 20, .38); padding: 14px 20px; text-align: start; }
+.tk-list .tk-admit { font-size: var(--fs-small); }
+.tk-list .tk-buy { padding: 10px 18px; font-size: var(--fs-meta); white-space: nowrap; }
+@media (max-width: 900px) { .tk-list { grid-template-columns: 1fr; } }
+.tk-list .tk-main { display: flex; flex-direction: column; }
+.tk-list .tk-faces { margin-top: auto; padding-top: 18px; }
