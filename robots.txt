@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /preview-uz9hsq/
-
-Sitemap: https://raananajazzfestival.com/sitemap.xml
