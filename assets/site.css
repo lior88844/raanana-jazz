@@ -528,7 +528,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 /* ---------- Hover: only on devices with a real pointer ---------- */
 @media (hover: hover) and (pointer: fine) {
   .topbar nav a:hover { color: var(--accent); }
-  .lang-switch:hover { background: var(--accent); color: var(--on-accent); }
+  .topbar nav a.lang-switch:hover { background: var(--accent); color: var(--on-accent); }
   .btn.primary:hover { background: #F2C22B; transform: translateY(-1px); }
   .btn.ghost:hover { background-size: 100% 4px; }
   .drawer .main a:hover { color: var(--red-ink); transform: translateX(-4px); }
