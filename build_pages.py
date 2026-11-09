@@ -243,10 +243,10 @@ def page_index(t, P, A):
   <div class="tix-in">
     <div class="tix-copy">
       <p class="love">{t('כרטיסים ופסים', 'Tickets and passes')}</p>
-      <h2 id="tix-h" class="big">{t('בקרוב', 'Coming soon')}</h2>
-      <p>{t('המכירה לפסטיבל 2026 תיפתח בקרוב באתר הכרטיסים של עיריית רעננה. עקבו אחרינו כדי לשמוע ראשונים.', 'Sales for the 2026 festival open soon on the Raanana Municipality ticket site. Follow us to hear first.')}</p>
+      <h2 id="tix-h" class="big">{t('במכירה', 'On sale')}</h2>
+      <p>{t('הכרטיסים והפסים היומיים לפסטיבל 2026 נמכרים באתר הכרטיסים של עיריית רעננה. מספר הפסים היומיים מוגבל.', 'Tickets and day passes for the 2026 festival are on sale on the Raanana Municipality ticket site. Day passes are limited.')}</p>
       <div class="ctas">
-        <a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t('לעדכונים באינסטגרם', 'Updates on Instagram')}</a>
+        <a href="{P('tickets.html')}#dp-h" class="btn primary">{t('לפסים היומיים', 'Day passes')}</a>
         <a href="{P('tickets.html')}" class="btn ghost">{t('על הכרטיסים', 'About tickets')} {A}</a>
       </div>
     </div>
@@ -498,10 +498,16 @@ def page_tickets(t, P, A):
         title=t('כרטיסים', 'Tickets'),
         desc=t('כרטיסים לפסטיבל הג׳אז רעננה 2026.', 'Tickets for the 2026 Raanana Jazz Festival.'),
         body=hero(t('<bdi dir="ltr">10–12</bdi> בדצמבר 2026', '10–12 December 2026'), t('כרטיסים', 'Tickets'), '',
-                  t('פרטי הכרטיסים והפסים לפסטיבל 2026 יפורסמו בקרוב. חלק מהמופעים בכניסה חופשית.',
-                    'Ticket and pass details for the 2026 festival will be published soon. Some shows are free.'),
+                  t('פסים יומיים לכל מופעי היום, וכרטיסים לכל הופעה בלוח ההופעות. חלק מהמופעים בכניסה חופשית.',
+                    'Day passes for all of a day’s shows, and tickets for each show in the line-up. Some shows are free.'),
                   f'<a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t("לעדכונים באינסטגרם", "Updates on Instagram")}</a>'
                   f'<a href="{P("lineup.html")}" class="btn ghost">{t("ללוח ההופעות", "See the line-up")} {A}</a>') + f'''
+<section class="wrap section daypasses" aria-labelledby="dp-h">
+  <h2 class="sec-h" id="dp-h">{t('פסים יומיים', 'Day passes')}</h2>
+  <p>{t('פס יומי מכסה את כל מופעי היום. מספר הפסים מוגבל.', "A day pass covers all of that day's shows. Passes are limited.")}</p>
+  <ul class="dp-list">{''.join(f'<li class="d-{d["id"]}"><span class="dp-day">{t("יום " + d["name"], d["name_en"])}</span><span class="dp-date">{d["date"]}</span><a class="btn primary" href="{DATA['SITE']['tickets']}{d['pass']}" target="_blank" rel="noopener">{t('לרכישת פס יומי', 'Buy a day pass')}</a></li>' for d in DATA['DAYS'] if d.get('pass'))}</ul>
+</section>
+
 <section class="wrap section">
   <div class="g-panel tix-panel" aria-labelledby="tixnotes-h">
     <h3 id="tixnotes-h">{t('לתשומת ליבכם', 'Please note')}</h3>
@@ -714,8 +720,8 @@ def page_guide(t, P, A):
              t('<a data-href="tickets" target="_blank" rel="noopener">לרכישת כרטיסים</a>',
                '<a data-href="tickets" target="_blank" rel="noopener">Buy tickets</a>')),
             (t('יש פס יומי?', 'Is there a day pass?'),
-             t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם. מספר הפסים היומיים מוגבל. <a data-href="daypass" target="_blank" rel="noopener">לרכישת פס יומי</a>',
-               "Yes. A day pass covers all of that day's shows at a better price. The number of day passes is limited. <a data-href=\"daypass\" target=\"_blank\" rel=\"noopener\">Buy a day pass</a>")),
+             t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם. מספר הפסים היומיים מוגבל. לרכישה: ' + ' · '.join(f'<a href="{DATA["SITE"]["tickets"]}{d["pass"]}" target="_blank" rel="noopener">פס יום {d["name"]}</a>' for d in DATA['DAYS'] if d.get('pass')),
+               "Yes. A day pass covers all of that day's shows at a better price. The number of day passes is limited. Buy: " + ' · '.join(f'<a href="{DATA["SITE"]["tickets"]}{d["pass"]}" target="_blank" rel="noopener">{d["name_en"]} pass</a>' for d in DATA['DAYS'] if d.get('pass')))),
             (t('יש פס לכל הפסטיבל?', 'Is there a full festival pass?'),
              t('כן. <a data-href="fullpass" target="_blank" rel="noopener">לרכישת פס לכל הפסטיבל</a>',
                'Yes. <a data-href="fullpass" target="_blank" rel="noopener">Buy a full festival pass</a>')),

@@ -281,7 +281,7 @@ function renderDays(el) {
     panel.className = `dy-panel d-${d.id}`;
     panel.setAttribute('aria-labelledby', `dy-t-${d.id}`);
     panel.innerHTML = `<ul class="dy-list${dir ? ' in-' + dir : ''}">${SHOWS.filter(s => s.day === d.id).sort((a, b) => a.time.localeCompare(b.time)).map(s =>
-      `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'sub') || tr(s, 'venue')}</small></button></li>`).join('')}</ul>`;
+      `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'sub') || tr(s, 'venue')}</small></button></li>`).join('')}</ul>${d.pass ? `<a class="dy-pass" href="${T(d.pass)}" target="_blank" rel="noopener">${L('לרכישת פס יומי ל' + dayName(d), 'Buy a ' + dayName(d) + ' day pass')} ${ARROW}</a>` : ''}`;
     tabs.forEach((t, j) => { t.setAttribute('aria-selected', j === i); t.tabIndex = j === i ? 0 : -1; });
   };
   const pick = i => { if (i === cur) return; const dir = (i > cur) !== EN ? 'l' : 'r'; cur = i; show(i, reduceMotion ? '' : dir); };

@@ -1498,3 +1498,10 @@ html.a11y-still .t-strip { overflow-x: auto; }
 .tix-panel h4 { font-family: var(--display); font-weight: 800; font-size: var(--fs-body); margin-bottom: 6px; }
 .tix-free .faq-group h3 .fd-date { font-family: var(--latin); font-weight: 700; color: var(--red-ink); }
 .tix-free .dy-list { margin-top: 4px; }
+/* Tickets page: day passes */
+.dp-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.dp-list li { background: var(--day); color: var(--on-day); border-radius: 18px; padding: 22px 22px 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.dp-day { font-family: var(--display); font-weight: 900; font-size: var(--fs-2); line-height: 1.1; }
+.dp-date { font-family: var(--latin); font-weight: 700; font-size: var(--fs-body); margin-bottom: 14px; }
+@media (max-width: 760px) { .dp-list { grid-template-columns: 1fr; } }
+.dy-pass { display: inline-block; margin-top: 14px; font-family: var(--display); font-weight: 800; font-size: var(--fs-meta); color: inherit; text-decoration: underline 2px; text-underline-offset: 4px; }

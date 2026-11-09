@@ -43,9 +43,9 @@ const SITE = {
 // iso = the calendar date of each festival day (used by the "now on stage" strip)
 // pass = ticket slug for a day pass; add it when the 2026 passes go on sale
 const DAYS = [
-  { id: 'thu', name: 'חמישי', name_en: 'Thursday', date: '10.12', iso: '2026-12-10' },
-  { id: 'fri', name: 'שישי', name_en: 'Friday', date: '11.12', iso: '2026-12-11' },
-  { id: 'sat', name: 'שבת', name_en: 'Saturday', date: '12.12', iso: '2026-12-12' },
+  { id: 'thu', name: 'חמישי', name_en: 'Thursday', date: '10.12', iso: '2026-12-10', pass: 'season/2119' },
+  { id: 'fri', name: 'שישי', name_en: 'Friday', date: '11.12', iso: '2026-12-11', pass: 'season/2120' },
+  { id: 'sat', name: 'שבת', name_en: 'Saturday', date: '12.12', iso: '2026-12-12', pass: 'season/2121' },
 ];
 
 // VENUES[].map: where the venue's label sits on the building map (images/venue-map), in % of the map – x = centre of the label
