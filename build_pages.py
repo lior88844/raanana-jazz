@@ -185,7 +185,7 @@ def page_index(t, P, A):
         {t('<img class="hero-date" src="/images/date-he.webp" width="900" height="267" alt="10–12 בדצמבר 2026">', '<img class="hero-date" src="/images/date-en.webp" width="900" height="267" alt="10–12 December 2026">')}
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
         <div class="ctas">
-          <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary btn-pass">{t('לרכישת פס לכל הפסטיבל', 'Buy a full festival pass')}</a>
+          <a href="{P('tickets.html')}" class="btn primary btn-pass">{t('לכרטיסים', 'Tickets')}</a>
           <a href="{P('lineup.html')}" class="btn ghost">{t('לוח ההופעות 2026', '2026 line-up')} {A}</a>
         </div>
       </div>
