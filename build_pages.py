@@ -502,6 +502,16 @@ def page_tickets(t, P, A):
                     'Ticket and pass details for the 2026 festival will be published soon. Some shows are free.'),
                   f'<a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t("לעדכונים באינסטגרם", "Updates on Instagram")}</a>'
                   f'<a href="{P("lineup.html")}" class="btn ghost">{t("ללוח ההופעות", "See the line-up")} {A}</a>') + f'''
+<section class="wrap section tix-notes" aria-labelledby="tixnotes-h">
+  <h2 class="sec-h" id="tixnotes-h">{t('לתשומת ליבכם', 'Please note')}</h2>
+  <ul>
+    <li>{t('במקרה שבו מופעים מתקיימים באותו זמן, יש לבחור רק באחד מהם.', 'When shows take place at the same time, you can choose only one of them.')}</li>
+    <li>{t('מספר הפסים היומיים מוגבל.', 'The number of day passes is limited.')}</li>
+  </ul>
+  <h3>{t('מדיניות ביטול כרטיסים', 'Ticket cancellation policy')}</h3>
+  <p>{t('ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה.', 'Tickets can be cancelled up to one week before the show. A cancellation fee of 5% of the purchase amount applies.')}</p>
+</section>
+
 <section class="wrap section">
   <h2 class="sec-h">{t('בכניסה חופשית', 'Free entry')}</h2>
   <p>{t('ההופעות האלה פתוחות לכולם בכניסה חופשית.', 'These shows are open to everyone, free of charge.')}</p>
@@ -694,14 +704,16 @@ def page_guide(t, P, A):
              t('<a data-href="tickets" target="_blank" rel="noopener">לרכישת כרטיסים</a>',
                '<a data-href="tickets" target="_blank" rel="noopener">Buy tickets</a>')),
             (t('יש פס יומי?', 'Is there a day pass?'),
-             t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם. <a data-href="daypass" target="_blank" rel="noopener">לרכישת פס יומי</a>',
-               "Yes. A day pass covers all of that day's shows at a better price. <a data-href=\"daypass\" target=\"_blank\" rel=\"noopener\">Buy a day pass</a>")),
+             t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם. מספר הפסים היומיים מוגבל. <a data-href="daypass" target="_blank" rel="noopener">לרכישת פס יומי</a>',
+               "Yes. A day pass covers all of that day's shows at a better price. The number of day passes is limited. <a data-href=\"daypass\" target=\"_blank\" rel=\"noopener\">Buy a day pass</a>")),
             (t('יש פס לכל הפסטיבל?', 'Is there a full festival pass?'),
              t('כן. <a data-href="fullpass" target="_blank" rel="noopener">לרכישת פס לכל הפסטיבל</a>',
                'Yes. <a data-href="fullpass" target="_blank" rel="noopener">Buy a full festival pass</a>')),
             (t('אפשר לבטל כרטיס?', 'Can I cancel a ticket?'),
-             t(f'כן. ביטול עד 24 שעות לפני תחילת המופע מזכה בהחזר מלא. לביטול – <a href="{P("contact.html")}">פנו אלינו</a>.',
-               f'Yes. Cancel up to 24 hours before the show starts for a full refund. To cancel, <a href="{P("contact.html")}">contact us</a>.')),
+             t(f'כן. ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה. לביטול – <a href="{P("contact.html")}">פנו אלינו</a>.',
+               f'Yes. Tickets can be cancelled up to one week before the show, with a cancellation fee of 5% of the purchase amount. To cancel, <a href="{P("contact.html")}">contact us</a>.')),
+            (t('ומה אם שני מופעים מתקיימים באותו זמן?', 'What if two shows are at the same time?'),
+             t('במקרה שבו מופעים מתקיימים באותו זמן, יש לבחור רק באחד מהם.', 'When shows take place at the same time, you can choose only one of them.')),
             (t('כל המופעים בתשלום?', 'Are all shows ticketed?'),
              t(f'לא. חלק מהמופעים בכניסה חופשית – הם מסומנים <a href="{P("lineup.html")}">בלוח ההופעות</a>.', f'No. Some shows are free – they are marked in <a href="{P("lineup.html")}">the line-up</a>.')),
         ]),
@@ -862,7 +874,7 @@ def page_terms(t, P, A):
             (f'הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה ({tickets}), ועל הרכישה חלים גם התנאים של מערכת הכרטיסים.',
              f'Tickets are sold on the Raanana Municipality ticket site ({tickets}), and that system’s terms also apply to your purchase.'),
             ('ul', [
-                ('<b>ביטול עד 24 שעות לפני המופע:</b> החזר כספי מלא.', '<b>Cancel up to 24 hours before the show:</b> full refund.'),
+                ('<b>ביטול עד שבוע לפני מועד המופע:</b> הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה.', '<b>Cancel up to one week before the show:</b> a cancellation fee of 5% of the purchase amount applies.'),
                 ('<b>ביטול מאוחר יותר:</b> לא יינתן החזר.', '<b>Later cancellations:</b> no refund.'),
             ]),
             (f'לביטול כרטיס פנו אלינו דרך {contact}. האמור כפוף להוראות חוק הגנת הצרכן, התשמ״א–1981 ותקנותיו.',
