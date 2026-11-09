@@ -970,7 +970,7 @@ function showHtml(s) {
       </div>
       ${list('about').length ? `<div class="sb-about">${list('about').map(p => `<p>${esc(p)}</p>`).join('')}${s.link ? `<p class="sb-link"><a class="g-text" href="${esc(s.link)}" target="_blank" rel="noopener">${esc(tr(s, 'link_label'))} ${ARROW}</a></p>` : ''}</div>` : `<p class="sb-about">${L('פרטים נוספים יפורסמו בקרוב.', 'More details coming soon.')}</p>`}
       ${quotes}
-      ${list('cast').length ? `<section class="sb-sec"><h3>${s.film ? L('על הסרט', 'About the film') : L('על הבמה', 'On stage')}</h3><ul class="sb-cast">${list('cast').map(castRows).join('')}</ul></section>` : ''}
+      ${list('cast').length ? `<section class="sb-sec">${s.film ? `<h3>${L('על הסרט', 'About the film')}</h3>` : ''}<ul class="sb-cast">${list('cast').map(castRows).join('')}</ul></section>` : ''}
       ${videoBlock(s)}
       <nav class="sb-nav" aria-label="${L('הופעות נוספות', 'More shows')}">
         ${prev ? `<button type="button" class="prev" data-show="${prev.id}"><small>${EN ? '←' : '→'} ${L('הקודם', 'Previous')}</small><bdi>${esc(tr(prev, 'title'))}</bdi></button>` : '<span></span>'}

@@ -14,7 +14,7 @@ const SITE = {
   dayPass: '',                  // 2026 day pass slug, when published
   // 2026 workshop sign-up link – not out yet; while empty the sign-up buttons say the link is coming soon
   workshopForm: 'https://forms.gle/m3LZXEvu3Leq4W1t5',
-  workshopDeadline: '6.12',
+  workshopDeadline: '20.11',
   instagram: 'https://www.instagram.com/world.jazz.music/',
   facebook: 'https://www.facebook.com/raananamusiccenter',
   // contact email (Ricardo Wertheimer, Raanana municipality); every message also goes to emailCc (Amit Friedman)
@@ -162,7 +162,7 @@ const SHOWS = [
     about_en: ["In a special production for the festival, saxophonist and composer Amit Friedman, winner of the Prime Minister’s Prize for Composers, presents a new line-up: a jazz quartet alongside ten string players, hosting Brazilian percussionist, singer and songwriter Joca Perpignan. Original compositions by both, together with pieces they wrote jointly, bring the language of jazz together with the rich sound of strings and the rhythms of Brazil.", "Amit Friedman is one of the leading voices in Israeli jazz; his music is faithful to the jazz tradition while weaving in sounds from the Middle East and world music. His debut album, Sunrise, recorded with a sextet and string quartet, was the best-selling jazz album in Israel in the year of its release. He has since released albums on international labels such as Origin Records and Dot Time and performed with his band in Israel and Europe. Friedman is the founder of the festival and, for the second year, its musical director. Alongside his busy career as a saxophonist, he works extensively to promote jazz among young people.", "Joca Perpignan, born in Rio de Janeiro, came to Tel Aviv at 15 and has built a career in both countries. He is a member of the Idan Raichel Project, has played with Matti Caspi, Yoni Rechter and Arik Einstein, and internationally with Paquito D'Rivera, João Donato and Mayra Andrade."],
     cast: ["עמית פרידמן – סקסופון, לחנים ועיבודים · קטיה טובול – פסנתר · גיא לוי – קונטרבס · יונתן רוזן – תופים", "אבנר קלמר, טלי גולדברג, חן שנהר – כינורות · דניאל תנחלסון, יעל פטיש – ויולות · הילה אפשטיין, יעל שיזף – צ'לו", "אורח מיוחד: ז'וקה פרפיניאן – כלי הקשה ושירה"],
     cast_en: ["Amit Friedman – saxophone, compositions and arrangements · Katia Toubol – piano · Guy Levy – double bass · Yonatan Rosen – drums", "Avner Kelmer, Tali Goldberg, Chen Shenhar – violins · Daniel Tanchelson, Yael Patish – violas · Hila Epstein, Yael Shizaf – cello", "Special guest: Joca Perpignan – percussion and vocals"],
-    img: "2026-friedman-split8.jpg", timg: "2026-friedman-split8t.jpg", pos: "50% 50%", tpos: "50% 50%", credit: "ז׳וקה: אריאל אפרון", credit_en: "Joca: Ariel Efron" , slug: "event/32060" },
+    img: "2026-friedman-split8.jpg", timg: "2026-friedman-split8t.jpg", pos: "50% 50%", tpos: "50% 50%", credit: "עמית פרידמן ומיתרים: ינאי יחיאל · ז׳וקה: אריאל אפרון", credit_en: "Amit Friedman & Strings: Yanai Yechiel · Joca: Ariel Efron" , slug: "event/32060" },
   { id: "tenors", stkLow: true, tags: ["original"], day: "fri", time: "19:30", dur: 60, featured: true,
     venue: "מועדון הסלון", venue_en: "The Salon Club",
     title: "The Tenors of Our Time", title_en: "The Tenors of Our Time",
@@ -174,7 +174,7 @@ const SHOWS = [
     img: "2026-tenors-4.jpg", pos: "50% 30%", credit: "יובל: ליאור דורון · אסף: אליה דוד · יהונתן: פטר ויט · אלכסנדר: יוסי צבקר", credit_en: "Yuval: Lior Doron · Asaf: Elia David · Yehonatan: Peter Vit · Alexander: Yossi Zwecker" , slug: "event/32061" },
   { id: "avishai", day: "fri", time: "19:30", dur: 60, featured: true, lead: true,
     venue: "המועדון הקאמרי", venue_en: "The Chamber Club",
-    title: "יונתן אבישי אנסמבל", title_en: "Yonatan Avishai Ensemble",
+    title: "אנסמבל יונתן אבישי", title_en: "Yonatan Avishai Ensemble",
     sub: "ג'אז פואטי שמלחין את השקט ומפסל את הצליל", sub_en: "Poetic jazz that composes silence and sculpts sound",
     about: ["הפסנתרן יונתן אבישי הוא מהקולות המקוריים ביותר בג'אז העכשווי. אבישי שותף קבוע בפרויקטים של החצוצרן אבישי כהן ושל הבסיסט עומר אביטל ואמן שהוציא כמה אלבומים בלייבל היוקרתי ECM. בהרכבו החדש והססגוני, מוקף בנגניות ונגנים מרקעים מוזיקליים מגוונים, הוא בונה עולם פואטי וצבעוני שבמרכזו שפת הג'אז והבלוז, אוניברסלית ובו בזמן מקומית מאוד. בין היצירות האינסטרומנטליות משתלבים טקסטים פואטיים, דיאלוג כן עם החיים, עם השמחה והעצב גם יחד.", "ההופעה מגיעה רגע לפני צאת אלבומו החדש של ההרכב, Walk with Me, בלייבל ECM."],
     about_en: ["Pianist Yonatan Avishai is one of the most original voices in contemporary jazz. A long-standing partner in the projects of trumpeter Avishai Cohen and bassist Omer Avital, he has released several albums on the prestigious ECM label. In his new and colourful ensemble, surrounded by musicians from diverse musical backgrounds, he builds a poetic, vivid world centred on the language of jazz and blues – universal and, at the same time, very much local. Poetic texts are woven between the instrumental pieces: an honest dialogue with life, with joy and sorrow alike.", "The concert comes just before the release of the ensemble’s new album, Walk with Me, on ECM."],
@@ -206,7 +206,7 @@ const SHOWS = [
     about_en: ["Between the two world wars, in the golden age of the American songwriting industry (Tin Pan Alley), the field was dominated by a group of Jewish composers and lyricists: Berlin, Hammerstein, Gershwin, Kern, Arlen, Rodgers and others. Their influence shaped the language of American popular music and of jazz to this day.", "What was the secret of their success? At the piano, Dr. Raz Yitzhaki tells the story behind the songs, and singer Chen Levi brings them to life on stage."],
     cast: ["ד\"ר רז יצחקי – הרצאה ופסנתר · חן לוי – שירה"],
     cast_en: ["Dr. Raz Yitzhaki – talk and piano · Chen Levi – vocals"],
-    img: "2026-raz-chen.jpg" , yt: ["vkZnyYEsawo"], slug: "event/32065" },
+    img: "2026-raz-chen.jpg" , slug: "event/32065" },
   { id: "yaldojazz", stkLow: true, tags: ["kids20"], day: "sat", time: "11:00", dur: 60, kids: true,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "ילדוג'אז", title_en: "Yaldojazz",

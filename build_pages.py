@@ -213,14 +213,14 @@ def page_index(t, P, A):
   <ul class="facts">
     <li class="f-days"><b data-count>10–12.12</b><span>{t('חמישי – שישי – שבת', 'Thursday – Friday – Saturday')}</span><a class="f-cover" href="{P('lineup.html')}" aria-label="{t('לוח ההופעות', 'Line-up')}"></a></li>
     <li class="f-shows"><b data-count>20</b><span>{t('הופעות בחמש במות – כולל <bdi>Jazz Corner</bdi>, במת הלילה החדשה', 'shows on five stages – including Jazz Corner, our new late-night stage')}</span><a href="{P('lineup.html')}">{t('ללוח ההופעות', 'See the line-up')} {A}</a></li>
-    <li class="f-work"><b data-count>14–25</b><span>{t('סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;6.12!', 'Workshops for young musicians – sign-up open until 6.12!')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
+    <li class="f-work"><b data-count>14–25</b><span>{t('סדנאות למוזיקאים צעירים – ההרשמה פתוחה&nbsp;עד&nbsp;20.11!', 'Workshops for young musicians – sign-up open until 20.11!')}</span><a href="{P('workshops.html')}">{t('על הסדנאות', 'About the workshops')} {A}</a></li>
   </ul>
 </section>
 
 <section class="onstage" aria-labelledby="onstage-h">
   <div class="stitle">
     <h2 id="onstage-h">{t('ההופעות של 2026', 'The 2026 shows')}</h2>
-    <p>{t('10–12 בדצמבר 2026 · לפרטים לחצו על התמונה.', '10–12 December 2026 · click the photo for the details.')}</p>
+    <p>{t('<bdi dir="ltr">10–12</bdi> בדצמבר 2026 · לפרטים לחצו על התמונה.', '10–12 December 2026 · click the photo for the details.')}</p>
   </div>
   <div class="spot" data-render="spotlight"></div>
   <div class="dy" data-render="days"></div>
@@ -276,9 +276,9 @@ def page_lineup(t, P, A):
     return dict(
         title=t('לוח הופעות', 'Line-up'),
         desc=t('לוח ההופעות של פסטיבל הג׳אז רעננה. פסטיבל 2026: 10–12 בדצמבר.', 'The Raanana Jazz Festival line-up. Festival 2026: 10–12 December.'),
-        body=hero(t('10–12 בדצמבר 2026', '10–12 December 2026'), t('לוח הופעות 2026', 'Line-up 2026'), '',
-                  t('שלושה ימים, חמש במות, 20 הופעות, הקרנת סרט וג׳אם סשן בכל לילה – מבוקר לילדים ועד הופעות הלילה ב־<bdi>Jazz Corner</bdi>. לחצו על הופעה לכל הפרטים. פרטי הכרטיסים יפורסמו בקרוב.',
-                    'Three days, five stages, 20 shows, a film screening and a jam session every night – from children’s mornings to late nights at Jazz Corner. Tap a show for the full details. Ticket details coming soon.'),
+        body=hero(t('<bdi dir="ltr">10–12</bdi> בדצמבר 2026', '10–12 December 2026'), t('לוח הופעות 2026', 'Line-up 2026'), '',
+                  t('שלושה ימים, חמש במות, 20 הופעות, סרט בהקרנת בכורה וג׳אם סשן בכל לילה – מבוקר לילדים ועד הופעות הלילה ב־<bdi>Jazz Corner</bdi>. לחצו על הופעה לכל הפרטים.',
+                    'Three days, five stages, 20 shows, a premiere film screening and a jam session every night – from children’s mornings to late nights at Jazz Corner. Tap a show for the full details.'),
                   f'<a href="{P("guide.html")}" class="btn primary">{t("מידע למבקרים", "Visitor info")}</a>'
                   f'<a href="{P("tickets.html")}" class="btn ghost">{t("כרטיסים", "Tickets")} {A}</a>') + f'''
 <section class="wrap section lu">
@@ -399,7 +399,7 @@ def page_about(t, P, A):
                   t('פסטיבל הג׳אז רעננה מביא לעיר ימים של ג׳אז ומוזיקת עולם – אמנים מישראל ומרחבי העולם, הפקות מקור שנוצרות במיוחד לפסטיבל, סדנאות לנגנים צעירים ומופעים פתוחים לכל המשפחה.',
                     'The Raanana Jazz Festival brings days of jazz and world music to the city – artists from Israel and around the world, original productions created for the festival, workshops for young musicians and open shows for the whole family.')) + f'''
 <section class="wrap section">
-  <div class="stats-h"><h2>{t('פסטיבל 2025', 'Festival 2025')}</h2><small>{t('במספרים · הפסטיבל הבא: 10–12 בדצמבר 2026', 'By the numbers · Next festival: 10–12 December 2026')}</small></div>
+  <div class="stats-h"><h2>{t('פסטיבל 2025', 'Festival 2025')}</h2><small>{t('במספרים · הפסטיבל הבא: <bdi dir="ltr">10–12</bdi> בדצמבר 2026', 'By the numbers · Next festival: 10–12 December 2026')}</small></div>
   <div class="stats">
     <div class="stat"><b>3</b><span>{t('ימים של מוזיקה חיה<br>18–20 בדצמבר', 'days of live music<br>18–20 December')}</span></div>
     <div class="stat"><b>17</b><span>{t('מופעים, מהם הפקות מקור<br>שנוצרו לפסטיבל', 'shows, including original<br>festival productions')}</span></div>
@@ -429,9 +429,9 @@ def page_workshops(t, P, A):
     return dict(
         title=t('סדנאות', 'Workshops'),
         desc=t('סדנאות ג׳אז למוזיקאים בגילאי 14–25 עם אמנים בינלאומיים, 10–12 בדצמבר 2026 ברעננה.', 'Jazz workshops for musicians aged 14–25 with international artists, 10–12 December 2026 in Raanana.'),
-        body=hero(t('למוזיקאים בגילאי 14–25', 'For musicians aged 14–25'), t('סדנאות', 'Workshops'), t('עד 6.12', 'Until 6.12'),
-                  t('שלושה ימים של נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים מהשורה הראשונה בעולם, והופעה בפסטיבל. ההרשמה פתוחה&nbsp;עד&nbsp;6.12!',
-                    'Three days of ensemble playing, instrument workshops and masterclasses with world-class artists, and a performance at the festival. Sign-up is open until&nbsp;6.12!'),
+        body=hero(t('למוזיקאים בגילאי 14–25', 'For musicians aged 14–25'), t('סדנאות', 'Workshops'), t('עד 20.11', 'Until 20.11'),
+                  t('שלושה ימים של נגינה בהרכבים, סדנאות כלי וכיתות אמן עם אמנים מהשורה הראשונה בעולם, והופעה בפסטיבל. ההרשמה פתוחה&nbsp;עד&nbsp;20.11!',
+                    'Three days of ensemble playing, instrument workshops and masterclasses with world-class artists, and a performance at the festival. Sign-up is open until&nbsp;20.11!'),
                   f'<a data-href="form" target="_blank" rel="noopener" class="btn primary">{t("להרשמה", "Sign up")}</a>',
                   top='<div class="t-strip t-top" data-render="teacher-strip"></div>') + f'''
 <section class="wrap section">
@@ -455,7 +455,7 @@ def page_workshops(t, P, A):
         'The workshops take place in Raanana, 10–12 December 2026 (Hanukkah break), Thursday to Saturday, 9:30–17:00.')}</p>
   <p>{t('<b>עלות:</b> 1,200 ש״ח – כולל כניסה לכל הופעות הפסטיבל, על בסיס מקום פנוי.',
         '<b>Cost:</b> ₪1,200 – including entry to every festival show, subject to availability.')}</p>
-  <p>{t('<b>ההרשמה פתוחה עד 6.12!</b>', '<b>Sign-up is open until 6.12!</b>')}</p>
+  <p>{t('<b>ההרשמה פתוחה עד 20.11!</b>', '<b>Sign-up is open until 20.11!</b>')}</p>
 </section>
 <section class="wrap section">
   <h2 class="sec-h">{t('סגל המורים', 'The faculty')}</h2>
@@ -496,7 +496,7 @@ def page_tickets(t, P, A):
     return dict(
         title=t('כרטיסים', 'Tickets'),
         desc=t('כרטיסים לפסטיבל הג׳אז רעננה 2026.', 'Tickets for the 2026 Raanana Jazz Festival.'),
-        body=hero(t('10–12 בדצמבר 2026', '10–12 December 2026'), t('כרטיסים', 'Tickets'), '',
+        body=hero(t('<bdi dir="ltr">10–12</bdi> בדצמבר 2026', '10–12 December 2026'), t('כרטיסים', 'Tickets'), '',
                   t('פרטי הכרטיסים והפסים לפסטיבל 2026 יפורסמו בקרוב. חלק מהמופעים בכניסה חופשית.',
                     'Ticket and pass details for the 2026 festival will be published soon. Some shows are free.'),
                   f'<a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t("לעדכונים באינסטגרם", "Updates on Instagram")}</a>'
@@ -667,10 +667,9 @@ def page_guide(t, P, A):
       </div>
       <p class="g-more"><a href="{P('venue.html')}#map">{t('למפת המתחם והבמות', 'Venue map and stages')} {A}</a></p>"""),
         ('tickets', t('כרטיסים', 'Tickets'), t('כרטיסים ופסים', 'Tickets and passes'), f"""
-      <p>{t('הכרטיסים נמכרים באתר הכרטיסים של עיריית רעננה. אפשר לקנות כרטיס להופעה אחת, <b>פס יומי</b> לכל מופעי היום, או <b>פס לכל הפסטיבל</b>.',
-            'Tickets are sold on the Raanana Municipality ticket site. You can buy a ticket for one show, a <b>day pass</b> for all of that day’s shows, or a <b>full festival pass</b>.')}</p>
+      <p>{t(f'אפשר לקנות כרטיס להופעה אחת, <a href="{P("tickets.html")}"><b>פס יומי</b></a> לכל מופעי היום, או <a href="{P("tickets.html")}"><b>פס לכל הפסטיבל</b></a>.',
+            f'You can buy a ticket for one show, a <a href="{P("tickets.html")}"><b>day pass</b></a> for all of that day’s shows, or a <a href="{P("tickets.html")}"><b>full festival pass</b></a>.')}</p>
       <p>{t('חלק מהמופעים בכניסה חופשית – הם מסומנים בלוח ההופעות.', 'Some shows are free – they are marked in the line-up.')}</p>
-      <p class="g-note">{t('התוכנייה של 2026 כבר באתר; פרטי הכרטיסים לפסטיבל 2026 יפורסמו בקרוב.', 'The 2026 programme is out; ticket details for 2026 will be published soon.')}</p>
       <p class="g-more"><a href="{P('tickets.html')}">{t('לעמוד הכרטיסים', 'Tickets page')} {A}</a></p>"""),
         ('families', t('משפחות', 'Families'), t('משפחות וילדים', 'Families and children'), f"""
       <p>{t('רחבת הפסטיבל היא הלב הפתוח של הפסטיבל: מופעים לכל המשפחה.',
@@ -707,7 +706,7 @@ def page_guide(t, P, A):
         ]),
         (t('מידע כללי', 'General'), [
             (t('מתי הפסטיבל?', 'When is the festival?'),
-             t('10–12 בדצמבר 2026, חמישי עד שבת.', '10–12 December 2026, Thursday to Saturday.')),
+             t('<bdi dir="ltr">10–12</bdi> בדצמבר 2026, חמישי עד שבת.', '10–12 December 2026, Thursday to Saturday.')),
             (t('איפה הפסטיבל מתקיים?', 'Where does it take place?'),
              t(f'במרכז פיס למוזיקה רעננה, בחמש במות. <a href="{P("venue.html")}">על המתחם</a>.',
                f'At the Raanana Pais Music Center, on five stages. <a href="{P("venue.html")}">About the venue</a>.')),
