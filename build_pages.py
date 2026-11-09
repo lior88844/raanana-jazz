@@ -712,7 +712,7 @@ def page_guide(t, P, A):
             (t('אפשר לבטל כרטיס?', 'Can I cancel a ticket?'),
              t(f'כן. ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה. לביטול – <a href="{P("contact.html")}">פנו אלינו</a>.',
                f'Yes. Tickets can be cancelled up to one week before the show, with a cancellation fee of 5% of the purchase amount. To cancel, <a href="{P("contact.html")}">contact us</a>.')),
-            (t('ומה אם שני מופעים מתקיימים באותו זמן?', 'What if two shows are at the same time?'),
+            (t('מה קורה כששני מופעים מתקיימים באותו זמן?', 'What if two shows are at the same time?'),
              t('במקרה שבו מופעים מתקיימים באותו זמן, יש לבחור רק באחד מהם.', 'When shows take place at the same time, you can choose only one of them.')),
             (t('כל המופעים בתשלום?', 'Are all shows ticketed?'),
              t(f'לא. חלק מהמופעים בכניסה חופשית – הם מסומנים <a href="{P("lineup.html")}">בלוח ההופעות</a>.', f'No. Some shows are free – they are marked in <a href="{P("lineup.html")}">the line-up</a>.')),
