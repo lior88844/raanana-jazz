@@ -251,9 +251,9 @@ def page_index(t, P, A):
       </div>
     </div>
     <ul class="tix-opts">
-      <li><b>{t('כרטיס להופעה', 'Single show')}</b><span>{t('לבחור הופעה אחת או כמה', 'Pick one show or a few')}</span></li>
-      <li><b>{t('פס יומי', 'Day pass')}</b><span>{t('כל הופעות היום – חמישי, שישי או שבת', 'Every show that day – Thu, Fri or Sat')}</span></li>
-      <li><b>{t('פס לכל הפסטיבל', 'Full festival pass')}</b><span>{t('שלושה ימים, הכי משתלם', 'Three days, the best value')}</span></li>
+      <li><a href="{P('lineup.html')}"><b>{t('כרטיס להופעה', 'Single show')}</b><span>{t('לבחור הופעה אחת או כמה', 'Pick one show or a few')}</span>{A}</a></li>
+      <li><a href="{P('tickets.html')}#dp-h"><b>{t('פס יומי', 'Day pass')}</b><span>{t('כל הופעות היום – חמישי, שישי או שבת', 'Every show that day – Thu, Fri or Sat')}</span>{A}</a></li>
+      <li><a data-href="fullpass" target="_blank" rel="noopener"><b>{t('פס לכל הפסטיבל', 'Full festival pass')}</b><span>{t('שלושה ימים, הכי משתלם', 'Three days, the best value')}</span>{A}</a></li>
     </ul>
   </div>
 </section>

@@ -1188,7 +1188,15 @@ html:has(.show-box[open]) { overflow: hidden; }
 .tix-box .ctas { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-top: 26px; }
 .tix-box .btn.ghost { --ul: var(--on-field); }
 .tix-opts { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-.tix-opts li { background: rgba(58, 26, 20, .22); border-radius: 10px; padding: 16px 20px; display: flex; flex-direction: column; gap: 2px; }
+.tix-opts li { background: rgba(58, 26, 20, .22); border-radius: 10px; transition: background .2s, transform .2s cubic-bezier(.23,1,.32,1); }
+.tix-opts a { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 16px 52px 16px 20px; color: inherit; text-decoration: none; border-radius: inherit; }
+[dir="rtl"] .tix-opts a { padding: 16px 20px 16px 52px; }
+.tix-opts .arr { position: absolute; inset-inline-end: 20px; top: 50%; transform: translateY(-50%); font-style: normal; font-size: var(--fs-body); transition: transform .2s; }
+.tix-opts li:hover { background: rgba(58, 26, 20, .36); }
+.tix-opts .arr, .tix-opts a:hover .arr, .tix-opts a:focus-visible .arr { inset-inline-start: auto; }
+.tix-opts a:hover .arr, .tix-opts a:focus-visible .arr { transform: translate(var(--nudge, -4px), -50%); }
+[dir="ltr"] .tix-opts li { --nudge: 4px; }
+.tix-opts a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .tix-opts b { font-family: var(--display); font-weight: 800; font-size: var(--fs-body); }
 .tix-opts span { font-size: var(--fs-meta); }
 @media (max-width: 860px) { .tix-box { margin: 90px 16px 0; } .tix-in { grid-template-columns: minmax(0, 1fr); gap: 30px; padding: 44px 24px; } }
