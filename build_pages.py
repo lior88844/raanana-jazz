@@ -185,7 +185,8 @@ def page_index(t, P, A):
         {t('<img class="hero-date" src="/images/date-he.webp" width="900" height="267" alt="10–12 בדצמבר 2026">', '<img class="hero-date" src="/images/date-en.webp" width="900" height="267" alt="10–12 December 2026">')}
         <div class="dir"><span>{t('ניהול אומנותי:', 'Artistic director:')}</span> {t('עמית פרידמן', 'Amit Friedman')}</div>
         <div class="ctas">
-          <a href="{P('lineup.html')}" class="btn primary">{t('לוח ההופעות 2026', '2026 line-up')}</a>
+          <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary btn-pass">{t('לרכישת פס לכל הפסטיבל', 'Buy a full festival pass')}</a>
+          <a href="{P('lineup.html')}" class="btn ghost">{t('לוח ההופעות 2026', '2026 line-up')} {A}</a>
         </div>
       </div>
     </div>
@@ -244,9 +245,9 @@ def page_index(t, P, A):
     <div class="tix-copy">
       <p class="love">{t('כרטיסים ופסים', 'Tickets and passes')}</p>
       <h2 id="tix-h" class="big">{t('במכירה', 'On sale')}</h2>
-      <p>{t('הכרטיסים והפסים היומיים לפסטיבל 2026 נמכרים באתר הכרטיסים של עיריית רעננה. מספר הפסים היומיים מוגבל.', 'Tickets and day passes for the 2026 festival are on sale on the Raanana Municipality ticket site. Day passes are limited.')}</p>
+      <p>{t('פס לכל הפסטיבל – שלושה ימים, כל ההופעות – הוא הדרך המשתלמת ביותר. יש גם פסים יומיים וכרטיסים לכל הופעה.', 'The full festival pass – three days, every show – is the best value. Day passes and single-show tickets are on sale too.')}</p>
       <div class="ctas">
-        <a href="{P('tickets.html')}#dp-h" class="btn primary">{t('לפסים היומיים', 'Day passes')}</a>
+        <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('לרכישת פס לכל הפסטיבל', 'Buy a full festival pass')}</a>
         <a href="{P('tickets.html')}" class="btn ghost">{t('על הכרטיסים', 'About tickets')} {A}</a>
       </div>
     </div>
@@ -493,6 +494,37 @@ def page_media(t, P, A):
 </script>''')
 
 
+def fullpass_html(t):
+    """The full-festival pass as the big golden ticket at the top of the tickets page."""
+    import re as _re
+    main = [s for s in DATA['SHOWS'] if not s.get('free') and not s.get('repeat') and s['time'] >= '17:00']
+    def face(s):
+        src = s.get('dimg') or s.get('img') or ''
+        if not src: return ''
+        src = _re.sub(r'\.jpe?g$', '-800.webp', src)
+        return f'<img src="/images/{src}" alt="" loading="lazy" style="object-position:{s.get("dpos") or s.get("pos") or "50% 50%"}">'
+    faces = ''.join(face(s) for s in main)
+    days = ''.join(f'<li class="d-{d["id"]}">{t(d["name"], d["name_en"])} <bdi dir="ltr">{d["date"]}</bdi></li>' for d in DATA['DAYS'])
+    n = len(main)
+    url = DATA['SITE']['tickets'] + DATA['SITE']['fullPass']
+    return f'''<section class="wrap section fullpass" aria-labelledby="fp-h">
+  <div class="tk tk-gold">
+    <span class="fp-badge" aria-hidden="true">{t('הכי משתלם!', 'Best value!')}</span>
+    <div class="tk-main">
+      <span class="tk-kicker">{t('פס לכל הפסטיבל', 'Full festival pass')} · World Jazz Music</span>
+      <h2 class="tk-day" id="fp-h">{t('כל הפסטיבל', 'The whole festival')}</h2>
+      <p class="fp-sub">{t(f'שלושה ימים · כל {n} ההופעות בתשלום · פס אחד', f'Three days · all {n} ticketed shows · one pass')}</p>
+      <ul class="fp-days">{days}</ul>
+      <div class="tk-faces" aria-hidden="true">{faces}</div>
+    </div>
+    <div class="tk-stub">
+      <span class="tk-admit">{t('כניסה לכל ההופעות, שלושה ימים', 'Entry to every show, all three days')}</span>
+      <a class="tk-buy" href="{url}" target="_blank" rel="noopener">{t('לרכישה', 'Buy')} <i aria-hidden="true">{t('←', '→')}</i></a>
+    </div>
+  </div>
+</section>'''
+
+
 def tickets_html(t):
     """Day passes drawn as festival tickets: day name in the brush lettering, date, the day's main shows, a Dekel illustration, and a tear-off stub with the buy link."""
     import re as _re
@@ -536,20 +568,16 @@ def page_tickets(t, P, A):
         title=t('כרטיסים', 'Tickets'),
         desc=t('כרטיסים לפסטיבל הג׳אז רעננה 2026.', 'Tickets for the 2026 Raanana Jazz Festival.'),
         body=hero(t('<bdi dir="ltr">10–12</bdi> בדצמבר 2026', '10–12 December 2026'), t('כרטיסים', 'Tickets'), '',
-                  t('פסים יומיים לכל מופעי היום, וכרטיסים לכל הופעה בלוח ההופעות. חלק מהמופעים בכניסה חופשית.',
-                    'Day passes for all of a day’s shows, and tickets for each show in the line-up. Some shows are free.'),
-                  f'<a href="https://www.instagram.com/world.jazz.music/" target="_blank" rel="noopener" class="btn primary">{t("לעדכונים באינסטגרם", "Updates on Instagram")}</a>'
-                  f'<a href="{P("lineup.html")}" class="btn ghost">{t("ללוח ההופעות", "See the line-up")} {A}</a>') + f'''
+                  t('פס לכל הפסטיבל, פסים יומיים, וכרטיסים לכל הופעה בלוח ההופעות. חלק מהמופעים בכניסה חופשית.',
+                    'A full festival pass, day passes, and tickets for each show in the line-up. Some shows are free.'),
+                  f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("לרכישת פס לכל הפסטיבל", "Buy a full festival pass")}</a>'
+                  f'<a href="{P("tickets.html")}#dp-h" class="btn ghost">{t("פסים יומיים", "Day passes")} {A}</a>') + f'''
+{fullpass_html(t)}
+
 <section class="wrap section daypasses" aria-labelledby="dp-h">
   <h2 class="sec-h" id="dp-h">{t('פסים יומיים', 'Day passes')}</h2>
   <p>{t('פס יומי מכסה את כל מופעי היום. מספר הפסים מוגבל.', "A day pass covers all of that day's shows. Passes are limited.")}</p>
   {tickets_html(t)}
-</section>
-
-<section class="wrap section fullpass" aria-labelledby="fp-h">
-  <h2 class="sec-h" id="fp-h">{t('פס לכל הפסטיבל', 'Full festival pass')}</h2>
-  <p>{t('שלושה ימים, כל ההופעות – הדרך המשתלמת ביותר ליהנות מכל הפסטיבל.', 'Three days, every show – the best-value way to enjoy the whole festival.')}</p>
-  <p class="ctas"><a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('לרכישת פס לכל הפסטיבל', 'Buy a full festival pass')}</a></p>
 </section>
 
 <section class="wrap section">

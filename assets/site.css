@@ -1544,3 +1544,26 @@ html.a11y-still .t-strip { overflow-x: auto; }
       .tk-stub { flex-direction: row; justify-content: space-between; border-inline-start: 0; border-top: 3px dashed rgba(58, 26, 20, .38); padding: 14px 22px; text-align: start; }
 }
 .dy-pass { display: inline-block; margin-top: 14px; font-family: var(--display); font-weight: 800; font-size: var(--fs-meta); color: inherit; text-decoration: underline 2px; text-underline-offset: 4px; }
+
+/* Tickets page: the full festival pass – the big golden ticket */
+.fullpass .tk-list, .fullpass { --stub: 250px; --notch: 18px; }
+.tk-gold { --day: var(--accent); --on-day: var(--brown); min-height: 300px; max-width: 980px; transform: rotate(-.8deg);
+  box-shadow: 0 18px 40px -18px rgba(58, 26, 20, .45); }
+.tk-gold .tk-day { font-size: clamp(56px, 8.5vw, 104px); }
+.fp-sub { font-family: var(--display); font-weight: 800; font-size: var(--fs-body); margin: 4px 0 14px; }
+.fp-days { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.fp-days li { background: var(--day); color: var(--on-day); font-family: var(--display); font-weight: 800; font-size: var(--fs-meta); padding: 6px 14px; border-radius: 999px; border: 2px solid var(--brown); }
+.tk-gold .tk-faces img { width: 58px; height: 58px; margin-inline-start: -16px; }
+.tk-gold .tk-buy { font-size: var(--fs-2); padding: 16px 32px; }
+.tk-gold .tk-buy:hover, .tk-gold .tk-buy:focus-visible { background: var(--terracotta); color: #fff; }
+.fp-badge { position: absolute; z-index: 2; inset-block-start: 10px; inset-inline-end: calc(var(--stub) + 26px); background: var(--terracotta); color: #fff;
+  font-family: var(--display); font-weight: 900; font-size: var(--fs-body); padding: 8px 16px 7px; border-radius: 8px; transform: rotate(6deg); box-shadow: 0 4px 0 var(--brown); }
+@media (hover: hover) { .tk-gold:hover { transform: rotate(0) translateY(-4px); } }
+@media (max-width: 760px) {
+  .fullpass { --stub: 100px; }
+  .tk-gold .tk-faces img { width: 44px; height: 44px; margin-inline-start: -14px; }
+  .tk-gold .tk-buy { font-size: var(--fs-body); padding: 12px 22px; }
+  .fp-badge { inset-inline-end: 14px; inset-block-start: 14px; font-size: var(--fs-meta); }
+}
+.btn-pass { font-size: 1.15em; padding-inline: 1.6em; box-shadow: 0 5px 0 var(--brown); }
+.btn-pass:hover { transform: translateY(-2px); }

@@ -34,8 +34,8 @@ const SITE = {
   program: '/images/program-2025.png',
   // the strip above the top bar; set to null to hide it
   notice: {
-    he: 'התוכנייה של פסטיבל 2026 כבר כאן', en: 'The 2026 programme is out',
-    link: 'ללוח ההופעות', link_en: 'See the line-up', href: 'lineup.html',
+    he: 'פס לכל הפסטיבל במכירה – שלושה ימים, כל ההופעות', en: 'Full festival pass on sale – three days, every show',
+    link: 'לרכישה', link_en: 'Buy now', href: 'https://tickets.raanana.muni.il/season/2122',
   },
 };
 
