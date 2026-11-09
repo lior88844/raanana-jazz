@@ -496,7 +496,6 @@ def page_media(t, P, A):
 def tickets_html(t):
     """Day passes drawn as festival tickets: day name in the brush lettering, date, the day's main shows, a Dekel illustration, and a tear-off stub with the buy link."""
     import re as _re
-    ills = {'thu': 'dekel-sax.webp', 'fri': 'dekel-bass.webp', 'sat': 'dekel-drum.webp'}
     def short(x):
         x = _re.sub(r'\s*\([^)]*\)', '', x)
         return x.split(' – ')[0].strip()
@@ -509,13 +508,20 @@ def tickets_html(t):
         inc_he = ' · '.join(f'<bdi>{short(s["title"])}</bdi>' for s in main)
         inc_en = ' · '.join(f'<bdi>{short(s.get("title_en") or s["title"])}</bdi>' for s in main)
         y = d['iso'][:4]
+        def face(s):
+            src = (s.get('dimg') or s.get('img') or '')
+            if not src: return ''
+            src = _re.sub(r'\.jpe?g$', '-800.webp', src)
+            pos = s.get('dpos') or s.get('pos') or '50% 50%'
+            return f'<img src="/images/{src}" alt="" loading="lazy" style="object-position:{pos}">'
+        faces = ''.join(face(s) for s in main)
         out.append(f'''<li class="tk d-{d['id']}">
       <div class="tk-main">
         <span class="tk-kicker">{t('פס יומי', 'Day pass')} · World Jazz Music</span>
         <h3 class="tk-day">{t(d['name'], d['name_en'])}</h3>
         <p class="tk-date"><bdi dir="ltr">{d['date']}.{y}</bdi></p>
         <p class="tk-inc"><b>{t('כולל:', 'Includes:')}</b> {t(inc_he, inc_en)}</p>
-        <img class="tk-ill" src="/images/ill/{ills.get(d['id'], 'dekel-sax.webp')}" alt="" aria-hidden="true" loading="lazy">
+        <div class="tk-faces" aria-hidden="true">{faces}</div>
       </div>
       <div class="tk-stub">
         <span class="tk-admit">{t('כניסה לכל מופעי היום', "Entry to all of the day's shows")}</span>
