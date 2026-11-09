@@ -996,7 +996,11 @@ if not HIDDEN:
     with open('robots.txt', 'w') as f:
         f.write(f'User-agent: *\nAllow: /\nDisallow: /preview-uz9hsq/\n\nSitemap: {SITE_URL}/sitemap.xml\n')
     print('wrote sitemap.xml, robots.txt')
-    if lang == 'he' and not HIDDEN:
+    # 404 page in Hebrew (the loop above ends on English, so set Hebrew up here)
+    lang, cfg = 'he', LANGS['he']
+    t = lambda he, en: he
+    P = lambda f, base=cfg['base']: base + clean(f)
+    if True:
         p = page_404(t, P, cfg['arrow'])
         html = HEAD.format(lang=lang, og='og-share.jpg', dir=cfg['dir'], title=p['title'] + cfg['suffix'], desc=p['desc'], ver=VER, site=SITE_URL,
                            robots='', extra_head='<meta name="robots" content="noindex">', self_path='/404.html', he_path='/', en_path='/en/') \
