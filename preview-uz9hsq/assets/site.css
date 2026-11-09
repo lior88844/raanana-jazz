@@ -1489,3 +1489,10 @@ html.a11y-still .t-strip { overflow-x: auto; }
 .tbio { scroll-margin-top: 110px; }
 .tbio.flash { animation: tFlash 1.6s ease-out; }
 @keyframes tFlash { 0%, 30% { box-shadow: 0 0 0 4px var(--accent); } 100% { box-shadow: 0 0 0 4px transparent; } }
+
+/* Tickets page – "please note" box */
+.tix-notes ul{list-style:none;margin:14px 0 26px;padding:0;display:grid;gap:10px}
+.tix-notes li{position:relative;padding-inline-start:26px;font-size:1.12rem;line-height:1.55}
+.tix-notes li::before{content:"";position:absolute;inset-inline-start:4px;top:.55em;width:10px;height:10px;border-radius:50%;background:var(--terracotta,#DB5230)}
+.tix-notes h3{font-family:var(--display);font-weight:800;font-size:1.4rem;margin:0 0 8px}
+.tix-notes p{font-size:1.12rem;line-height:1.6;max-width:62ch;margin:0}
