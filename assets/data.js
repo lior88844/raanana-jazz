@@ -10,7 +10,7 @@ const SITE = {
   director: 'עמית פרידמן',
   venueName: 'מרכז פיס למוזיקה רעננה',
   tickets: 'https://tickets.raanana.muni.il/',
-  fullPass: '',                 // 2026 full-festival pass slug on the ticket site (e.g. 'season/1234'), when published
+  fullPass: 'season/2122',                 // 2026 full-festival pass slug on the ticket site (e.g. 'season/1234'), when published
   dayPass: '',                  // 2026 day pass slug, when published
   // 2026 workshop sign-up link – not out yet; while empty the sign-up buttons say the link is coming soon
   workshopForm: 'https://forms.gle/m3LZXEvu3Leq4W1t5',

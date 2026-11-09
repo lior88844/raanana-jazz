@@ -546,6 +546,12 @@ def page_tickets(t, P, A):
   {tickets_html(t)}
 </section>
 
+<section class="wrap section fullpass" aria-labelledby="fp-h">
+  <h2 class="sec-h" id="fp-h">{t('פס לכל הפסטיבל', 'Full festival pass')}</h2>
+  <p>{t('שלושה ימים, כל ההופעות – הדרך המשתלמת ביותר ליהנות מכל הפסטיבל.', 'Three days, every show – the best-value way to enjoy the whole festival.')}</p>
+  <p class="ctas"><a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('לרכישת פס לכל הפסטיבל', 'Buy a full festival pass')}</a></p>
+</section>
+
 <section class="wrap section">
   <div class="g-panel tix-panel" aria-labelledby="tixnotes-h">
     <h3 id="tixnotes-h">{t('לתשומת ליבכם', 'Please note')}</h3>
