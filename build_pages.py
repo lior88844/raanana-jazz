@@ -110,6 +110,22 @@ HEAD = '''<!doctype html>
 {extra_head}
 <link rel="stylesheet" href="/assets/site.css?v={ver}">
 <script>document.documentElement.classList.add('js')</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{{if(f.fbq)return;n=f.fbq=function(){{n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)}};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2217457268722823');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=2217457268722823&ev=PageView&noscript=1"></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 '''
@@ -902,8 +918,8 @@ def page_privacy(t, P, A):
                  '<b>Technical information:</b> as with any website, technical details such as your IP address and browser type reach the site’s host (GitHub Pages) and Google’s font service (Google Fonts). This does not identify you directly.'),
                 ('<b>שמירה בדפדפן:</b> האתר שומר בדפדפן שלכם (localStorage) את בחירת השפה ואת ההופעות שסימנתם ב„הליינאפ שלי”. המידע נשאר במכשיר שלכם ואינו נשלח אלינו. אפשר למחוק אותו בהגדרות הדפדפן.',
                  '<b>Stored in your browser:</b> the site keeps your language choice and the shows you starred in “My line-up” in your browser (localStorage). It stays on your device and is never sent to us. You can clear it in your browser settings.'),
-                ('<b>בלי עוגיות מעקב:</b> האתר אינו משתמש בעוגיות פרסום, בכלי סטטיסטיקה או במעקב אחר הגלישה.',
-                 '<b>No tracking cookies:</b> the site uses no advertising cookies, analytics tools or browsing trackers.'),
+                ('<b>Meta Pixel:</b> האתר משתמש בכלי המדידה של Meta (פייסבוק ואינסטגרם). הכלי שומר עוגיות בדפדפן ומעביר ל־Meta מידע על הביקור באתר – למשל אילו עמודים נצפו – כדי שנוכל למדוד את הפרסום שלנו ולהציג מודעות של הפסטיבל לקהל רלוונטי. Meta מטפלת במידע לפי <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">מדיניות הפרטיות שלה</a>. אפשר לחסום עוגיות בהגדרות הדפדפן ולנהל את העדפות הפרסום ב<a href="https://www.facebook.com/adpreferences/" target="_blank" rel="noopener">הגדרות המודעות של Meta</a>.',
+                 '<b>Meta Pixel:</b> the site uses Meta’s measurement tool (Facebook and Instagram). It sets cookies in your browser and sends Meta information about your visit – for example which pages you viewed – so we can measure our advertising and show festival ads to relevant audiences. Meta handles this information under <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">its own privacy policy</a>. You can block cookies in your browser settings and manage your ad preferences in <a href="https://www.facebook.com/adpreferences/" target="_blank" rel="noopener">Meta’s ad settings</a>.'),
             ]),
         ]),
         ('רכישת כרטיסים', 'Buying tickets', [
@@ -940,7 +956,7 @@ def page_privacy(t, P, A):
         desc=t('מדיניות הפרטיות של אתר פסטיבל הג׳אז רעננה – World Jazz Music.', 'Privacy policy of the Raanana Jazz Festival – World Jazz Music website.'),
         body=hero(t('פרטיות', 'Privacy'), t('מדיניות פרטיות', 'Privacy policy'), '',
                   t('מה נאסף כשאתם גולשים באתר, ומה עושים עם זה.', 'What is collected when you use the site, and what is done with it.'))
-        + legal_body(t, P, S, '18.10.2026'))
+        + legal_body(t, P, S, '10.11.2026'))
 
 
 def page_terms(t, P, A):
