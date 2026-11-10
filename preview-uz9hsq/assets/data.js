@@ -415,4 +415,5 @@ const VENUES = [
 const PARTNERS = [
   ['partner-music-center.png', 'Raanana Pais Music Center', 'Raanana Pais Music Center'],
   ['partner-raanana.png', 'עיריית רעננה', 'Raanana Municipality'],
+  ['partner-mifal-hapais.png', 'מפעל הפיס', 'Mifal HaPais'],
 ];
