@@ -58,7 +58,7 @@ const DAYS = [
 // img + credit, yt (YouTube ids) / drive (a Drive video id) / playlist, free, kids, featured on home (lead = the big one), film
 // slug = ticket link on tickets.raanana.muni.il; add it when tickets go on sale. Source: festival_schedule_raanana.xlsx (Drive)
 const SHOWS = [
-  { id: "crocodiles", day: "thu", time: "11:00", dur: 55, kids: true,
+  { id: "crocodiles", day: "thu", time: "11:00", dur: 55,
     venue: "רחבת הפסטיבל", venue_en: "Festival Plaza",
     title: "מארש דונדורמה", title_en: "Marsh Dondurma",
     sub: "תזמורת כלי הנשיפה הירושלמית, במופע לכל המשפחה", sub_en: "Jerusalem’s brass band, in a show for the whole family",
