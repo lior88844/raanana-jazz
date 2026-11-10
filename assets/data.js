@@ -34,7 +34,7 @@ const SITE = {
   program: '/images/program-2025.png',
   // the strip above the top bar; set to null to hide it
   notice: {
-    he: 'פס לכל הפסטיבל במכירה – שלושה ימים, כל ההופעות', en: 'Full festival pass on sale – three days, every show',
+    he: 'פס רחב במכירה – כל הופעות הערב, שלושה ימים', en: 'Wide Pass on sale – every evening show, all three days',
     link: 'לרכישה', link_en: 'Buy now', href: 'https://tickets.raanana.muni.il/season/2122',
   },
 };

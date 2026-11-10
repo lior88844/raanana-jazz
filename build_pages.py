@@ -146,10 +146,10 @@ def passes_box(t, P, A):
     return f'''<section class="passes grain" id="passes">
   <div class="love">{t('רוצים את כל הפסטיבל?', 'Want the whole festival?')}</div><br>
   <div class="big">{t('פסים', 'Passes')}</div>
-  <p>{t('פס יומי או פס לכל ימי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את כל ההופעות. אפשר גם לרכוש כרטיסים לפי מופע.',
-       'A day pass or a full-festival pass is <b>the best-value way</b> to catch every show. Single-show tickets are available too.')}</p>
+  <p>{t('פס יומי או פס רחב לכל ערבי הפסטיבל – <b>הדרך המשתלמת ביותר</b> לשמוע את ההופעות. אפשר גם לרכוש כרטיסים לפי מופע.',
+       'A day pass or a Wide Pass for every festival evening is <b>the best-value way</b> to catch the shows. Single-show tickets are available too.')}</p>
   <div class="ctas">
-    <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('פס לכל הפסטיבל', 'Full festival pass')}</a>
+    <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('פס רחב', 'Wide Pass')}</a>
     <a href="{P('tickets.html')}" class="btn ghost">{t('כל אפשרויות הכרטיסים', 'All ticket options')} {A}</a>
   </div>
   <div class="themes" data-render="themes"></div>
@@ -245,16 +245,16 @@ def page_index(t, P, A):
     <div class="tix-copy">
       <p class="love">{t('כרטיסים ופסים', 'Tickets and passes')}</p>
       <h2 id="tix-h" class="big">{t('במכירה', 'On sale')}</h2>
-      <p>{t('פס לכל הפסטיבל – שלושה ימים, כל ההופעות – הוא הדרך המשתלמת ביותר. יש גם פסים יומיים וכרטיסים לכל הופעה.', 'The full festival pass – three days, every show – is the best value. Day passes and single-show tickets are on sale too.')}</p>
+      <p>{t('פס רחב – כל הופעות הערב בשלושת ימי הפסטיבל, מחמש ועד השעות הקטנות – הוא הדרך המשתלמת ביותר. יש גם פסים יומיים וכרטיסים לכל הופעה.', 'The Wide Pass – every evening show on all three festival days, from 5 pm into the small hours – is the best value. Day passes and single-show tickets are on sale too.')}</p>
       <div class="ctas">
-        <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('לרכישת פס לכל הפסטיבל', 'Buy a full festival pass')}</a>
+        <a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t('לרכישת פס רחב', 'Buy a Wide Pass')}</a>
         <a href="{P('tickets.html')}" class="btn ghost">{t('על הכרטיסים', 'About tickets')} {A}</a>
       </div>
     </div>
     <ul class="tix-opts">
       <li><a href="{P('lineup.html')}"><b>{t('כרטיס להופעה', 'Single show')}</b><span>{t('לבחור הופעה אחת או כמה', 'Pick one show or a few')}</span>{A}</a></li>
       <li><a href="{P('tickets.html')}#dp-h"><b>{t('פס יומי', 'Day pass')}</b><span>{t('כל הופעות היום – חמישי, שישי או שבת', 'Every show that day – Thu, Fri or Sat')}</span>{A}</a></li>
-      <li><a data-href="fullpass" target="_blank" rel="noopener"><b>{t('פס לכל הפסטיבל', 'Full festival pass')}</b><span>{t('שלושה ימים, הכי משתלם', 'Three days, the best value')}</span>{A}</a></li>
+      <li><a data-href="fullpass" target="_blank" rel="noopener"><b>{t('פס רחב', 'Wide Pass')}</b><span>{t('כל הופעות הערב, שלושה ימים – הכי משתלם', 'Every evening show, three days – the best value')}</span>{A}</a></li>
     </ul>
   </div>
 </section>
@@ -385,8 +385,8 @@ def page_venue(t, P, A):
   document.getElementById('venues').innerHTML = VENUES.map(v => `
     <div class="venue-card">
       <h3>${tr(v, 'name')}</h3>
-      ${v.seats ? `<p class="vc-seats">${tr(v, 'floor')} · ${v.seats} ${L('מקומות ישיבה', 'seats')}</p>` : ''}
       <p>${tr(v, 'desc')}</p>
+      ${v.seats ? `<p class="vc-seats">${tr(v, 'floor')} · ${v.seats} ${L('מקומות ישיבה', 'seats')}</p>` : ''}
       <ul>${SHOWS.filter(s => s.venue === v.name && !s.repeat).map(s =>
         `<li><time>${s.every ? L('בכל לילה', 'Every night') : dayOf(s.day).date} · ${s.time}</time><button type="button" class="vc-show" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button></li>`).join('')}</ul>
     </div>`).join('');
@@ -511,14 +511,15 @@ def fullpass_html(t):
   <div class="tk tk-gold">
     <span class="fp-badge" aria-hidden="true">{t('הכי משתלם!', 'Best value!')}</span>
     <div class="tk-main">
-      <span class="tk-kicker">{t('פס לכל הפסטיבל', 'Full festival pass')} · World Jazz Music</span>
-      <h2 class="tk-day" id="fp-h">{t('כל הפסטיבל', 'The whole festival')}</h2>
-      <p class="fp-sub">{t(f'שלושה ימים · כל {n} ההופעות בתשלום · פס אחד', f'Three days · all {n} ticketed shows · one pass')}</p>
+      <span class="tk-kicker">{t('פס רחב', 'Wide Pass')} · World Jazz Music</span>
+      <h2 class="tk-day" id="fp-h">{t('כל הערבים', 'Every evening')}</h2>
+      <p class="fp-sub">{t(f'שלושה ימים · כל הופעות הערב, מחמש ועד השעות הקטנות · פס אחד', f'Three days · every evening show, from 5 pm into the small hours · one pass')}</p>
+      <p class="fp-note">{t('לא כולל את מופעי הילדים, ההרצאה והסרט', 'Does not include the children’s shows, the talk or the film')}</p>
       <ul class="fp-days">{days}</ul>
       <div class="tk-faces" aria-hidden="true">{faces}</div>
     </div>
     <div class="tk-stub">
-      <span class="tk-admit">{t('כניסה לכל ההופעות, שלושה ימים', 'Entry to every show, all three days')}</span>
+      <span class="tk-admit">{t('כניסה לכל הופעות הערב, שלושה ימים', 'Entry to every evening show, all three days')}</span>
       <a class="tk-buy" href="{url}" target="_blank" rel="noopener">{t('לרכישה', 'Buy')} <i aria-hidden="true">{t('←', '→')}</i></a>
     </div>
   </div>
@@ -568,9 +569,9 @@ def page_tickets(t, P, A):
         title=t('כרטיסים', 'Tickets'),
         desc=t('כרטיסים לפסטיבל הג׳אז רעננה 2026.', 'Tickets for the 2026 Raanana Jazz Festival.'),
         body=hero(t('<bdi dir="ltr">10–12</bdi> בדצמבר 2026', '10–12 December 2026'), t('כרטיסים', 'Tickets'), '',
-                  t('פס לכל הפסטיבל, פסים יומיים, וכרטיסים לכל הופעה בלוח ההופעות. חלק מהמופעים בכניסה חופשית.',
-                    'A full festival pass, day passes, and tickets for each show in the line-up. Some shows are free.'),
-                  f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("לרכישת פס לכל הפסטיבל", "Buy a full festival pass")}</a>'
+                  t('פס רחב לכל ערבי הפסטיבל, פסים יומיים, וכרטיסים לכל הופעה בלוח ההופעות. חלק מהמופעים בכניסה חופשית.',
+                    'A Wide Pass for every festival evening, day passes, and tickets for each show in the line-up. Some shows are free.'),
+                  f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("לרכישת פס רחב", "Buy a Wide Pass")}</a>'
                   f'<a href="{P("tickets.html")}#dp-h" class="btn ghost">{t("פסים יומיים", "Day passes")} {A}</a>') + f'''
 {fullpass_html(t)}
 
@@ -766,8 +767,8 @@ def page_guide(t, P, A):
       </div>
       <p class="g-more"><a href="{P('venue.html')}#map">{t('למפת המתחם והבמות', 'Venue map and stages')} {A}</a></p>"""),
         ('tickets', t('כרטיסים', 'Tickets'), t('כרטיסים ופסים', 'Tickets and passes'), f"""
-      <p>{t(f'אפשר לקנות כרטיס להופעה אחת, <a href="{P("tickets.html")}"><b>פס יומי</b></a> לכל מופעי היום, או <a href="{P("tickets.html")}"><b>פס לכל הפסטיבל</b></a>.',
-            f'You can buy a ticket for one show, a <a href="{P("tickets.html")}"><b>day pass</b></a> for all of that day’s shows, or a <a href="{P("tickets.html")}"><b>full festival pass</b></a>.')}</p>
+      <p>{t(f'אפשר לקנות כרטיס להופעה אחת, <a href="{P("tickets.html")}"><b>פס יומי</b></a> לכל מופעי היום, או <a href="{P("tickets.html")}"><b>פס רחב</b></a> לכל הופעות הערב בשלושת הימים.',
+            f'You can buy a ticket for one show, a <a href="{P("tickets.html")}"><b>day pass</b></a> for all of that day’s shows, or a <a href="{P("tickets.html")}"><b>Wide Pass</b></a> for every evening show on all three days.')}</p>
       <p>{t('חלק מהמופעים בכניסה חופשית – הם מסומנים בלוח ההופעות.', 'Some shows are free – they are marked in the line-up.')}</p>
       <p class="g-more"><a href="{P('tickets.html')}">{t('לעמוד הכרטיסים', 'Tickets page')} {A}</a></p>"""),
         ('families', t('משפחות', 'Families'), t('משפחות וילדים', 'Families and children'), f"""
@@ -794,9 +795,9 @@ def page_guide(t, P, A):
             (t('יש פס יומי?', 'Is there a day pass?'),
              t('כן. פס יומי מכסה את כל מופעי היום במחיר משתלם. מספר הפסים היומיים מוגבל. לרכישה: ' + ' · '.join(f'<a href="{DATA["SITE"]["tickets"]}{d["pass"]}" target="_blank" rel="noopener">פס יום {d["name"]}</a>' for d in DATA['DAYS'] if d.get('pass')),
                "Yes. A day pass covers all of that day's shows at a better price. The number of day passes is limited. Buy: " + ' · '.join(f'<a href="{DATA["SITE"]["tickets"]}{d["pass"]}" target="_blank" rel="noopener">{d["name_en"]} pass</a>' for d in DATA['DAYS'] if d.get('pass')))),
-            (t('יש פס לכל הפסטיבל?', 'Is there a full festival pass?'),
-             t('כן. <a data-href="fullpass" target="_blank" rel="noopener">לרכישת פס לכל הפסטיבל</a>',
-               'Yes. <a data-href="fullpass" target="_blank" rel="noopener">Buy a full festival pass</a>')),
+            (t('יש פס לכל ערבי הפסטיבל?', 'Is there a pass for every festival evening?'),
+             t('כן – הפס הרחב: כל הופעות הערב בשלושת ימי הפסטיבל, מחמש ועד השעות הקטנות. לא כולל את מופעי הילדים, ההרצאה והסרט. <a data-href="fullpass" target="_blank" rel="noopener">לרכישת פס רחב</a>',
+               'Yes – the Wide Pass: every evening show on all three festival days, from 5 pm into the small hours. It does not include the children’s shows, the talk or the film. <a data-href="fullpass" target="_blank" rel="noopener">Buy a Wide Pass</a>')),
             (t('אפשר לבטל כרטיס?', 'Can I cancel a ticket?'),
              t(f'כן. ניתן לבטל את רכישת הכרטיסים עד שבוע לפני מועד המופע. הביטול יתבצע בהתאם לדמי ביטול בגובה 5% מסכום העסקה. לביטול – <a href="{P("contact.html")}">פנו אלינו</a>.',
                f'Yes. Tickets can be cancelled up to one week before the show, with a cancellation fee of 5% of the purchase amount. To cancel, <a href="{P("contact.html")}">contact us</a>.')),

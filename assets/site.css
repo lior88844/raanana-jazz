@@ -407,7 +407,7 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
 .venue-card:nth-child(4) { border-color: var(--cool); }
 .venue-card h3 { font-family: var(--brush); font-weight: 900; font-size: var(--fs-2); }
 .venue-card p { font-size: var(--fs-body); line-height: 1.6; margin-top: 10px; }
-.venue-card .vc-seats { font-size: var(--fs-meta); font-weight: 700; color: var(--red-ink); margin-top: 6px; }
+.venue-card .vc-seats { font-size: var(--fs-small); font-weight: 400; letter-spacing: .03em; line-height: 1.4; color: color-mix(in srgb, var(--ink) 68%, transparent); margin-top: 12px; }
 .venue-card ul { list-style: none; margin-top: 14px; border-top: 1px dashed var(--rule); }
 .venue-card li { padding: 8px 0; border-bottom: 1px dashed var(--rule); font-size: var(--fs-meta); display: flex; gap: 10px; }
 .venue-card li time { font-family: var(--latin); font-size: var(--fs-body); min-width: 92px; direction: ltr; text-align: start; color: var(--red-ink); }
@@ -1551,6 +1551,7 @@ html.a11y-still .t-strip { overflow-x: auto; }
   box-shadow: 0 18px 40px -18px rgba(58, 26, 20, .45); }
 .tk-gold .tk-day { font-size: clamp(56px, 8.5vw, 104px); }
 .fp-sub { font-family: var(--display); font-weight: 800; font-size: var(--fs-body); margin: 4px 0 14px; }
+.fp-note { font-size: var(--fs-small); margin: -8px 0 14px; opacity: .8; }
 .fp-days { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .fp-days li { background: var(--day); color: var(--on-day); font-family: var(--display); font-weight: 800; font-size: var(--fs-meta); padding: 6px 14px; border-radius: 999px; border: 2px solid var(--brown); }
 .tk-gold .tk-faces img { width: 58px; height: 58px; margin-inline-start: -16px; }
