@@ -513,7 +513,7 @@ def page_media(t, P, A):
 def fullpass_html(t):
     """The full-festival pass as the big golden ticket at the top of the tickets page."""
     import re as _re
-    main = [s for s in DATA['SHOWS'] if not s.get('free') and not s.get('repeat') and s['time'] >= '17:00']
+    main = [s for s in DATA['SHOWS'] if not s.get('free') and 'only20' not in s.get('tags', []) and not s.get('repeat') and s['time'] >= '17:00']
     def face(s):
         src = s.get('dimg') or s.get('img') or ''
         if not src: return ''
@@ -552,7 +552,7 @@ def tickets_html(t):
     for d in DATA['DAYS']:
         if not d.get('pass'):
             continue
-        main = [s for s in DATA['SHOWS'] if s['day'] == d['id'] and not s.get('free') and not s.get('repeat') and s['time'] >= '17:00']
+        main = [s for s in DATA['SHOWS'] if s['day'] == d['id'] and not s.get('free') and 'only20' not in s.get('tags', []) and not s.get('repeat') and s['time'] >= '17:00']
         main.sort(key=lambda s: s['time'])
         inc_he = ' · '.join(f'<bdi>{short(s["title"])}</bdi>' for s in main)
         inc_en = ' · '.join(f'<bdi>{short(s.get("title_en") or s["title"])}</bdi>' for s in main)

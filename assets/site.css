@@ -1174,6 +1174,7 @@ html:has(.show-box[open]) { overflow: hidden; }
 .free-days h3 span { font-family: var(--latin); font-weight: 700; color: var(--accent); margin-inline-start: 6px; }
 .free-days ul { list-style: none; padding: 0; margin: 0; }
 .free-days li { display: grid; grid-template-columns: 52px 1fr; gap: 10px; padding: 11px 0; border-bottom: 1px dashed rgba(255, 255, 255, .25); }
+.free-days .fd-price { font-family: var(--latin); font-weight: 700; color: var(--accent); white-space: nowrap; margin-inline-start: 4px; }
 .free-days time { font-family: var(--latin); color: var(--accent); direction: ltr; text-align: start; }
 .free-days button { border: 0; background: none; padding: 0; color: inherit; font: inherit; font-family: var(--display); font-weight: 700; font-size: var(--fs-meta); text-align: start; cursor: pointer; line-height: 1.35; }
 @media (hover: hover) { .free-days button:hover { text-decoration: underline 2px var(--accent); text-underline-offset: 4px; } }
@@ -1426,7 +1427,7 @@ html.a11y-focus :focus { outline: 4px solid #F7CE46 !important; outline-offset: 
   background: var(--accent); color: var(--brown, #3A1A14); rotate: -3deg; box-shadow: 0 3px 0 rgba(58, 26, 20, .35); white-space: nowrap; }
 .stk + .stk { rotate: 2deg; }
 .stk-free { background: var(--cool); }
-.stk-kids20 { background: var(--soft); }
+.stk-kids20, .stk-only20 { background: var(--soft); }
 .sb-shot .stk { font-size: 16px; padding: 8px 13px 7px; }
 .sb-shot .stk-wrap { inset-block-start: 16px; inset-inline-start: 16px; }
 @media (max-width: 600px) { .stk { font-size: 11px; padding: 5px 8px 4px; } .sb-shot .stk { font-size: 13px; } }
