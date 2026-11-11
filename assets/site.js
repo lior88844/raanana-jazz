@@ -651,8 +651,8 @@ function renderTeachers(el, asList = true, bios = false) {
 // 2025 moments in two rows that drift sideways, in opposite directions, as the page scrolls (like indnegev.co.il)
 function renderMoments(el) {
   const half = Math.ceil(MOMENTS.length / 2);
-  const tile = ([f, cap, capEn, credit]) => `<a href="${page('festival-2025.html')}#gallery" aria-label="${EN ? capEn : cap} – ${L('לגלריה', 'to the gallery')}">
-    <img src="${img(f.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"><span>${EN ? capEn : cap}</span>${credit ? `<small class="credit">${L('צילום', 'Photo')}: ${credit}</small>` : ''}</a>`;
+  const tile = ([f, cap, capEn, credit]) => `<a href="${page('festival-2025.html')}#gallery" aria-label="${L('רגע מפסטיבל 2025 – לגלריה', 'A moment from the 2025 festival – to the gallery')}">
+    <img src="${img(f.replace(/\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async">${credit ? `<small class="credit">${L('צילום', 'Photo')}: ${credit}</small>` : ''}</a>`;
   el.innerHTML = [MOMENTS.slice(0, half), MOMENTS.slice(half)].map(row => `<div class="river-row">${row.map(tile).join('')}</div>`).join('');
   const rows = [...el.children];
   if (reduceMotion) { el.classList.add('still'); return; }
