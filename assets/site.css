@@ -387,6 +387,19 @@ svg.ic { width: 100%; height: 100%; fill: currentColor; }
   transition: background-color var(--hover) ease, color var(--hover) ease, transform var(--press) var(--ease-out); }
 .daytabs button.on { background: var(--ink); color: var(--white); }
 .daytabs button:active { transform: scale(.97); }
+/* filter buttons under the day tabs: family / free entry / original productions; the dot matches each show's photo sticker */
+.showfilters { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.showfilters button { min-height: 44px; display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 700; font-size: var(--fs-meta); padding: 6px 16px; border-radius: 999px;
+  border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer;
+  transition: background-color var(--hover) ease, color var(--hover) ease, transform var(--press) var(--ease-out); }
+.showfilters button i { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 1.5px var(--ink); }
+.showfilters [data-f="kids"] i { background: var(--soft); }
+.showfilters [data-f="free"] i { background: var(--cool); }
+.showfilters button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.showfilters button[aria-pressed="true"] i { box-shadow: 0 0 0 1.5px var(--white); }
+.showfilters button:active { transform: scale(.97); }
+@media (hover: hover) { .showfilters button[aria-pressed="false"]:hover { background: var(--surface); } }
+.showlist-empty { text-align: center; padding: 40px 16px; border: 2px dashed var(--rule); font-size: var(--fs-body); }
 .showlist { margin-top: 40px; display: grid; gap: 26px; }
 .showrow { position: relative; overflow: hidden; display: grid; grid-template-columns: 260px 1fr auto; gap: 30px; align-items: center; background: var(--surface); padding: 18px; }
 .showrow .ph { aspect-ratio: 4/3; background: var(--dark) center/cover no-repeat; }

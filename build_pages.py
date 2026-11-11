@@ -316,6 +316,11 @@ def page_lineup(t, P, A):
     <button data-day="fri">{t('שישי 11.12', 'Fri 11.12')}</button>
     <button data-day="sat">{t('שבת 12.12', 'Sat 12.12')}</button>
   </div>
+  <div class="showfilters" role="group" aria-label="{t('סינון ההופעות', 'Filter the shows')}">
+    <button type="button" data-f="kids" aria-pressed="false"><i aria-hidden="true"></i>{t('כל המשפחה', 'For the whole family')}</button>
+    <button type="button" data-f="free" aria-pressed="false"><i aria-hidden="true"></i>{t('כניסה חופשית', 'Free entry')}</button>
+    <button type="button" data-f="original" aria-pressed="false"><i aria-hidden="true"></i>{t('הפקות מקור', 'Original productions')}</button>
+  </div>
   <div class="showlist" id="showlist" data-render="showlist"></div>
 </section>
 <section class="cta-band">
@@ -325,10 +330,17 @@ def page_lineup(t, P, A):
 </section>
 ''',
         script='''<script>
+  // day tabs pick one day; the filter buttons (family / free / original) narrow it further, one at a time, tap again to clear
+  let day = '', only = '';
+  const redraw = () => { renderShowList(document.getElementById('showlist'), day, only); lazyBackgrounds(); };
   document.querySelectorAll('.daytabs button').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('.daytabs button').forEach(x => x.classList.toggle('on', x === b));
-    renderShowList(document.getElementById('showlist'), b.dataset.day);
-    lazyBackgrounds();
+    day = b.dataset.day; redraw();
+  }));
+  document.querySelectorAll('.showfilters button').forEach(b => b.addEventListener('click', () => {
+    only = only === b.dataset.f ? '' : b.dataset.f;
+    document.querySelectorAll('.showfilters button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.f === only)));
+    redraw();
   }));
 </script>''')
 
