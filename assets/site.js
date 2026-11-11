@@ -601,12 +601,8 @@ function nowOnStage(el) {
   setInterval(render, 60000);
 }
 
-// only = '' | 'kids' (for the whole family) | 'free' (free entry) | 'original' (original productions)
-const SHOW_FILTER = { kids: s => s.kids, free: s => s.free, original: s => (s.tags || []).includes('original') };
-function renderShowList(el, dayId, only = '') {
-  const list = SHOWS.filter(s => (dayId ? s.day === dayId : ONCE(s)) && (!only || SHOW_FILTER[only](s)));
-  if (!list.length) { el.innerHTML = `<p class="showlist-empty">${L('אין הופעות כאלה ביום הזה. נסו יום אחר או את כל הימים.', 'No shows like that on this day. Try another day, or all days.')}</p>`; return; }
-  el.innerHTML = list.map(s => `
+function renderShowList(el, dayId) {
+  el.innerHTML = SHOWS.filter(s => dayId ? s.day === dayId : ONCE(s)).map(s => `
     <article class="showrow">
       <div class="ph${s.img ? '' : ' noimg'}" ${s.img ? `data-bg="${img(thumbImg(s))}"` : ''}${thumbPos(s)}>${stickers(s)}</div>
       <div>
@@ -1140,7 +1136,7 @@ function lazyBackgrounds() {
 const REVEAL = [
   '.stitle', '.intro h2', '.intro p', '.card', '.daycol', '.passes', '.duo .col', '.moments-h', '.grid > div',
   '.partners h2', '.partners .logos img', '.grid > a', '.showrow', '.artist', '.venue-card', '.tcard', '.cbtn', '.dl',
-  '.person', '.tbio', '.stat', '.stage', '.free-in', '.tix-in > *', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.daytabs', '.showfilters', '.cta-band > *', '.map',
+  '.person', '.tbio', '.stat', '.stage', '.free-in', '.tix-in > *', '.stats-h', '.prose > *', '.sec-h', '.sec-h + p', '.daytabs', '.cta-band > *', '.map',
 ].join(',');
 
 function scrollReveal() {
