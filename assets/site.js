@@ -154,15 +154,13 @@ ${SITE.notice ? `<div class="notice"><span class="dot" aria-hidden="true"></span
 
 // ---------- render helpers ----------
 // stickers on show photos: free entry comes from s.free, the rest from s.tags
-const STICKERS = { free: ['הכניסה חופשית', 'Free entry'], kids20: ['הופעת ילדים · 20 ₪ בלבד', 'Kids’ show · only ₪20'], only20: ['20 ₪ בלבד', 'Only ₪20'],
+const STICKERS = { free: ['הכניסה חופשית', 'Free entry'], kids20: ['הופעת ילדים · 20 ₪ בלבד', 'Kids’ show · only ₪20'],
   original: ['הפקת מקור', 'Original production'], premiere: ['הופעת בכורה', 'Premiere'], screening: ['הקרנת בכורה', 'Premiere screening'] };
 const stickers = s => {
   const keys = (s.free ? ['free'] : []).concat(s.tags || []);
   return keys.length ? `<span class="stk-wrap${s.stkLow ? ' low' : ''}${s.stkLow === 'left' ? ' left' : ''}">${keys.map(k => `<span class="stk stk-${k}">${L(...STICKERS[k])}</span>`).join('')}</span>` : '';
 };
 const freeTag = `<span class="free">${L('כניסה חופשית', 'Free entry')}</span>`;
-const ONLY20 = s => (s.tags || []).includes('only20');
-const priceTag = `<span class="free">${L('20 ₪ בלבד', 'Only ₪20')}</span>`;
 const kidsTag = `<span class="free kids">${L('לכל המשפחה', 'For families')}</span>`;
 
 function renderSchedule(el) {
@@ -172,7 +170,7 @@ function renderSchedule(el) {
       ${SHOWS.filter(s => s.day === d.id).map(s => `
         <div class="slot"><time>${s.time}</time><div>
           <button type="button" class="t" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button>
-          <div class="v">${tr(s, 'sub') || tr(s, 'venue')}${s.free ? freeTag : ''}${ONLY20(s) ? priceTag : ''}${s.kids ? kidsTag : ''}</div>
+          <div class="v">${tr(s, 'sub') || tr(s, 'venue')}${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
           ${s.slug ? `<a class="tix" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>` : ''}
         </div></div>`).join('')}
       ${d.pass ? `<a class="pass" href="${T(d.pass)}" ${ext}>${L('לרכישת פס יומי', 'Buy a day pass')} ${ARROW}</a>` : ''}
@@ -338,7 +336,7 @@ function renderVenueMap(el) {
     panel.innerHTML = `
       <div class="vm-p-head"><h3>${tr(v, 'name')}</h3><span>${tr(v, 'floor')}${v.seats ? ` · ${v.seats} ${L('מקומות ישיבה', 'seats')}` : ''}</span></div>
       <p>${tr(v, 'desc')}</p>
-      ${shows.length ? `<ul>${shows.map(s => `<li><time>${when(s)} · ${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi>${ONLY20(s) ? ` <span class="fd-price">${L('20 ₪', '₪20')}</span>` : ''}</button></li>`).join('')}</ul>`
+      ${shows.length ? `<ul>${shows.map(s => `<li><time>${when(s)} · ${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul>`
         : `<p class="vm-none">${L('ההופעות בבמה הזו יפורסמו בקרוב.', 'Shows on this stage will be announced soon.')}</p>`}`;
     panel.hidden = false;
     if (!reduceMotion) panel.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.23,1,.32,1)' });
@@ -356,15 +354,15 @@ function renderVenueMap(el) {
   fromHash();
 }
 
-// Home: everything with free entry (plus the ₪20 plaza shows, marked with their price), grouped by day, on a photo of the 2025 plaza.
+// Home: everything with free entry, grouped by day, on a photo of the 2025 plaza.
 function renderFree(el) {
-  const free = SHOWS.filter(s => s.free || ONLY20(s));
+  const free = SHOWS.filter(s => s.free);
   el.innerHTML = `<div class="free-ph" aria-hidden="true"><img src="${img('gallery-2025/300-1200.webp')}" alt="" loading="lazy" decoding="async"></div>
     <div class="free-in"><img class="ill ill-bass" src="${img('ill/dekel-bass.webp')}" width="388" height="900" alt="" aria-hidden="true" loading="lazy">
       <h2 id="free-h">${L('כניסה חופשית', 'Free entry')}</h2>
-      <p>${L('ברחבת הפסטיבל יש מוזיקה כל היום, פתוחה לכולם – חלק בכניסה חופשית וחלק ב־20 ₪ בלבד, וכל ערב נגמר בג׳אם סשן.', 'The Festival Plaza has music all day, open to everyone – some free, some for only ₪20 – and every night ends with a jam session.')}</p>
+      <p>${L('ברחבת הפסטיבל יש מוזיקה כל היום, פתוחה לכולם – וכל ערב נגמר בג׳אם סשן.', 'The Festival Plaza has music all day, open to everyone – and every night ends with a jam session.')}</p>
       <div class="free-days">${DAYS.map(d => `<div><h3>${dayName(d)} <span>${d.date}</span></h3><ul>${free.filter(s => s.day === d.id).map(s =>
-        `<li><time>${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi>${ONLY20(s) ? ` <span class="fd-price">${L('20 ₪', '₪20')}</span>` : ''}</button></li>`).join('')}</ul></div>`).join('')}</div>
+        `<li><time>${s.time}</time><button type="button" data-show="${s.id}" aria-haspopup="dialog"><bdi>${tr(s, 'title')}</bdi></button></li>`).join('')}</ul></div>`).join('')}</div>
     </div>`;
 }
 
