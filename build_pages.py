@@ -1065,7 +1065,7 @@ def ld_json(lang, name):
                  'location': dict(PLACE, name=PLACE['name'] + ' – ' + pick(s, 'venue')), 'url': f"{site}lineup#{s['id']}", 'organizer': org}
             if pick(s, 'sub'): e['description'] = pick(s, 'sub')
             if s.get('img'): e['image'] = imgurl(s['img'])
-            if s.get('slug'): e['offers'] = {'@type': 'Offer', 'url': DATA['SITE']['tickets'] + s['slug'], 'availability': 'https://schema.org/InStock'}
+            if s.get('slug') and not s.get('free'): e['offers'] = {'@type': 'Offer', 'url': DATA['SITE']['tickets'] + s['slug'], 'availability': 'https://schema.org/InStock'}
             evs.append(e)
         data = {'@context': 'https://schema.org', '@graph': evs}
     return '<script type="application/ld+json">' + _json.dumps(data, ensure_ascii=False) + '</script>'

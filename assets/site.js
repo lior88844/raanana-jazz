@@ -171,7 +171,7 @@ function renderSchedule(el) {
         <div class="slot"><time>${s.time}</time><div>
           <button type="button" class="t" data-show="${s.id}" aria-haspopup="dialog">${tr(s, 'title')}</button>
           <div class="v">${tr(s, 'sub') || tr(s, 'venue')}${s.free ? freeTag : ''}${s.kids ? kidsTag : ''}</div>
-          ${s.slug ? `<a class="tix" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>` : ''}
+          ${s.slug && !s.free ? `<a class="tix" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>` : ''}
         </div></div>`).join('')}
       ${d.pass ? `<a class="pass" href="${T(d.pass)}" ${ext}>${L('לרכישת פס יומי', 'Buy a day pass')} ${ARROW}</a>` : ''}
     </div>`).join('');
@@ -944,9 +944,9 @@ function showHtml(s) {
     const m = q.match(/^(.*[”"])\s*–\s*(.+)$/);
     return m ? `<blockquote><p>${esc(m[1])}</p><cite>${esc(m[2])}</cite></blockquote>` : `<blockquote><p>${esc(q)}</p></blockquote>`;
   }).join('');
-  const tickets = s.slug
-    ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${s.free ? L('לכרטיס חינם', 'Free ticket') : L('לכרטיסים', 'Tickets')} ${ARROW}</a>`
-    : s.free ? '' : `<span class="sb-soon">${L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
+  const tickets = s.free ? ''
+    : s.slug ? `<a class="btn primary" href="${T(s.slug)}" ${ext}>${L('לכרטיסים', 'Tickets')} ${ARROW}</a>`
+    : `<span class="sb-soon">${L('הכרטיסים יעלו למכירה בקרוב', 'Tickets on sale soon')}</span>`;
   return `
     <button type="button" class="sb-close" aria-label="${L('סגירה', 'Close')}">✕</button>
     <figure class="sb-ph${s.img ? '' : ' noimg'}${s.img2 ? (s.guest ? ' has-guest' : ' two') : ''} d-${s.day}">
