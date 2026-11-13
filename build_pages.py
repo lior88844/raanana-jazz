@@ -588,13 +588,20 @@ def page_tickets(t, P, A):
                   t('פס רחב לכל ערבי הפסטיבל, פסים יומיים, וכרטיסים לכל הופעה בלוח ההופעות. חלק מהמופעים בכניסה חופשית.',
                     'A Wide Pass for every festival evening, day passes, and tickets for each show in the line-up. Some shows are free.'),
                   f'<a data-href="fullpass" target="_blank" rel="noopener" class="btn primary">{t("לרכישת פס רחב", "Buy a Wide Pass")}</a>'
-                  f'<a href="{P("tickets.html")}#dp-h" class="btn ghost">{t("פסים יומיים", "Day passes")} {A}</a>') + f'''
+                  f'<a href="{P("tickets.html")}#dp-h" class="btn ghost">{t("פסים יומיים", "Day passes")} {A}</a>'
+                  f'<a href="{P("tickets.html")}#single-h" class="btn ghost">{t("כרטיסים להופעות", "Single shows")} {A}</a>') + f'''
 {fullpass_html(t)}
 
 <section class="wrap section daypasses" aria-labelledby="dp-h">
   <h2 class="sec-h" id="dp-h">{t('פסים יומיים', 'Day passes')}</h2>
   <p>{t('פס יומי מכסה את כל מופעי היום. מספר הפסים מוגבל.', "A day pass covers all of that day's shows. Passes are limited.")}</p>
   {tickets_html(t)}
+</section>
+
+<section class="wrap section faq tix-free tix-single" aria-labelledby="single-h">
+  <h2 class="sec-h" id="single-h">{t('כרטיסים להופעות', 'Single-show tickets')}</h2>
+  <p>{t('אפשר גם לקנות כרטיס להופעה אחת. לפרטים על ההופעה לחצו על השם.', 'You can also buy a ticket for a single show. Click a show for details.')}</p>
+  <div id="singleShows"></div>
 </section>
 
 <section class="wrap section">
@@ -624,6 +631,16 @@ def page_tickets(t, P, A):
       if (!list.length) return '';
       return `<div class="faq-group"><h3><em>0${i + 1}</em>${dayName(d)} <span class="fd-date">${d.date}</span></h3><ul class="dy-list">${list.map(s =>
         `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'venue')}</small></button></li>`).join('')}</ul></div>`;
+    }).join('');
+  })();
+  (function () {
+    const el = document.getElementById('singleShows');
+    const thumb = s => s.img ? `<img src="${img((s.dimg || s.img).replace(/\\.jpe?g$/, '-800.webp'))}" alt="" loading="lazy" decoding="async"${s.dpos || s.pos ? ` style="object-position:${s.dpos || s.pos}"` : ''}>` : '';
+    el.innerHTML = DAYS.map((d, i) => {
+      const list = SHOWS.filter(s => s.slug && !s.free && s.day === d.id).sort((a, b) => a.time.localeCompare(b.time));
+      if (!list.length) return '';
+      return `<div class="faq-group"><h3><em>0${i + 1}</em>${dayName(d)} <span class="fd-date">${d.date}</span></h3><ul class="dy-list">${list.map(s =>
+        `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'venue')}</small></button><a class="dy-buy" href="${SITE.tickets}${s.slug}" target="_blank" rel="noopener" aria-label="${L('לרכישת כרטיס', 'Buy a ticket')}: ${tr(s, 'title')}">${L('לרכישה', 'Buy')}</a></li>`).join('')}</ul></div>`;
     }).join('');
   })();
 </script>''')

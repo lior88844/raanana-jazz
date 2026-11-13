@@ -1583,3 +1583,15 @@ html.a11y-still .t-strip { overflow-x: auto; }
 @media (max-width: 900px) { .tk-list { grid-template-columns: 1fr; } }
 .tk-list .tk-main { display: flex; flex-direction: column; }
 .tk-list .tk-faces { margin-top: auto; padding-top: 18px; }
+
+/* tickets page: single-show tickets – the free-shows list plus a buy button on each row */
+.tix-single .dy-list li { grid-template-columns: 64px 56px 1fr auto; }
+.dy-buy { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 18px; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+  font-family: var(--display); font-weight: 800; font-size: var(--fs-meta); text-decoration: none; white-space: nowrap; transition: transform var(--press) var(--ease-out); }
+.dy-buy:active { transform: scale(.97); }
+@media (hover: hover) { .dy-buy:hover { background: var(--terracotta); color: var(--white); } }
+@media (max-width: 640px) {
+  .tix-single .dy-list li { grid-template-columns: 54px 1fr; row-gap: 8px; }
+  .tix-single .dy-th { display: none; }
+  .tix-single .dy-buy { grid-column: 2; justify-self: start; }
+}
