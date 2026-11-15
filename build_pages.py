@@ -618,7 +618,7 @@ def page_tickets(t, P, A):
 
 <section class="wrap section faq tix-free" aria-labelledby="free-list-h">
   <h2 class="sec-h" id="free-list-h">{t('בכניסה חופשית', 'Free entry')}</h2>
-  <p>{t('ההופעות האלה פתוחות לכולם בכניסה חופשית. לפרטים לחצו על ההופעה.', 'These shows are open to everyone, free of charge. Click a show for details.')}</p>
+  <p>{t('ההופעות האלה בכניסה חופשית, אבל מספר המקומות מוגבל – יש להזמין כרטיס חינם מראש. לפרטים לחצו על ההופעה.', 'These shows are free, but places are limited, so please book a free ticket in advance. Click a show for details.')}</p>
   <div id="freeShows"></div>
 </section>
 ''',
@@ -630,7 +630,7 @@ def page_tickets(t, P, A):
       const list = SHOWS.filter(s => s.free && s.day === d.id).sort((a, b) => a.time.localeCompare(b.time));
       if (!list.length) return '';
       return `<div class="faq-group"><h3><em>0${i + 1}</em>${dayName(d)} <span class="fd-date">${d.date}</span></h3><ul class="dy-list">${list.map(s =>
-        `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'venue')}</small></button></li>`).join('')}</ul></div>`;
+        `<li><time>${s.time}</time><span class="dy-th">${thumb(s)}</span><button type="button" data-show="${s.id}" aria-haspopup="dialog"><b><bdi>${tr(s, 'title')}</bdi></b><small>${tr(s, 'venue')}</small></button>${s.slug ? `<a class="dy-buy" href="${SITE.tickets}${s.slug}" target="_blank" rel="noopener" aria-label="${L('לכרטיס חינם', 'Free ticket')}: ${tr(s, 'title')}">${L('לכרטיס חינם', 'Free ticket')}</a>` : ''}</li>`).join('')}</ul></div>`;
     }).join('');
   })();
   (function () {
@@ -1082,7 +1082,7 @@ def ld_json(lang, name):
                  'location': dict(PLACE, name=PLACE['name'] + ' – ' + pick(s, 'venue')), 'url': f"{site}lineup#{s['id']}", 'organizer': org}
             if pick(s, 'sub'): e['description'] = pick(s, 'sub')
             if s.get('img'): e['image'] = imgurl(s['img'])
-            if s.get('slug') and not s.get('free'): e['offers'] = {'@type': 'Offer', 'url': DATA['SITE']['tickets'] + s['slug'], 'availability': 'https://schema.org/InStock'}
+            if s.get('slug'): e['offers'] = {'@type': 'Offer', 'url': DATA['SITE']['tickets'] + s['slug'], 'availability': 'https://schema.org/InStock'}
             evs.append(e)
         data = {'@context': 'https://schema.org', '@graph': evs}
     return '<script type="application/ld+json">' + _json.dumps(data, ensure_ascii=False) + '</script>'
