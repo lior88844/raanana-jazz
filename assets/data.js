@@ -184,7 +184,7 @@ const SHOWS = [
     cast_en: ["Yonatan Avishai – piano · Mayu Shviro – cello · Hadar Noiberg – flute · Yonatan Albalak – guitar · Roni Ivrin – percussion · Shahar Haziza – drums"],
     img: "2026-avishai.jpg", pos: "50% 8%", credit: "יוסי צבקר", credit_en: "Yossi Zwecker", yt: ["GHyIgCWd2SM", "lc9aN0fH4zA"] , slug: "event/32062" },
   { id: "cyrille", day: "fri", time: "21:00", dur: 75,
-    venue: "אודיטוריום ערן", venue_en: "Eran Auditorium",
+    venue: "Jazz Corner", venue_en: "Jazz Corner",
     title: "Cyrille Aimée (צרפת)", title_en: "Cyrille Aimée (France)",
     sub: "מלכת הג'אז הווקאלי של דורנו", sub_en: "The queen of vocal jazz of our time",
     about: ["סיריל איימה גדלה בסמואה־סור־סן, עיירת פסטיבל ג'נגו ריינהרדט, וכנערה הייתה מתגנבת בלילות מחלון חדרה כדי לפגוש את הנגנים. בניו יורק הפכה לאחד הקולות הבולטים בג'אז הווקאלי: הופיעה והקליטה עם רוי הארגרוב, כבשה את תיאטרון אפולו בהארלם וכיכבה במחווה לסטיבן סונדהיים לצד וינטון מרסליס. הגרסה שלה ל־\"Marry Me a Little\" הייתה מועמדת לפרס גראמי.", "ההופעות שלה הן חגיגה של אלתור וחופש: סטנדרטים בעיבודים מפתיעים, שירים מקוריים, שנסון צרפתי וצלילים אפרו־קריביים מהשורשים הדומיניקניים שלה. אלבומה החי 4.24, שהוקלט במועדון בירדלנד בניו יורק, לוכד בדיוק את האנרגיה הזאת."],
