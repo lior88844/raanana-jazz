@@ -226,7 +226,7 @@ const SHOWS = [
     about_en: ["Throughout the festival, young musicians from Israel and abroad study in intensive workshops with the festival artists. At the end they take the stage together in a joint concert and present what they have created: energy, curiosity and a single musical language that connects cultures."],
     cast: ["מנחי הסדנאות: פקיטו דה ריברה, סיריל איימה, וולטר בלנדינג, יותם זילברשטיין, דאג וייז, זיו רביץ, אלון יבנאי, סבסטיאן לוורדה, אוסקר סטגנרו, מארק ווקר"],
     cast_en: ["Workshop leaders: Paquito D'Rivera, Cyrille Aimée, Walter Blanding, Yotam Silberstein, Doug Weiss, Ziv Ravitz, Alon Yavnai, Sebastian Laverde, Oscar Stagnaro, Mark Walker"] , img: "2026-workshops.jpg", pos: "50% 60%" , slug: "event/32067" },
-  { id: "big-band", day: "sat", time: "18:00", dur: 75,
+  { id: "big-band", day: "sat", time: "18:15", dur: 75,
     venue: "אודיטוריום ערן", venue_en: "Eran Auditorium",
     title: "ביג בנד רעננה מארח את אמני הפסטיבל", title_en: "Raanana Big Band hosts the festival artists",
     sub: "קרנבל הסיום של הפסטיבל: דור העתיד של הג'אז פוגש את הכוכבים הגדולים", sub_en: "The festival’s closing carnival: the future of jazz meets the big stars",
