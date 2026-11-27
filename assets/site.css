@@ -1596,3 +1596,16 @@ html.a11y-still .t-strip { overflow-x: auto; }
   .tix-single .dy-th { display: none; }
   .tix-single .dy-buy { grid-column: 2; justify-self: start; }
 }
+
+/* ---------- phones: the fixed logo + menu sit on a dark chip so they never float over text; the side social icons live in the menu and footer ---------- */
+@media (max-width: 720px) {
+  .brand { background: var(--dark); padding: 7px 6px 7px 10px; border-radius: 14px; gap: 4px; box-shadow: 0 8px 20px -10px rgba(0,0,0,.55); }
+  .brand img { width: 62px; }
+  .chrome-dark .brand img { filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
+  .chrome-dark .burger span { background: var(--white); }
+  .socials-fixed { display: none; }
+  .hero { padding-top: 150px; }
+  /* free-entry band: the bass gets its own row above the heading instead of covering it */
+  .free-in { padding-top: 165px; }
+  .free-in .ill-bass { height: 128px; top: 24px; }
+}
